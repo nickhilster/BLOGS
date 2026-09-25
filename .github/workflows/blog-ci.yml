@@ -1,0 +1,34 @@
+name: Blog CI
+
+on:
+  pull_request:
+    paths:
+      - 'nikdesign/**'
+      - 'teambotics/**'
+      - '.github/workflows/**'
+  push:
+    branches: [main]
+    paths:
+      - 'nikdesign/**'
+      - 'teambotics/**'
+      - '.github/workflows/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        blog: [nikdesign, teambotics]
+    defaults:
+      run:
+        working-directory: ${{ matrix.blog }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: ${{ matrix.blog }}/package-lock.json
+      - run: npm ci
+      - run: npm run build

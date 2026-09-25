@@ -1,0 +1,6 @@
+# Generated dependencies and build output
+**/node_modules/
+**/.astro/
+**/dist/
+**/.vercel/
+**/.env*
