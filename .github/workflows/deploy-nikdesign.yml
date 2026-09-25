@@ -1,0 +1,38 @@
+name: Deploy NikDesign Blog
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'nikdesign/**'
+      - '.github/workflows/deploy-nikdesign.yml'
+
+concurrency:
+  group: nikdesign-blog-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: nikdesign
+    env:
+      VERCEL_ORG_ID: team_OWwjnhbor7MbYnw2kUlbr28r
+      VERCEL_PROJECT_ID: prj_5RCKoilPLxVjr9QZLxuZQ0ZXltuG
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: nikdesign/package-lock.json
+      - run: npm ci
+      - run: npm run build
+      - run: npx --yes vercel pull --yes --environment=production --token "$VERCEL_TOKEN"
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      - run: npx --yes vercel deploy --prod --yes --token "$VERCEL_TOKEN"
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
