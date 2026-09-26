@@ -15,9 +15,6 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: teambotics
     env:
       VERCEL_ORG_ID: team_OWwjnhbor7MbYnw2kUlbr28r
       VERCEL_PROJECT_ID: prj_tOVrx6Jpn6ubAs9F1XLD8utLoWyJ
@@ -29,26 +26,13 @@ jobs:
           cache: npm
           cache-dependency-path: teambotics/package-lock.json
       - run: npm ci
-      - run: npx --yes vercel pull --yes --environment=production --token "$VERCEL_TOKEN"
+        working-directory: teambotics
+      - run: npx --yes vercel pull --yes --environment=production --local-config ./teambotics/vercel.json --token "$VERCEL_TOKEN"
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-      - name: Diagnose the Vercel build runner environment
-        run: |
-          node <<'NODE'
-          const fs = require('node:fs');
-          const { spawnSync } = require('node:child_process');
-          const path = '.vercel/project.json';
-          const project = JSON.parse(fs.readFileSync(path, 'utf8'));
-          console.log(`Working directory: ${process.cwd()}`);
-          console.log(`Pulled Vercel rootDirectory: ${project.rootDirectory ?? '<unset>'}`);
-          console.log(`/bin/sh exists: ${fs.existsSync('/bin/sh')}`);
-          console.log(`PATH: ${process.env.PATH}`);
-          const sh = spawnSync('sh', ['-c', 'true'], { encoding: 'utf8' });
-          console.log(`Direct sh spawn: ${sh.error ? sh.error.code : `exit ${sh.status}`}`);
-          NODE
-      - run: npx --yes vercel build --prod --debug --token "$VERCEL_TOKEN"
+      - run: npx --yes vercel build --prod --local-config ./teambotics/vercel.json --token "$VERCEL_TOKEN"
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-      - run: npx --yes vercel deploy --prebuilt --prod --token "$VERCEL_TOKEN"
+      - run: npx --yes vercel deploy --prebuilt --prod --local-config ./teambotics/vercel.json --token "$VERCEL_TOKEN"
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
