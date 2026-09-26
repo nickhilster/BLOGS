@@ -7,6 +7,8 @@ Public monorepo for the two independently deployed Astro blogs:
 
 Each blog keeps its own package, lockfile, Astro configuration, content, and deployment boundary. The repository uses GitHub Actions so routine validation and deployments run from a public repository.
 
+See [POSTMORTEM-2026-09-25-BLOG-MIGRATION.md](POSTMORTEM-2026-09-25-BLOG-MIGRATION.md) for the migration incident, root causes, resolution, and prevention work.
+
 ## Local development
 
 ```powershell
