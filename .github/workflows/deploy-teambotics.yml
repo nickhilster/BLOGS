@@ -32,21 +32,21 @@ jobs:
       - run: npx --yes vercel pull --yes --environment=production --token "$VERCEL_TOKEN"
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-      - name: Prepare Vercel project root for the checked-out app directory
+      - name: Diagnose the Vercel build runner environment
         run: |
           node <<'NODE'
           const fs = require('node:fs');
+          const { spawnSync } = require('node:child_process');
           const path = '.vercel/project.json';
           const project = JSON.parse(fs.readFileSync(path, 'utf8'));
+          console.log(`Working directory: ${process.cwd()}`);
           console.log(`Pulled Vercel rootDirectory: ${project.rootDirectory ?? '<unset>'}`);
-          console.log(`/bin/sh available: ${fs.existsSync('/bin/sh')}`);
-          if (project.rootDirectory) {
-            delete project.rootDirectory;
-            fs.writeFileSync(path, `${JSON.stringify(project, null, 2)}\n`);
-            console.log('Removed rootDirectory from job-local Vercel metadata.');
-          }
+          console.log(`/bin/sh exists: ${fs.existsSync('/bin/sh')}`);
+          console.log(`PATH: ${process.env.PATH}`);
+          const sh = spawnSync('sh', ['-c', 'true'], { encoding: 'utf8' });
+          console.log(`Direct sh spawn: ${sh.error ? sh.error.code : `exit ${sh.status}`}`);
           NODE
-      - run: npx --yes vercel build --prod --token "$VERCEL_TOKEN"
+      - run: npx --yes vercel build --prod --debug --token "$VERCEL_TOKEN"
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
       - run: npx --yes vercel deploy --prebuilt --prod --token "$VERCEL_TOKEN"
