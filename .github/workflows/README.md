@@ -1,10 +1,12 @@
-# Deployment secrets
-
-The Vercel deploy workflows use these repository secrets:
+The Vercel deploy workflows require this repository secret:
 
 - `VERCEL_TOKEN`
-- `VERCEL_ORG_ID`
-- `VERCEL_PROJECT_ID_NIKDESIGN`
-- `VERCEL_PROJECT_ID_TEAMBOTICS`
 
-The two project IDs are intentionally separate so each domain remains independently deployable.
+The Vercel organization ID and each project's ID are set directly in the
+corresponding workflow's environment. These IDs identify resources and are not
+credentials. The projects remain separate so each domain can be deployed
+independently.
+
+Each deploy job pulls production settings, creates Vercel's prebuilt output with
+`vercel build --prod`, then deploys that output with `vercel deploy --prebuilt
+--prod`.

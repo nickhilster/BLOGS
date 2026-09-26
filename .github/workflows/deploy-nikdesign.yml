@@ -29,10 +29,12 @@ jobs:
           cache: npm
           cache-dependency-path: nikdesign/package-lock.json
       - run: npm ci
-      - run: npm run build
       - run: npx --yes vercel pull --yes --environment=production --token "$VERCEL_TOKEN"
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-      - run: npx --yes vercel deploy --prod --yes --token "$VERCEL_TOKEN"
+      - run: npx --yes vercel build --prod --token "$VERCEL_TOKEN"
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      - run: npx --yes vercel deploy --prebuilt --prod --token "$VERCEL_TOKEN"
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
