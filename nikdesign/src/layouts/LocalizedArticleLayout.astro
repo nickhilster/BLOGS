@@ -1,0 +1,258 @@
+---
+import BaseLayout from './BaseLayout.astro'
+import { getFontPairing } from '../lib/fontPairings'
+import { getThemeByKey } from '../lib/themes'
+
+interface Props {
+  frontmatter: any
+  Content: any
+  current?: string
+}
+
+const { frontmatter, Content } = Astro.props
+const theme = getThemeByKey('signal')
+const pairing = getFontPairing(frontmatter.identity?.fonts ?? 'editorial-serif')
+const palette = frontmatter.identity?.palette ?? {}
+const styleVars: Record<string, string> = {
+  '--bg': palette.bg ?? '#f7f3e8',
+  '--surface': palette.surface ?? '#fffdf7',
+  '--surface-strong': palette.surfaceStrong ?? '#f1ead8',
+  '--text': palette.text ?? '#17202a',
+  '--muted': palette.muted ?? '#66717d',
+  '--accent': palette.accent ?? '#d57a2a',
+  '--accent-soft': palette.accentSoft ?? '#f7dfc2',
+  '--border': palette.border ?? '#d8cfbd',
+  '--font-display': pairing.display,
+  '--font-post-body': pairing.body,
+  '--font-post-mono': pairing.mono,
+}
+---
+
+<BaseLayout
+  title={`${frontmatter.title} | NikDesign Journal`}
+  description={frontmatter.description}
+  theme={theme}
+  identityStyleVars={styleVars}
+>
+  <div class="welcome-light" aria-hidden="true">
+    <div class="welcome-light__sun"></div>
+    <div class="welcome-light__halo welcome-light__halo--one"></div>
+    <div class="welcome-light__halo welcome-light__halo--two"></div>
+    <div class="welcome-light__mesh"></div>
+    <div class="welcome-light__grain"></div>
+  </div>
+
+  <main class="welcome-page">
+    <header class="welcome-hero">
+      <h1>{frontmatter.hero?.title ?? frontmatter.title}</h1>
+    </header>
+
+    <article class="welcome-speech prose"><Content /></article>
+  </main>
+</BaseLayout>
+
+<style>
+  :global(body:has(.welcome-page)) {
+    background: #f7f3e8;
+    color: #17202a;
+    overflow-x: clip;
+  }
+
+  :global(body:has(.welcome-page) .site-header) {
+    position: relative;
+    z-index: 20;
+    background: rgba(255,253,247,.78);
+    border-color: rgba(54,72,86,.12);
+    backdrop-filter: blur(16px);
+  }
+
+  :global(body:has(.welcome-page) .site-header a) {
+    color: #24313b;
+  }
+
+  :global(body:has(.welcome-page) .site-footer) {
+    position: relative;
+    z-index: 5;
+    background: rgba(248,244,235,.72);
+    border-color: rgba(54,72,86,.12);
+    color: #66717d;
+  }
+
+  .welcome-light {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 50% -12%, rgba(255,255,255,.98) 0 20%, rgba(255,248,225,.74) 38%, transparent 62%),
+      linear-gradient(180deg, #fdfbf5 0%, #f7f3e8 46%, #edf5f4 100%);
+  }
+
+  .welcome-light__sun {
+    position: absolute;
+    width: min(52vw, 44rem);
+    aspect-ratio: 1;
+    top: -28vw;
+    left: 50%;
+    translate: -50% 0;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,.98) 0 28%, rgba(255,220,151,.5) 56%, rgba(255,205,113,0) 72%);
+    filter: blur(2px);
+  }
+
+  .welcome-light__halo {
+    position: absolute;
+    border: 1px solid rgba(70,117,131,.16);
+    border-radius: 50%;
+  }
+
+  .welcome-light__halo--one {
+    width: 72vw;
+    height: 72vw;
+    left: -32vw;
+    top: 24vh;
+  }
+
+  .welcome-light__halo--two {
+    width: 64vw;
+    height: 64vw;
+    right: -30vw;
+    top: 52vh;
+    border-color: rgba(213,122,42,.14);
+  }
+
+  .welcome-light__mesh {
+    position: absolute;
+    inset: 0;
+    opacity: .34;
+    background-image:
+      linear-gradient(rgba(54,92,104,.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(54,92,104,.04) 1px, transparent 1px);
+    background-size: 52px 52px;
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,.18), #000 30%, #000 78%, transparent);
+  }
+
+  .welcome-light__grain {
+    position: absolute;
+    inset: 0;
+    opacity: .16;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(44,48,44,.025) 0 1px, transparent 1px 4px),
+      repeating-linear-gradient(90deg, rgba(44,48,44,.018) 0 1px, transparent 1px 5px);
+    mix-blend-mode: multiply;
+  }
+
+  .welcome-page {
+    position: relative;
+    z-index: 2;
+    width: min(100% - 2rem, 80rem);
+    margin: 0 auto;
+    padding: clamp(4rem, 10vw, 8rem) 0 clamp(7rem, 14vw, 12rem);
+  }
+
+  .welcome-hero,
+  .welcome-speech {
+    width: min(100%, 46rem);
+    margin-inline: auto;
+  }
+
+  .welcome-hero {
+    min-height: min(70vh, 42rem);
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: clamp(3rem, 8vw, 6rem);
+  }
+
+  .welcome-hero h1 {
+    margin: 0;
+    max-width: 9.5ch;
+    color: #17202a;
+    font-family: var(--font-display);
+    font-size: clamp(4rem, 10vw, 8.4rem);
+    font-weight: 520;
+    line-height: .88;
+    letter-spacing: -.055em;
+    text-wrap: balance;
+  }
+
+  .welcome-speech {
+    position: relative;
+    padding: clamp(2.4rem, 6vw, 4.5rem) clamp(1.25rem, 4vw, 3rem);
+    border: 1px solid rgba(55,76,88,.12);
+    border-radius: 2rem;
+    background: rgba(255,253,247,.70);
+    box-shadow: 0 28px 80px rgba(78,84,72,.09);
+    backdrop-filter: blur(12px);
+  }
+
+  .welcome-speech::before {
+    content: '';
+    position: absolute;
+    inset: 1.1rem auto 1.1rem 0;
+    width: 2px;
+    border-radius: 999px;
+    background: linear-gradient(to bottom, transparent, #d57a2a 18%, #5d9eaa 74%, transparent);
+    opacity: .7;
+  }
+
+  :global(.welcome-speech p) {
+    margin: 0 0 1.55em;
+    color: #25323c;
+    font-family: var(--font-post-body);
+    font-size: clamp(1.15rem, 2.2vw, 1.38rem);
+    line-height: 1.72;
+    letter-spacing: -.008em;
+  }
+
+  :global(.welcome-speech p:first-child) {
+    color: #9c5b24;
+    font-family: var(--font-display);
+    font-size: clamp(1.65rem, 4vw, 2.55rem);
+    line-height: 1.2;
+    letter-spacing: -.025em;
+  }
+
+  :global(.welcome-speech p:nth-of-type(3)),
+  :global(.welcome-speech p:nth-of-type(4)),
+  :global(.welcome-speech p:nth-of-type(5)),
+  :global(.welcome-speech p:nth-of-type(6)) {
+    margin-block: .72rem;
+    color: #1d5260;
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 3.2vw, 2rem);
+    line-height: 1.25;
+  }
+
+  :global(.welcome-speech p:last-child) {
+    margin-top: 3.5rem;
+    margin-bottom: 0;
+    color: #17202a;
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 4vw, 2.7rem);
+    line-height: 1.2;
+    letter-spacing: -.03em;
+  }
+
+  @media (max-width: 700px) {
+    .welcome-page { width: min(100% - 1.2rem, 80rem); padding-top: 3rem; }
+    .welcome-hero { min-height: 55vh; padding-inline: .5rem; }
+    .welcome-speech { border-radius: 1.35rem; padding-inline: 1.35rem; }
+    .welcome-light__mesh { background-size: 36px 36px; }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .welcome-light__halo--one { animation: halo-drift-one 18s ease-in-out infinite alternate; }
+    .welcome-light__halo--two { animation: halo-drift-two 22s ease-in-out infinite alternate; }
+  }
+
+  @keyframes halo-drift-one {
+    from { transform: translate3d(0,0,0) scale(1); }
+    to { transform: translate3d(4vw,-2vh,0) scale(1.04); }
+  }
+
+  @keyframes halo-drift-two {
+    from { transform: translate3d(0,0,0) scale(1.02); }
+    to { transform: translate3d(-4vw,2vh,0) scale(.98); }
+  }
+</style>

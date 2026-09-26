@@ -1,0 +1,113 @@
+---
+const stops = [
+  { year: '1893', title: 'Vivekananda', note: 'Vedanta enters American public life', era: 'print' },
+  { year: '1920', title: 'Yogananda', note: 'Meditation and Kriya Yoga take root', era: 'print' },
+  { year: '1938–43', title: 'Hofmann', note: 'LSD becomes a chemical doorway', era: 'lab' },
+  { year: '1953–54', title: 'Huxley', note: 'The doorway becomes a philosophical question', era: 'lab' },
+  { year: '1960s', title: 'Watts + Leary', note: 'Interpretation becomes counterculture', era: 'psychedelic' },
+  { year: '1965–67', title: 'Prabhupada', note: 'Practice meets the psychedelic generation', era: 'bhakti' },
+  { year: '1969+', title: 'George Harrison', note: 'Krishna consciousness enters pop culture', era: 'bhakti' },
+]
+---
+
+<aside class="doorway-timeline" aria-label="Timeline of the essay">
+  <div class="doorway-timeline__rail" aria-hidden="true"></div>
+  {stops.map((stop, index) => (
+    <div class={`doorway-timeline__stop doorway-timeline__stop--${stop.era}`} style={`--i:${index}`}>
+      <div class="doorway-timeline__year">{stop.year}</div>
+      <div class="doorway-timeline__dot" aria-hidden="true"></div>
+      <div class="doorway-timeline__copy">
+        <strong>{stop.title}</strong>
+        <span>{stop.note}</span>
+      </div>
+    </div>
+  ))}
+</aside>
+
+<style>
+  .doorway-timeline {
+    position: relative;
+    width: min(68rem, calc(100vw - 2rem));
+    margin: 3.5rem 50%;
+    transform: translateX(-50%);
+    padding: 1rem 0;
+  }
+
+  .doorway-timeline__rail {
+    position: absolute;
+    left: 7.15rem;
+    top: 1.75rem;
+    bottom: 1.75rem;
+    width: 2px;
+    background: linear-gradient(
+      to bottom,
+      #8d5f34 0%,
+      #8d5f34 24%,
+      #546b67 42%,
+      #7a4ea3 65%,
+      #d46a4c 79%,
+      #d59a4a 100%
+    );
+    opacity: .72;
+  }
+
+  .doorway-timeline__stop {
+    display: grid;
+    grid-template-columns: 6.25rem 1.8rem minmax(0, 1fr);
+    align-items: center;
+    gap: .5rem;
+    min-height: 5.25rem;
+    padding: .6rem 0;
+  }
+
+  .doorway-timeline__year {
+    text-align: right;
+    font-family: var(--font-post-mono, monospace);
+    font-size: .77rem;
+    letter-spacing: .08em;
+    color: var(--muted);
+  }
+
+  .doorway-timeline__dot {
+    width: .8rem;
+    height: .8rem;
+    margin: auto;
+    border: 2px solid currentColor;
+    border-radius: 50%;
+    background: var(--bg);
+    box-shadow: 0 0 0 .3rem color-mix(in srgb, currentColor 10%, transparent);
+  }
+
+  .doorway-timeline__copy {
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+    padding: .8rem 1rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 68%, transparent);
+  }
+
+  .doorway-timeline__copy strong {
+    font-family: var(--font-display, serif);
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+
+  .doorway-timeline__copy span {
+    color: var(--muted);
+    font-size: .9rem;
+    line-height: 1.45;
+  }
+
+  .doorway-timeline__stop--print { color: #a66b36; }
+  .doorway-timeline__stop--lab { color: #5e7d78; }
+  .doorway-timeline__stop--psychedelic { color: #8b5ab1; }
+  .doorway-timeline__stop--bhakti { color: #d46f4f; }
+
+  @media (max-width: 700px) {
+    .doorway-timeline { margin-top: 2.5rem; margin-bottom: 2.5rem; }
+    .doorway-timeline__rail { left: 4.25rem; }
+    .doorway-timeline__stop { grid-template-columns: 3.55rem 1.4rem minmax(0, 1fr); }
+    .doorway-timeline__year { font-size: .68rem; }
+    .doorway-timeline__copy { padding-right: 0; }
+  }
+</style>

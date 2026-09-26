@@ -1,33 +1,30 @@
-import type { APIRoute } from 'astro';
-import { getApiBase } from '../lib/get-post.ts';
-import { getAllPosts } from '../lib/get-all-posts.ts';
+import type { APIRoute } from 'astro'
+import { getCollection } from 'astro:content'
+import { sortPostsByDate } from '../lib/content'
 
 export const GET: APIRoute = async () => {
-  const apiBase = getApiBase(import.meta.env);
-  const posts = await getAllPosts(apiBase);
+  const posts = sortPostsByDate(await getCollection('posts'))
 
   const lines = [
-    '# Teambotics Blog',
+    '# NikDesign Journal',
     '',
-    '> Operational insight for teams turning AI into dependable work: field notes, implementation',
-    '> patterns, and pragmatic guidance for automation programs that need to survive contact with',
-    '> real operations.',
+    '> Nikhil Khedkar\'s thoughts, written down as I have them.',
     '',
     '## Pages',
     '',
-    '- [Teambotics Values](https://blog.teambotics.app/values.md): The values evidenced across the Teambotics blog archive, with agent guidance for evaluating product changes.',
+    '- [NikDesign Values](https://blog.nikdesign.ca/values.md): The values evidenced across this blog\'s archive, with agent guidance for writing in this voice.',
     '',
     '## Posts',
     '',
     ...posts.map(
-      (post) => `- [${post.title}](https://blog.teambotics.app/${post.slug}.md): ${post.excerpt}`,
+      (post) => `- [${post.data.title}](https://blog.nikdesign.ca/posts/${post.slug}.md): ${post.data.excerpt}`,
     ),
     '',
-  ];
+  ]
 
   return new Response(lines.join('\n'), {
     headers: {
       'Content-Type': 'text/plain; charset=utf-8',
     },
-  });
-};
+  })
+}

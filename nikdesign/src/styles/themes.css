@@ -1,0 +1,32 @@
+.theme-signal {
+  --bg: #f2f5fb;
+  --surface: #ffffff;
+  --surface-strong: #e6ecf8;
+  --text: #142235;
+  --muted: #637083;
+  --accent: #2e6df6;
+  --accent-soft: rgba(46, 109, 246, 0.12);
+  --border: rgba(20, 34, 53, 0.12);
+}
+
+.theme-nocturne {
+  --bg: #09101d;
+  --surface: #111a2a;
+  --surface-strong: #182337;
+  --text: #eef4ff;
+  --muted: #98a5bc;
+  --accent: #96b4ff;
+  --accent-soft: rgba(150, 180, 255, 0.14);
+  --border: rgba(238, 244, 255, 0.12);
+}
+
+.theme-field-notes {
+  --bg: #f6f1e7;
+  --surface: #fffdf8;
+  --surface-strong: #f1e9d8;
+  --text: #2f261b;
+  --muted: #746859;
+  --accent: #93623b;
+  --accent-soft: rgba(147, 98, 59, 0.12);
+  --border: rgba(47, 38, 27, 0.12);
+}

@@ -1,0 +1,592 @@
+---
+import BaseLayout from './BaseLayout.astro'
+import { resolvePostIdentity } from '../lib/postIdentity'
+
+const { post, Content } = Astro.props
+const { theme, styleVars } = resolvePostIdentity(post)
+---
+
+<BaseLayout
+  title={`${post.data.title} | NikDesign Journal`}
+  description={post.data.description}
+  theme={theme}
+  identityStyleVars={styleVars}
+  markdownAlternate={`/posts/${post.slug}.md`}
+>
+  <div class="identity-backdrop" data-stage="registered" aria-hidden="true">
+    <div class="identity-backdrop__grid"></div>
+    <div class="identity-backdrop__scan"></div>
+    <div class="identity-backdrop__noise"></div>
+    <div class="identity-rain" id="identity-rain"></div>
+    <div class="identity-backdrop__ghost identity-backdrop__ghost--anderson">MR. ANDERSON</div>
+    <div class="identity-backdrop__ghost identity-backdrop__ghost--neo">NEO</div>
+    <div class="identity-backdrop__ghost identity-backdrop__ghost--one">THE ONE</div>
+  </div>
+
+  <aside class="identity-status" aria-hidden="true">
+    <div class="identity-status__line"><span>SUBJECT</span><strong id="identity-subject">THOMAS A. ANDERSON</strong></div>
+    <div class="identity-status__line"><span>STATE</span><strong id="identity-state">REGISTERED</strong></div>
+    <div class="identity-status__line"><span>VOICE</span><strong id="identity-voice">ACCESS DENIED</strong></div>
+    <div class="identity-status__meter"><span id="identity-meter"></span></div>
+  </aside>
+
+  <nav class="identity-rail" aria-label="Identity progression">
+    <span data-rail-stage="registered">THOMAS A. ANDERSON</span>
+    <span data-rail-stage="contained">MR. ANDERSON</span>
+    <span data-rail-stage="self-named">NEO</span>
+    <span data-rail-stage="unbound">THE ONE</span>
+    <span data-rail-stage="unclassified">UNCLASSIFIED</span>
+  </nav>
+
+  <main class="post-shell post-shell--essay identity-post">
+    <header class="identity-hero">
+      <div class="identity-file" aria-hidden="true">
+        <div><span>LEGAL IDENTITY</span><strong>THOMAS A. ANDERSON</strong></div>
+        <div><span>EMPLOYMENT</span><strong>METACORTEX</strong></div>
+        <div><span>CLASSIFICATION</span><strong>CONTAINED HUMAN SUBJECT</strong></div>
+        <div><span>ALIAS</span><strong class="identity-file__alias">NEO</strong></div>
+      </div>
+      <div class="identity-hero__names" aria-label="Mr. Anderson becoming Neo">
+        <span class="identity-hero__assigned">MR. ANDERSON</span>
+        <span class="identity-hero__chosen">NEO</span>
+      </div>
+      <h1>{post.data.hero.title}</h1>
+      <p class="post-dek">{post.data.hero.dek}</p>
+      <div class="post-meta"><span>{post.data.publishedAt}</span></div>
+      <p class="identity-hero__instruction">Scroll. Watch who gets to name him.</p>
+    </header>
+
+    <article class="post-body prose identity-body"><Content /></article>
+  </main>
+
+  <div class="smith-call" id="smith-call" aria-hidden="true">
+    <span class="smith-call__label">SYSTEM ASSERTION</span>
+    <strong>MR. ANDERSON</strong>
+  </div>
+
+  <script is:inline>
+    (() => {
+      const backdrop = document.querySelector('.identity-backdrop');
+      const article = document.querySelector('.identity-body');
+      const rail = [...document.querySelectorAll('[data-rail-stage]')];
+      const meter = document.getElementById('identity-meter');
+      const subject = document.getElementById('identity-subject');
+      const state = document.getElementById('identity-state');
+      const voice = document.getElementById('identity-voice');
+      const smithCall = document.getElementById('smith-call');
+      const rain = document.getElementById('identity-rain');
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!backdrop || !article) return;
+
+      const stages = [
+        { id: 'registered', heading: 'thomas-anderson', subject: 'THOMAS A. ANDERSON', state: 'REGISTERED', voice: 'ACCESS DENIED' },
+        { id: 'contained', heading: 'mr-anderson', subject: 'MR. ANDERSON', state: 'CONTAINED', voice: 'ACCESS DENIED' },
+        { id: 'self-named', heading: 'my-name-is-neo', subject: 'NEO', state: 'SELF-NAMED', voice: 'RESTORED' },
+        { id: 'unbound', heading: 'identity-and-enlightenment', subject: 'THE ONE', state: 'UNBOUND', voice: 'AUTONOMOUS' },
+        { id: 'unclassified', heading: 'the-final-phone-call', subject: 'UNCLASSIFIED', state: 'SYSTEM LIMIT EXCEEDED', voice: 'OUTBOUND CONNECTION ESTABLISHED' },
+      ];
+
+      const anchors = stages.map((stage) => ({
+        ...stage,
+        el: document.getElementById(stage.heading),
+      })).filter((stage) => stage.el);
+
+      const rainGlyphs = 'ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉ0123456789NEO';
+      const buildRain = () => {
+        if (!rain || reducedMotion || rain.childElementCount) return;
+        const columns = Math.max(16, Math.min(34, Math.ceil(window.innerWidth / 44)));
+        const fragment = document.createDocumentFragment();
+        for (let i = 0; i < columns; i += 1) {
+          const column = document.createElement('span');
+          column.className = 'identity-rain__column';
+          column.style.left = `${(i + .5) * (100 / columns)}%`;
+          column.style.setProperty('--delay', `${-(Math.random() * 2.6).toFixed(2)}s`);
+          column.style.setProperty('--speed', `${(1.35 + Math.random() * 1.8).toFixed(2)}s`);
+          column.style.setProperty('--drift', `${(-8 + Math.random() * 16).toFixed(1)}px`);
+          let text = '';
+          const glyphCount = 18 + Math.floor(Math.random() * 12);
+          for (let j = 0; j < glyphCount; j += 1) {
+            text += rainGlyphs[Math.floor(Math.random() * rainGlyphs.length)] + '\n';
+          }
+          column.textContent = text;
+          fragment.appendChild(column);
+        }
+        rain.appendChild(fragment);
+      };
+
+      let active = 'registered';
+      const setStage = (next) => {
+        if (!next || next.id === active) return;
+        active = next.id;
+        backdrop.dataset.stage = next.id;
+        document.documentElement.dataset.identityStage = next.id;
+        if (subject) subject.textContent = next.subject;
+        if (state) state.textContent = next.state;
+        if (voice) voice.textContent = next.voice;
+        rail.forEach((item) => item.classList.toggle('is-active', item.dataset.railStage === next.id));
+        if (smithCall) smithCall.classList.toggle('is-visible', next.id === 'contained');
+      };
+
+      const update = () => {
+        const doc = document.documentElement;
+        const max = Math.max(1, doc.scrollHeight - window.innerHeight);
+        const progress = Math.min(1, Math.max(0, window.scrollY / max));
+        if (meter) meter.style.transform = `scaleX(${progress})`;
+
+        const anchor = window.innerHeight * 0.42;
+        let current = anchors[0] || stages[0];
+        for (const candidate of anchors) {
+          if (candidate.el.getBoundingClientRect().top <= anchor) current = candidate;
+        }
+        setStage(current);
+
+        const chosen = document.querySelector('.identity-hero__chosen');
+        const assigned = document.querySelector('.identity-hero__assigned');
+        if (chosen && assigned) {
+          const heroProgress = Math.min(1, Math.max(0, window.scrollY / Math.max(1, window.innerHeight * .85)));
+          chosen.style.setProperty('--reveal', String(heroProgress));
+          assigned.style.setProperty('--erase', String(heroProgress));
+        }
+      };
+
+      let rainStopTimer;
+      const setRainActive = () => {
+        if (reducedMotion) return;
+        buildRain();
+        backdrop.classList.add('is-scrolling');
+        clearTimeout(rainStopTimer);
+        rainStopTimer = window.setTimeout(() => {
+          backdrop.classList.remove('is-scrolling');
+        }, 180);
+      };
+
+      backdrop.dataset.stage = 'registered';
+      document.documentElement.dataset.identityStage = 'registered';
+      rail[0]?.classList.add('is-active');
+      update();
+
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        setRainActive();
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          update();
+          ticking = false;
+        });
+      }, { passive: true });
+      window.addEventListener('wheel', setRainActive, { passive: true });
+      window.addEventListener('touchmove', setRainActive, { passive: true });
+      window.addEventListener('pointermove', (event) => {
+        if (event.buttons) setRainActive();
+      }, { passive: true });
+      window.addEventListener('resize', update, { passive: true });
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+  :global(body:has(.identity-post)) {
+    background: #030604;
+    overflow-x: clip;
+  }
+
+  :global(body:has(.identity-post) .site-header),
+  :global(body:has(.identity-post) .site-footer) {
+    position: relative;
+    z-index: 20;
+    background: rgba(3, 6, 4, .78);
+    border-color: rgba(120, 255, 154, .1);
+    backdrop-filter: blur(14px);
+  }
+
+  .identity-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+    background: #030604;
+    transition: background 1.1s ease;
+  }
+
+  .identity-backdrop__grid,
+  .identity-backdrop__scan,
+  .identity-backdrop__noise,
+  .identity-backdrop__ghost,
+  .identity-rain {
+    position: absolute;
+    inset: 0;
+  }
+
+  .identity-backdrop__grid {
+    opacity: .23;
+    background-image:
+      linear-gradient(rgba(106,255,143,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(106,255,143,.035) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: linear-gradient(to bottom, #000 0%, rgba(0,0,0,.65) 65%, transparent 100%);
+    transition: opacity 1s ease, transform 1.2s ease;
+  }
+
+  .identity-backdrop__scan {
+    opacity: .16;
+    background: repeating-linear-gradient(180deg, transparent 0 3px, rgba(164,255,185,.045) 4px, transparent 5px);
+    mix-blend-mode: screen;
+  }
+
+  .identity-backdrop__noise {
+    opacity: .14;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.012) 0 1px, transparent 1px 3px),
+      repeating-linear-gradient(0deg, rgba(0,0,0,.04) 0 1px, transparent 1px 4px);
+  }
+
+  .identity-rain {
+    z-index: 1;
+    opacity: 0;
+    overflow: hidden;
+    transition: opacity .22s ease;
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 11%, #000 88%, transparent 100%);
+  }
+
+  .identity-backdrop.is-scrolling .identity-rain {
+    opacity: .54;
+  }
+
+  :global(.identity-rain__column) {
+    position: absolute;
+    top: -135%;
+    width: 1.2rem;
+    color: rgba(112,255,148,.52);
+    font-family: var(--font-post-mono, monospace);
+    font-size: clamp(.62rem, 1vw, .9rem);
+    line-height: 1.05;
+    text-align: center;
+    white-space: pre-line;
+    text-shadow: 0 0 7px rgba(96,255,137,.42);
+    animation: identity-rain-fall var(--speed) linear var(--delay) infinite;
+    transform: translateX(var(--drift));
+  }
+
+  .identity-backdrop__ghost {
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-post-mono, monospace);
+    font-size: clamp(4rem, 14vw, 13rem);
+    font-weight: 700;
+    letter-spacing: -.08em;
+    white-space: nowrap;
+    transition: opacity .75s ease, transform 1s ease, filter .8s ease, color .8s ease;
+  }
+
+  .identity-backdrop__ghost--anderson {
+    color: rgba(102,255,140,.055);
+    opacity: .7;
+    transform: scale(1.05);
+  }
+
+  .identity-backdrop__ghost--neo,
+  .identity-backdrop__ghost--one {
+    opacity: 0;
+  }
+
+  .identity-backdrop__ghost--neo {
+    color: rgba(210,255,221,.16);
+    transform: scale(.72);
+  }
+
+  .identity-backdrop__ghost--one {
+    color: rgba(239,255,243,.18);
+    transform: scale(.72);
+  }
+
+  .identity-backdrop[data-stage='contained'] .identity-backdrop__ghost--anderson {
+    opacity: 1;
+    filter: blur(.2px);
+    transform: scale(1.12);
+  }
+
+  .identity-backdrop[data-stage='self-named'] .identity-backdrop__ghost--anderson {
+    opacity: .08;
+    transform: scale(1.22) translateX(-4vw);
+    filter: blur(5px);
+  }
+
+  .identity-backdrop[data-stage='self-named'] .identity-backdrop__ghost--neo {
+    opacity: .95;
+    color: rgba(202,255,216,.21);
+    transform: scale(.96);
+    text-shadow: 0 0 34px rgba(98,255,138,.12);
+  }
+
+  .identity-backdrop[data-stage='unbound'] {
+    background: radial-gradient(circle at 50% 46%, #0b1710, #020403 62%);
+  }
+
+  .identity-backdrop[data-stage='unbound'] .identity-backdrop__grid {
+    opacity: .1;
+    transform: perspective(800px) rotateX(58deg) scale(1.4);
+  }
+  .identity-backdrop[data-stage='unbound'] .identity-backdrop__ghost--anderson { opacity: 0; }
+  .identity-backdrop[data-stage='unbound'] .identity-backdrop__ghost--neo {
+    opacity: .12;
+    transform: scale(1.26) translateY(-2vh);
+    filter: blur(2px);
+  }
+  .identity-backdrop[data-stage='unbound'] .identity-backdrop__ghost--one {
+    opacity: .9;
+    transform: scale(.94);
+    color: rgba(226,255,233,.22);
+    text-shadow: 0 0 38px rgba(111,255,150,.12);
+  }
+
+  .identity-backdrop[data-stage='unclassified'] {
+    background: radial-gradient(circle at 50% 50%, #102719 0%, #030604 58%, #010201 100%);
+  }
+  .identity-backdrop[data-stage='unclassified'] .identity-backdrop__grid { opacity: .04; transform: scale(1.35); }
+  .identity-backdrop[data-stage='unclassified'] .identity-backdrop__ghost { opacity: 0; }
+
+  .identity-post {
+    position: relative;
+    z-index: 5;
+  }
+
+  .identity-hero {
+    width: var(--reading-width);
+    min-height: min(82vh, 52rem);
+    margin: 0 auto 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    padding: 5rem 0;
+  }
+
+  .identity-file {
+    width: min(36rem, 100%);
+    margin-bottom: 3.5rem;
+    border-top: 1px solid rgba(117,255,151,.24);
+    border-bottom: 1px solid rgba(117,255,151,.16);
+    font-family: var(--font-post-mono, monospace);
+    font-size: .68rem;
+    letter-spacing: .08em;
+  }
+
+  .identity-file > div {
+    display: grid;
+    grid-template-columns: 9rem 1fr;
+    gap: 1rem;
+    padding: .55rem 0;
+    border-bottom: 1px solid rgba(117,255,151,.07);
+  }
+  .identity-file > div:last-child { border-bottom: 0; }
+  .identity-file span { color: rgba(190,218,197,.42); }
+  .identity-file strong { color: rgba(198,255,212,.72); font-weight: 500; }
+  .identity-file__alias { position: relative; color: #8affaa !important; }
+  .identity-file__alias::after { content: 'UNVERIFIED'; margin-left: .65rem; color: rgba(255,255,255,.25); font-size: .55rem; }
+
+  .identity-hero__names {
+    position: relative;
+    height: clamp(4.7rem, 11vw, 8rem);
+    margin-bottom: 1.2rem;
+    font-family: var(--font-post-mono, monospace);
+    font-size: clamp(3rem, 9vw, 7rem);
+    font-weight: 700;
+    line-height: .9;
+    letter-spacing: -.08em;
+  }
+
+  .identity-hero__assigned,
+  .identity-hero__chosen {
+    position: absolute;
+    inset: 0 auto auto 0;
+    white-space: nowrap;
+  }
+
+  .identity-hero__assigned {
+    --erase: 0;
+    color: rgba(132,255,160,.82);
+    opacity: calc(1 - var(--erase) * .84);
+    clip-path: inset(0 calc(var(--erase) * 72%) 0 0);
+    text-shadow: 0 0 18px rgba(92,255,131,.12);
+  }
+
+  .identity-hero__chosen {
+    --reveal: 0;
+    color: #f4fff6;
+    opacity: calc(var(--reveal) * 1.2);
+    transform: translateX(calc((1 - var(--reveal)) * 2.5rem));
+    clip-path: inset(0 calc((1 - var(--reveal)) * 100%) 0 0);
+  }
+
+  .identity-hero h1 {
+    margin: 0;
+    color: rgba(238,247,240,.94);
+    font-size: clamp(2.4rem, 6vw, 5rem);
+  }
+
+  .identity-hero .post-dek {
+    max-width: 40rem;
+    color: rgba(216,231,220,.63);
+  }
+
+  .identity-hero__instruction {
+    margin-top: 2.5rem;
+    color: rgba(128,255,158,.32);
+    font-family: var(--font-post-mono, monospace);
+    font-size: .65rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+
+  .identity-status {
+    position: fixed;
+    top: 8rem;
+    right: clamp(1rem, 3vw, 2rem);
+    z-index: 12;
+    width: min(15rem, 28vw);
+    padding: .9rem 0;
+    border-top: 1px solid rgba(116,255,150,.16);
+    border-bottom: 1px solid rgba(116,255,150,.1);
+    font-family: var(--font-post-mono, monospace);
+    pointer-events: none;
+  }
+
+  .identity-status__line {
+    display: grid;
+    grid-template-columns: 3.4rem 1fr;
+    gap: .65rem;
+    padding: .25rem 0;
+    font-size: .55rem;
+    letter-spacing: .08em;
+  }
+  .identity-status__line span { color: rgba(194,216,199,.28); }
+  .identity-status__line strong { color: rgba(133,255,161,.68); font-weight: 500; overflow-wrap: anywhere; }
+  .identity-status__meter { height: 1px; margin-top: .65rem; background: rgba(116,255,150,.08); overflow: hidden; }
+  .identity-status__meter span { display: block; height: 100%; width: 100%; transform: scaleX(0); transform-origin: left; background: rgba(116,255,150,.64); }
+
+  .identity-rail {
+    position: fixed;
+    left: clamp(.6rem, 2vw, 1.4rem);
+    top: 50%;
+    z-index: 11;
+    display: grid;
+    gap: .62rem;
+    transform: translateY(-50%);
+    font-family: var(--font-post-mono, monospace);
+    pointer-events: none;
+  }
+  .identity-rail span {
+    color: rgba(194,216,199,.18);
+    font-size: .54rem;
+    letter-spacing: .08em;
+    writing-mode: vertical-rl;
+    transition: color .35s ease, transform .35s ease, opacity .35s ease;
+  }
+  .identity-rail span.is-active { color: rgba(130,255,158,.86); transform: translateX(2px); }
+
+  :global(.identity-body) {
+    position: relative;
+    width: var(--reading-width);
+    margin: 0 auto;
+    padding-bottom: 7rem;
+  }
+
+  :global(.identity-body p),
+  :global(.identity-body li) {
+    color: rgba(235,243,237,.87);
+    font-size: clamp(1.08rem, 1.45vw, 1.21rem);
+    line-height: 1.82;
+  }
+
+  :global(.identity-body h2) {
+    margin-top: 7rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid rgba(125,255,158,.1);
+    color: #f0f5f1;
+    font-size: clamp(2rem, 5vw, 3.7rem);
+  }
+
+  :global(.identity-body strong) { color: #f8fff8; }
+
+  :global(.identity-body #my-name-is-neo) {
+    margin-top: 10rem;
+    border-top-color: rgba(125,255,158,.34);
+    color: #91ffac;
+    font-family: var(--font-post-mono, monospace);
+    font-size: clamp(3.5rem, 11vw, 8rem);
+    letter-spacing: -.07em;
+    text-transform: uppercase;
+  }
+
+  :global(.identity-body #identity-and-enlightenment) {
+    color: #d9ffe2;
+  }
+
+  :global(.identity-body #the-final-phone-call) {
+    margin-top: 11rem;
+    border-top: 1px solid rgba(125,255,158,.35);
+    color: #a1ffb8;
+  }
+
+  :global(.identity-body #mr-anderson + p strong),
+  :global(.identity-body #my-name-is-neo + p strong) {
+    font-family: var(--font-post-mono, monospace);
+    letter-spacing: .03em;
+  }
+
+  .smith-call {
+    position: fixed;
+    left: 50%;
+    top: 52%;
+    z-index: 8;
+    display: grid;
+    justify-items: center;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(.92);
+    pointer-events: none;
+    transition: opacity .45s ease, transform .5s ease;
+  }
+  .smith-call.is-visible { opacity: .22; transform: translate(-50%, -50%) scale(1); }
+  .smith-call__label { color: rgba(124,255,154,.3); font: .58rem/1 var(--font-post-mono, monospace); letter-spacing: .15em; }
+  .smith-call strong { margin-top: .4rem; color: rgba(124,255,154,.72); font: 700 clamp(3rem, 10vw, 8rem)/.9 var(--font-post-mono, monospace); letter-spacing: -.08em; white-space: nowrap; }
+
+  :global(html[data-identity-stage='self-named'] .identity-body p),
+  :global(html[data-identity-stage='unbound'] .identity-body p),
+  :global(html[data-identity-stage='unclassified'] .identity-body p) {
+    text-shadow: 0 0 26px rgba(125,255,158,.018);
+  }
+
+  @keyframes identity-rain-fall {
+    from { transform: translate3d(var(--drift), -10%, 0); }
+    to { transform: translate3d(var(--drift), 245%, 0); }
+  }
+
+  @media (max-width: 960px) {
+    .identity-status { display: none; }
+    .identity-rail { display: none; }
+  }
+
+  @media (max-width: 720px) {
+    .identity-hero { min-height: 70vh; padding-top: 2rem; }
+    .identity-file > div { grid-template-columns: 7rem 1fr; }
+    .identity-hero__names { height: clamp(4.5rem, 19vw, 6rem); font-size: clamp(2.7rem, 15vw, 5.2rem); }
+    .identity-backdrop__ghost { font-size: 18vw; }
+    .identity-backdrop.is-scrolling .identity-rain { opacity: .46; }
+    :global(.identity-rain__column) { font-size: .62rem; }
+    :global(.identity-body h2) { margin-top: 5rem; }
+    :global(.identity-body #my-name-is-neo) { margin-top: 7rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .identity-rain { display: none; }
+    .identity-backdrop,
+    .identity-backdrop__grid,
+    .identity-backdrop__ghost,
+    .identity-hero__assigned,
+    .identity-hero__chosen,
+    .smith-call { transition: none !important; }
+  }
+</style>

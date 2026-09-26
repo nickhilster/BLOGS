@@ -1,0 +1,183 @@
+/* Styles for src/components/motion/BatScene.astro — an opt-in reading
+   effect used only by posts that render <BatScene />. Kept as a plain
+   stylesheet (like motion.css / diagrams.css) rather than a component
+   <style> block, since chapter sections are created at runtime by that
+   component's script and need to be styled without Astro's per-component
+   CSS scoping. Inert on every page that doesn't render the component. */
+
+.bat-scene {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.bat-scene__sky {
+  position: absolute;
+  inset: 0;
+  background: #05060a;
+}
+
+.bat-scene__bat {
+  position: absolute;
+  top: var(--bat-top, 30%);
+  left: 0;
+  width: 64px;
+  height: 32px;
+  color: rgba(180, 190, 210, 0.55);
+  opacity: 0;
+  animation-duration: var(--bat-duration, 5000ms);
+  animation-delay: var(--bat-delay, 0ms);
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.bat-scene__bat-svg {
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 50%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .bat-scene__sky {
+    transition: background 900ms ease;
+  }
+
+  .bat-scene__bat--ltr {
+    animation-name: bat-scene-fly-ltr;
+  }
+
+  .bat-scene__bat--rtl {
+    animation-name: bat-scene-fly-rtl;
+  }
+
+  .bat-scene__bat-svg {
+    animation: bat-scene-flap 240ms ease-in-out infinite alternate;
+  }
+}
+
+@keyframes bat-scene-fly-ltr {
+  0% {
+    transform: translateX(-15vw) translateY(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.85;
+  }
+  50% {
+    transform: translateX(50vw) translateY(-8vh);
+  }
+  90% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateX(115vw) translateY(6vh);
+    opacity: 0;
+  }
+}
+
+@keyframes bat-scene-fly-rtl {
+  0% {
+    transform: translateX(115vw) translateY(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.85;
+  }
+  50% {
+    transform: translateX(50vw) translateY(-8vh);
+  }
+  90% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateX(-15vw) translateY(6vh);
+    opacity: 0;
+  }
+}
+
+@keyframes bat-scene-flap {
+  from {
+    transform: scaleY(1);
+  }
+  to {
+    transform: scaleY(0.55);
+  }
+}
+
+/* Chapter 0 — the alley: cold, rain-lit, tragic */
+[data-active-chapter='0'] .bat-scene__sky {
+  background:
+    radial-gradient(ellipse at 50% -10%, rgba(70, 90, 130, 0.25), transparent 60%),
+    #05060a;
+}
+
+/* Chapter 1 — the values came first: home, indigo, foundational */
+[data-active-chapter='1'] .bat-scene__sky {
+  background: linear-gradient(160deg, #0b1020 0%, #05060a 70%);
+}
+
+/* Chapter 2 — if it were only trauma: uneasy branching paths */
+[data-active-chapter='2'] .bat-scene__sky {
+  background: linear-gradient(160deg, #14171f 0%, #1a0e12 100%);
+}
+
+/* Chapter 3 — privilege is the point: the accent gold, wealth */
+[data-active-chapter='3'] .bat-scene__sky {
+  background:
+    radial-gradient(circle at 30% 20%, rgba(201, 162, 39, 0.18), transparent 55%),
+    #120e05;
+}
+
+/* Chapter 4 — Thomas Wayne: blood, legacy, oxblood maroon */
+[data-active-chapter='4'] .bat-scene__sky {
+  background: linear-gradient(160deg, #1c0a0d 0%, #05060a 75%);
+}
+
+/* Chapter 5 — the old story / resurrection: sacred violet */
+[data-active-chapter='5'] .bat-scene__sky {
+  background:
+    radial-gradient(ellipse at 50% 30%, rgba(120, 70, 160, 0.22), transparent 60%),
+    #0c0714;
+}
+
+/* Chapter 6 — the mask: moonlit, cool blue-grey */
+[data-active-chapter='6'] .bat-scene__sky {
+  background: linear-gradient(160deg, #0a121c 0%, #05060a 75%);
+}
+
+/* Chapter 7 — the no-kill rule: restraint, deep forest-black */
+[data-active-chapter='7'] .bat-scene__sky {
+  background: linear-gradient(160deg, #060f0c 0%, #05060a 75%);
+}
+
+/* Chapter 8 — Batman: The Animated Series: sepia film-noir warmth */
+[data-active-chapter='8'] .bat-scene__sky {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(180, 130, 60, 0.16), transparent 60%),
+    #140f08;
+}
+
+/* Chapter 9 — Nolan: modern cinematic teal-blue */
+[data-active-chapter='9'] .bat-scene__sky {
+  background: linear-gradient(160deg, #071620 0%, #05060a 75%);
+}
+
+/* Chapter 10 — Spider-Man: a different hero, muted warm red */
+[data-active-chapter='10'] .bat-scene__sky {
+  background: linear-gradient(160deg, #1a0808 0%, #05060a 75%);
+}
+
+/* Chapter 11 — Be Batman: the finale, brightest gold, the signal */
+[data-active-chapter='11'] .bat-scene__sky {
+  background:
+    radial-gradient(ellipse at 50% 100%, rgba(201, 162, 39, 0.28), transparent 65%),
+    #120d04;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bat-scene__bat {
+    display: none;
+  }
+}

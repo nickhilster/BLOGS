@@ -1,0 +1,171 @@
+---
+title: "Tech Jargon Is a Crime Scene: A Field Guide to Linguistic Theft"
+slug: "tech-jargon-theft"
+description: "A chaotic, sleep-deprived tour through every profession the tech industry has stolen vocabulary from — carpentry, farming, aviation, medicine, the military, and manufacturing — with absurdly literal metaphors and one unhinged Jenkins-and-cow anecdote."
+excerpt: "Software engineers did not invent scaffolding, harvesting, launch windows, zombie processes, payloads, or pipelines. They stole all of it, wore it like a stolen letterman jacket, and now act personally victimized when you point this out."
+publishedAt: "2026-07-06"
+tags: ["tech culture", "language", "humor", "software engineering", "satire"]
+featured: false
+theme: "nocturne"
+articleLayout: "essay"
+identity:
+  palette:
+    bg: "#efe9da"
+    surface: "#fff9ec"
+    surfaceStrong: "#e3d9bf"
+    text: "#201c14"
+    muted: "#6f6650"
+    accent: "#b3261e"
+  fonts: "display-condensed"
+  motion: ["redaction-reveal", "stamp-appear"]
+hero:
+  title: "Tech Jargon Is a Crime Scene"
+  dek: "Somewhere, a carpenter, a farmer, a pilot, a doctor, a general, and a factory foreman are standing in a lineup, and the culprit is a guy named Dave who says 'let's circle back' forty times a day."
+---
+
+import FieldNote from '../../components/mdx/FieldNote.astro'
+import AmbientDivider from '../../components/mdx/AmbientDivider.astro'
+import LineageRow from '../../components/diagrams/LineageRow.astro'
+
+I have not slept since the last deployment. I'm not sure what day it is. I know it's after Tuesday because someone said "let's touch base Wednesday" and I felt a shiver of pure animal fear. But I need you to sit with me for a minute, because I have made a discovery, and the discovery is this:
+
+**The tech industry did not invent a single word it uses.**
+
+Not one. Every term your engineering team throws around in standup was stolen — mugged, honestly, in broad daylight — from a profession that actually built something real with its hands. Carpenters. Farmers. Pilots. Doctors. Generals. Factory workers. All of them, at some point, had a perfectly good word, and a group of people who had just discovered `git` walked up, took the word, and ran.
+
+This is a crime scene. I am not speaking metaphorically, even though everything else in this post is going to be a metaphor stretched so far it screams. Somebody should put up caution tape around the entire discipline of software engineering and ask it to account for its vocabulary. Where were you on the night "architecture" went missing? Do you have an alibi for "harvesting"? Why do you own a flight recorder when your longest flight is the walk to get more La Croix?
+
+I think engineers should be on a registry. Not the dangerous kind — the linguistic kind. A little laminated card that says "THIS PERSON HAS BEEN CONVICTED OF METAPHOR ABUSE" so that carpenters, farmers, and pilots can see them coming and hide their nouns.
+
+Let's go case by case. Bring a jacket. It's cold in the evidence locker.
+
+## 1. Construction & Carpentry Terms (Engineers With Power Tools They Should Not Have)
+
+Nobody should give a software engineer a nail gun. I say this with love. I say this as someone who has personally watched a senior developer try to explain "load-bearing" logic while holding a stapler like it was a divining rod.
+
+And yet — the construction metaphors never stop.
+
+- **Framework.** In real carpentry, a framework is the skeleton of a house: studs, joists, load paths, things that hold up other things so a family doesn't die in their sleep. In tech, a "framework" is a pile of other people's JavaScript that you download so you don't have to think, and then you spend the next four years fighting it instead.
+- **Scaffolding.** When a real scaffolding company hears a developer say "I threw up some scaffolding for the CSS," I need you to picture the actual physical event. The developer, in cargo shorts, climbing an aluminum scaffold tower bolted to the side of the office building, ratchet strap in one hand, laptop balanced on a plank, yelling down to a very concerned building inspector, "It's fine, it's just temporary, I'll tear it down before Friday's release!" He will not tear it down before Friday's release. Nobody ever tears down the scaffolding. It becomes permanent. It becomes load-bearing. Six years later someone finds a `TODO: remove this` comment inside it and weeps.
+- **Architecture.** A real architect spends years learning about wind load, egress routes, and how not to kill anyone with a cantilever. A software architect draws six boxes and an arrow labeled "magic happens here" and then goes to lunch. One of these professions has a licensing board. It is not the one with the arrow.
+- **"Measure twice, cut once."** Carpenters say this because wood is expensive and unforgiving. Engineers say this right before shipping to production on a Friday at 4:58 PM with zero tests, as a kind of thoughts-and-prayers incantation, the way you might say "bless you" after a sneeze that was actually a structural failure.
+
+Please, for the love of all that is holy, do not let a developer near a table saw. They will try to "refactor" it.
+
+<FieldNote title="Footnote that spirals into nonsense, part 1">
+I once watched a junior engineer describe fixing a flexbox bug as "load-bearing" work. I asked what, exactly, the flexbox was bearing the load of. He said "the whole page, conceptually." I have not recovered. Somewhere a structural engineer just felt a disturbance, like a fart in the wind tunnel of professional respect.
+</FieldNote>
+
+## 2. Agriculture Terms (Why Are Engineers Obsessed With Farms)
+
+This is the section where I ask the question nobody wants asked out loud: **why does every startup secretly want to be a petting zoo?**
+
+Look at the words. Look at them.
+
+- **Slop.** This used to mean what you feed pigs. Now it means low-effort AI output, which — fine, actually, this one tracks disturbingly well. The pigs, frankly, deserve better slop than what some of these language models produce at 2 AM under deadline pressure.
+- **Bit rot.** A term implying your code, like a barn, like a scarecrow, like a sad forgotten pumpkin in October, is *decomposing* even though nobody touched it. Nobody plowed this field. Nobody watered these functions. And yet here we are, six months later, opening the repo to find weeds, silence, and one extremely confused dependency that hasn't been updated since a simpler, more agrarian era of the codebase.
+- **Harvesting data.** I need you to picture the literal thing being described here. A data engineer, in overalls, walking a vast golden field of user analytics at golden hour, scythe over one shoulder, occasionally stopping to bundle a particularly juicy sheaf of click-through-rate into a wagon. "Gonna be a good harvest this quarter," he says, squinting at the horizon, which is actually just a dashboard.
+- **Cow-pathing.** This is a real UX term. It means designing a system based on the well-worn path users already take, the way a farmer eventually just paves the dirt trail the cows made instead of fighting them. Which means, and I want to be extremely clear about this, that there exists a class of professional whose entire job is to **follow actual cows** and build software based on where the cows decided to go. I would like to meet this cow. I would like to give this cow a performance review. I suspect the cow has better product instincts than most of Silicon Valley, and unlike most of Silicon Valley, the cow has never once used the word "synergy."
+
+Every startup, deep down, in the marrow of its pitch deck, wants dirt roads, livestock, and a red barn. They will never admit this. They will call it "platform ecosystem" instead. I know the truth. The cows know the truth.
+
+<AmbientDivider />
+
+## 3. Aviation Terms (Your App Should Not Require Air Traffic Control)
+
+Your to-do list app is not a 747. I need this tattooed somewhere I can see it during every sprint planning meeting.
+
+- **Launch windows.** NASA has launch windows because Earth's rotation, orbital mechanics, and the literal laws of physics constrain a rocket to specific minutes. Your team has a "launch window" because Debra in marketing wants the tweet to go out during "peak engagement hours." One of these will kill you if you get it wrong. The other one just means the tweet does slightly worse.
+- **Abort.** A real pilot aborting a landing is managing thrust, altitude, and survival in real time. A developer "aborting" a deploy is hitting Ctrl+C and then loudly explaining to Slack that this was "the right call," in the tone of a man who has just walked away from a plane crash he caused.
+- **Mission-critical.** Everything is "mission-critical" now. The internal wiki is mission-critical. The emoji reaction feature is mission-critical. At some point "mission-critical" stopped meaning "people may die" and started meaning "my manager will be sad at the retro."
+- **Flight recorder.** Also known as a "black box," also known, in tech, as "logs nobody looks at until 3 AM during an outage, at which point you discover logging was disabled in production six months ago by someone who is now a manager at a different company and cannot be reached."
+
+I want you to picture the daily standup as an actual cockpit. Headsets on. Pre-flight checklist. "Requesting clearance to push to staging, over." "Staging is a go, staging is a go, you are cleared for merge, over." Somebody's mic is muted the entire time and nobody tells them for six minutes. Somewhere, an actual air traffic controller is having a stroke.
+
+## 4. Medical Terms (Paging Dr. JavaScript)
+
+The codebase is sick. I don't know how else to put this. The codebase needs to see somebody.
+
+- **Zombie processes.** A process that has finished running but whose parent never collected its exit status, so it just... shambles around in the process table, undead, taking up a PID, doing nothing, wanting only `brains` (memory it is no longer even using). Deeply, deeply relatable content for anyone who has attended a 9 AM meeting.
+- **Orphan processes.** A process whose parent died and left it to fend for itself, adopted by `init` like a Dickensian street urchin of the operating system. Somewhere, a very small, very sad process is singing "Consider Yourself" from *Oliver!* to a kernel that does not care.
+- **Memory leaks.** The codebase is bleeding out, slowly, from a wound nobody can locate, and every hour that passes it gets a little paler and a little slower until eventually it just... stops, on a Tuesday, in front of your biggest customer, at the worst possible moment, like a soap opera character with a mysterious illness that is definitely just an unclosed file handle.
+- **Dead code.** Code that still exists, still runs (sometimes!), but that nobody believes in anymore. It should be buried. Nobody will bury it, because burying it means understanding what it does first, and understanding what it does is how people become cursed.
+
+Somebody page Dr. JavaScript. Tell him to bring the crash cart. Tell him the patient is a `while(true)` loop and it has been running since March.
+
+<FieldNote title="Footnote that spirals into nonsense, part 2">
+I looked up whether "dead code" has an actual medical equivalent to necrosis. It does. It's necrosis. I am now unable to open a legacy repository without hearing a very calm British narrator say "and here, we see tissue that has been without a code owner for eleven fiscal quarters."
+</FieldNote>
+
+## 5. Military Terms (Why Does Deploying a Web App Sound Like Invading a Country)
+
+I would like everyone reading this to ask themselves, honestly, why we are using words designed for the invasion of sovereign nations to describe a button that changes color when you click it.
+
+- **Payload.** In the military, a payload is what a missile carries to its target — the part that actually causes the damage. In tech, a "payload" is a JSON object containing somebody's username and a timestamp. Comparably explosive, in the sense that if the JSON is malformed, an intern's afternoon is also destroyed.
+- **Fire and forget.** A missile system that, once launched, requires no further guidance. A developer's async function that, once launched, also requires no further guidance, mostly because nobody wrote error handling and everybody has simply chosen not to think about it again. Spiritually the same. Legally quite different.
+- **War room.** A physical or virtual space where a team gathers during a crisis to make fast, high-stakes decisions. In tech, this is a Zoom call where six people are all saying "can everyone see my screen" for four minutes while production is on fire, which is somehow both less and more dangerous than an actual war room.
+- **Command and control.** Military infrastructure for directing forces during operations. In tech, "C2" describes both legitimate orchestration systems and, unfortunately, malware infrastructure, meaning the same three letters describe your Kubernetes cluster and also a botnet. Naming things is hard, apparently, even for people who name things for a living on both sides of the law.
+
+I do not think engineers should be trusted with anything explosive. I have seen an engineer "nuke" a branch, "detonate" a build, and describe a routine cache clear as "scorched earth." These are people who microwave leftover fish in a shared kitchen. Give them nothing with a fuse.
+
+## 6. Manufacturing & Logistics Terms (Your CI/CD Pipeline Is Not a Factory, Calm Down)
+
+Nobody working in DevOps has ever operated actual heavy machinery, and yet the vocabulary suggests otherwise.
+
+- **Pipelines.** In manufacturing, a pipeline moves physical material — oil, water, unspeakable amounts of Silly String — from one place to another through actual pipe. In tech, a "pipeline" moves your code through build, test, and deploy stages, mostly by way of a YAML file so cursed that changing one indentation level can end civilizations.
+- **Bottlenecks.** The literal narrow part of a literal bottle, where flow physically slows down. In software, a "bottleneck" is whichever one microservice was written by a contractor in 2019 who is now, we are fairly sure, farming alpacas somewhere and cannot be reached for comment.
+- **Throughput.** How much stuff a factory can push through per hour. In tech, how many requests your API can survive before it lies down on the floor of the data center and asks to be left alone.
+- **Backpressure.** In plumbing and manufacturing, backpressure is what happens when downstream resistance pushes back against flow — pipes groan, valves strain, something eventually pops. In software, backpressure is what happens when your queue fills up faster than your workers can drain it, and something eventually pops, and that something is always, always your on-call engineer's sense of well-being.
+
+Picture your CI/CD pipeline as an actual assembly line, staffed entirely by caffeinated raccoons in tiny hard hats. One raccoon is running unit tests. One raccoon is definitely supposed to be running the linter but is instead going through your trash. One raccoon just found a Red Bull. The Red Bull raccoon is now in charge of the deploy step. This is, I regret to inform you, an accurate diagram of most production deployments.
+
+<FieldNote title="A fake anecdote involving a developer, a cow, and a Jenkins pipeline">
+A developer I will call "Trevor," because that is not his name, once set up a Jenkins pipeline to auto-deploy a rural veterinary clinic's website every time someone pushed to `main`. During testing, a cow named Buttercup leaned against the clinic's front-desk tablet, which was logged into GitHub, and her nose — just her actual, physical, moist bovine nose — bumped the commit button on an open pull request. The pipeline triggered. The build passed, because there were no tests, because there are never any tests. The site deployed to production at 2:14 PM on a Wednesday. To this day, the commit history of that repository contains one entry, authored under Trevor's name, with the message "asdkjfl," and Trevor has never spoken of it, and Buttercup, by all accounts, has never expressed remorse. I consider this the most honest deployment in the history of software.
+</FieldNote>
+
+## 7. Why Tech Loves Stealing Metaphors
+
+<LineageRow
+  items={[
+    { term: 'Framework', note: 'carpentry', emphasized: true },
+    { term: 'Harvesting', note: 'agriculture' },
+    { term: 'Launch window', note: 'aviation' },
+    { term: 'Zombie process', note: 'medicine' },
+    { term: 'Payload', note: 'military' },
+    { term: 'Pipeline', note: 'manufacturing' },
+  ]}
+/>
+
+Fine. Deep breath. Let's be sincere for one paragraph, because I promised this would be secretly educational and I am, beneath the raccoon hats, a person of my word.
+
+Tech steals metaphors for a few real reasons:
+
+- **Abstraction is hard.** Software is invisible. You can't point at a race condition. You can't hold a memory leak in your hand and show it to your manager. So we reach for physical, tactile words from professions where the stakes and shapes are visible — a beam either holds weight or it doesn't, a crop either grows or it doesn't — because it's the fastest way to make the invisible feel graspable.
+- **Engineers love sounding important.** "I shipped a feature" is a sentence. "I executed a mission-critical payload deployment through the pipeline under significant backpressure" is the same sentence wearing a general's uniform to a birthday party.
+- **Metaphors hide the existential dread.** It is easier to say "the process died" than to sit with the fact that a piece of automated logic you wrote is currently failing silently, at scale, in ways you will not discover until a customer emails you screenshots.
+- **Naming things is famously, provably, mathematically impossible.** There are two hard problems in computer science: cache invalidation, naming things, and off-by-one errors. When naming is this hard, you don't invent a word. You steal one that's already load-bearing, wipe your fingerprints off it, and walk away whistling.
+
+So it's not malice. It's not even really theft, if we're being generous. It's more like linguistic squatting — moving into someone else's empty house because building your own from scratch, under deadline, with a term named "Bob" pinging you every four minutes, sounds exhausting.
+
+But it is still, legally, in the court of public opinion that I am now personally convening, theft.
+
+## 8. Conclusion: Predict Future Tech Jargon Theft
+
+Here is my prophecy, delivered at 3 AM, on my fourth energy drink, having not slept since the last deployment, possibly not having slept since the deployment *before* the last deployment:
+
+Tech is running out of professions to steal from. Carpentry: looted. Agriculture: strip-mined. Aviation: grounded. Medicine: malpracticed. The military: called up for one more tour. Manufacturing: automated away, ironically, by the very industry that stole its words.
+
+So tech will come next for:
+
+- **Cooking.** Get ready for "simmering PRs," "reducing your dependency tree," and a senior engineer explaining that the codebase just needs to "rest for ten minutes" before you cut into it.
+- **Astrology.** Your incident postmortem will include a sentence like "Mercury was in retrograde during the outage window," and somewhere, a founder will pitch "vibes-based load balancing" with a straight face and get funded.
+- **Pet grooming.** Someday, someone will describe removing unused dependencies as "de-shedding the repo," and I will simply have to accept this, the way I have accepted everything else.
+- **Medieval sword-fighting.** "Parry the exception," "riposte the merge conflict," "the on-call engineer donned their armor and rode into the incident channel alone." Honestly this one might improve morale.
+
+And when all other professions have been picked clean, when carpenters and farmers and pilots and doctors and generals and factory foremen have formed a support group specifically for people whose words were stolen by men in hoodies — there will come, at last, across a field, at golden hour, backlit like a messiah —
+
+**the Great Debugging Goat.**
+
+It will not speak. It will simply walk your production incident, cow-path style, straight to the root cause, while your entire engineering org follows behind it in silence, humbled, finally out of metaphors, finally out of words that were never theirs to begin with.
+
+Godspeed. Circle back with me in the morning. Actually — don't. I need the sleep.

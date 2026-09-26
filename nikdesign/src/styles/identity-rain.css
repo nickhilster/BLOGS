@@ -1,0 +1,70 @@
+/* Mr. Anderson interaction override: keep the rain tied to actual viewport travel. */
+
+body:has(.identity-post) .identity-rain {
+  z-index: 3;
+  opacity: 0;
+  overflow: hidden;
+  transition: opacity 120ms ease-out;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 3%, #000 97%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 3%, #000 97%, transparent 100%);
+}
+
+body:has(.identity-post) .identity-backdrop.is-scrolling .identity-rain {
+  opacity: .96;
+}
+
+body:has(.identity-post) .identity-rain__column {
+  position: absolute;
+  top: 0 !important;
+  width: 1.35rem;
+  color: rgba(132, 255, 160, .9);
+  font-family: var(--font-post-mono, monospace);
+  font-size: clamp(.72rem, 1.15vw, 1rem);
+  line-height: 1.02;
+  text-align: center;
+  white-space: pre-line;
+  text-shadow:
+    0 0 4px rgba(177, 255, 196, .95),
+    0 0 12px rgba(77, 255, 126, .66);
+  animation: identity-rain-viewport-fall var(--speed) linear var(--delay) infinite !important;
+  will-change: transform;
+}
+
+@keyframes identity-rain-viewport-fall {
+  from {
+    transform: translate3d(var(--drift), -120%, 0);
+  }
+  to {
+    transform: translate3d(var(--drift), calc(100dvh + 35%), 0);
+  }
+}
+
+@media (max-width: 720px) {
+  body:has(.identity-post) .identity-backdrop.is-scrolling .identity-rain {
+    opacity: 1;
+  }
+
+  body:has(.identity-post) .identity-rain__column {
+    width: 1.05rem;
+    color: rgba(140, 255, 166, .96);
+    font-size: .78rem;
+    text-shadow:
+      0 0 4px rgba(190, 255, 205, 1),
+      0 0 12px rgba(77, 255, 126, .72);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body:has(.identity-post) .identity-rain {
+    display: block !important;
+    transition: none;
+  }
+
+  body:has(.identity-post) .identity-backdrop.is-scrolling .identity-rain {
+    opacity: .72;
+  }
+
+  body:has(.identity-post) .identity-rain__column {
+    animation-duration: 3.8s !important;
+  }
+}

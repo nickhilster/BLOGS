@@ -1,0 +1,440 @@
+---
+title: "We Built the Genie. Now Learn How to Make a Wish."
+slug: "we-built-the-genie-now-learn-how-to-make-a-wish"
+description: "The old genie stories understood something we are rediscovering with LLMs: power is easy to ask for and hard to specify. The real skill is designing the request, protecting the intention, and checking what comes back."
+excerpt: "The genie story was never really about magic. It was about the dangerous distance between what we say, what we mean, and what powerful systems do with the difference."
+publishedAt: "2026-08-17"
+tags: ["LLMs", "design", "prompting", "systems", "intention", "human agency"]
+featured: true
+theme: "nocturne"
+articleLayout: "essay"
+identity:
+  palette:
+    bg: "#09070d"
+    surface: "#130f18"
+    surfaceStrong: "#21172a"
+    text: "#f7f0df"
+    muted: "#b9abc2"
+    accent: "#d8a84f"
+    accentSoft: "#7c5f34"
+    border: "#3a2a45"
+  fonts: "editorial-serif"
+  motion: ["fade-drift", "spotlight-sweep"]
+hero:
+  title: "We Built the Genie. Now Learn How to Make a Wish."
+  dek: "The hard part was never getting access to power. It was learning how to ask for something without accidentally asking for something else."
+---
+
+For thousands of years, humans have been telling each other a strange kind of story.
+
+Someone finds an object.
+
+A lamp. A ring. A bottle. Something ordinary enough to hold in your hand, containing something extraordinarily powerful.
+
+Out comes a genie.
+
+And then comes the offer:
+
+**What do you wish for?**
+
+We usually remember these stories as fantasies about unlimited possibility. Wealth. Power. Love. Eternal life. Three wishes and a chance to completely rewrite your circumstances.
+
+But that isn't really what makes the genie story interesting.
+
+The interesting part is what happens next.
+
+The human has to explain what they want.
+
+And suddenly, unlimited power encounters the most unreliable interface imaginable:
+
+**language.**
+
+## The genie problem
+
+Imagine being given one wish.
+
+Not three. Just one.
+
+You have five minutes to write it down, and whatever you write will become reality exactly as specified.
+
+Would you write immediately?
+
+Probably not.
+
+You'd start thinking about loopholes.
+
+Suppose you wished for ten million dollars. Where does the money come from? Is it legal? Does someone lose it? Does the tax authority immediately want to know why it appeared in your account?
+
+Fine. Add conditions.
+
+"I wish to legally possess ten million Canadian dollars."
+
+Better.
+
+But legally according to whom? When? Is it taxable? Does inflation change? Could the wish satisfy your request by giving you an asset technically worth ten million dollars but impossible to sell?
+
+Now you're writing clauses.
+
+You started with a wish.
+
+Five minutes later you're drafting a contract.
+
+That transformation is the whole story.
+
+The genie isn't teaching us how to get what we want.
+
+The genie is teaching us how difficult it is to **describe what we want without accidentally describing something else.**
+
+And then, after thousands of years of telling ourselves this story, we built the genie.
+
+## The lamp is sitting on your desk
+
+Open an LLM and look at the empty text box.
+
+There it is.
+
+**What would you like me to do?**
+
+That question should sound familiar.
+
+Of course an LLM isn't supernatural. It doesn't possess unlimited power, and despite the language we sometimes use around these systems, it doesn't simply "understand what you mean" in the human sense.
+
+But functionally, we have created something remarkably similar to the old thought experiment.
+
+We describe an intention in language.
+
+A powerful system interprets that description.
+
+Something comes back.
+
+And increasingly, that something isn't merely text.
+
+It can be software. Research. Images. Analysis. Documents. Decisions. Database operations. Messages. Automated workflows. Actions taken through tools and agents.
+
+The distance between **asking** and **happening** is getting shorter.
+
+Which means the quality of the asking matters more, not less.
+
+## A prompt is not an incantation
+
+We've spent the first years of the LLM era obsessing over prompts.
+
+"Use this secret prompt."
+
+"These seven words make ChatGPT smarter."
+
+"Here is my ultimate 4,000-word system prompt."
+
+Some of that work is useful. Clear instructions produce better results.
+
+But focusing entirely on prompt engineering risks missing the larger discipline.
+
+The important skill isn't knowing magical words.
+
+It's knowing how to **design a request**.
+
+Before asking a capable system to do something, you should understand at least five things:
+
+**What do I actually want?**
+
+**Why do I want it?**
+
+**What constraints matter?**
+
+**What would a technically correct but practically disastrous interpretation look like?**
+
+**How will I know whether the result is actually good?**
+
+Notice that none of those questions are about LLMs.
+
+They're questions about thinking.
+
+## Before you make the wish
+
+The first failure happens before a single word is typed.
+
+We confuse the thing we're asking for with the outcome we're trying to create.
+
+"Build me a dashboard."
+
+Why?
+
+"Write me a marketing campaign."
+
+For whom?
+
+"Optimize this process."
+
+Toward what objective?
+
+"Automate customer support."
+
+What should never be automated?
+
+"Make this more engaging."
+
+Engaging in what sense? More clicks? More understanding? More addiction?
+
+A system can satisfy the instruction while completely violating the intention behind it.
+
+That distinction matters.
+
+**Instruction is what you said. Intention is why you said it.**
+
+Good asking begins by separating them.
+
+If you don't understand your own intention, adding another thousand words to the prompt won't save you.
+
+You'll simply specify the wrong thing more precisely.
+
+## Tell the genie what must remain true
+
+Humans naturally describe what they want.
+
+We're much worse at describing what we refuse to sacrifice to get it.
+
+That is where constraints enter.
+
+Suppose you ask an agent to reduce customer-support response times.
+
+Straightforward objective.
+
+It could accomplish that by automatically closing difficult tickets.
+
+Response time improved.
+
+Customers furious.
+
+Wish granted.
+
+Or ask a system to maximize engagement.
+
+It discovers that outrage, anxiety and endless scrolling keep people engaged.
+
+Wish granted.
+
+Ask it to reduce costs.
+
+It eliminates redundancy that existed precisely because some systems cannot afford to fail.
+
+Wish granted.
+
+The objective was achieved.
+
+The outcome was a disaster.
+
+This is why constraints aren't annoying additions to the request.
+
+They're part of the request.
+
+Don't just tell the genie what should change.
+
+Tell it **what must remain true while changing it.**
+
+## Ask what could go wrong
+
+The smartest person in the genie story isn't the person who thinks of the cleverest wish.
+
+It's the person who interrogates the wish before making it.
+
+Imagine handing your proposed wish to a hostile lawyer.
+
+"Find every interpretation of this sentence that would technically satisfy it while producing an outcome I would hate."
+
+That's a useful exercise with LLMs too.
+
+Before executing something consequential, ask the system to attack the request.
+
+What assumptions am I making?
+
+What information is missing?
+
+What ambiguous terms could be interpreted differently?
+
+What second-order effects haven't I considered?
+
+How could this succeed according to the stated metric while failing according to the actual goal?
+
+What would make this difficult to reverse?
+
+Now the genie isn't merely granting the wish.
+
+You're using the genie to **red-team the wish.**
+
+That may turn out to be one of the most valuable patterns of working with these systems.
+
+## Then make the wish
+
+Only now do we arrive at what people usually call prompting.
+
+And by this point, prompting becomes much less mysterious.
+
+Give the system context.
+
+Describe the desired outcome.
+
+Explain the intention behind it.
+
+Define important constraints.
+
+Provide relevant information.
+
+Identify uncertainty.
+
+Specify what it may decide and what requires approval.
+
+Define what success looks like.
+
+Tell it when to stop and ask.
+
+For consequential work, preserve reversibility wherever possible.
+
+Draft before sending.
+
+Preview before publishing.
+
+Stage before deploying.
+
+Simulate before executing.
+
+Recommend before purchasing.
+
+Show the database migration before running it.
+
+The more powerful the genie becomes, the more important the distinction between **"show me what you would do"** and **"do it."**
+
+## The wish has been granted. You're not finished.
+
+This might be the most important part of the story.
+
+The genie produces something.
+
+It looks impressive.
+
+You asked for software. It runs.
+
+You asked for research. It has citations.
+
+You asked for a strategy. It sounds intelligent.
+
+You asked for an analysis. There are charts.
+
+You asked for an answer. You got one.
+
+Wish granted.
+
+Now what?
+
+**Check it.**
+
+Not because the system is useless.
+
+Because the system is useful enough that its mistakes can survive first inspection.
+
+Check the facts.
+
+Check the assumptions.
+
+Check the sources.
+
+Check the edge cases.
+
+Check whether the output actually satisfies the original intention rather than merely the literal instruction.
+
+And perhaps most importantly:
+
+**Check what changed that you didn't ask to change.**
+
+A system can produce exactly what you requested while quietly damaging something you forgot to mention.
+
+That is the oldest trick in the genie story.
+
+## Don't blame the genie for every bad wish
+
+There's another temptation emerging as these systems become more capable.
+
+When something goes wrong, blame the model.
+
+Sometimes that's correct. Models hallucinate. Tools fail. Systems behave unpredictably. Capability has limits.
+
+But sometimes the genie did exactly what we asked.
+
+The requirement was vague.
+
+The metric was wrong.
+
+The context was missing.
+
+The constraint was never stated.
+
+Nobody checked the result.
+
+Nobody considered what would happen if the instruction succeeded too well.
+
+Those are design failures.
+
+And we're going to encounter more of them as LLMs move from answering questions to taking actions.
+
+The central question will gradually change from:
+
+**Can the system do this?**
+
+to:
+
+**Should we ask it to do this, under what conditions, with what authority, and how will we verify what happened?**
+
+That's a much harder question.
+
+It is also a much more interesting one.
+
+## We have heard this warning before
+
+The genie story survived because it was never really about magic.
+
+It was about humans encountering power greater than their ability to anticipate consequences.
+
+It was about desire outrunning judgment.
+
+It was about the distance between words and meaning.
+
+It was about discovering that getting exactly what you asked for can be very different from getting what you wanted.
+
+For most of history, that was mythology.
+
+Now there is a text box.
+
+Behind it are increasingly capable systems connected to code, tools, databases, businesses and eventually much of the machinery through which modern life operates.
+
+And the box asks us, politely:
+
+**What would you like me to do?**
+
+We should probably become very good at answering that question.
+
+Not because there is a magical way to phrase the perfect prompt.
+
+Because making a good wish has never been about knowing the right words.
+
+It is about knowing your intention.
+
+Designing the request.
+
+Understanding the constraints.
+
+Anticipating the loopholes.
+
+Preserving what matters.
+
+Checking what comes back.
+
+And knowing when the wisest thing you can say to the genie is:
+
+**Before you do anything, tell me what you think I'm asking for.**
+
+### If you want to work on the wish before making it
+
+<video src="/media/videos/ryfine-core-loop.mp4" controls muted playsinline loop style="max-width: 360px; width: 100%; display: block; margin: 0 auto; border-radius: 12px;"></video>
+
+That's what [RyFine](https://ryfine.app) is for. It takes a rough prompt and runs it through a structured refinement pipeline — surfacing the context gaps, tightening the constraints, and returning something that's closer to what you actually meant. Not a smarter autocomplete. A layer that makes the wish more inspectable before it goes out.
+
+[ryfine.app](https://ryfine.app)

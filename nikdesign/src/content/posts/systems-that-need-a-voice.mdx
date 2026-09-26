@@ -1,0 +1,43 @@
+---
+title: "Systems That Need a Voice"
+slug: "systems-that-need-a-voice"
+description: "Why operational tools fail when their framing is left to chance."
+excerpt: "A short essay on systems, adoption, and language."
+publishedAt: "2026-05-11"
+tags: ["systems", "adoption"]
+featured: false
+theme: "signal"
+articleLayout: "essay"
+identity:
+  palette:
+    bg: "#f5f6f2"
+    surface: "#ffffff"
+    surfaceStrong: "#e8ece3"
+    text: "#1c2119"
+    muted: "#626b5c"
+    accent: "#3f6b4f"
+  fonts: "humanist-classic"
+  motion: ["waveform-pulse"]
+hero:
+  title: "Systems That Need a Voice"
+  dek: "Adoption does not fail only at the workflow layer. Sometimes it fails in the language."
+---
+
+import ComparisonDiagram from '../../components/diagrams/ComparisonDiagram.astro'
+
+Operational systems are read before they are trusted.
+
+People do not encounter workflow tooling as pure logic. They encounter it as tone, sequence, labeling, and implied confidence. If the language of a system sounds over-finished, brittle, or detached from the actual work around it, users feel that long before they can name it.
+
+The system may be structurally sound. That is not enough. It still needs a voice people can work with.
+
+<ComparisonDiagram
+  left={{
+    heading: 'Structurally sound',
+    items: ['Passes every test', 'Technically correct', 'Ships on schedule'],
+  }}
+  right={{
+    heading: 'Sounds trustworthy',
+    items: ['Tone matches the work', 'Language admits uncertainty', 'Voice earns tolerance for rough edges'],
+  }}
+/>

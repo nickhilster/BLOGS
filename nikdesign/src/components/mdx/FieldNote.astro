@@ -1,0 +1,14 @@
+---
+interface Props {
+  title?: string
+}
+
+const { title = 'Field note' } = Astro.props
+---
+
+<aside class="field-note">
+  <p class="field-note__label">{title}</p>
+  <div class="field-note__body">
+    <slot />
+  </div>
+</aside>

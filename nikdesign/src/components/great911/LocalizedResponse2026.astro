@@ -1,0 +1,34 @@
+---
+import { response2026TranslationStore } from '../../lib/response2026TranslationStore'
+import { getResponse2026Locale } from '../../lib/response2026Locales'
+
+interface Props {
+  code: string
+}
+
+const { code } = Astro.props
+const locale = getResponse2026Locale(code)
+const encoded = response2026TranslationStore[code]
+
+if (!locale) throw new Error(`Unknown response locale: ${code}`)
+if (!encoded) throw new Error(`Missing response translation: ${code}`)
+
+const source = globalThis.atob(encoded).trim()
+const [title, ...paragraphs]: string[] = source.split(/\n\n+/)
+---
+
+<div class="localized-response" lang={locale.lang} dir={locale.dir}>
+  <h1>{title}</h1>
+  {paragraphs.map((paragraph: string) => <p>{paragraph}</p>)}
+</div>
+
+<style>
+  .localized-response[dir='rtl'] {
+    text-align: right;
+  }
+
+  .localized-response :global(h1),
+  .localized-response :global(p) {
+    unicode-bidi: plaintext;
+  }
+</style>

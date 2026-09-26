@@ -1,5 +1,14 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "astro",
+  "installCommand": "npm install",
   "buildCommand": "npm run build",
-  "outputDirectory": "dist"
+  "outputDirectory": "dist",
+  "redirects": [
+    {
+      "source": "/the-doorway-and-the-destination",
+      "destination": "/posts/the-doorway-and-the-destination/",
+      "permanent": true
+    }
+  ]
 }

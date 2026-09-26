@@ -1,0 +1,225 @@
+---
+import BaseLayout from './BaseLayout.astro'
+import { getThemeByKey } from '../lib/themes'
+
+const theme = getThemeByKey('signal')
+const styleVars = {
+  '--bg': '#fbf7ed',
+  '--surface': '#fffdf8',
+  '--surface-strong': '#f3ead8',
+  '--text': '#17232c',
+  '--muted': '#6e7880',
+  '--accent': '#d8742d',
+  '--accent-soft': '#f7dfc8',
+  '--border': '#ded5c6',
+}
+---
+
+<BaseLayout
+  title="A Response to Welcome — 2026 | NikDesign Journal"
+  description="A modern response to the enduring challenge of fanaticism, attention, technology, and pluralism."
+  theme={theme}
+  identityStyleVars={styleVars}
+>
+  <div class="response-light" aria-hidden="true">
+    <div class="response-light__sun"></div>
+    <div class="response-light__arc response-light__arc--one"></div>
+    <div class="response-light__arc response-light__arc--two"></div>
+    <div class="response-light__grid"></div>
+  </div>
+
+  <main class="response-page">
+    <article class="response-speech">
+      <slot />
+    </article>
+  </main>
+</BaseLayout>
+
+<style>
+  :global(body:has(.response-page)) {
+    background: #fbf7ed;
+    color: #17232c;
+    overflow-x: clip;
+  }
+
+  :global(body:has(.response-page) .site-header) {
+    position: relative;
+    z-index: 20;
+    background: rgba(255,253,248,.82);
+    border-color: rgba(54,72,86,.10);
+    backdrop-filter: blur(16px);
+  }
+
+  :global(body:has(.response-page) .site-header a) { color: #24323b; }
+
+  :global(body:has(.response-page) .site-footer) {
+    position: relative;
+    z-index: 5;
+    background: rgba(251,247,237,.80);
+    border-color: rgba(54,72,86,.10);
+    color: #6e7880;
+  }
+
+  .response-light {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 50% -10%, rgba(255,255,255,.98) 0 20%, rgba(255,240,201,.78) 38%, transparent 64%),
+      linear-gradient(180deg, #fffdf8 0%, #fbf7ed 50%, #edf7f5 100%);
+  }
+
+  .response-light__sun {
+    position: absolute;
+    width: min(58vw, 48rem);
+    aspect-ratio: 1;
+    top: -32vw;
+    left: 50%;
+    translate: -50% 0;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,1) 0 30%, rgba(255,218,143,.48) 58%, transparent 74%);
+  }
+
+  .response-light__arc {
+    position: absolute;
+    border: 1px solid rgba(53,114,128,.14);
+    border-radius: 50%;
+  }
+
+  .response-light__arc--one {
+    width: 68vw;
+    height: 68vw;
+    left: -30vw;
+    top: 18vh;
+  }
+
+  .response-light__arc--two {
+    width: 58vw;
+    height: 58vw;
+    right: -25vw;
+    top: 58vh;
+    border-color: rgba(216,116,45,.14);
+  }
+
+  .response-light__grid {
+    position: absolute;
+    inset: 0;
+    opacity: .28;
+    background-image:
+      linear-gradient(rgba(48,94,107,.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(48,94,107,.04) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: linear-gradient(to bottom, transparent 0, #000 20%, #000 82%, transparent 100%);
+  }
+
+  .response-page {
+    position: relative;
+    z-index: 2;
+    width: min(100% - 2rem, 78rem);
+    margin: 0 auto;
+    padding: clamp(5rem, 11vw, 9rem) 0 clamp(8rem, 15vw, 13rem);
+  }
+
+  .response-speech {
+    width: min(100%, 48rem);
+    margin: 0 auto;
+    padding: clamp(2rem, 5vw, 3.5rem) clamp(1.2rem, 4vw, 2.8rem);
+    border: 1px solid rgba(55,76,88,.10);
+    border-radius: 2rem;
+    background: rgba(255,253,248,.66);
+    box-shadow: 0 30px 90px rgba(78,84,72,.08);
+    backdrop-filter: blur(12px);
+  }
+
+  :global(.response-speech h1) {
+    margin: 0 0 clamp(3rem, 7vw, 5rem);
+    max-width: 11ch;
+    color: #15232c;
+    font-family: var(--font-display, Georgia, serif);
+    font-size: clamp(3.6rem, 9vw, 7.6rem);
+    font-weight: 520;
+    line-height: .9;
+    letter-spacing: -.055em;
+    text-wrap: balance;
+  }
+
+  :global(.response-speech p) {
+    margin: 0 0 1.5em;
+    color: #26343d;
+    font-family: var(--font-post-body, Georgia, serif);
+    font-size: clamp(1.14rem, 2.1vw, 1.34rem);
+    line-height: 1.72;
+    letter-spacing: -.008em;
+  }
+
+  :global(.response-speech p:first-of-type) {
+    margin-bottom: 1.6em;
+    color: #a05d27;
+    font-family: var(--font-display, Georgia, serif);
+    font-size: clamp(1.7rem, 4vw, 2.6rem);
+    line-height: 1.18;
+    letter-spacing: -.025em;
+  }
+
+  :global(.response-speech p:nth-of-type(4)),
+  :global(.response-speech p:nth-of-type(5)),
+  :global(.response-speech p:nth-of-type(6)),
+  :global(.response-speech p:nth-of-type(7)),
+  :global(.response-speech p:nth-of-type(11)),
+  :global(.response-speech p:nth-of-type(12)),
+  :global(.response-speech p:nth-of-type(13)),
+  :global(.response-speech p:nth-of-type(14)),
+  :global(.response-speech p:nth-of-type(19)),
+  :global(.response-speech p:nth-of-type(20)),
+  :global(.response-speech p:nth-of-type(21)),
+  :global(.response-speech p:nth-of-type(22)) {
+    margin-block: .72rem;
+    color: #1d5966;
+    font-family: var(--font-display, Georgia, serif);
+    font-size: clamp(1.38rem, 3vw, 1.95rem);
+    line-height: 1.25;
+    letter-spacing: -.02em;
+  }
+
+  :global(.response-speech p:nth-of-type(30)),
+  :global(.response-speech p:nth-of-type(31)) {
+    margin-block: .75rem;
+    color: #a05d27;
+    font-family: var(--font-display, Georgia, serif);
+    font-size: clamp(1.7rem, 3.5vw, 2.35rem);
+    line-height: 1.2;
+  }
+
+  :global(.response-speech p:last-of-type) {
+    margin-top: 3.8rem;
+    margin-bottom: 0;
+    color: #15232c;
+    font-family: var(--font-display, Georgia, serif);
+    font-size: clamp(1.9rem, 4.5vw, 3rem);
+    line-height: 1.18;
+    letter-spacing: -.035em;
+  }
+
+  @media (max-width: 700px) {
+    .response-page { width: min(100% - 1rem, 78rem); padding-top: 3.5rem; }
+    .response-speech { border-radius: 1.35rem; padding-inline: 1.3rem; }
+    .response-light__grid { background-size: 38px 38px; }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .response-light__arc--one { animation: response-drift-one 20s ease-in-out infinite alternate; }
+    .response-light__arc--two { animation: response-drift-two 24s ease-in-out infinite alternate; }
+  }
+
+  @keyframes response-drift-one {
+    from { transform: translate3d(0,0,0) scale(1); }
+    to { transform: translate3d(4vw,-2vh,0) scale(1.04); }
+  }
+
+  @keyframes response-drift-two {
+    from { transform: translate3d(0,0,0) scale(1.02); }
+    to { transform: translate3d(-4vw,2vh,0) scale(.98); }
+  }
+</style>

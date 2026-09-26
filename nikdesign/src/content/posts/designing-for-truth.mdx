@@ -1,0 +1,143 @@
+---
+title: "Designing for Truth"
+description: "How UX systems can counter the spread of misinformation — an essay on platform design, behavioral systems, and the architecture of trust."
+excerpt: "Misinformation is not a content problem. It is an architecture problem. And understanding it as such opens pathways that policy alone cannot reach."
+publishedAt: "2020-01-01"
+tags: ["design", "systems", "misinformation", "UX"]
+featured: false
+theme: "signal"
+articleLayout: "essay"
+identity:
+  palette:
+    bg: "#f4f7fb"
+    surface: "#ffffff"
+    surfaceStrong: "#e2ecf9"
+    text: "#121a2b"
+    muted: "#5b6b82"
+    accent: "#1f6feb"
+  fonts: "technical-mono"
+  motion: ["scanline", "waveform-pulse"]
+hero:
+  title: "Designing for Truth"
+  dek: "How UX systems can counter the spread of misinformation — an essay on platform design, behavioral systems, and the architecture of trust."
+---
+
+import GaugeDiagram from '../../components/diagrams/GaugeDiagram.astro'
+
+There's a particular kind of silence that follows a lie that's traveled fast. Not the silence of people being fooled — most people can sense something's off. It's the silence of being overwhelmed. By the time anyone opens a browser tab to check the claim, it's already been shared, screenshotted, reposted, and folded into somebody's worldview.
+
+That gap — between how fast a claim moves and how fast it can be verified — is, I think, the defining design failure of the modern internet.
+
+<GaugeDiagram
+  value={88}
+  label="Claim speed vs. verification speed"
+  caption="By the time a fact-check exists, the claim has already reshaped the conversation."
+/>
+
+A while back I ran a research project called SynFo, short for Synergy of Information. It started as a UX exploration and turned into something closer to a philosophical question: what would it actually take to design systems that help people think clearly?
+
+Misinformation isn't a fringe problem anymore. It shapes elections, public health, markets, how much people trust the institutions around them. And it's not always bad actors doing it on purpose — a lot of it is just the normal, predictable behavior of systems built to reward attention, with no separate mechanism for rewarding truth.
+
+My answer, after sitting with this for a while, is a qualified yes: design can help. Not because it's a silver bullet, but because a lot of this crisis is itself a design outcome, which means design has more leverage on it than people usually assume.
+
+## How we got here
+
+Before social media, information had to pass through gates — editors, broadcast standards, review processes. Imperfect gates, but real friction. Making and distributing content took resources, and resources came with people attached to them, people who could be held accountable.
+
+The internet took those gates down, and social media replaced them with algorithms. That happened fast. Within a decade, the thing deciding what billions of people see each day went from editorial judgment to engagement optimization. Truth was never a variable in that equation. It showed up sometimes, but only by accident.
+
+This isn't a conspiracy story. It's an engineering outcome. Build a system that rewards attention, and you'll reward whatever captures attention — which, it turns out, is usually the outrage-inducing stuff, not the careful, verified stuff. The architecture is doing exactly what it was built to do. The problem is what it was built to do turned out to be corrosive.
+
+That's an uncomfortable thing for a lot of tech leaders to sit with, because it means the platforms weren't hijacked from outside. They're working as designed. A share driven by outrage and a share driven by real insight count exactly the same to the algorithm, because the algorithm was never asked to tell them apart.
+
+Which is part of why moderation alone can't fix this. You can't moderate your way out of a system that structurally rewards the thing you're trying to moderate. Think of a city with bad traffic — you can hire more traffic cops, but if the roads themselves were never built for the volume, enforcement will always be playing catch-up. The infrastructure is the thing that actually needs to change.
+
+## What I saw watching it happen
+
+The SynFo research started with observation, not surveys — just spending weeks inside Facebook groups where misinformation was actively spreading. I picked those because they're a decent microcosm of the wider information ecosystem: tight communities, shared identity, their own internal sense of what counts as credible.
+
+A few weeks in changes how you see this. From outside, it's easy to write off people sharing false claims as careless or gullible. From inside, it's more complicated. Inside these groups, posts get judged by how well they fit the group's shared story, not by whether they're true. Credibility comes from social standing, not evidence. The system works — it's just optimizing for something other than truth.
+
+Four patterns kept showing up, independent of whatever the specific topic was.
+
+Emotionally loaded content spread fastest: anger, fear, moral outrage. That's not new — psychology has known for decades that people share what activates them. What's new is the scale. One charged post can hit millions of feeds in hours, and every engagement tells the algorithm to push it harder. The post doesn't need to be true. It just needs to be activating.
+
+Repetition did something similar. People are more likely to believe a claim they've seen before, regardless of whether it's actually true — the illusory truth effect. In an algorithmic feed, a claim doesn't need to be verified to show up five times. It just needs to generate clicks. In some of the groups I watched, a claim would show up so often, from so many accounts, that questioning it meant questioning the whole community, not just one post.
+
+Social proof mattered enormously. Hundreds of likes and supportive comments from people you trust will beat your own skepticism most of the time, and honestly, that's not stupidity — it's usually a reasonable strategy in real life. The problem is these platforms let that heuristic get gamed, because the "community" reacting to a post is curated by an algorithm, not organic consensus.
+
+And then there was what I'd call visual compression — memes, infographics, screenshots that pack a claim into something easy to share and basically impossible to fact-check in the two seconds someone spends looking at it. A fake statistic dressed up in the right font, with the right layout, borrows legitimacy it hasn't earned. Some of the worst misinformation I saw during that research was formatted to look exactly like real news graphics — logos, citations, the whole visual language of credibility, none of the substance.
+
+None of this is really about individual gullibility. It's a system, and it's working the way systems built to reward engagement will work.
+
+## Why moderation isn't enough
+
+Platforms spend a lot of money on moderation: detection systems, review teams, policy. That matters, and without it things would be worse. But moderation is downstream. By the time a fact-check label shows up, the original claim has already shaped a thousand conversations, and corrections never reach as many people as the original claim did. The first story wins because it was first, not because it was true.
+
+There's also just a scale problem. Platforms host billions of pieces of content a day, and no moderation system, human or algorithmic, evaluates everything in real time. Content creation is instant and free. Evaluation is slow and expensive. That asymmetry favors whoever's producing the bad content, unless something about the underlying system changes.
+
+Moderation treats this as a content problem. I think the evidence says it's an architecture problem — a consequence of how information gets structured and incentivized, not just which individual posts should come down.
+
+## What SynFo tried to do differently
+
+SynFo started from a simple premise: what if the design itself made it easier to evaluate a claim, instead of harder?
+
+Most feeds show you a claim stripped of context: no clear sense of where it came from, how reliable the source is, or how it relates to other claims on the same topic. SynFo proposed showing information as a network instead of a stream of isolated posts — claims, sources, and evidence as connected nodes you could actually explore, so you could see where something came from and what contradicted it.
+
+That's not about telling people what to believe. It's about making the structure of the information visible. If you can see that a viral claim came from one anonymous account, got boosted mostly by bot activity, and contradicts several independent sources, you have what you need to judge it yourself. The system doesn't decide for you. It just stops hiding the parts that would help you decide.
+
+The underlying idea is a UX principle most designers already know: reduce the cognitive load right at the point of decision. Checking a claim properly takes real work — searching, cross-referencing, reading past the headline — and most people, in a two-minute scroll session, won't do that work. Not because they don't care. Because the friction is too high. SynFo tried to put that evaluation work into the interface itself, so context was the default instead of something you had to go looking for.
+
+## Teaching people to notice
+
+Good architecture isn't enough on its own if people don't have the instincts to use it. That's why SynFo also included something called Spot Fake — less a lecture, more a simulation. You'd get shown real and fake content side by side and asked to spot the tells: manipulated images, invented sources, headlines built to provoke instead of inform.
+
+Most media literacy content is lecture-style: here's what misinformation is, here's how to spot it. People absorb that intellectually and then don't apply it in the moment, scrolling fast, surrounded by social cues telling them to trust what they're seeing. Spot Fake was trying to build pattern recognition through repetition instead of a fact sheet — training an instinct, not just delivering information.
+
+## Why this isn't only a societal problem
+
+It's tempting to file all of this under "societal problem," something for politics and public health, not something a company needs to think about. I think that's a mistake.
+
+Organizations are information systems too. They depend on accurate context moving between people. Employees bring the same information habits, and the same vulnerabilities, into work that they have everywhere else. A fake regulatory announcement, a manipulated image of a CEO, a rumor about a product — these aren't hypothetical anymore, and the cost isn't only reputational. Bad information degrades decisions at every level, from the boardroom down.
+
+The same principles behind SynFo — context by default, tracing a claim back to its source, building the instinct to notice manipulation — apply just as much inside a company as they do on a public platform. Most internal tools were never designed with that in mind.
+
+## Then generative AI showed up
+
+Since I did that original research, the landscape shifted again. Generative AI makes convincing fake text, images, and audio cheap to produce and hard to catch. What used to take state-level resources now takes a laptop and an API key.
+
+That changes the math on detection. When making fake content is faster and cheaper than identifying it, chasing detection is a losing game. The more promising path is upstream: systems that make where information came from visible by default, and that build people's instinct to check, rather than systems trying to catch every fake after the fact.
+
+## What better systems would actually do
+
+A few things kept coming up as design principles worth taking seriously.
+
+Context should be the default, not something a user has to dig for: visible source, history, and relationship to other claims, without cluttering the page.
+
+Some friction is good. A short pause before sharing, even just a prompt asking "are you sure this is accurate?", measurably reduces the spread of false content.
+
+Source transparency matters. Right now most platforms strip that context out by design. Restoring it is a design choice, not a technical limitation — the capability already exists.
+
+Skill-building should live inside the product, not in a separate class nobody takes. Small, repeated moments that build the habit of checking are more effective than a one-time lecture.
+
+And underneath all of it, there's an economic problem. As long as engagement is the thing platforms get paid for, the incentive to amplify outrage over accuracy doesn't go away. That's a business model question as much as a design one, but designers can at least make the cost of the current model visible.
+
+## What design can't do
+
+I don't want to overstate this. Misinformation isn't only a design problem — it's also political, economic, cultural, psychological. Better information architecture helps. It doesn't fix institutional distrust or economic anxiety on its own.
+
+There's also an adoption problem. The platforms with the most reach have the least incentive to build any of this, because better information environments can mean lower engagement numbers, which is the thing they're actually optimized to grow. And anything built to increase transparency will get studied and gamed by whoever benefits from the opposite.
+
+Those are real limits. They're not a reason to stop, though. A lot of things that looked commercially impractical eventually became standard once the cost of not doing them got too high — seatbelts, encryption, accessibility. I think information integrity is heading toward the same place.
+
+## Where I land
+
+It's comforting to frame misinformation as a failure of individual judgment: people believing things they shouldn't. That framing puts the problem outside of systems and institutions, and it makes the fix sound simple — education, awareness, better moderation.
+
+I don't think that's what the evidence shows. Misinformation is what you get when platform architecture, algorithmic incentives, and normal human psychology interact the way they were built to interact. The people caught in it are usually responding rationally to an environment somebody else designed.
+
+If design helped create this, design can help fix parts of it too. Not alone, and not fast. But with real attention to how information is structured, how context gets shown, and how incentives get set, you can build systems that make truth a little easier to reach and deception a little less effective.
+
+That's not a guarantee. It's a starting point. And it starts with the same question design always starts with: what are we actually building, and who is it serving?
+
+&bull; &bull; &bull;

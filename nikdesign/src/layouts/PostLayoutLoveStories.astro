@@ -1,0 +1,274 @@
+---
+import BaseLayout from './BaseLayout.astro'
+import { resolvePostIdentity } from '../lib/postIdentity'
+
+const { post, Content } = Astro.props
+const { theme, styleVars } = resolvePostIdentity(post)
+---
+
+<BaseLayout
+  title={`${post.data.title} | NikDesign Journal`}
+  description={post.data.description}
+  theme={theme}
+  identityStyleVars={styleVars}
+  markdownAlternate={`/posts/${post.slug}.md`}
+>
+  <div class="love-backdrop" data-mode="fight" aria-hidden="true">
+    <div class="love-backdrop__grain"></div>
+    <div class="love-backdrop__split"></div>
+    <div class="love-backdrop__fight">FIGHT CLUB</div>
+    <div class="love-backdrop__matrix">THE MATRIX</div>
+    <div class="love-backdrop__year">1999</div>
+  </div>
+
+  <main class="post-shell post-shell--essay love-post">
+    <header class="love-hero">
+      <p class="love-hero__kicker">1999 / TWO FILMS / TWO KINDS OF LOVE</p>
+      <h1>{post.data.hero.title}</h1>
+      <p class="post-dek">{post.data.hero.dek}</p>
+      <div class="post-meta"><span>{post.data.publishedAt}</span></div>
+      <div class="love-hero__axis" aria-hidden="true">
+        <span>DESTROY THE FALSE SELF</span>
+        <span>AWAKEN THE TRUE SELF</span>
+      </div>
+    </header>
+
+    <article class="post-body prose love-body"><Content /></article>
+  </main>
+
+  <script is:inline>
+    (() => {
+      const backdrop = document.querySelector('.love-backdrop');
+      const article = document.querySelector('.love-body');
+      if (!backdrop || !article) return;
+
+      const anchors = [
+        { id: 'fight', el: document.getElementById('i-am-jacks-love-story') },
+        { id: 'matrix', el: document.getElementById('there-is-no-spoon') },
+        { id: 'bridge', el: document.getElementById('two-men-wake-up') },
+        { id: 'love', el: document.getElementById('romantic-love-and-the-love-that-sets-you-free') },
+        { id: '1999', el: document.getElementById('1999') },
+      ].filter((item) => item.el);
+
+      const update = () => {
+        const anchor = window.innerHeight * 0.42;
+        let current = anchors[0];
+        for (const candidate of anchors) {
+          if (candidate.el.getBoundingClientRect().top <= anchor) current = candidate;
+        }
+        if (current) backdrop.dataset.mode = current.id;
+      };
+
+      update();
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update, { passive: true });
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+  :global(body:has(.love-post)) {
+    background: #050504;
+    overflow-x: clip;
+  }
+
+  :global(body:has(.love-post) .site-header),
+  :global(body:has(.love-post) .site-footer) {
+    position: relative;
+    z-index: 20;
+    background: rgba(5,5,4,.8);
+    border-color: rgba(255,255,255,.08);
+    backdrop-filter: blur(14px);
+  }
+
+  .love-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+    background: radial-gradient(circle at 24% 42%, rgba(107,28,23,.2), transparent 32%), #050504;
+    transition: background 1s ease;
+  }
+
+  .love-backdrop__grain,
+  .love-backdrop__split,
+  .love-backdrop__fight,
+  .love-backdrop__matrix,
+  .love-backdrop__year {
+    position: absolute;
+    inset: 0;
+  }
+
+  .love-backdrop__grain {
+    opacity: .2;
+    background:
+      repeating-linear-gradient(0deg, rgba(255,255,255,.015) 0 1px, transparent 1px 4px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,.01) 0 1px, transparent 1px 5px);
+    mix-blend-mode: screen;
+  }
+
+  .love-backdrop__split {
+    inset: 0 50% 0 auto;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,.16), transparent);
+    opacity: .35;
+    transition: opacity .6s ease, transform .8s ease;
+  }
+
+  .love-backdrop__fight,
+  .love-backdrop__matrix,
+  .love-backdrop__year {
+    display: grid;
+    place-items: center;
+    font-family: var(--font-post-mono, monospace);
+    font-weight: 800;
+    letter-spacing: -.08em;
+    white-space: nowrap;
+    transition: opacity .8s ease, transform 1s ease, filter .8s ease;
+  }
+
+  .love-backdrop__fight {
+    color: rgba(255,93,67,.08);
+    font-size: clamp(5rem, 17vw, 15rem);
+    transform: rotate(-4deg) scale(1.05);
+  }
+
+  .love-backdrop__matrix {
+    color: rgba(102,255,139,.08);
+    font-size: clamp(5rem, 17vw, 15rem);
+    opacity: 0;
+    transform: rotate(3deg) scale(.88);
+  }
+
+  .love-backdrop__year {
+    color: rgba(255,255,255,.06);
+    font-size: clamp(7rem, 24vw, 22rem);
+    opacity: 0;
+    transform: scale(.8);
+  }
+
+  .love-backdrop[data-mode='matrix'] {
+    background: radial-gradient(circle at 72% 40%, rgba(22,96,45,.2), transparent 34%), #030604;
+  }
+  .love-backdrop[data-mode='matrix'] .love-backdrop__fight { opacity: .06; transform: translateX(-18vw) rotate(-5deg) scale(1.15); filter: blur(5px); }
+  .love-backdrop[data-mode='matrix'] .love-backdrop__matrix { opacity: 1; transform: rotate(0deg) scale(1); }
+
+  .love-backdrop[data-mode='bridge'] {
+    background:
+      radial-gradient(circle at 24% 45%, rgba(111,30,24,.18), transparent 30%),
+      radial-gradient(circle at 76% 45%, rgba(26,105,52,.18), transparent 30%),
+      #050504;
+  }
+  .love-backdrop[data-mode='bridge'] .love-backdrop__fight,
+  .love-backdrop[data-mode='bridge'] .love-backdrop__matrix { opacity: .62; filter: none; transform: scale(.78); }
+  .love-backdrop[data-mode='bridge'] .love-backdrop__fight { translate: -20vw 0; }
+  .love-backdrop[data-mode='bridge'] .love-backdrop__matrix { translate: 20vw 0; }
+  .love-backdrop[data-mode='bridge'] .love-backdrop__split { opacity: .8; }
+
+  .love-backdrop[data-mode='love'] {
+    background: radial-gradient(circle at 50% 40%, rgba(218,205,171,.12), transparent 36%), #070705;
+  }
+  .love-backdrop[data-mode='love'] .love-backdrop__fight,
+  .love-backdrop[data-mode='love'] .love-backdrop__matrix { opacity: .09; transform: scale(1.2); filter: blur(7px); }
+  .love-backdrop[data-mode='love'] .love-backdrop__split { opacity: 0; }
+
+  .love-backdrop[data-mode='1999'] {
+    background:
+      radial-gradient(circle at 28% 42%, rgba(120,30,25,.16), transparent 27%),
+      radial-gradient(circle at 72% 42%, rgba(20,105,50,.16), transparent 27%),
+      #050504;
+  }
+  .love-backdrop[data-mode='1999'] .love-backdrop__fight,
+  .love-backdrop[data-mode='1999'] .love-backdrop__matrix { opacity: 0; }
+  .love-backdrop[data-mode='1999'] .love-backdrop__year { opacity: 1; transform: scale(1); }
+  .love-backdrop[data-mode='1999'] .love-backdrop__split { opacity: .15; }
+
+  .love-post {
+    position: relative;
+    z-index: 5;
+  }
+
+  .love-hero {
+    width: var(--reading-width);
+    min-height: min(88vh, 56rem);
+    margin: 0 auto 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5rem 0;
+    position: relative;
+  }
+
+  .love-hero__kicker {
+    margin: 0 0 1.4rem;
+    font-family: var(--font-post-mono, monospace);
+    font-size: .72rem;
+    letter-spacing: .14em;
+    color: rgba(240,234,220,.5);
+  }
+
+  .love-hero h1 {
+    max-width: 11ch;
+    font-size: clamp(3.5rem, 9vw, 8.5rem);
+    line-height: .9;
+    letter-spacing: -.055em;
+  }
+
+  .love-hero__axis {
+    margin-top: 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255,255,255,.1);
+    font-family: var(--font-post-mono, monospace);
+    font-size: .65rem;
+    letter-spacing: .12em;
+    color: rgba(255,255,255,.45);
+  }
+  .love-hero__axis span:last-child { text-align: right; }
+
+  :global(.love-body h2) {
+    scroll-margin-top: 8rem;
+    margin-top: 7rem;
+    font-size: clamp(2.4rem, 5vw, 4.7rem);
+    line-height: .95;
+    letter-spacing: -.045em;
+  }
+
+  :global(.love-body #i-am-jacks-love-story) {
+    color: #ff8b72;
+  }
+
+  :global(.love-body #there-is-no-spoon) {
+    color: #91ffad;
+  }
+
+  :global(.love-body blockquote) {
+    margin: 3.5rem 0;
+    padding: 1.4rem 0 1.4rem 1.6rem;
+    border-left: 2px solid rgba(255,255,255,.22);
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    line-height: 1.25;
+    color: #f7f1e7;
+  }
+
+  :global(.love-body strong) {
+    color: #fff;
+  }
+
+  @media (max-width: 760px) {
+    .love-hero { min-height: 78vh; padding-top: 3rem; }
+    .love-hero__axis { grid-template-columns: 1fr; gap: .55rem; }
+    .love-hero__axis span:last-child { text-align: left; }
+    .love-backdrop__split { inset: 0 35% 0 auto; }
+    .love-backdrop[data-mode='bridge'] .love-backdrop__fight { translate: -28vw 0; }
+    .love-backdrop[data-mode='bridge'] .love-backdrop__matrix { translate: 28vw 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .love-backdrop,
+    .love-backdrop * { transition: none !important; }
+  }
+</style>

@@ -1,0 +1,39 @@
+---
+import { getCollection, render } from 'astro:content'
+import PostLayoutCaseStudy from '../../layouts/PostLayoutCaseStudy.astro'
+import PostLayoutDanceFloor from '../../layouts/PostLayoutDanceFloor.astro'
+import PostLayoutEssay from '../../layouts/PostLayoutEssay.astro'
+import PostLayoutDuet from '../../layouts/PostLayoutDuet.astro'
+import PostLayoutIdentity from '../../layouts/PostLayoutIdentity.astro'
+import PostLayoutLoveStories from '../../layouts/PostLayoutLoveStories.astro'
+import PostLayoutRevelation from '../../layouts/PostLayoutRevelation.astro'
+import PostLayoutVoiceActing from '../../layouts/PostLayoutVoiceActing.astro'
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts')
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }))
+}
+
+const { post } = Astro.props
+const { Content } = await render(post)
+const Layout = post.slug === 'ai-slop-you-pressed-share'
+  ? PostLayoutDuet
+  : post.slug === '9-18'
+  ? PostLayoutRevelation
+  : post.slug === 'mr-anderson'
+    ? PostLayoutIdentity
+    : post.slug === 'the-two-greatest-love-stories-ever-told'
+      ? PostLayoutLoveStories
+      : post.slug === 'the-dance-floor-is-a-sacred-place'
+        ? PostLayoutDanceFloor
+        : post.slug === 'voice-agents-need-to-learn-voice-acting'
+          ? PostLayoutVoiceActing
+          : post.data.articleLayout === 'case-study'
+            ? PostLayoutCaseStudy
+            : PostLayoutEssay
+---
+
+<Layout post={post} Content={Content} />

@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content'
+import PostCard from '../../components/editorial/PostCard.astro'
+import SectionHeading from '../../components/editorial/SectionHeading.astro'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import { slugifyTag } from '../../lib/content'
+import { getThemeByKey } from '../../lib/themes'
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts')
+  const tags = [...new Set(posts.flatMap((post) => post.data.tags))]
+
+  return tags.map((tag) => ({
+    params: { tag: slugifyTag(tag) },
+    props: {
+      tag,
+      posts: posts.filter((post) => post.data.tags.includes(tag)),
+    },
+  }))
+}
+
+const { tag, posts } = Astro.props
+---
+
+<BaseLayout
+  title={`${tag} | NikDesign Journal`}
+  description={`Posts tagged ${tag}.`}
+  theme={getThemeByKey('signal')}
+>
+  <main class="page-shell">
+    <SectionHeading title={`Tag: ${tag}`} description="Grouped writing around one recurring thread." />
+    {posts.map((post) => (
+      <PostCard post={post} />
+    ))}
+  </main>
+</BaseLayout>

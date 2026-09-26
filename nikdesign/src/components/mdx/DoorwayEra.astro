@@ -1,0 +1,286 @@
+---
+interface Props {
+  era: 'print' | 'lab' | 'psychedelic' | 'bhakti' | 'reflection'
+  year?: string
+  label?: string
+}
+
+const { era, year, label } = Astro.props
+---
+
+<section class={`doorway-era doorway-era--${era}`}>
+  {(year || label) && (
+    <div class="doorway-era__marker" aria-hidden="true">
+      {year && <span class="doorway-era__year">{year}</span>}
+      {label && <span class="doorway-era__label">{label}</span>}
+    </div>
+  )}
+  <div class="doorway-era__content"><slot /></div>
+</section>
+
+<style>
+  .doorway-era {
+    --era-accent: var(--accent);
+    --era-text: var(--text);
+    --era-muted: var(--muted);
+    --era-link: var(--era-accent);
+    --era-line: color-mix(in srgb, var(--era-accent) 32%, transparent);
+    position: relative;
+    width: 100vw;
+    margin: 0 50%;
+    transform: translateX(-50%);
+    padding: clamp(4rem, 7vw, 7.5rem) max(1.35rem, calc((100% - 46rem) / 2));
+    color: var(--era-text);
+    border-top: 1px solid var(--era-line);
+    border-bottom: 1px solid var(--era-line);
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  .doorway-era::before,
+  .doorway-era::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .doorway-era__marker {
+    display: flex;
+    align-items: baseline;
+    gap: .65rem;
+    max-width: 46rem;
+    margin: 0 auto 2rem;
+    color: var(--era-accent);
+  }
+
+  .doorway-era__year {
+    font-family: var(--font-post-mono, monospace);
+    font-size: .75rem;
+    letter-spacing: .12em;
+  }
+
+  .doorway-era__label {
+    font-family: var(--font-display, serif);
+    font-size: .95rem;
+    font-style: italic;
+    opacity: .9;
+  }
+
+  .doorway-era__content {
+    max-width: 46rem;
+    margin: 0 auto;
+  }
+
+  :global(.doorway-era p),
+  :global(.doorway-era li) {
+    color: var(--era-text);
+  }
+
+  :global(.doorway-era h2),
+  :global(.doorway-era h3) {
+    color: var(--era-accent);
+  }
+
+  :global(.doorway-era a) {
+    color: var(--era-link);
+    text-decoration-color: color-mix(in srgb, var(--era-link) 50%, transparent);
+  }
+
+  /* 1893–1920: printed journal / parchment */
+  .doorway-era--print {
+    --era-accent: #8a4f25;
+    --era-text: #2c241d;
+    --era-muted: #66574a;
+    --era-link: #7a421f;
+    background:
+      radial-gradient(circle at 12% 10%, rgba(126, 76, 31, .12), transparent 28%),
+      radial-gradient(circle at 90% 80%, rgba(113, 74, 39, .08), transparent 32%),
+      linear-gradient(180deg, #efe4cb 0%, #e5d4b4 100%);
+  }
+
+  .doorway-era--print::before {
+    opacity: .5;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(74, 53, 33, .055) 0 1px, transparent 1px 4px),
+      radial-gradient(circle at 70% 25%, rgba(120, 83, 48, .10), transparent 20%);
+    mix-blend-mode: multiply;
+  }
+
+  .doorway-era--print::after {
+    background: linear-gradient(90deg, rgba(66, 45, 27, .08), transparent 18%, transparent 82%, rgba(66, 45, 27, .07));
+    opacity: .55;
+  }
+
+  .doorway-era--print :global(p:first-of-type::first-letter) {
+    float: left;
+    margin: .08em .12em 0 0;
+    font-family: var(--font-display, serif);
+    font-size: 4.4rem;
+    line-height: .78;
+    color: var(--era-accent);
+  }
+
+  /* 1938–1954: laboratory / scientific modernism */
+  .doorway-era--lab {
+    --era-accent: #83c5be;
+    --era-text: #edf7f5;
+    --era-muted: #b8d4d0;
+    --era-link: #a8ddd7;
+    background:
+      radial-gradient(circle at 82% 18%, rgba(75, 174, 176, .18), transparent 24%),
+      radial-gradient(circle at 16% 85%, rgba(20, 71, 82, .55), transparent 38%),
+      linear-gradient(180deg, #17343b 0%, #10262d 100%);
+  }
+
+  .doorway-era--lab::before {
+    opacity: .38;
+    background-image:
+      linear-gradient(rgba(137, 199, 193, .11) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(137, 199, 193, .11) 1px, transparent 1px);
+    background-size: 28px 28px;
+    mask-image: linear-gradient(to bottom, transparent, #000 10%, #000 90%, transparent);
+  }
+
+  .doorway-era--lab::after {
+    background: linear-gradient(115deg, transparent 0 60%, rgba(92, 182, 180, .08) 60% 61%, transparent 61% 100%);
+  }
+
+  .doorway-era--lab :global(blockquote) {
+    border-left-color: var(--era-accent);
+  }
+
+  /* 1960s: psychedelic/counterculture */
+  .doorway-era--psychedelic {
+    --era-accent: #f2a7df;
+    --era-text: #fff7ff;
+    --era-muted: #e8d9ee;
+    --era-link: #f7b7e7;
+    background:
+      radial-gradient(circle at 12% 18%, rgba(238, 88, 149, .35), transparent 30%),
+      radial-gradient(circle at 88% 22%, rgba(44, 197, 191, .28), transparent 30%),
+      radial-gradient(circle at 34% 88%, rgba(137, 79, 220, .36), transparent 34%),
+      radial-gradient(circle at 78% 82%, rgba(238, 150, 61, .18), transparent 28%),
+      linear-gradient(135deg, #43234f 0%, #251c47 46%, #133f46 100%);
+  }
+
+  .doorway-era--psychedelic::before {
+    inset: -18%;
+    background:
+      conic-gradient(from 45deg at 50% 50%, transparent, rgba(255, 119, 186, .20), transparent, rgba(69, 220, 209, .18), transparent),
+      repeating-radial-gradient(ellipse at 20% 60%, transparent 0 34px, rgba(255,255,255,.035) 36px 38px, transparent 40px 70px);
+    filter: blur(28px);
+    opacity: .85;
+    transform: scale(.95);
+  }
+
+  .doorway-era--psychedelic::after {
+    background: linear-gradient(90deg, rgba(255,255,255,.035), transparent 18%, transparent 82%, rgba(255,255,255,.025));
+  }
+
+  .doorway-era--psychedelic :global(h2) {
+    text-shadow: 0 0 34px rgba(242, 167, 223, .22);
+  }
+
+  /* 1965–1969: Krishna bhakti enters the counterculture */
+  .doorway-era--bhakti {
+    --era-accent: #ffd27a;
+    --era-text: #fff6e8;
+    --era-muted: #ecd8bd;
+    --era-link: #ffd894;
+    background:
+      radial-gradient(circle at 86% 16%, rgba(255, 180, 74, .32), transparent 27%),
+      radial-gradient(circle at 18% 82%, rgba(147, 49, 25, .32), transparent 35%),
+      linear-gradient(180deg, #7e351f 0%, #a44724 45%, #6d2e1f 100%);
+  }
+
+  .doorway-era--bhakti::before {
+    opacity: .34;
+    background-image:
+      radial-gradient(circle, rgba(255, 210, 122, .55) 1px, transparent 1.5px),
+      repeating-linear-gradient(45deg, transparent 0 46px, rgba(255, 214, 139, .035) 46px 47px, transparent 47px 94px);
+    background-size: 30px 30px, auto;
+    mask-image: linear-gradient(to bottom, transparent, #000 10%, #000 90%, transparent);
+  }
+
+  .doorway-era--bhakti::after {
+    background: linear-gradient(180deg, rgba(255, 218, 149, .06), transparent 28%, transparent 72%, rgba(47, 11, 7, .15));
+  }
+
+  /* Now: quiet, nocturnal, reflective */
+  .doorway-era--reflection {
+    --era-accent: #d9bf88;
+    --era-text: #f4efe8;
+    --era-muted: #c8bca9;
+    --era-link: #e4ca92;
+    background:
+      radial-gradient(circle at 78% 20%, rgba(76, 94, 145, .26), transparent 28%),
+      radial-gradient(circle at 20% 85%, rgba(95, 67, 117, .18), transparent 36%),
+      linear-gradient(180deg, #111827 0%, #0b1020 55%, #070a12 100%);
+    padding-top: clamp(5rem, 8vw, 8rem);
+    padding-bottom: clamp(6rem, 10vw, 10rem);
+  }
+
+  .doorway-era--reflection::before {
+    width: min(19rem, 58vw);
+    height: min(23rem, 70vw);
+    inset: auto 7% 4rem auto;
+    border: 1px solid rgba(215, 183, 122, .32);
+    background:
+      linear-gradient(90deg, transparent 48%, rgba(215, 183, 122, .11) 49% 51%, transparent 52%),
+      linear-gradient(180deg, rgba(215, 183, 122, .10), transparent 40%);
+    box-shadow: inset 0 0 0 1.1rem rgba(215, 183, 122, .025), 0 0 80px rgba(123, 103, 162, .08);
+    opacity: .62;
+  }
+
+  .doorway-era--reflection::after {
+    background-image: radial-gradient(circle, rgba(255,255,255,.38) .7px, transparent .9px);
+    background-size: 37px 37px;
+    opacity: .15;
+  }
+
+  .doorway-era--reflection :global(blockquote) {
+    position: relative;
+    margin: 2.75rem 0 0;
+    padding: 1.8rem 0 0;
+    border: 0;
+    border-top: 1px solid rgba(215, 183, 122, .35);
+    color: var(--era-text);
+    font-family: var(--font-display, serif);
+    font-size: clamp(1.3rem, 2.3vw, 1.8rem);
+    line-height: 1.55;
+  }
+
+  .doorway-era--reflection :global(blockquote::before) {
+    content: '“';
+    position: absolute;
+    left: -.05em;
+    top: -.75em;
+    font-size: 6rem;
+    color: rgba(215, 183, 122, .22);
+  }
+
+  @media (max-width: 760px) {
+    .doorway-era {
+      width: 100vw;
+      padding: 3.75rem 1.35rem;
+    }
+
+    .doorway-era--reflection::before {
+      opacity: .25;
+      right: -1rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .doorway-era--psychedelic::before {
+      animation: doorway-drift 18s ease-in-out infinite alternate;
+    }
+  }
+
+  @keyframes doorway-drift {
+    from { transform: translate3d(-2%, -1%, 0) scale(.95) rotate(-2deg); }
+    to { transform: translate3d(2%, 1%, 0) scale(1.03) rotate(2deg); }
+  }
+</style>

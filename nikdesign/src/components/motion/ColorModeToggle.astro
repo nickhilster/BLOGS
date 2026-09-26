@@ -1,0 +1,35 @@
+---
+// Light/dark toggle scoped to chrome pages (see BaseLayout's
+// `colorModeToggle` prop). Post pages never render this — they keep their
+// own fixed per-post `identity` palette regardless of this toggle.
+---
+
+<button type="button" class="color-mode-toggle" aria-label="Toggle light and dark mode" data-color-mode-toggle>
+  <svg class="color-mode-toggle__icon color-mode-toggle__icon--sun" viewBox="0 0 24 24" aria-hidden="true">
+    <circle cx="12" cy="12" r="4.5" />
+    <path d="M12 2.5v3M12 18.5v3M21.5 12h-3M5.5 12h-3M18.5 5.5l-2.1 2.1M7.6 16.4l-2.1 2.1M18.5 18.5l-2.1-2.1M7.6 7.6 5.5 5.5" />
+  </svg>
+  <svg class="color-mode-toggle__icon color-mode-toggle__icon--moon" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z" />
+  </svg>
+</button>
+
+<script>
+  import { COLOR_MODE_EVENT, COLOR_MODE_STORAGE_KEY, oppositeColorMode, themeClassForColorMode } from '../../lib/colorMode'
+  import type { ColorMode } from '../../lib/colorMode'
+
+  const button = document.querySelector<HTMLButtonElement>('[data-color-mode-toggle]')
+
+  if (button) {
+    button.addEventListener('click', () => {
+      const current: ColorMode = document.body.classList.contains('theme-nocturne') ? 'dark' : 'light'
+      const next = oppositeColorMode(current)
+
+      document.body.classList.remove('theme-signal', 'theme-nocturne')
+      document.body.classList.add(themeClassForColorMode(next))
+      localStorage.setItem(COLOR_MODE_STORAGE_KEY, next)
+
+      window.dispatchEvent(new CustomEvent(COLOR_MODE_EVENT, { detail: { mode: next } }))
+    })
+  }
+</script>

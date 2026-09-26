@@ -1,0 +1,448 @@
+---
+title: "Git, Branches, and the Things We Leave Behind"
+slug: "generations-in-trees"
+description: "A light-hearted walk through Git that branches into inheritance, creativity, power, and what we leave for the people who come next."
+excerpt: "Git was never meant to sound profound. Then again, neither are most of the things that become metaphors for being human."
+publishedAt: "2026-07-12"
+updatedAt: "2026-07-12"
+tags: ["software", "culture", "technology", "philosophy"]
+featured: true
+theme: "signal"
+articleLayout: "essay"
+identity:
+  palette:
+    bg: "#0d1117"
+    surface: "#161b22"
+    surfaceStrong: "#1f2530"
+    text: "#e6edf3"
+    muted: "#8b949e"
+    accent: "#3fb950"
+  fonts: "grotesk-mono"
+  motion: ["branch-draw-in"]
+hero:
+  title: "Git, Branches, and the Things We Leave Behind"
+  dek: "A small piece of developer terminology that opens into a much larger question: what do we inherit, what do we change, and what remains after our branch ends?"
+---
+
+import TreeDiagram from '../../components/diagrams/TreeDiagram.astro'
+
+The name **Git** was never meant to sound profound.
+
+Its creator, Linus Torvalds, has joked that he chose the name partly because “git” is British slang for an unpleasant person. It was short, memorable, and available.
+
+Very practical.
+
+Very developer.
+
+But software has a habit of becoming more meaningful than the names we give it.
+
+Git is now the system millions of people use to track how software changes over time. It remembers what was added, what was removed, who changed what, and when the work split into different directions.
+
+Those directions are called **branches**.
+
+A branch might hold a new feature. It might contain an experiment. It might be merged back into the main project. It might sit untouched for years.
+
+It might die.
+
+And somewhere inside that very ordinary technical language is a surprisingly human idea.
+
+So let us give Git another meaning:
+
+## Generations in Trees
+
+Every piece of software begins somewhere.
+
+Someone writes the first line. Someone else improves it. Another person finds a flaw. A new team takes over. An old idea is abandoned. Years later, someone discovers it again.
+
+The work grows through generations.
+
+Not in a straight line, but like a tree.
+
+<TreeDiagram
+  root={{
+    label: 'main',
+    children: [
+      { label: 'feature/onboarding', children: [{ label: 'fix/typo' }] },
+      { label: 'feature/payments' },
+      { label: 'release/1.0', children: [{ label: 'hotfix/timeout' }] },
+    ],
+  }}
+/>
+
+Some branches become strong.
+
+Some grow in strange directions.
+
+Some are cut back.
+
+Some stop growing entirely.
+
+But even a dead branch may have changed the shape of the tree.
+
+It may have revealed a problem. It may have taught someone what not to do. It may contain an idea that only becomes useful later.
+
+A branch can contribute without ever knowing what it contributed.
+
+People can too.
+
+## If a branch falls in a forest
+
+There is an old philosophical question:
+
+> If a tree falls in a forest and nobody is there to hear it, does it make a sound?
+
+A software project raises a related question:
+
+> If a branch dies and nobody remembers why it existed, did it still matter?
+
+Usually, yes.
+
+The visible result is only part of the history.
+
+Behind every finished product are abandoned drafts, failed attempts, forgotten contributors, uncomfortable lessons, and ideas that arrived before the world was ready for them.
+
+That is true far beyond software.
+
+It is true in music.
+
+It is true in art.
+
+It is true in cuisine, language, science, business, and culture.
+
+The things we celebrate rarely appeared from nowhere.
+
+## Nothing begins at the beginning
+
+Rock music did not begin with one famous band.
+
+Jazz did not begin with one great musician.
+
+A cuisine does not belong to the first chef who puts it on television.
+
+Every creative form grows through influence, migration, imitation, theft, improvisation, memory, and response.
+
+Someone hears a rhythm and changes it.
+
+Someone learns a recipe and adapts it to what is available.
+
+Someone sees a painting and carries part of it into another style.
+
+Someone writes a piece of code based on an answer left years earlier by a stranger on an obscure forum.
+
+We like stories with clear beginnings and identifiable heroes.
+
+Reality is rarely so tidy.
+
+The visible tree is not the whole tree.
+
+Many artists were never recorded. Many contributors were never credited. Many ideas survived under someone else’s name.
+
+History tends to remember the branch that reached the sunlight.
+
+It often forgets the branches that helped it get there.
+
+## What makes software unusual
+
+A painting can influence another painting.
+
+A song can be covered, sampled, reinterpreted, or remembered.
+
+A recipe can be adapted.
+
+But software has an additional quality.
+
+It can be handed over while it is still becoming.
+
+Another person can open it, inspect it, change it, repair it, extend it, or take it in a completely different direction.
+
+Software can be inherited as unfinished thought.
+
+That makes it more than a product.
+
+It becomes a kind of collective memory.
+
+A piece of software may contain decisions made by hundreds of people who never met one another. It may depend on tools built by thousands more. It may rely on mathematics developed centuries earlier.
+
+The final product carries all of them, even when their names are no longer visible.
+
+Software is not simply written by individuals.
+
+It is accumulated intelligence.
+
+A hive-mind with version history.
+
+## Standing on shoulders
+
+We often say that people achieve great things by standing on the shoulders of giants.
+
+That is true.
+
+But the giants were standing on someone too.
+
+Behind every famous founder, artist, inventor, or company is a much larger structure of teachers, workers, public research, forgotten experiments, communities, collaborators, critics, and competitors.
+
+No one begins at the root.
+
+Apple did not invent computing from nothing.
+
+Google did not invent the internet.
+
+Facebook did not invent human connection.
+
+PayPal did not invent money.
+
+They entered existing trees, found branches that could grow differently, and built something powerful from what they inherited.
+
+That deserves recognition.
+
+But inheritance creates responsibility too.
+
+The point is not only to stand on shoulders.
+
+The point is to become shoulders worth standing on.
+
+## When the rebel becomes the establishment
+
+Many influential technology companies began by challenging something larger.
+
+Apple challenged the world of centralized corporate computing, represented at the time by companies such as IBM. Its promise was personal: computers should belong in the hands of ordinary people.
+
+Google challenged the difficulty of finding anything useful on the early web. Its promise was access: the world’s information should be easier to reach.
+
+Facebook challenged traditional publishing and communication. Its promise was participation: anyone should be able to connect, speak, and share.
+
+PayPal challenged slow, awkward financial systems that had not adapted to life online. Its promise was movement: money should travel as easily as information.
+
+These companies genuinely opened doors.
+
+Then they became very large.
+
+And large branches create shade.
+
+Apple gave people powerful personal devices, but also built a tightly controlled environment around them.
+
+Google made information easier to find, then became one of the main systems deciding what gets found.
+
+Facebook gave billions of people a voice, then built the machinery that ranks, measures, and monetizes those voices.
+
+The people who built PayPal went on to create and fund companies across finance, media, transport, defence, aerospace, and politics. A single rebellious company became a network capable of shaping which rebellions came next.
+
+The outsiders became institutions.
+
+The challengers became gatekeepers.
+
+The branches grew into trunks.
+
+## This does not make the whole story evil
+
+It is tempting to turn this into a simple morality tale.
+
+Good startup becomes bad corporation.
+
+That is too easy.
+
+These companies built useful things. They solved real problems. They gave people tools, access, reach, convenience, and opportunities that did not exist before.
+
+The more difficult truth is that a value can change meaning as power grows.
+
+“Move fast” may be energizing when five people are building a prototype.
+
+It becomes more complicated when the product shapes the behaviour of billions.
+
+“Protect the user” may be sensible when designing a safe experience.
+
+It becomes more complicated when protection is used to justify removing the user’s control.
+
+“Organize information” sounds neutral.
+
+It becomes less neutral when one company becomes the main doorway through which people encounter the world.
+
+The original values may not have been false.
+
+They may simply have been designed for branches that had not yet become trunks.
+
+## The branch that thinks it is the tree
+
+Success can create a peculiar kind of amnesia.
+
+A company remembers being small long after it has become powerful.
+
+A founder remembers fighting the system long after becoming part of the system.
+
+A platform remembers opening doors while quietly controlling who may pass through them.
+
+That may be the most dangerous stage in the life of any institution:
+
+When it still sees itself as the rebel, but everyone else must live under its rules.
+
+A branch can become so large that others mistake it for the tree.
+
+Eventually, the branch may make the same mistake.
+
+## The forgotten branch
+
+In software, teams often find old branches sitting untouched.
+
+Some contain nothing useful.
+
+Others contain ideas that suddenly make sense again.
+
+The technology may have caught up.
+
+The market may have changed.
+
+The original problem may have returned in a new form.
+
+What looked irrelevant five years ago may become exactly what is needed now.
+
+Human history works the same way.
+
+Artists are rediscovered.
+
+Ideas return.
+
+Old techniques become new movements.
+
+People once dismissed as impractical are later described as visionary.
+
+Recognition often says as much about the audience as it does about the work.
+
+Sometimes the branch was not wrong.
+
+The forest was simply not ready to hear it fall.
+
+## What we inherit
+
+Every generation receives a world it did not build alone.
+
+We inherit language.
+
+We inherit music.
+
+We inherit institutions.
+
+We inherit technology.
+
+We inherit mistakes.
+
+We inherit unfinished work.
+
+Then we make our own changes.
+
+Some will endure.
+
+Some will fail.
+
+Some will be misunderstood.
+
+Some will be taken up by people who never know where they came from.
+
+Most of us will not become famous branches.
+
+That does not make our contribution meaningless.
+
+A teacher changes the shape of people they may never meet again.
+
+A developer fixes a small problem that saves thousands of strangers a few seconds.
+
+An artist influences someone who goes on to create something entirely different.
+
+A parent gives a child language for a future the parent will never see.
+
+A colleague leaves behind a better process.
+
+A stranger writes an answer that helps someone years later.
+
+The branch does not need applause from the tree.
+
+## The tree of life
+
+Software keeps changing because people keep changing.
+
+So does music.
+
+So does art.
+
+So does food.
+
+So does language.
+
+There is no final version.
+
+There is no last song.
+
+There is no perfect organization.
+
+There is no completed human culture.
+
+Each generation receives something unfinished.
+
+We preserve parts of it.
+
+We improve parts of it.
+
+We damage parts of it.
+
+We misunderstand parts of it.
+
+Then we hand it forward.
+
+This is why Git feels larger than a software tool.
+
+It records a truth that applies almost everywhere:
+
+Nothing meaningful is created alone.
+
+Nothing living remains unchanged.
+
+Nothing we build belongs only to us.
+
+## Squaring the circle
+
+A tree moves outward.
+
+It branches into new directions.
+
+A circle returns to where it began.
+
+At first, these shapes appear to oppose each other.
+
+But inheritance joins them.
+
+Every new branch contains something old.
+
+Every future carries part of its past.
+
+The newest software contains old mathematics.
+
+The newest music contains ancient rhythms.
+
+The newest cuisine carries migrations, trade routes, hardship, memory, and family.
+
+The newest ideas rest on thoughts developed by people whose names we may never know.
+
+The tree keeps growing outward.
+
+But each generation curves back toward the same responsibility:
+
+Remember what made your growth possible.
+
+Do not confuse your branch with the whole tree.
+
+Do not block the light simply because you finally reached it.
+
+Preserve enough of the abandoned branches that someone else may discover what they contain.
+
+And when your branch eventually ends, leave behind something another person can build upon.
+
+Git is not really an acronym.
+
+But perhaps it can be one for us.
+
+**Generations in Trees.**
+
+We are temporary branches in a living system.
+
+The tree will outlive us.
+
+But it will carry something from every one of us who helped it grow.

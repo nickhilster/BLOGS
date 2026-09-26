@@ -1,0 +1,79 @@
+---
+import { response2026Locales } from '../../lib/response2026Locales'
+
+interface Props {
+  current?: string
+}
+
+const { current = 'en' } = Astro.props
+const slug = ['the-great', '9', '11'].join('-')
+const base = `/posts/${slug}`
+const hrefFor = (code: string) => code === 'en' ? base : `${base}/${code}`
+---
+
+<nav class="response-language-rail" aria-label="Article languages">
+  <div class="response-language-rail__inner">
+    {response2026Locales.map((locale) => (
+      <a
+        href={hrefFor(locale.code)}
+        lang={locale.lang}
+        dir={locale.dir}
+        hreflang={locale.lang}
+        aria-current={locale.code === current ? 'page' : undefined}
+        class:list={["response-language-rail__tab", { "is-active": locale.code === current }]}
+      >
+        {locale.label}
+      </a>
+    ))}
+  </div>
+</nav>
+
+<style>
+  .response-language-rail {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    width: 100%;
+    border-bottom: 1px solid rgba(49, 77, 88, .10);
+    background: rgba(255, 253, 248, .86);
+    backdrop-filter: blur(18px);
+  }
+  .response-language-rail__inner {
+    display: flex;
+    gap: .35rem;
+    width: min(100% - 2rem, 78rem);
+    margin: 0 auto;
+    padding: .62rem 0;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: thin;
+  }
+  .response-language-rail__tab {
+    flex: 0 0 auto;
+    padding: .5rem .72rem;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    color: #66737b;
+    font-family: var(--font-post-mono, ui-monospace, monospace);
+    font-size: .72rem;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color .18s ease, background .18s ease, border-color .18s ease;
+  }
+  .response-language-rail__tab:hover {
+    color: #18252e;
+    border-color: rgba(216, 116, 45, .28);
+  }
+  .response-language-rail__tab.is-active {
+    color: #7f451d;
+    background: rgba(216, 116, 45, .10);
+    border-color: rgba(216, 116, 45, .26);
+  }
+  @media (max-width: 700px) {
+    .response-language-rail__inner {
+      width: 100%;
+      padding-inline: .75rem;
+    }
+  }
+</style>

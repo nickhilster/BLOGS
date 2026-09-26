@@ -1,0 +1,1 @@
+JobApplyBuddy deployment trigger: page and markdown download included.

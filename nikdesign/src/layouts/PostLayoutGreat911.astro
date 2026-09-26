@@ -1,0 +1,49 @@
+---
+import BaseLayout from './BaseLayout.astro'
+import Great911LanguageTabs from '../components/editorial/Great911LanguageTabs.astro'
+import { getGreat911Language } from '../lib/great911Languages'
+import { resolvePostIdentity } from '../lib/postIdentity'
+
+const { post, Content } = Astro.props
+const { theme, styleVars, heroMotion } = resolvePostIdentity(post)
+const language = getGreat911Language(post.slug)
+const dir = language?.dir ?? 'ltr'
+---
+
+<BaseLayout
+  title={`${post.data.title} | NikDesign Journal`}
+  description={post.data.description}
+  theme={theme}
+  identityStyleVars={styleVars}
+>
+  <Great911LanguageTabs slug={post.slug} />
+  <main class="post-shell post-shell--essay great911-post" dir={dir}>
+    <header class="post-hero" data-motion={heroMotion}>
+      <p class="post-kicker">{post.data.tags.join(' / ')}</p>
+      <h1>{post.data.hero.title}</h1>
+      <p class="post-dek">{post.data.hero.dek}</p>
+      <div class="post-meta"><span>{post.data.publishedAt}</span></div>
+    </header>
+    <article class="post-body prose"><Content /></article>
+  </main>
+</BaseLayout>
+
+<style>
+  .great911-post[dir='rtl'] {
+    text-align: right;
+  }
+
+  .great911-post[dir='rtl'] :global(blockquote) {
+    border-left: 0;
+    border-right: 2px solid var(--border);
+    padding-left: 0;
+    padding-right: 1.4rem;
+  }
+
+  .great911-post :global(h1),
+  .great911-post :global(h2),
+  .great911-post :global(p),
+  .great911-post :global(blockquote) {
+    unicode-bidi: plaintext;
+  }
+</style>

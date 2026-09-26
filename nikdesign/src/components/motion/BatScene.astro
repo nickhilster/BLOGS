@@ -1,0 +1,113 @@
+---
+// Self-contained, opt-in reading effect for a single post: splits the
+// article into per-heading "chapters", tints a fixed backdrop differently
+// per chapter as the reader scrolls, and sends a small flock of original
+// bat silhouettes across the screen each time a new chapter becomes active.
+// Nothing here is shared with the site's existing [data-motion] system
+// (see src/lib/motion.ts / src/styles/motion.css) — this only runs on
+// posts that import it, and degrades to a plain single background with no
+// script changes to the page if JS or IntersectionObserver isn't available.
+---
+
+<div class="bat-scene" data-bat-scene aria-hidden="true">
+  <div class="bat-scene__sky"></div>
+</div>
+
+<template data-bat-template>
+  <div class="bat-scene__bat">
+    <svg class="bat-scene__bat-svg" viewBox="-40 -22 80 44" xmlns="http://www.w3.org/2000/svg">
+      <g fill="currentColor">
+        <ellipse cx="0" cy="0" rx="3" ry="5" />
+        <path d="M-2,-5 L-5,-13 L-0.5,-7 Z" />
+        <path d="M2,-5 L5,-13 L0.5,-7 Z" />
+        <path
+          class="bat-scene__wing"
+          d="M3,0 C11,-4 19,-2 26,-8 C20,-5 17,-1 22,3 C16,0 12,4 18,10 C11,7 7,9 11,15 C6,9 3,7 3,3 Z"
+        />
+        <path
+          class="bat-scene__wing"
+          transform="scale(-1,1)"
+          d="M3,0 C11,-4 19,-2 26,-8 C20,-5 17,-1 22,3 C16,0 12,4 18,10 C11,7 7,9 11,15 C6,9 3,7 3,3 Z"
+        />
+      </g>
+    </svg>
+  </div>
+</template>
+
+<script>
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const article = document.querySelector<HTMLElement>('.post-body')
+  const sceneRoot = document.querySelector<HTMLElement>('[data-bat-scene]')
+  const sky = sceneRoot?.querySelector<HTMLElement>('.bat-scene__sky')
+  const batTemplate = document.querySelector<HTMLTemplateElement>('[data-bat-template]')
+
+  const isSceneNode = (node: Element) =>
+    node === sceneRoot || node === batTemplate || node.tagName === 'SCRIPT'
+
+  if (article && sceneRoot && sky && batTemplate && 'IntersectionObserver' in window) {
+    const contentNodes = Array.from(article.children).filter((node) => !isSceneNode(node))
+
+    const chapters: Element[][] = []
+    let current: Element[] = []
+    for (const node of contentNodes) {
+      if (node.tagName === 'H2' && current.length) {
+        chapters.push(current)
+        current = []
+      }
+      current.push(node)
+    }
+    if (current.length) chapters.push(current)
+
+    const sections = chapters.map((chapterNodes, index) => {
+      const section = document.createElement('section')
+      section.className = 'bat-scene-chapter'
+      section.dataset.chapterIndex = String(index)
+      const heading = chapterNodes.find((node) => node.tagName === 'H2') as HTMLElement | undefined
+      if (heading?.id) section.setAttribute('aria-labelledby', heading.id)
+      article.insertBefore(section, chapterNodes[0])
+      chapterNodes.forEach((node) => section.appendChild(node))
+      return section
+    })
+
+    let activeIndex = 0
+    sceneRoot.dataset.activeChapter = '0'
+    const activeSet = new Set<number>([0])
+
+    const spawnBats = () => {
+      const count = 2 + Math.floor(Math.random() * 2)
+      for (let i = 0; i < count; i += 1) {
+        const bat = batTemplate.content.firstElementChild!.cloneNode(true) as HTMLElement
+        const ltr = Math.random() > 0.5
+        bat.classList.add(ltr ? 'bat-scene__bat--ltr' : 'bat-scene__bat--rtl')
+        bat.style.setProperty('--bat-top', `${8 + Math.random() * 55}%`)
+        bat.style.setProperty('--bat-duration', `${4200 + Math.random() * 2200}ms`)
+        bat.style.setProperty('--bat-delay', `${i * 180}ms`)
+        bat.addEventListener('animationend', () => bat.remove())
+        sky.appendChild(bat)
+      }
+    }
+
+    const setActive = (index: number) => {
+      if (index === activeIndex) return
+      activeIndex = index
+      sceneRoot.dataset.activeChapter = String(index)
+      if (!prefersReducedMotion) spawnBats()
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const index = Number((entry.target as HTMLElement).dataset.chapterIndex)
+          if (entry.isIntersecting) activeSet.add(index)
+          else activeSet.delete(index)
+        }
+        if (activeSet.size) setActive(Math.min(...activeSet))
+      },
+      { rootMargin: '-45% 0px -45% 0px', threshold: 0 },
+    )
+
+    sections.forEach((section) => observer.observe(section))
+  } else {
+    sceneRoot?.remove()
+  }
+</script>

@@ -1,0 +1,11 @@
+---
+import { response2026Base64 } from '../../lib/response2026Data'
+
+const raw = globalThis.atob(response2026Base64).trim()
+const doubledDash = `${String.fromCodePoint(8212)} ${String.fromCodePoint(8211)}`
+const source = raw.split(doubledDash).join(String.fromCodePoint(8212))
+const [title, ...paragraphs]: string[] = source.split(/\n\n+/)
+---
+
+<h1>{title}</h1>
+{paragraphs.map((paragraph: string) => <p>{paragraph}</p>)}

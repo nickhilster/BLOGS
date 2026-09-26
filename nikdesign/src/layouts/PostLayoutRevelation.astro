@@ -1,0 +1,596 @@
+---
+import BaseLayout from './BaseLayout.astro'
+import { resolvePostIdentity } from '../lib/postIdentity'
+
+const { post, Content } = Astro.props
+const { theme, styleVars } = resolvePostIdentity(post)
+---
+
+<BaseLayout
+  title={`${post.data.title} | NikDesign Journal`}
+  description={post.data.description}
+  theme={theme}
+  identityStyleVars={styleVars}
+  markdownAlternate={`/posts/${post.slug}.md`}
+>
+  <div class="revelation-backdrop" data-stage="matrix" aria-hidden="true">
+    <div class="revelation-backdrop__void"></div>
+    <div class="revelation-backdrop__grid"></div>
+    <div class="revelation-rain" id="revelation-rain"></div>
+    <div class="revelation-wheel"></div>
+    <div class="revelation-seed">बीजमव्ययम्</div>
+    <div class="revelation-flare"></div>
+    <div class="revelation-grain"></div>
+  </div>
+
+  <div class="revelation-progress" aria-hidden="true">
+    <div class="revelation-progress__track"><span id="revelation-progress-bar"></span></div>
+    <span class="revelation-progress__clock" id="revelation-easter-clock">9:18</span>
+  </div>
+
+  <main class="post-shell post-shell--essay revelation-post">
+    <header class="post-hero revelation-hero">
+      <p class="post-kicker">{post.data.tags.join(' / ')}</p>
+      <div class="revelation-clock" aria-label="Nine eighteen">
+        <span>9</span><i>:</i><span>18</span>
+      </div>
+      <h1>{post.data.hero.title}</h1>
+      <p class="post-dek">{post.data.hero.dek}</p>
+      <div class="post-meta"><span>{post.data.publishedAt}</span></div>
+      <p class="revelation-hero__whisper" aria-hidden="true">the answer is in the scene before the clock</p>
+    </header>
+
+    <article class="post-body prose revelation-body"><Content /></article>
+  </main>
+
+  <script is:inline>
+    (() => {
+      const backdrop = document.querySelector('.revelation-backdrop');
+      const rain = document.getElementById('revelation-rain');
+      const progressBar = document.getElementById('revelation-progress-bar');
+      const easterClock = document.getElementById('revelation-easter-clock');
+      const markers = [...document.querySelectorAll('[data-revelation]')];
+      if (!backdrop) return;
+
+      // 18 columns. Each column carries 9 glyphs. The first Easter egg is structural.
+      if (rain) {
+        const matrixGlyphs = '01ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾀﾇﾍ';
+        const sacredGlyphs = 'कृष्णबीजमव्ययम्ॐ';
+        for (let column = 0; column < 18; column += 1) {
+          const stream = document.createElement('span');
+          stream.className = 'revelation-rain__stream';
+          stream.style.setProperty('--column', String(column));
+          stream.style.setProperty('--delay', `${-((column * 1.37) % 11).toFixed(2)}s`);
+          stream.style.setProperty('--duration', `${8 + ((column * 7) % 9)}s`);
+          let text = '';
+          for (let row = 0; row < 9; row += 1) {
+            const useSacred = (column + row) % 11 === 0;
+            const source = useSacred ? sacredGlyphs : matrixGlyphs;
+            text += source[(column * 5 + row * 7) % source.length] + '\n';
+          }
+          stream.textContent = text;
+          rain.appendChild(stream);
+        }
+      }
+
+      let activeStage = 'matrix';
+      const setStage = (stage) => {
+        if (!stage || stage === activeStage) return;
+        activeStage = stage;
+        backdrop.dataset.stage = stage;
+        document.documentElement.dataset.revelationStage = stage;
+      };
+
+      const nearestMarker = () => {
+        if (markers.length === 0) return null;
+        const anchor = window.innerHeight * 0.46;
+        let candidate = markers[0];
+        let best = Infinity;
+        for (const marker of markers) {
+          const rect = marker.getBoundingClientRect();
+          const distance = Math.abs(rect.top - anchor);
+          if (distance < best) {
+            best = distance;
+            candidate = marker;
+          }
+        }
+        return candidate;
+      };
+
+      const update = () => {
+        const doc = document.documentElement;
+        const max = Math.max(1, doc.scrollHeight - window.innerHeight);
+        const progress = Math.min(1, Math.max(0, window.scrollY / max));
+        if (progressBar) progressBar.style.transform = `scaleY(${progress})`;
+
+        // At 9.18% of the essay, the clock quietly answers back.
+        const at918 = progress >= 0.0895 && progress <= 0.0945;
+        if (easterClock) easterClock.classList.toggle('is-awake', at918);
+
+        const marker = nearestMarker();
+        if (marker) setStage(marker.getAttribute('data-revelation'));
+      };
+
+      backdrop.dataset.stage = 'matrix';
+      document.documentElement.dataset.revelationStage = 'matrix';
+      update();
+
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          update();
+          ticking = false;
+        });
+      }, { passive: true });
+      window.addEventListener('resize', update, { passive: true });
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+  :global(body:has(.revelation-post)) {
+    background: #030705;
+    overflow-x: clip;
+  }
+
+  :global(body:has(.revelation-post) .site-header),
+  :global(body:has(.revelation-post) .site-footer) {
+    position: relative;
+    z-index: 8;
+    background: rgba(2, 5, 4, .66);
+    backdrop-filter: blur(16px);
+    border-color: rgba(137, 255, 171, .08);
+  }
+
+  :global(body:has(.revelation-post) .brand),
+  :global(body:has(.revelation-post) .site-nav a),
+  :global(body:has(.revelation-post) .site-footer) {
+    color: rgba(224, 239, 228, .72);
+  }
+
+  .revelation-backdrop {
+    --matrix: 80, 255, 126;
+    --saffron: 255, 174, 63;
+    --indigo: 100, 84, 255;
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+    background: #020504;
+  }
+
+  .revelation-backdrop__void,
+  .revelation-backdrop__grid,
+  .revelation-rain,
+  .revelation-wheel,
+  .revelation-flare,
+  .revelation-grain,
+  .revelation-seed {
+    position: absolute;
+    inset: 0;
+  }
+
+  .revelation-backdrop__void {
+    transition: background 1.5s ease;
+    background:
+      radial-gradient(circle at 50% 18%, rgba(var(--matrix), .09), transparent 30%),
+      radial-gradient(circle at 82% 78%, rgba(18, 76, 40, .12), transparent 36%),
+      linear-gradient(180deg, #030705 0%, #020403 55%, #010201 100%);
+  }
+
+  .revelation-backdrop__grid {
+    opacity: .17;
+    background-image:
+      linear-gradient(rgba(var(--matrix), .055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(var(--matrix), .04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: linear-gradient(to bottom, #000 0%, rgba(0,0,0,.72) 55%, transparent 100%);
+    transition: opacity 1.3s ease, filter 1.3s ease;
+  }
+
+  .revelation-rain {
+    display: grid;
+    grid-template-columns: repeat(18, 1fr);
+    opacity: .21;
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,.95), rgba(0,0,0,.38) 62%, transparent 94%);
+    transition: opacity 1.2s ease, filter 1.2s ease;
+  }
+
+  :global(.revelation-rain__stream) {
+    position: relative;
+    top: -45vh;
+    white-space: pre-line;
+    color: rgba(var(--matrix), .72);
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: clamp(.54rem, .72vw, .76rem);
+    line-height: 2.2;
+    text-align: center;
+    text-shadow: 0 0 12px rgba(var(--matrix), .35);
+    animation: revelation-rain-fall var(--duration) linear var(--delay) infinite;
+  }
+
+  .revelation-wheel {
+    inset: 50% auto auto 50%;
+    width: min(80vw, 58rem);
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%) scale(.68) rotate(-9deg);
+    border-radius: 50%;
+    opacity: 0;
+    background:
+      repeating-conic-gradient(from -10deg, rgba(var(--saffron), .16) 0 1deg, transparent 1deg 20deg),
+      repeating-radial-gradient(circle, transparent 0 42px, rgba(var(--saffron), .055) 43px 44px, transparent 45px 73px);
+    mask-image: radial-gradient(circle, transparent 0 16%, #000 17% 72%, transparent 82%);
+    transition: opacity 1.6s ease, transform 2s cubic-bezier(.2,.75,.2,1), filter 1.5s ease;
+  }
+
+  .revelation-seed {
+    display: grid;
+    place-items: center;
+    opacity: 0;
+    color: rgba(255, 207, 122, .11);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(3rem, 11vw, 10rem);
+    letter-spacing: -.04em;
+    transform: scale(.88);
+    transition: opacity 1.5s ease, transform 2.2s ease;
+    white-space: nowrap;
+  }
+
+  .revelation-flare {
+    opacity: 0;
+    background:
+      radial-gradient(circle at 42% 44%, rgba(var(--saffron), .15), transparent 24%),
+      radial-gradient(circle at 62% 52%, rgba(var(--indigo), .16), transparent 30%),
+      radial-gradient(circle at 50% 50%, rgba(var(--matrix), .08), transparent 48%);
+    filter: blur(14px) saturate(1.1);
+    transition: opacity 1.6s ease;
+  }
+
+  .revelation-grain {
+    opacity: .17;
+    mix-blend-mode: soft-light;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(255,255,255,.018) 0 1px, transparent 1px 3px),
+      repeating-linear-gradient(90deg, rgba(0,0,0,.022) 0 1px, transparent 1px 4px);
+  }
+
+  .revelation-backdrop[data-stage='search'] .revelation-rain { opacity: .32; }
+  .revelation-backdrop[data-stage='search'] .revelation-backdrop__grid { opacity: .25; }
+
+  .revelation-backdrop[data-stage='door'] .revelation-backdrop__void {
+    background:
+      radial-gradient(circle at 24% 20%, rgba(var(--indigo), .15), transparent 29%),
+      radial-gradient(circle at 72% 72%, rgba(var(--matrix), .12), transparent 38%),
+      linear-gradient(180deg, #05070d 0%, #030806 58%, #020302 100%);
+  }
+  .revelation-backdrop[data-stage='door'] .revelation-rain { opacity: .16; filter: hue-rotate(24deg); }
+  .revelation-backdrop[data-stage='door'] .revelation-flare { opacity: .42; }
+
+  .revelation-backdrop[data-stage='gita'] .revelation-backdrop__void,
+  .revelation-backdrop[data-stage='seed'] .revelation-backdrop__void {
+    background:
+      radial-gradient(circle at 50% 28%, rgba(var(--saffron), .16), transparent 28%),
+      radial-gradient(circle at 22% 76%, rgba(var(--indigo), .12), transparent 34%),
+      linear-gradient(160deg, #130b05 0%, #09080c 48%, #020504 100%);
+  }
+  .revelation-backdrop[data-stage='gita'] .revelation-wheel,
+  .revelation-backdrop[data-stage='seed'] .revelation-wheel {
+    opacity: .72;
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  }
+  .revelation-backdrop[data-stage='gita'] .revelation-rain,
+  .revelation-backdrop[data-stage='seed'] .revelation-rain {
+    opacity: .12;
+    filter: sepia(.22) hue-rotate(330deg);
+  }
+  .revelation-backdrop[data-stage='seed'] .revelation-seed {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .revelation-backdrop[data-stage='gita'] .revelation-flare,
+  .revelation-backdrop[data-stage='seed'] .revelation-flare { opacity: .8; }
+
+  .revelation-backdrop[data-stage='syncretism'] .revelation-backdrop__void {
+    background:
+      radial-gradient(circle at 18% 22%, rgba(var(--matrix), .12), transparent 29%),
+      radial-gradient(circle at 80% 20%, rgba(var(--saffron), .13), transparent 30%),
+      radial-gradient(circle at 50% 78%, rgba(var(--indigo), .16), transparent 35%),
+      linear-gradient(155deg, #04110a 0%, #100b12 49%, #08050a 100%);
+  }
+  .revelation-backdrop[data-stage='syncretism'] .revelation-wheel { opacity: .38; transform: translate(-50%, -50%) scale(1.16) rotate(9deg); }
+  .revelation-backdrop[data-stage='syncretism'] .revelation-rain { opacity: .18; filter: hue-rotate(-18deg) saturate(.9); }
+  .revelation-backdrop[data-stage='syncretism'] .revelation-flare { opacity: 1; }
+  .revelation-backdrop[data-stage='syncretism'] .revelation-seed { opacity: .4; transform: scale(1.05); }
+
+  .revelation-backdrop[data-stage='awake'] .revelation-backdrop__void {
+    background:
+      radial-gradient(circle at 50% 34%, rgba(var(--saffron), .09), transparent 24%),
+      radial-gradient(circle at 50% 58%, rgba(var(--matrix), .07), transparent 38%),
+      linear-gradient(180deg, #040605, #010201 75%);
+  }
+  .revelation-backdrop[data-stage='awake'] .revelation-wheel { opacity: .09; transform: translate(-50%, -50%) scale(1.3) rotate(18deg); }
+  .revelation-backdrop[data-stage='awake'] .revelation-rain { opacity: .08; }
+  .revelation-backdrop[data-stage='awake'] .revelation-seed { opacity: .24; transform: scale(.96); }
+
+  .revelation-progress {
+    position: fixed;
+    right: clamp(.65rem, 2vw, 1.5rem);
+    top: 22vh;
+    bottom: 20vh;
+    z-index: 9;
+    width: 2rem;
+    pointer-events: none;
+  }
+
+  .revelation-progress__track {
+    position: absolute;
+    right: .35rem;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: rgba(184, 221, 195, .13);
+  }
+
+  .revelation-progress__track span {
+    display: block;
+    width: 1px;
+    height: 100%;
+    transform: scaleY(0);
+    transform-origin: top;
+    background: linear-gradient(to bottom, rgba(var(--matrix), .7), rgba(var(--saffron), .72));
+    box-shadow: 0 0 10px rgba(var(--matrix), .2);
+  }
+
+  .revelation-progress__clock {
+    position: absolute;
+    right: -.2rem;
+    top: 9.18%;
+    opacity: 0;
+    color: rgba(114, 255, 155, .88);
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: .55rem;
+    letter-spacing: .08em;
+    transform: translateY(-50%) rotate(90deg) translateX(5px);
+    transition: opacity .2s ease, transform .35s ease;
+    text-shadow: 0 0 12px rgba(var(--matrix), .45);
+  }
+
+  .revelation-progress__clock.is-awake {
+    opacity: 1;
+    transform: translateY(-50%) rotate(90deg) translateX(0);
+  }
+
+  :global(.revelation-post) {
+    position: relative;
+    z-index: 4;
+  }
+
+  .revelation-hero {
+    min-height: min(82vh, 52rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    padding-top: 5rem;
+    padding-bottom: 7rem;
+  }
+
+  .revelation-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0 -2rem;
+    background: radial-gradient(ellipse at 50% 45%, rgba(2,7,4,.2), rgba(2,5,4,.64) 72%);
+    border-radius: 2rem;
+    z-index: -1;
+  }
+
+  .revelation-clock {
+    display: flex;
+    align-items: baseline;
+    gap: .035em;
+    width: max-content;
+    margin: 1.5rem 0 1rem;
+    color: #79ff9e;
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: clamp(5.75rem, 19vw, 12.5rem);
+    font-weight: 300;
+    line-height: .76;
+    letter-spacing: -.11em;
+    text-shadow: 0 0 10px rgba(var(--matrix), .2), 0 0 42px rgba(var(--matrix), .08);
+  }
+
+  .revelation-clock i {
+    padding: 0 .02em;
+    font-style: normal;
+    opacity: .75;
+    animation: revelation-colon 1.8s steps(1, end) infinite;
+  }
+
+  .revelation-hero h1 {
+    font-size: clamp(2.5rem, 7vw, 5.8rem);
+    color: #edf6ef;
+    text-wrap: balance;
+  }
+
+  .revelation-hero .post-dek {
+    max-width: 39rem;
+    color: rgba(224, 239, 228, .68);
+  }
+
+  .revelation-hero__whisper {
+    position: absolute;
+    right: 0;
+    bottom: 2.25rem;
+    margin: 0;
+    color: rgba(111, 255, 154, .18);
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: .58rem;
+    letter-spacing: .08em;
+    text-transform: lowercase;
+  }
+
+  :global(.revelation-body) {
+    position: relative;
+    padding-bottom: 5rem;
+  }
+
+  :global(.revelation-body > p),
+  :global(.revelation-body > ul),
+  :global(.revelation-body > ol),
+  :global(.revelation-body > blockquote),
+  :global(.revelation-body > h2),
+  :global(.revelation-body > h3),
+  :global(.revelation-body > .concentric-diagram),
+  :global(.revelation-body > .revelation-verse),
+  :global(.revelation-body > .revelation-proof),
+  :global(.revelation-body > .revelation-final),
+  :global(.revelation-body > .revelation-marker) {
+    position: relative;
+    z-index: 2;
+  }
+
+  :global(.revelation-body p),
+  :global(.revelation-body li) {
+    color: rgba(235, 241, 236, .88);
+    font-size: clamp(1.08rem, 1.4vw, 1.2rem);
+    line-height: 1.78;
+  }
+
+  :global(.revelation-body h2) {
+    margin-top: 5.5rem;
+    color: #f3f4ee;
+    font-size: clamp(2rem, 5vw, 3.8rem);
+  }
+
+  :global(.revelation-body strong) { color: #fff8dc; }
+
+  :global(.revelation-body a) {
+    color: #a9efbd;
+    text-decoration-color: rgba(169, 239, 189, .35);
+    text-underline-offset: .2em;
+  }
+
+  :global(.revelation-body a:hover) { text-decoration-color: currentColor; }
+
+  :global(.revelation-marker) {
+    height: 1px;
+    margin: 4rem 0 0;
+    opacity: 0;
+  }
+
+  :global(.revelation-verse) {
+    margin: 3.5rem -2rem;
+    padding: clamp(2rem, 6vw, 4.5rem);
+    border: 1px solid rgba(255, 190, 94, .18);
+    background: linear-gradient(145deg, rgba(54, 30, 10, .48), rgba(12, 10, 17, .62));
+    backdrop-filter: blur(10px);
+    box-shadow: 0 28px 90px rgba(0,0,0,.22), inset 0 0 70px rgba(255, 164, 52, .025);
+  }
+
+  :global(.revelation-verse p) {
+    margin: 0;
+    color: rgba(255, 232, 190, .86);
+  }
+
+  :global(.revelation-verse .sanskrit) {
+    display: block;
+    margin-bottom: 1rem;
+    color: #ffc978;
+    font-size: clamp(2.25rem, 8vw, 5.5rem);
+    line-height: 1;
+    letter-spacing: -.04em;
+  }
+
+  :global(.revelation-verse .transliteration) {
+    color: rgba(255, 226, 176, .58);
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: .88rem;
+    letter-spacing: .02em;
+  }
+
+  :global(.revelation-proof) {
+    margin: 4rem 0;
+    padding: 1.4rem 0 1.4rem 1.5rem;
+    border-left: 1px solid rgba(111, 255, 154, .38);
+  }
+
+  :global(.revelation-proof p) { margin: .55rem 0; }
+
+  :global(.revelation-final) {
+    margin: 7rem -2rem 1rem;
+    min-height: 70vh;
+    display: grid;
+    place-items: center;
+    align-content: center;
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+
+  :global(.revelation-final p) {
+    max-width: 38rem;
+    font-size: clamp(1.2rem, 2.3vw, 1.55rem);
+  }
+
+  :global(.revelation-final .final-clock) {
+    display: block;
+    margin: 2.25rem 0 0;
+    color: #86ffa7;
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: clamp(4rem, 18vw, 9rem);
+    font-weight: 300;
+    letter-spacing: -.09em;
+    line-height: 1;
+    text-shadow: 0 0 38px rgba(var(--matrix), .14);
+  }
+
+  :global(.revelation-final .final-seed) {
+    display: block;
+    margin-top: 1rem;
+    color: rgba(255, 202, 119, .72);
+    font-size: 1rem;
+    letter-spacing: .12em;
+  }
+
+  :global(.revelation-body hr) {
+    margin: 4rem 0;
+    border: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(128, 255, 163, .24), rgba(255, 187, 92, .22), transparent);
+  }
+
+  @keyframes revelation-rain-fall {
+    from { transform: translateY(-30vh); }
+    to { transform: translateY(170vh); }
+  }
+
+  @keyframes revelation-colon {
+    0%, 45% { opacity: .78; }
+    46%, 100% { opacity: .22; }
+  }
+
+  @media (max-width: 820px) {
+    .revelation-progress { display: none; }
+    .revelation-rain { grid-template-columns: repeat(9, 1fr); }
+    :global(.revelation-rain__stream:nth-child(even)) { display: none; }
+    .revelation-hero { min-height: 72vh; padding-top: 2rem; padding-bottom: 5rem; }
+    .revelation-clock { font-size: clamp(5rem, 28vw, 8rem); }
+    .revelation-hero__whisper { display: none; }
+    :global(.revelation-verse),
+    :global(.revelation-final) { margin-left: 0; margin-right: 0; }
+    .revelation-wheel { width: 120vw; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(.revelation-rain__stream),
+    .revelation-clock i { animation: none; }
+    .revelation-backdrop__void,
+    .revelation-backdrop__grid,
+    .revelation-rain,
+    .revelation-wheel,
+    .revelation-seed,
+    .revelation-flare { transition: none; }
+  }
+</style>

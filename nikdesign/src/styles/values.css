@@ -1,238 +1,207 @@
-/* ================================================================
-   Teambotics Values page — mobile-first, tokens from tokens.css
-   ================================================================ */
-
-.values-error {
-  padding: 3rem 0;
-  text-align: center;
-  color: var(--color-text-secondary);
-}
-
-.values-error a {
-  display: inline-block;
-  margin-top: 0.75rem;
-}
-
 .values-page {
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
+  width: var(--reading-width);
+  margin: 0 auto;
+  padding: 2.5rem 0 5rem;
 }
 
-/* ── Hero ─────────────────────────────────────────────────────── */
 .values-hero {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  max-width: 46rem;
+  margin-bottom: 2.5rem;
 }
 
 .values-hero__eyebrow {
+  display: block;
+  font-family: var(--font-ui);
   font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-accent);
+  color: var(--muted);
+  margin-bottom: 0.75rem;
 }
 
 .values-hero__title {
-  font-size: 1.9rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
   line-height: 1.15;
-}
-
-@media (min-width: 640px) {
-  .values-hero__title { font-size: 2.4rem; }
+  margin: 0 0 1rem;
 }
 
 .values-hero__intro {
-  color: var(--color-text-secondary);
-  font-size: 1.02rem;
+  color: var(--muted);
+  font-size: 1.05rem;
   line-height: 1.65;
+  margin: 0 0 1rem;
 }
 
 .values-hero__meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  font-family: var(--font-ui);
   font-size: 0.85rem;
-  color: var(--color-text-tertiary);
+  color: var(--muted);
+  display: flex;
+  gap: 0.6rem;
 }
 
-/* ── Agent callout ────────────────────────────────────────────── */
 .values-agent-callout {
-  border: 1px solid var(--color-border-strong);
-  background: var(--color-bg-elevated);
-  border-radius: var(--radius-lg);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
   padding: 1.25rem 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  margin-bottom: 2.5rem;
 }
 
 .values-agent-callout__eyebrow {
+  font-family: var(--font-ui);
   font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
+  font-weight: 600;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-accent-muted);
+  color: var(--accent);
+  margin: 0 0 0.5rem;
 }
 
 .values-agent-callout__title {
   font-size: 1.1rem;
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  margin: 0 0 0.6rem;
 }
 
 .values-agent-callout__body {
-  color: var(--color-text-secondary);
-  font-size: 0.95rem;
+  font-family: var(--font-ui);
+  font-size: 0.92rem;
+  color: var(--muted);
   line-height: 1.6;
+  margin: 0;
 }
 
-.values-agent-callout__body code {
-  font-size: 0.85em;
-  background: var(--color-bg-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  padding: 0.1rem 0.35rem;
+.values-agent-callout__body a {
+  color: var(--accent);
 }
 
-/* ── Value cards ──────────────────────────────────────────────── */
 .values-grid {
   display: grid;
-  grid-template-columns: 1fr;
   gap: 1.25rem;
-}
-
-@media (min-width: 720px) {
-  .values-grid { grid-template-columns: repeat(2, 1fr); }
+  margin-bottom: 3rem;
 }
 
 .value-card {
-  border: 1px solid var(--color-border);
-  background: var(--color-bg-surface);
-  border-radius: var(--radius-lg);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
   padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
 }
 
 .value-card__title {
-  font-size: 1.15rem;
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  font-size: 1.2rem;
+  margin: 0 0 0.5rem;
 }
 
 .value-card__principle {
-  font-size: 0.98rem;
   font-weight: 600;
-  color: var(--color-text-primary);
-  line-height: 1.5;
+  margin: 0 0 0.6rem;
 }
 
 .value-card__description {
-  color: var(--color-text-secondary);
-  font-size: 0.92rem;
+  color: var(--muted);
   line-height: 1.6;
+  margin: 0 0 1rem;
 }
 
 .value-card__agent {
-  border-left: 2px solid var(--color-accent);
-  padding-left: 0.75rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
+  background: var(--surface-strong);
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1rem;
 }
 
 .value-card__agent-label {
+  display: block;
+  font-family: var(--font-ui);
   font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--color-accent);
+  color: var(--accent);
+  margin-bottom: 0.35rem;
 }
 
 .value-card__agent p {
+  font-family: var(--font-ui);
   font-size: 0.9rem;
-  color: var(--color-text-secondary);
   line-height: 1.55;
-}
-
-.value-card__evidence {
-  margin-top: 0.25rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
+  margin: 0;
 }
 
 .value-card__evidence-label {
+  display: block;
+  font-family: var(--font-ui);
   font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--color-text-tertiary);
+  color: var(--muted);
+  margin-bottom: 0.4rem;
 }
 
 .value-card__evidence-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
-}
-
-.value-card__evidence-links a {
-  font-size: 0.8rem;
-  color: var(--color-text-secondary);
-  background: var(--color-bg-elevated);
-  border-radius: var(--radius-pill);
-  padding: 0.3rem 0.7rem;
-  text-decoration: none;
-}
-
-.value-card__evidence-links a:hover {
-  color: var(--color-accent);
-}
-
-/* ── Agent playbook ───────────────────────────────────────────── */
-.values-playbook {
-  border-top: 1px solid var(--color-border);
-  padding-top: 2rem;
-  display: flex;
-  flex-direction: column;
   gap: 0.5rem;
 }
 
+.value-card__evidence-links a {
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  text-decoration: underline;
+  text-decoration-color: var(--border);
+  text-underline-offset: 2px;
+}
+
+.values-playbook {
+  border-top: 1px solid var(--border);
+  padding-top: 2rem;
+  margin-bottom: 2.5rem;
+}
+
 .values-playbook__title {
-  font-size: 1.4rem;
-  font-weight: 800;
-  letter-spacing: -0.01em;
+  font-size: 1.3rem;
+  margin: 0 0 0.5rem;
 }
 
 .values-playbook__subtitle {
-  color: var(--color-text-secondary);
+  color: var(--muted);
   font-size: 0.95rem;
+  margin: 0 0 1.25rem;
 }
 
 .values-playbook__list {
-  margin-top: 0.75rem;
   padding-left: 1.25rem;
+  margin: 0;
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
 }
 
 .values-playbook__list li {
-  color: var(--color-text-primary);
-  font-size: 0.95rem;
   line-height: 1.6;
-  padding-left: 0.25rem;
 }
 
-/* ── Footer meta ──────────────────────────────────────────────── */
 .values-footer {
-  color: var(--color-text-tertiary);
+  font-family: var(--font-ui);
   font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.values-footer a {
+  color: var(--accent);
+}
+
+.values-error {
+  width: var(--reading-width);
+  margin: 3rem auto;
   text-align: center;
+  color: var(--muted);
+}
+
+@media (min-width: 640px) {
+  .values-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

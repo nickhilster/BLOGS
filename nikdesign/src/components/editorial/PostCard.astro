@@ -1,0 +1,25 @@
+---
+interface Props {
+  post: {
+    slug: string
+    data: {
+      title: string
+      excerpt: string
+      tags: string[]
+      publishedAt: string
+    }
+  }
+  featured?: boolean
+}
+
+const { post, featured = false } = Astro.props
+---
+
+<article class={`post-card${featured ? ' post-card--featured' : ''}`}>
+  <p class="post-card__meta">{post.data.publishedAt}</p>
+  <h3 class="post-card__title">
+    <a href={`/posts/${post.slug}`}>{post.data.title}</a>
+  </h3>
+  <p class="post-card__excerpt">{post.data.excerpt}</p>
+  <p class="post-card__tags">{post.data.tags.join(' / ')}</p>
+</article>

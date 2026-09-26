@@ -1,0 +1,380 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import SectionHeading from '../../components/editorial/SectionHeading.astro'
+import { getThemeByKey, themeKeys } from '../../lib/themes'
+import { articleLayoutKeys, buildStudioPostContent, getStudioPreset, studioPresets } from '../../lib/studio'
+
+const publishedAt = new Date().toISOString().slice(0, 10)
+const initialPreset = getStudioPreset('nocturne-case-study')
+const initialDraft = {
+  title: '',
+  slug: '',
+  description: '',
+  excerpt: '',
+  publishedAt,
+  updatedAt: '',
+  tags: initialPreset.suggestedTags.join(', '),
+  featured: false,
+  theme: initialPreset.theme,
+  articleLayout: initialPreset.articleLayout,
+  heroTitle: '',
+  heroDek: '',
+  heroImage: '',
+  heroImageAlt: '',
+  body: initialPreset.body,
+}
+
+const initialOutput = buildStudioPostContent({
+  title: initialDraft.title,
+  slug: initialDraft.slug,
+  description: initialDraft.description,
+  excerpt: initialDraft.excerpt,
+  publishedAt: initialDraft.publishedAt,
+  updatedAt: initialDraft.updatedAt,
+  tags: initialPreset.suggestedTags,
+  featured: initialDraft.featured,
+  theme: initialDraft.theme,
+  articleLayout: initialDraft.articleLayout,
+  heroTitle: initialDraft.heroTitle,
+  heroDek: initialDraft.heroDek,
+  heroImage: initialDraft.heroImage,
+  heroImageAlt: initialDraft.heroImageAlt,
+  body: initialDraft.body,
+})
+---
+
+<BaseLayout
+  title="New Post Studio | NikDesign Journal"
+  description="Generate a new MDX draft for NikDesign Journal using preset-led article scaffolds."
+  theme={getThemeByKey('signal')}
+>
+  <main class="page-shell studio-shell">
+    <SectionHeading
+      title="New Post Studio"
+      description="Choose a preset, shape the metadata, and generate a clean MDX draft that matches the blog's current content model."
+    />
+
+    <div class="studio-callout">
+      <p>
+        This studio is static-safe by design: it generates a complete MDX file for the repo, but it does not write
+        directly into <code>blog/src/content/posts/</code> on the live site.
+      </p>
+    </div>
+
+    <section class="studio-preset-panel" aria-labelledby="preset-heading">
+      <div class="studio-panel-heading">
+        <h2 id="preset-heading">Preset picker</h2>
+        <p>Start from a visual and structural mood, then override anything you want.</p>
+      </div>
+
+      <div class="studio-preset-grid" id="studio-preset-grid">
+        {studioPresets.map((preset, index) => (
+          <button
+            class={`studio-preset-card${preset.key === initialPreset.key ? ' studio-preset-card--active' : ''}`}
+            type="button"
+            data-preset-key={preset.key}
+            aria-pressed={preset.key === initialPreset.key ? 'true' : 'false'}
+          >
+            <span class="studio-preset-card__eyebrow">Preset {String(index + 1).padStart(2, '0')}</span>
+            <strong>{preset.label}</strong>
+            <span>{preset.description}</span>
+            <span class="studio-preset-card__meta">{preset.theme} / {preset.articleLayout}</span>
+          </button>
+        ))}
+      </div>
+    </section>
+
+    <div class="studio-grid">
+      <section class="studio-panel">
+        <div class="studio-panel-heading">
+          <h2>Post details</h2>
+          <p>These fields map directly to the current Astro content schema.</p>
+        </div>
+
+        <form class="studio-form" id="studio-form">
+          <input type="hidden" id="presetKey" name="presetKey" value={initialPreset.key} />
+
+          <label class="studio-field">
+            <span>Title</span>
+            <input id="title" name="title" type="text" value={initialDraft.title} placeholder="Systems That Need a Voice" />
+          </label>
+
+          <label class="studio-field">
+            <span>Slug</span>
+            <div class="studio-inline-action">
+              <input id="slug" name="slug" type="text" value={initialDraft.slug} placeholder="systems-that-need-a-voice" />
+              <button class="studio-mini-button" id="slugify-button" type="button">Auto</button>
+            </div>
+          </label>
+
+          <label class="studio-field">
+            <span>Description</span>
+            <textarea id="description" name="description" rows="3" placeholder="One concise summary for metadata and sharing.">{initialDraft.description}</textarea>
+          </label>
+
+          <label class="studio-field">
+            <span>Excerpt</span>
+            <textarea id="excerpt" name="excerpt" rows="3" placeholder="A tighter teaser for cards and archives.">{initialDraft.excerpt}</textarea>
+          </label>
+
+          <div class="studio-form__split">
+            <label class="studio-field">
+              <span>Published at</span>
+              <input id="publishedAt" name="publishedAt" type="date" value={initialDraft.publishedAt} />
+            </label>
+
+            <label class="studio-field">
+              <span>Updated at</span>
+              <input id="updatedAt" name="updatedAt" type="date" value={initialDraft.updatedAt} />
+            </label>
+          </div>
+
+          <label class="studio-field">
+            <span>Tags</span>
+            <input id="tags" name="tags" type="text" value={initialDraft.tags} placeholder="systems, adoption, launch note" />
+          </label>
+
+          <label class="studio-checkbox">
+            <input id="featured" name="featured" type="checkbox" />
+            <span>Feature this post on the blog homepage</span>
+          </label>
+
+          <div class="studio-form__split">
+            <label class="studio-field">
+              <span>Theme</span>
+              <select id="theme" name="theme">
+                {themeKeys.map((themeKey) => (
+                  <option value={themeKey} selected={themeKey === initialDraft.theme}>{themeKey}</option>
+                ))}
+              </select>
+            </label>
+
+            <label class="studio-field">
+              <span>Layout</span>
+              <select id="articleLayout" name="articleLayout">
+                {articleLayoutKeys.map((layoutKey) => (
+                  <option value={layoutKey} selected={layoutKey === initialDraft.articleLayout}>{layoutKey}</option>
+                ))}
+              </select>
+            </label>
+          </div>
+
+          <label class="studio-field">
+            <span>Hero title</span>
+            <input id="heroTitle" name="heroTitle" type="text" value={initialDraft.heroTitle} placeholder="A stronger on-page headline if you want one." />
+          </label>
+
+          <label class="studio-field">
+            <span>Hero dek</span>
+            <textarea id="heroDek" name="heroDek" rows="3" placeholder={initialPreset.heroDekHint}>{initialDraft.heroDek}</textarea>
+          </label>
+
+          <div class="studio-form__split">
+            <label class="studio-field">
+              <span>Hero image</span>
+              <input id="heroImage" name="heroImage" type="text" value={initialDraft.heroImage} placeholder="/images/posts/example/hero.jpg" />
+            </label>
+
+            <label class="studio-field">
+              <span>Hero image alt</span>
+              <input id="heroImageAlt" name="heroImageAlt" type="text" value={initialDraft.heroImageAlt} placeholder="Describe the image accessibly." />
+            </label>
+          </div>
+
+          <label class="studio-field">
+            <span>Body scaffold</span>
+            <textarea id="body" name="body" rows="22">{initialDraft.body}</textarea>
+          </label>
+        </form>
+      </section>
+
+      <aside class="studio-panel studio-panel--output">
+        <div class="studio-panel-heading">
+          <h2>Generated MDX</h2>
+          <p>Copy this into <code>blog/src/content/posts/</code> or download it as a ready-to-save file.</p>
+        </div>
+
+        <dl class="studio-summary">
+          <div>
+            <dt>Suggested file</dt>
+            <dd id="studio-file-path">blog/src/content/posts/untitled-post.mdx</dd>
+          </div>
+          <div>
+            <dt>Expected route</dt>
+            <dd id="studio-route-preview">/posts/untitled-post</dd>
+          </div>
+        </dl>
+
+        <div class="studio-output-actions">
+          <button class="studio-action-button" id="copy-button" type="button">Copy MDX</button>
+          <button class="studio-action-button studio-action-button--secondary" id="download-button" type="button">Download .mdx</button>
+        </div>
+
+        <pre class="studio-output" id="studio-output">{initialOutput}</pre>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    import { buildStudioPostContent, getStudioPreset, slugifyTitle, type StudioPostInput } from '../../lib/studio'
+
+    const form = document.querySelector('#studio-form') as HTMLFormElement
+    const presetKeyInput = document.querySelector('#presetKey') as HTMLInputElement
+    const output = document.querySelector('#studio-output') as HTMLElement
+    const filePath = document.querySelector('#studio-file-path') as HTMLElement
+    const routePreview = document.querySelector('#studio-route-preview') as HTMLElement
+    const copyButton = document.querySelector('#copy-button') as HTMLButtonElement
+    const downloadButton = document.querySelector('#download-button') as HTMLButtonElement
+    const slugifyButton = document.querySelector('#slugify-button') as HTMLButtonElement
+    const presetGrid = document.querySelector('#studio-preset-grid') as HTMLElement
+
+    const titleInput = document.querySelector('#title') as HTMLInputElement
+    const slugInput = document.querySelector('#slug') as HTMLInputElement
+    const descriptionInput = document.querySelector('#description') as HTMLTextAreaElement
+    const excerptInput = document.querySelector('#excerpt') as HTMLTextAreaElement
+    const publishedAtInput = document.querySelector('#publishedAt') as HTMLInputElement
+    const updatedAtInput = document.querySelector('#updatedAt') as HTMLInputElement
+    const tagsInput = document.querySelector('#tags') as HTMLInputElement
+    const featuredInput = document.querySelector('#featured') as HTMLInputElement
+    const themeInput = document.querySelector('#theme') as HTMLSelectElement
+    const articleLayoutInput = document.querySelector('#articleLayout') as HTMLSelectElement
+    const heroTitleInput = document.querySelector('#heroTitle') as HTMLInputElement
+    const heroDekInput = document.querySelector('#heroDek') as HTMLTextAreaElement
+    const heroImageInput = document.querySelector('#heroImage') as HTMLInputElement
+    const heroImageAltInput = document.querySelector('#heroImageAlt') as HTMLInputElement
+    const bodyInput = document.querySelector('#body') as HTMLTextAreaElement
+
+    let activePresetKey = presetKeyInput.value
+    let slugWasManual = false
+
+    function splitTags(value: string) {
+      return value
+        .split(',')
+        .map((tag: string) => tag.trim())
+        .filter(Boolean)
+    }
+
+    function currentDraft(): StudioPostInput {
+      const derivedSlug = slugInput.value.trim() || slugifyTitle(titleInput.value) || 'untitled-post'
+
+      return {
+        title: titleInput.value.trim() || 'Untitled Post',
+        slug: derivedSlug,
+        description: descriptionInput.value.trim() || 'Add a concise description for metadata.',
+        excerpt: excerptInput.value.trim() || 'Add a tighter excerpt for cards and archives.',
+        publishedAt: publishedAtInput.value || new Date().toISOString().slice(0, 10),
+        updatedAt: updatedAtInput.value.trim(),
+        tags: splitTags(tagsInput.value),
+        featured: featuredInput.checked,
+        theme: themeInput.value as StudioPostInput['theme'],
+        articleLayout: articleLayoutInput.value as StudioPostInput['articleLayout'],
+        heroTitle: heroTitleInput.value.trim() || titleInput.value.trim() || 'Untitled Post',
+        heroDek: heroDekInput.value.trim() || 'Add a stronger framing line for the hero.',
+        heroImage: heroImageInput.value.trim(),
+        heroImageAlt: heroImageAltInput.value.trim(),
+        body: bodyInput.value,
+      }
+    }
+
+    function refreshOutput() {
+      const draft = currentDraft()
+      const content = buildStudioPostContent(draft)
+      output.textContent = content
+      filePath.textContent = `blog/src/content/posts/${draft.slug || 'untitled-post'}.mdx`
+      routePreview.textContent = `/posts/${draft.slug || 'untitled-post'}`
+    }
+
+    function updatePresetCards() {
+      presetGrid.querySelectorAll('[data-preset-key]').forEach((button) => {
+        const presetButton = button as HTMLButtonElement
+        const isActive = presetButton.dataset.presetKey === activePresetKey
+        presetButton.classList.toggle('studio-preset-card--active', isActive)
+        presetButton.setAttribute('aria-pressed', isActive ? 'true' : 'false')
+      })
+    }
+
+    function applyPreset(nextKey: string) {
+      const previousPreset = getStudioPreset(activePresetKey)
+      const nextPreset = getStudioPreset(nextKey)
+      const currentTags = tagsInput.value.trim()
+      const currentBody = bodyInput.value.trim()
+
+      activePresetKey = nextPreset.key
+      presetKeyInput.value = nextPreset.key
+      themeInput.value = nextPreset.theme
+      articleLayoutInput.value = nextPreset.articleLayout
+      heroDekInput.placeholder = nextPreset.heroDekHint
+
+      if (!currentTags || currentTags === previousPreset.suggestedTags.join(', ')) {
+        tagsInput.value = nextPreset.suggestedTags.join(', ')
+      }
+
+      if (!currentBody || currentBody === previousPreset.body.trim()) {
+        bodyInput.value = nextPreset.body
+      }
+
+      updatePresetCards()
+      refreshOutput()
+    }
+
+    function syncSlugFromTitle() {
+      const nextSlug = slugifyTitle(titleInput.value) || 'untitled-post'
+      slugInput.value = nextSlug
+      refreshOutput()
+    }
+
+    form.addEventListener('input', (event) => {
+      if (event.target === slugInput) {
+        slugWasManual = true
+      }
+
+      if (event.target === titleInput && !slugWasManual) {
+        syncSlugFromTitle()
+        return
+      }
+
+      refreshOutput()
+    })
+
+    slugifyButton.addEventListener('click', () => {
+      slugWasManual = false
+      syncSlugFromTitle()
+    })
+
+    presetGrid.addEventListener('click', (event) => {
+      const target = event.target
+      if (!(target instanceof Element)) {
+        return
+      }
+
+      const button = target.closest('[data-preset-key]')
+      if (!(button instanceof HTMLButtonElement)) {
+        return
+      }
+
+      applyPreset(button.dataset.presetKey ?? activePresetKey)
+    })
+
+    copyButton.addEventListener('click', async () => {
+      await navigator.clipboard.writeText(output.textContent ?? '')
+      copyButton.textContent = 'Copied'
+      window.setTimeout(() => {
+        copyButton.textContent = 'Copy MDX'
+      }, 1500)
+    })
+
+    downloadButton.addEventListener('click', () => {
+      const draft = currentDraft()
+      const blob = new Blob([output.textContent ?? ''], { type: 'text/markdown;charset=utf-8' })
+      const url = URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = `${draft.slug || 'untitled-post'}.mdx`
+      link.click()
+      URL.revokeObjectURL(url)
+    })
+
+    refreshOutput()
+    updatePresetCards()
+  </script>
+</BaseLayout>

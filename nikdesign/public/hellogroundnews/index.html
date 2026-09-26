@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SynFo — A System Designed to Fight the War on Truth</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lora:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Reset & Base ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0D0D0D;
+      --text:     #F0EDE6;
+      --amber:    #F5A623;
+      --cyan:     #00C2CC;
+      --muted:    #888884;
+      --divider:  #1E1E1E;
+      --col:      680px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Lora', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Grain overlay ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1000;
+      opacity: .035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 256px 256px;
+    }
+
+    /* ─── Typography utilities ─── */
+    .display { font-family: 'Bebas Neue', sans-serif; letter-spacing: .04em; }
+    .mono    { font-family: 'JetBrains Mono', monospace; }
+
+    /* ─── Layout ─── */
+    .container {
+      max-width: var(--col);
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ─── Scroll animation ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ─── Divider line ─── */
+    hr.section-break {
+      border: none;
+      border-top: 1px solid var(--divider);
+      margin: 0;
+    }
+
+    /* ════════════════════════════════
+       HERO
+    ════════════════════════════════ */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 6rem 2rem 4rem;
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    #hero .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(5rem, 15vw, 11rem);
+      line-height: .9;
+      letter-spacing: .02em;
+      color: var(--text);
+      animation: titleCut .5s cubic-bezier(.16,1,.3,1) both;
+      animation-delay: .1s;
+    }
+
+    #hero .hero-subtitle {
+      font-family: 'Lora', serif;
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      color: var(--muted);
+      margin-top: 1.5rem;
+      font-style: italic;
+      animation: titleCut .5s cubic-bezier(.16,1,.3,1) both;
+      animation-delay: .3s;
+    }
+
+    #hero .hero-byline {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .75rem;
+      color: var(--amber);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-top: 2.5rem;
+      animation: titleCut .5s cubic-bezier(.16,1,.3,1) both;
+      animation-delay: .5s;
+    }
+
+    @keyframes titleCut {
+      from { opacity: 0; clip-path: inset(0 100% 0 0); }
+      to   { opacity: 1; clip-path: inset(0 0% 0 0); }
+    }
+
+    /* ─── Scroll indicator ─── */
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 2rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .65rem;
+      color: var(--muted);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+    .scroll-hint::before {
+      content: '';
+      display: block;
+      width: 30px;
+      height: 1px;
+      background: var(--muted);
+    }
+
+    /* ════════════════════════════════
+       CHAPTERS
+    ════════════════════════════════ */
+    .chapter {
+      padding: 6rem 0;
+      border-top: 1px solid var(--divider);
+    }
+
+    .chapter-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .7rem;
+      color: var(--amber);
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      margin-bottom: 3.5rem;
+    }
+
+    .chapter-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 7rem;
+      line-height: 1;
+      color: var(--divider);
+      position: absolute;
+      right: 0;
+      top: -1rem;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .chapter-header {
+      position: relative;
+    }
+
+    .chapter-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      line-height: 1.05;
+      letter-spacing: .03em;
+      color: var(--text);
+      margin-bottom: 3rem;
+    }
+
+    /* Pull quotes */
+    blockquote {
+      border-left: 2px solid var(--amber);
+      margin: 2.5rem 0;
+      padding: .75rem 0 .75rem 1.75rem;
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    blockquote cite {
+      display: block;
+      margin-top: .75rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .65rem;
+      font-style: normal;
+      color: var(--muted);
+      letter-spacing: .1em;
+    }
+
+    /* Body copy spacing */
+    .chapter p { margin-bottom: 1.4rem; }
+    .chapter p:last-child { margin-bottom: 0; }
+
+    /* Node definitions */
+    .node-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .8rem;
+      color: var(--cyan);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin: 2.5rem 0 .4rem;
+    }
+
+    /* System map */
+    .system-map-wrap {
+      margin: 3rem 0;
+      border: 1px solid var(--divider);
+      background: #111;
+    }
+
+    .miro-embed {
+      width: 100%;
+      height: 560px;
+      border: none;
+      display: block;
+    }
+
+    .miro-fallback {
+      display: none;
+      padding: 3rem 2rem;
+      text-align: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .75rem;
+      color: var(--muted);
+    }
+
+    .miro-fallback a {
+      color: var(--amber);
+      text-decoration: none;
+    }
+
+    /* ─── Node pulse animation ─── */
+    .node-dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--cyan);
+      margin-right: .5rem;
+      vertical-align: middle;
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: .3; transform: scale(.7); }
+    }
+
+    /* ════════════════════════════════
+       CHAPTER 05 — ESSAY
+    ════════════════════════════════ */
+    .essay-cta {
+      margin-top: 2.5rem;
+    }
+
+    .btn {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .8rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--amber);
+      border: 1px solid var(--amber);
+      padding: .75rem 1.75rem;
+      text-decoration: none;
+      transition: background .2s, color .2s;
+    }
+    .btn:hover {
+      background: var(--amber);
+      color: var(--bg);
+    }
+
+    /* ════════════════════════════════
+       CHAPTER 07 — THE ASK
+    ════════════════════════════════ */
+    #ask {
+      padding: 8rem 0 6rem;
+      border-top: 1px solid var(--divider);
+    }
+
+    #ask .container {
+      max-width: 540px;
+    }
+
+    #ask .chapter-label {
+      margin-bottom: 2rem;
+    }
+
+    #ask p {
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+      font-size: 1rem;
+    }
+
+    #ask p:last-of-type { margin-bottom: 0; }
+
+    .contact-links {
+      margin-top: 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .contact-link {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .8rem;
+      letter-spacing: .1em;
+      color: var(--amber);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      transition: opacity .2s;
+    }
+
+    .contact-link::after {
+      content: '→';
+    }
+
+    .contact-link:hover { opacity: .7; }
+
+    /* ════════════════════════════════
+       FOOTER
+    ════════════════════════════════ */
+    footer {
+      border-top: 1px solid var(--divider);
+      padding: 3rem 2rem;
+      text-align: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .65rem;
+      color: var(--muted);
+      letter-spacing: .08em;
+      line-height: 2;
+    }
+
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+    footer a:hover { color: var(--text); }
+
+    /* ════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════ */
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      #hero { padding: 5rem 1.5rem 3rem; }
+      .chapter { padding: 4rem 0; }
+      .chapter-number { font-size: 5rem; right: 1.5rem; }
+      .miro-embed { height: 320px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════
+       HERO
+  ══════════════════════════════ -->
+  <section id="hero">
+    <h1 class="hero-title">SYNFO</h1>
+    <p class="hero-subtitle">A System Designed to Fight the War on Truth</p>
+    <p class="hero-byline mono">— Nikhil Khedkar, 2020</p>
+    <span class="scroll-hint">Scroll</span>
+  </section>
+
+  <!-- ══════════════════════════════
+       01 — THE COLD OPEN
+  ══════════════════════════════ -->
+  <section class="chapter" id="ch01">
+    <div class="container">
+      <div class="chapter-header reveal">
+        <span class="chapter-label mono">01 / The Problem</span>
+        <span class="chapter-number display" aria-hidden="true">01</span>
+        <h2 class="chapter-title display">The Problem</h2>
+      </div>
+
+      <blockquote class="reveal">
+        "Just as every pandemic is a statistical problem disguised as a medical one, so is the problem of fake news."
+      </blockquote>
+
+      <div class="reveal">
+        <p>The year is 2020. COVID-19 is spreading. So is something else.</p>
+        <p>On Facebook, a Breitbart video claiming hydroxychloroquine cures COVID reaches 20 million people in five hours. By the time it is removed, the damage is done. The first story always wins — not because it is true, but because it was first.</p>
+        <p>This is not a story about bad people. It is a story about bad architecture. The platforms that billions of people use to understand the world were not designed to prioritize truth. They were designed to maximize engagement. These are not the same thing. In fact, they are often opposites.</p>
+        <p>That asymmetry — between the speed of a claim and the speed of its correction — is the defining design failure of the modern internet. And in 2020, one designer in Toronto decided to treat it as exactly that: a design problem.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════
+       02 — THE RESEARCH
+  ══════════════════════════════ -->
+  <section class="chapter" id="ch02">
+    <div class="container">
+      <div class="chapter-header reveal">
+        <span class="chapter-label mono">02 / Nine Months Inside the Rabbit Hole</span>
+        <span class="chapter-number display" aria-hidden="true">02</span>
+        <h2 class="chapter-title display">Nine Months</h2>
+      </div>
+
+      <div class="reveal">
+        <p>This project did not begin in a classroom. It began in the places where misinformation lives.</p>
+        <p>For nine months, the research phase of SynFo meant going deep into the communities where false narratives are built, shared, and hardened into belief. Facebook groups. Reddit threads. YouTube comment sections. The observation was sustained, systematic, and uncomfortable.</p>
+        <p>What emerged was not a list of false claims. It was something more useful: a set of behavioral patterns. The same dynamics recurring across topics, ideologies, and geographies.</p>
+      </div>
+
+      <div class="reveal">
+        <p class="node-title">Emotional amplification</p>
+        <p>Content that triggered anger, fear, or moral outrage spread faster and further than content that was merely true. The algorithm did not cause this — but it turbocharged it.</p>
+
+        <p class="node-title">The illusory truth effect</p>
+        <p>When people encounter a claim multiple times, they begin to perceive it as more credible — regardless of its accuracy. In algorithmically curated feeds, repetition is free and unlimited.</p>
+
+        <p class="node-title">Community validation</p>
+        <p>Within tight-knit online groups, social proof overwhelms individual skepticism. When everyone you trust is sharing something, the cognitive cost of doubting it is too high.</p>
+
+        <p class="node-title">Visual compression</p>
+        <p>Memes and infographics compress complex claims into formats that are easy to share and nearly impossible to fact-check at the point of consumption. The design of the content was itself the deception.</p>
+      </div>
+
+      <div class="reveal">
+        <p>These patterns described a system. Misinformation was not spreading because people were gullible. It was spreading because the environments they inhabited were designed — whether intentionally or not — to exploit normal human cognition.</p>
+        <p>Recognizing this as a systems problem was the first step. The second was designing a response at the same level.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════
+       03 — THE INSIGHT
+  ══════════════════════════════ -->
+  <section class="chapter" id="ch03">
+    <div class="container">
+      <div class="chapter-header reveal">
+        <span class="chapter-label mono">03 / The Reframe</span>
+        <span class="chapter-number display" aria-hidden="true">03</span>
+        <h2 class="chapter-title display">The Reframe</h2>
+      </div>
+
+      <blockquote class="reveal">
+        "The misinformation crisis is a native product of platform architecture — a predictable consequence of optimization functions that treat all engagement as equal."
+      </blockquote>
+
+      <div class="reveal">
+        <p>The dominant response to misinformation in 2020 was content moderation. Platforms invested in detection, removal, flagging. These efforts were real. They were also structurally insufficient.</p>
+        <p>Moderation operates downstream. By the time a fact-check label appears on a viral post, the original claim has already shaped thousands of conversations. Research consistently shows that corrections reach a fraction of the audience that saw the original claim — and even then, the original framing often persists.</p>
+        <p>The first story wins. Moderation is a patch. The architecture is the problem.</p>
+        <p>SynFo was built on a different premise: that you cannot moderate your way out of a system that structurally incentivizes the production and amplification of low-quality information. The architecture itself has to change. And if you cannot change the architecture of Facebook or YouTube, you build a parallel system that gradually reshapes how users inside those platforms behave.</p>
+        <p>Not through censorship. Through design.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════
+       04 — THE SYSTEM
+  ══════════════════════════════ -->
+  <section class="chapter" id="ch04">
+    <div class="container">
+      <div class="chapter-header reveal">
+        <span class="chapter-label mono">04 / The Network</span>
+        <span class="chapter-number display" aria-hidden="true">04</span>
+        <h2 class="chapter-title display">The Network</h2>
+      </div>
+
+      <blockquote class="reveal">
+        "We need many simple ideas to work together as a synergy to solve this complicated problem."
+      </blockquote>
+
+      <div class="reveal">
+        <p>SynFo was not a single product. It was a network — six interdependent entities designed to work in concert, each one invisible to the user as part of a larger system. The user would never see SynFo. They would only experience its effects.</p>
+      </div>
+
+      <!-- Miro embed -->
+      <div class="system-map-wrap reveal">
+        <iframe
+          class="miro-embed"
+          src="https://miro.com/app/live-embed/o9J_koQC25Y=/?embedAutoplay=true&autoplay=yep&moveToViewport=-4588,-2524,9176,5048"
+          allowfullscreen
+          title="SynFo System Map — Miro Research Board"
+        ></iframe>
+        <div class="miro-fallback">
+          <a href="https://miro.com/app/board/o9J_koQC25Y=/" target="_blank" rel="noopener">
+            View the full research board on Miro →
+          </a>
+        </div>
+      </div>
+
+      <!-- Six nodes -->
+      <div class="reveal">
+        <p class="node-title"><span class="node-dot"></span>Do Your Research</p>
+        <p>A conspiracy theory aggregator app — but not what you think. Built with intentionally slick design to outcompete the low-quality sites that dominate this space. Its purpose was not to host conspiracy theories. It was to install a cookie on the user's device, enabling programmatic targeting across Facebook and YouTube. The user downloads an app they trust. SynFo gains the ability to reach them where they actually spend their time.</p>
+
+        <p class="node-title"><span class="node-dot"></span>Spot Fake</p>
+        <p>A mobile game. The user is shown an image — a meme, a manipulated photo, a fake news headline — and must determine if it's real or fabricated. The game profile evolves based on answers, becoming more targeted over time. The goal was not to create fact-checkers. It was to build pattern recognition through practice — raising the baseline level of discernment across a population, one session at a time.</p>
+
+        <p class="node-title"><span class="node-dot"></span>Mad Ad</p>
+        <p>An advertising agency dedicated to creative planning of counter-misinformation campaigns. It targets businesses, corporations, and nonprofits as clients while using the research and data infrastructure of the broader network. The ads it places look like regular content. That is the point.</p>
+
+        <p class="node-title"><span class="node-dot"></span>Techedelic Studio</p>
+        <p>The production arm. Memes. Short videos. Infographics. Content designed to be consumed in a moment — because that is how misinformation travels, and counter-information needs to move the same way. The studio produces content that meets the user in their format, not ours.</p>
+
+        <p class="node-title"><span class="node-dot"></span>Insight</p>
+        <p>The in-house research and analysis bureau. The brains of the network. Responsible for identifying emerging fake news trends, providing data to MAD AD for campaign targeting, and hiring external expert consultants. Without Insight, the rest of the system is operating blind.</p>
+
+        <p class="node-title"><span class="node-dot"></span>InFact</p>
+        <p>The fact-checking website. Public-facing, SEO-optimized, designed to surface in search results for the most widely circulated false claims. Insight provides the research. Techedelic Studio provides the content. InFact is where the corrective record lives permanently on the open web.</p>
+      </div>
+
+      <div class="reveal">
+        <p>The key is the targeting loop. A user installs Do Your Research because it aggregates content they already believe in. SynFo now has a programmatic foothold. Ads begin appearing in their Facebook and YouTube feeds — not in the app, because that would break the trust — but in the places they already scroll. These ads are educational in content, entertaining in format. They do not announce themselves as corrections.</p>
+        <p>If the user engages positively, they encounter Spot Fake. The game begins the behavioral work — building critical thinking as a skill, not a lecture. Over time, the user's information habits shift. Not because someone told them to change. Because the system made it easier to think clearly than not to.</p>
+        <p>The goal: the user escapes the rabbit hole. They may still distrust powerful institutions. But now their distrust is based on evidence, not manufactured outrage.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════
+       05 — THE ESSAY
+  ══════════════════════════════ -->
+  <section class="chapter" id="ch05">
+    <div class="container">
+      <div class="chapter-header reveal">
+        <span class="chapter-label mono">05 / The Full Argument</span>
+        <span class="chapter-number display" aria-hidden="true">05</span>
+        <h2 class="chapter-title display">The Writing</h2>
+      </div>
+
+      <div class="reveal">
+        <p>The research behind SynFo was formalized in an essay written in 2020: <em>Designing for Truth — How UX Systems Can Counter the Spread of Misinformation.</em></p>
+        <p>It covers the architecture of acceleration, the behavioral patterns that sustain misinformation ecosystems, why moderation is necessary but insufficient, and what better-designed systems might actually look like. It also includes a section on generative AI — written in 2020 — that the past five years have made more relevant, not less.</p>
+        <div class="essay-cta">
+          <a class="btn" href="https://cdn.gamma.app/sogu61n3buhmo0y/f543b0e793174ac2bd51e03a3f4dba4a/original/Designing_for_Truth_Essay.pdf" target="_blank" rel="noopener">Read the Essay →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════
+       06 — THE EPILOGUE
+  ══════════════════════════════ -->
+  <section class="chapter" id="ch06">
+    <div class="container">
+      <div class="chapter-header reveal">
+        <span class="chapter-label mono">06 / Five Years Later</span>
+        <span class="chapter-number display" aria-hidden="true">06</span>
+        <h2 class="chapter-title display">Five Years On</h2>
+      </div>
+
+      <div class="reveal">
+        <p>In 2022, GPT-3.5 completed in twenty-five minutes what had taken nine months of primary research to map. That moment was not discouraging. It was confirmation.</p>
+        <p>The problem SynFo was designed to address has not been solved. It has accelerated. Generative AI has lowered the cost of producing convincing misinformation by orders of magnitude. Synthetic text, synthetic images, synthetic audio — each indistinguishable from the real thing at casual inspection. The detection-based paradigm that anchored platform responses for a decade is eroding. When generating fake content is cheaper and faster than identifying it, the economics shift decisively against the defenders.</p>
+        <p>This makes the design-layer interventions SynFo proposed not merely interesting but urgent. If detection cannot keep pace with generation, the most promising defense moves upstream: systems that make context and provenance visible by default, and that build the cognitive capacity of users to evaluate what they encounter.</p>
+        <p>The category SynFo was working toward — bias-aware news infrastructure, source transparency, credibility as a product feature — now exists. Companies have been built on it. Audiences have been built around it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════
+       07 — THE ASK
+  ══════════════════════════════ -->
+  <section id="ask">
+    <div class="container">
+      <span class="chapter-label mono reveal">07 / If You're Reading This</span>
+
+      <div class="reveal">
+        <p>This page exists because of a conversation that started with an ad.</p>
+        <p>I kept seeing Ground News on YouTube — on both sides of the political spectrum, simultaneously. That told me something deliberate was happening. So I looked into the product. And I recognized the problem space immediately, because I had spent nine months inside it five years ago.</p>
+        <p>I'm not here with a proposal. I'm not looking to sell anything. I was working in this space before the category had a name, and have spent the years since building AI systems, product frameworks, and adoption programs for organizations navigating complex change.</p>
+        <p>I'm curious where Ground News is going. And I think there might be a conversation worth having.</p>
+      </div>
+
+      <div class="contact-links reveal">
+        <a class="contact-link" href="mailto:nikhil.d.khedkar@gmail.com">nikhil.d.khedkar@gmail.com</a>
+        <a class="contact-link" href="https://www.linkedin.com/in/nikhil-khedkar/" target="_blank" rel="noopener">Connect on LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════
+       FOOTER
+  ══════════════════════════════ -->
+  <footer>
+    <p>SynFo — A project by Nikhil Khedkar</p>
+    <p>Originally presented: George Brown College, 2020</p>
+    <p>Dean's Honours List · 3.8 GPA</p>
+    <br />
+    <p>
+      <a href="https://teambotics.app" target="_blank" rel="noopener">teambotics.app</a>
+      ·
+      <a href="https://nikdesign.ca" target="_blank" rel="noopener">nikdesign.ca</a>
+    </p>
+  </footer>
+
+  <!-- ══════════════════════════════
+       SCROLL REVEAL
+  ══════════════════════════════ -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Stagger reveals within the same parent
+    document.querySelectorAll('.chapter').forEach(ch => {
+      const reveals = ch.querySelectorAll('.reveal');
+      reveals.forEach((el, i) => {
+        el.style.transitionDelay = `${i * 0.06}s`;
+      });
+    });
+
+    // Miro iframe — show fallback link if blocked
+    const iframe = document.querySelector('.miro-embed');
+    const fallback = document.querySelector('.miro-fallback');
+    if (iframe) {
+      iframe.addEventListener('error', () => {
+        iframe.style.display = 'none';
+        fallback.style.display = 'block';
+      });
+    }
+  </script>
+
+</body>
+</html>

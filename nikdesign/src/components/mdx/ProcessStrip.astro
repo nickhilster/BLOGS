@@ -1,0 +1,17 @@
+---
+interface Props {
+  items: Array<{ label: string; title: string; detail: string }>
+}
+
+const { items } = Astro.props
+---
+
+<section class="process-strip">
+  {items.map((item) => (
+    <article class="process-strip__item">
+      <p class="process-strip__label">{item.label}</p>
+      <h3>{item.title}</h3>
+      <p>{item.detail}</p>
+    </article>
+  ))}
+</section>

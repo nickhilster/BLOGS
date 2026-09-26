@@ -1,0 +1,40 @@
+---
+import type { MotionPresetKey } from '../../lib/motion'
+
+interface Column {
+  heading: string
+  items: string[]
+}
+
+interface Props {
+  left: Column
+  right: Column
+  motion?: MotionPresetKey
+}
+
+const { left, right, motion = 'fade-drift' } = Astro.props
+---
+
+<div class="comparison-diagram" data-motion={motion}>
+  <div class="comparison-diagram__column">
+    <h4>{left.heading}</h4>
+    <ul>
+      {left.items.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
+  </div>
+  <div class="comparison-diagram__divider" aria-hidden="true">
+    <svg viewBox="0 0 24 24">
+      <path d="M6 8 L18 16 M18 8 L6 16" />
+    </svg>
+  </div>
+  <div class="comparison-diagram__column">
+    <h4>{right.heading}</h4>
+    <ul>
+      {right.items.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+---
+import type { MotionPresetKey } from '../../lib/motion'
+
+export interface TreeNode {
+  label: string
+  children?: TreeNode[]
+}
+
+interface Props {
+  root: TreeNode
+  motion?: MotionPresetKey
+}
+
+type LaidNode = { label: string; x: number; y: number; children: LaidNode[] }
+
+const { root, motion = 'branch-draw-in' } = Astro.props
+
+const columnWidth = 150
+const levelHeight = 110
+let leafCounter = 0
+
+function layout(node: TreeNode, depth: number): LaidNode {
+  if (!node.children || node.children.length === 0) {
+    const x = leafCounter * columnWidth + columnWidth / 2
+    leafCounter += 1
+    return { label: node.label, x, y: depth * levelHeight + 40, children: [] }
+  }
+
+  const children = node.children.map((child) => layout(child, depth + 1))
+  const x = children.reduce((sum, child) => sum + child.x, 0) / children.length
+  return { label: node.label, x, y: depth * levelHeight + 40, children }
+}
+
+function flatten(node: LaidNode): LaidNode[] {
+  return [node, ...node.children.flatMap(flatten)]
+}
+
+function edges(node: LaidNode): { from: LaidNode; to: LaidNode }[] {
+  return node.children.flatMap((child) => [{ from: node, to: child }, ...edges(child)])
+}
+
+const laid = layout(root, 0)
+const allNodes = flatten(laid)
+const allEdges = edges(laid)
+const width = Math.max(leafCounter * columnWidth, columnWidth)
+const height = Math.max(...allNodes.map((node) => node.y)) + 60
+---
+
+<figure class="tree-diagram" data-motion={motion}>
+  <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label={`${root.label} branching diagram`}>
+    {allEdges.map(({ from, to }) => {
+      const length = Math.hypot(to.x - from.x, to.y - from.y)
+      return (
+        <line class="diagram-line" x1={from.x} y1={from.y} x2={to.x} y2={to.y} style={`--line-length: ${length}`} />
+      )
+    })}
+    {allNodes.map((node) => (
+      <g class="diagram-node">
+        <circle cx={node.x} cy={node.y} r={10} />
+        <text class="diagram-label" x={node.x} y={node.y + 30} text-anchor="middle">{node.label}</text>
+      </g>
+    ))}
+  </svg>
+</figure>

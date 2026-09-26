@@ -1,0 +1,33 @@
+/* Self-hosted curated font pairings (see src/lib/fontPairings.ts). Each @import
+   only registers @font-face rules — browsers fetch a given woff2 file only
+   when a post actually renders text in that family, so importing every
+   pairing globally here does not cost anything on posts that don't use it. */
+
+@import '@fontsource/fraunces/400.css';
+@import '@fontsource/fraunces/600.css';
+@import '@fontsource/source-serif-4/400.css';
+
+@import '@fontsource/big-shoulders-display/700.css';
+@import '@fontsource/work-sans/400.css';
+@import '@fontsource/work-sans/600.css';
+
+@import '@fontsource/space-grotesk/500.css';
+@import '@fontsource/space-grotesk/700.css';
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/600.css';
+
+@import '@fontsource/libre-baskerville/400.css';
+@import '@fontsource/libre-baskerville/700.css';
+
+@import '@fontsource/ibm-plex-serif/600.css';
+@import '@fontsource/ibm-plex-sans/400.css';
+@import '@fontsource/ibm-plex-sans/600.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+
+@import '@fontsource/special-elite/400.css';
+
+@import '@fontsource/courier-prime/400.css';
+@import '@fontsource/courier-prime/700.css';
+
+@import '@fontsource/jetbrains-mono/400.css';
+@import '@fontsource/jetbrains-mono/500.css';

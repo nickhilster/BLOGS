@@ -1,0 +1,29 @@
+---
+import BaseLayout from './BaseLayout.astro'
+import { resolvePostIdentity } from '../lib/postIdentity'
+
+const { post, Content } = Astro.props
+const { theme, styleVars, heroMotion } = resolvePostIdentity(post)
+---
+
+<BaseLayout
+  title={`${post.data.title} | NikDesign Journal`}
+  description={post.data.description}
+  theme={theme}
+  identityStyleVars={styleVars}
+  markdownAlternate={`/posts/${post.slug}.md`}
+>
+  <main class="post-shell post-shell--case-study">
+    <header class="post-hero post-hero--case-study" data-motion={heroMotion}>
+      <p class="post-kicker">{post.data.tags.join(' / ')}</p>
+      <h1>{post.data.hero.title}</h1>
+      <p class="post-dek">{post.data.hero.dek}</p>
+      <div class="post-meta">
+        <span>{post.data.publishedAt}</span>
+      </div>
+    </header>
+    <article class="post-body post-body--case-study prose">
+      <Content />
+    </article>
+  </main>
+</BaseLayout>

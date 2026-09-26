@@ -1,0 +1,28 @@
+---
+// Single shared reveal-on-scroll controller for every [data-motion] element
+// on the page (post hero + any diagram), so no per-post/per-component script
+// is needed. See src/styles/motion.css for the "js-motion" contract.
+---
+
+<script>
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const revealElements = document.querySelectorAll<HTMLElement>('[data-motion]')
+
+  if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+    revealElements.forEach((el) => el.classList.add('is-active'))
+  } else {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-active')
+            observer.unobserve(entry.target)
+          }
+        }
+      },
+      { threshold: 0.2 },
+    )
+
+    revealElements.forEach((el) => observer.observe(el))
+  }
+</script>

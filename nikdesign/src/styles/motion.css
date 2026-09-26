@@ -1,0 +1,213 @@
+/* Motion presets (see src/lib/motion.ts). Contract:
+   - Without JS, [data-motion] elements render at their normal resting state —
+     nothing is ever hidden waiting on a script that might not run.
+   - The "js-motion" class is added synchronously in <head> the instant JS is
+     available, so only then do reveal-on-scroll states apply.
+   - Under prefers-reduced-motion: reduce, the closing block below always wins
+     and forces the resting, non-animated state regardless of preset. */
+
+@media (prefers-reduced-motion: no-preference) {
+  html.js-motion [data-motion='fade-drift'] {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  html.js-motion [data-motion='fade-drift'].is-active {
+    animation: motion-fade-drift 700ms ease forwards;
+  }
+
+  html.js-motion [data-motion='spotlight-sweep'] {
+    opacity: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  html.js-motion [data-motion='spotlight-sweep'].is-active {
+    animation: motion-fade-in 500ms ease forwards;
+  }
+  html.js-motion [data-motion='spotlight-sweep'].is-active::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(100deg, transparent 25%, var(--accent-soft) 50%, transparent 75%);
+    transform: translateX(-120%);
+    animation: motion-spotlight-sweep 1300ms ease forwards;
+    pointer-events: none;
+  }
+
+  html.js-motion [data-motion='scanline'] {
+    opacity: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  html.js-motion [data-motion='scanline'].is-active {
+    animation: motion-fade-in 450ms ease forwards;
+  }
+  html.js-motion [data-motion='scanline'].is-active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 2px;
+    background: var(--accent);
+    animation: motion-scanline 1100ms ease-out forwards;
+    pointer-events: none;
+  }
+
+  html.js-motion [data-motion='stamp-appear'] {
+    opacity: 0;
+    transform: scale(1.25) rotate(-5deg);
+  }
+  html.js-motion [data-motion='stamp-appear'].is-active {
+    animation: motion-stamp-appear 420ms cubic-bezier(0.2, 1.4, 0.4, 1) forwards;
+    animation-delay: var(--stamp-delay, 0ms);
+  }
+
+  html.js-motion [data-motion='redaction-reveal'] {
+    position: relative;
+  }
+  html.js-motion [data-motion='redaction-reveal'].is-active::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--text);
+    transform-origin: left;
+    animation: motion-redaction-reveal 650ms ease forwards;
+    animation-delay: var(--stamp-delay, 0ms);
+  }
+
+  html.js-motion [data-motion='radar-sweep'] {
+    opacity: 0;
+    position: relative;
+  }
+  html.js-motion [data-motion='radar-sweep'].is-active {
+    animation: motion-fade-in 500ms ease forwards;
+  }
+  html.js-motion [data-motion='radar-sweep'].is-active::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: conic-gradient(from 0deg, var(--accent-soft), transparent 35%);
+    animation: motion-radar-sweep 1800ms linear 2;
+    pointer-events: none;
+  }
+
+  html.js-motion [data-motion='waveform-pulse'] {
+    opacity: 0;
+  }
+  html.js-motion [data-motion='waveform-pulse'].is-active {
+    animation:
+      motion-fade-in 500ms ease forwards,
+      motion-waveform-pulse 2400ms ease-in-out 600ms infinite;
+  }
+
+  html.js-motion [data-motion='branch-draw-in'] {
+    opacity: 0;
+  }
+  html.js-motion [data-motion='branch-draw-in'].is-active {
+    animation: motion-fade-in 300ms ease forwards;
+  }
+  html.js-motion [data-motion='branch-draw-in'].is-active .diagram-line {
+    stroke-dasharray: var(--line-length, 200);
+    stroke-dashoffset: var(--line-length, 200);
+    animation: motion-branch-draw 900ms ease forwards;
+    animation-delay: var(--branch-delay, 0ms);
+  }
+
+  html.js-motion [data-motion='gauge-needle-draw'] .gauge-needle {
+    transform: rotate(0deg);
+  }
+  html.js-motion [data-motion='gauge-needle-draw'].is-active .gauge-needle {
+    animation: motion-gauge-needle-draw 900ms cubic-bezier(0.3, 1.3, 0.4, 1) forwards;
+  }
+}
+
+@keyframes motion-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes motion-fade-drift {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes motion-spotlight-sweep {
+  to {
+    transform: translateX(120%);
+  }
+}
+
+@keyframes motion-scanline {
+  to {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes motion-stamp-appear {
+  60% {
+    opacity: 1;
+    transform: scale(0.95) rotate(2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes motion-redaction-reveal {
+  to {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes motion-radar-sweep {
+  from {
+    opacity: 0.9;
+    transform: rotate(0deg);
+  }
+  to {
+    opacity: 0;
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes motion-waveform-pulse {
+  0%,
+  100% {
+    filter: saturate(1);
+  }
+  50% {
+    filter: saturate(1.5);
+  }
+}
+
+@keyframes motion-branch-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes motion-gauge-needle-draw {
+  to {
+    transform: rotate(var(--needle-angle, 0deg));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-motion],
+  [data-motion]::before,
+  [data-motion]::after {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

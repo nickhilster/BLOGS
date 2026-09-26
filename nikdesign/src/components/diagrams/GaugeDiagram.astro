@@ -1,0 +1,44 @@
+---
+import type { MotionPresetKey } from '../../lib/motion'
+
+interface Props {
+  value: number
+  label: string
+  caption?: string
+  motion?: MotionPresetKey
+}
+
+const { value, label, caption, motion = 'gauge-needle-draw' } = Astro.props
+const clamped = Math.min(100, Math.max(0, value))
+
+const centerX = 100
+const centerY = 100
+const radius = 80
+
+function polarToCartesian(angleDeg: number) {
+  const rad = (angleDeg * Math.PI) / 180
+  return { x: centerX + radius * Math.cos(rad), y: centerY + radius * Math.sin(rad) }
+}
+
+const arcStart = polarToCartesian(180)
+const arcEnd = polarToCartesian(0)
+const needleAngle = -90 + (clamped / 100) * 180
+---
+
+<figure class="gauge-diagram" data-motion={motion}>
+  <svg viewBox="0 0 200 130" role="img" aria-label={`${label}: ${clamped} out of 100`}>
+    <path class="gauge-track" d={`M ${arcStart.x} ${arcStart.y} A ${radius} ${radius} 0 0 1 ${arcEnd.x} ${arcEnd.y}`} />
+    <g
+      class="gauge-needle"
+      style={`--needle-angle: ${needleAngle}deg; transform-origin: ${centerX}px ${centerY}px;`}
+    >
+      <line x1={centerX} y1={centerY} x2={centerX} y2={centerY - radius + 10} />
+    </g>
+    <circle class="gauge-hub" cx={centerX} cy={centerY} r="5" />
+  </svg>
+  <figcaption>
+    <strong>{label}</strong>
+    <span>{clamped}/100</span>
+    {caption ? <p>{caption}</p> : null}
+  </figcaption>
+</figure>

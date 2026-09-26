@@ -1,0 +1,482 @@
+---
+import BaseLayout from './BaseLayout.astro'
+import { resolvePostIdentity } from '../lib/postIdentity'
+
+const { post, Content } = Astro.props
+const { theme, styleVars, heroMotion } = resolvePostIdentity(post)
+const isDoorway = post.data.title === 'The Doorway and the Destination'
+const isBelief = post.data.title === 'I Believe'
+---
+
+<BaseLayout
+  title={`${post.data.title} | NikDesign Journal`}
+  description={post.data.description}
+  theme={theme}
+  identityStyleVars={styleVars}
+  markdownAlternate={`/posts/${post.slug}.md`}
+>
+  {isDoorway && (
+    <div class="doorway-backdrop doorway-backdrop--print" aria-hidden="true">
+      <div class="doorway-backdrop__layer doorway-backdrop__layer--print"></div>
+      <div class="doorway-backdrop__layer doorway-backdrop__layer--lab"></div>
+      <div class="doorway-backdrop__layer doorway-backdrop__layer--psychedelic"></div>
+      <div class="doorway-backdrop__layer doorway-backdrop__layer--bhakti"></div>
+      <div class="doorway-backdrop__layer doorway-backdrop__layer--reflection"></div>
+      <div class="doorway-backdrop__grain"></div>
+    </div>
+  )}
+
+  {isBelief && (
+    <div class="belief-backdrop" aria-hidden="true">
+      <div class="belief-backdrop__field"></div>
+      <div class="belief-backdrop__threads"></div>
+      <div class="belief-backdrop__grain"></div>
+    </div>
+  )}
+
+  <main class:list={["post-shell", "post-shell--essay", { "doorway-post": isDoorway, "belief-post": isBelief }]}>
+    <header class:list={["post-hero", { "doorway-hero": isDoorway, "belief-hero": isBelief }]} data-motion={heroMotion}>
+      {isDoorway && <div class="doorway-hero__door" aria-hidden="true"><span></span></div>}
+      {isBelief && (
+        <div class="belief-hero__constellation" aria-hidden="true">
+          <span class="belief-node belief-node--a"></span>
+          <span class="belief-node belief-node--b"></span>
+          <span class="belief-node belief-node--c"></span>
+          <span class="belief-node belief-node--d"></span>
+          <span class="belief-node belief-node--e"></span>
+          <i class="belief-link belief-link--ab"></i>
+          <i class="belief-link belief-link--bc"></i>
+          <i class="belief-link belief-link--cd"></i>
+          <i class="belief-link belief-link--de"></i>
+        </div>
+      )}
+      <p class="post-kicker">{post.data.tags.join(' / ')}</p>
+      <h1>{post.data.hero.title}</h1>
+      <p class="post-dek">{post.data.hero.dek}</p>
+      <div class="post-meta"><span>{post.data.publishedAt}</span></div>
+      {isDoorway && (
+        <div class="doorway-hero__dates" aria-label="Historical span">
+          <span>1893</span><i></i><span>1943</span><i></i><span>1967</span><i></i><span>Now</span>
+        </div>
+      )}
+      {isBelief && (
+        <div class="belief-hero__trail" aria-label="Story trail">
+          <span>Goa</span><i></i><span>Stories</span><i></i><span>Memory</span><i></i><span>Meaning</span>
+        </div>
+      )}
+    </header>
+    <article class="post-body prose"><Content /></article>
+  </main>
+
+  {isDoorway && (
+    <script is:inline>
+      (() => {
+        const backdrop = document.querySelector('.doorway-backdrop');
+        const eras = [...document.querySelectorAll('.doorway-era')];
+        if (!backdrop || eras.length === 0) return;
+
+        const getEra = (el) => {
+          if (el.classList.contains('doorway-era--lab')) return 'lab';
+          if (el.classList.contains('doorway-era--psychedelic')) return 'psychedelic';
+          if (el.classList.contains('doorway-era--bhakti')) return 'bhakti';
+          if (el.classList.contains('doorway-era--reflection')) return 'reflection';
+          return 'print';
+        };
+
+        let activeEra = 'print';
+        const setEra = (era) => {
+          if (era === activeEra) return;
+          activeEra = era;
+          backdrop.dataset.era = era;
+        };
+
+        const update = () => {
+          const anchor = window.innerHeight * 0.48;
+          let current = eras[0];
+          let bestDistance = Infinity;
+          for (const era of eras) {
+            const rect = era.getBoundingClientRect();
+            const center = rect.top + rect.height * 0.35;
+            const distance = Math.abs(center - anchor);
+            if (distance < bestDistance) {
+              bestDistance = distance;
+              current = era;
+            }
+          }
+          setEra(getEra(current));
+        };
+
+        backdrop.dataset.era = 'print';
+        update();
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+          if (ticking) return;
+          ticking = true;
+          requestAnimationFrame(() => {
+            update();
+            ticking = false;
+          });
+        }, { passive: true });
+        window.addEventListener('resize', update, { passive: true });
+      })();
+    </script>
+  )}
+
+  {isBelief && (
+    <script is:inline>
+      (() => {
+        const body = document.querySelector('.belief-post .post-body');
+        const backdrop = document.querySelector('.belief-backdrop');
+        if (!body || !backdrop) return;
+        const marks = [...body.querySelectorAll('h2')];
+        const update = () => {
+          if (marks.length === 0) return;
+          const anchor = window.innerHeight * .52;
+          let active = 0;
+          let best = Infinity;
+          marks.forEach((mark, index) => {
+            const rect = mark.getBoundingClientRect();
+            const distance = Math.abs(rect.top - anchor);
+            if (distance < best) { best = distance; active = index; }
+          });
+          backdrop.style.setProperty('--belief-shift', String(active / Math.max(1, marks.length - 1)));
+        };
+        update();
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+          if (ticking) return;
+          ticking = true;
+          requestAnimationFrame(() => { update(); ticking = false; });
+        }, { passive: true });
+        window.addEventListener('resize', update, { passive: true });
+      })();
+    </script>
+  )}
+</BaseLayout>
+
+<style>
+  :global(.doorway-post),
+  :global(.belief-post) {
+    position: relative;
+    z-index: 2;
+    overflow: clip;
+  }
+
+  :global(body:has(.doorway-post)) { background: #13100d; }
+  :global(body:has(.belief-post)) { background: #080a10; }
+
+  .doorway-backdrop,
+  .belief-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .doorway-backdrop { background: #15110d; }
+
+  .doorway-backdrop__layer {
+    position: absolute;
+    inset: -8%;
+    opacity: 0;
+    transform: scale(1.04);
+    transition: opacity 1.15s ease, transform 1.6s ease;
+    will-change: opacity, transform;
+  }
+
+  .doorway-backdrop[data-era='print'] .doorway-backdrop__layer--print,
+  .doorway-backdrop[data-era='lab'] .doorway-backdrop__layer--lab,
+  .doorway-backdrop[data-era='psychedelic'] .doorway-backdrop__layer--psychedelic,
+  .doorway-backdrop[data-era='bhakti'] .doorway-backdrop__layer--bhakti,
+  .doorway-backdrop[data-era='reflection'] .doorway-backdrop__layer--reflection {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .doorway-backdrop__layer--print {
+    background:
+      linear-gradient(rgba(55,35,19,.18), rgba(35,24,15,.34)),
+      radial-gradient(circle at 20% 18%, rgba(225,193,139,.30), transparent 32%),
+      radial-gradient(circle at 80% 76%, rgba(120,76,34,.18), transparent 38%),
+      repeating-linear-gradient(0deg, rgba(255,241,213,.018) 0 1px, transparent 1px 4px),
+      #6b4b2d;
+    filter: sepia(.42) saturate(.84) brightness(.72);
+  }
+
+  .doorway-backdrop__layer--lab {
+    background:
+      linear-gradient(rgba(3,22,27,.24), rgba(0,13,17,.46)),
+      linear-gradient(rgba(117,196,194,.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(117,196,194,.055) 1px, transparent 1px),
+      radial-gradient(circle at 18% 26%, rgba(75,151,148,.28), transparent 34%),
+      radial-gradient(circle at 84% 70%, rgba(42,86,111,.28), transparent 38%),
+      #102b31;
+    background-size: auto, 42px 42px, 42px 42px, auto, auto, auto;
+  }
+
+  .doorway-backdrop__layer--psychedelic {
+    background:
+      radial-gradient(circle at 16% 20%, rgba(226,76,132,.48), transparent 28%),
+      radial-gradient(circle at 82% 20%, rgba(62,187,193,.42), transparent 30%),
+      radial-gradient(circle at 48% 76%, rgba(135,72,198,.55), transparent 34%),
+      conic-gradient(from 210deg at 50% 50%, #2a1840, #15465b, #6f254e, #2e1650, #174b50, #2a1840);
+    filter: saturate(1.18) brightness(.78);
+    animation: doorway-psychedelic-drift 18s ease-in-out infinite alternate;
+  }
+
+  .doorway-backdrop__layer--bhakti {
+    background:
+      radial-gradient(circle at 50% 18%, rgba(255,194,88,.42), transparent 27%),
+      radial-gradient(circle at 14% 74%, rgba(170,56,28,.36), transparent 34%),
+      radial-gradient(circle at 88% 70%, rgba(239,129,42,.38), transparent 35%),
+      linear-gradient(145deg, #3b140d 0%, #6f2513 36%, #8c3a18 58%, #3a180f 100%);
+    filter: saturate(1.08) brightness(.78);
+  }
+
+  .doorway-backdrop__layer--reflection {
+    background:
+      radial-gradient(circle at 50% 20%, rgba(102,111,169,.23), transparent 30%),
+      radial-gradient(circle at 78% 72%, rgba(170,126,76,.12), transparent 27%),
+      linear-gradient(180deg, #11182b 0%, #0a0f1a 58%, #05070d 100%);
+  }
+
+  .doorway-backdrop__layer--reflection::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: .35;
+    background-image:
+      radial-gradient(circle at 12% 22%, rgba(255,255,255,.7) 0 1px, transparent 1.4px),
+      radial-gradient(circle at 68% 16%, rgba(255,255,255,.65) 0 1px, transparent 1.3px),
+      radial-gradient(circle at 81% 38%, rgba(255,255,255,.7) 0 1px, transparent 1.4px),
+      radial-gradient(circle at 23% 64%, rgba(255,255,255,.55) 0 1px, transparent 1.3px),
+      radial-gradient(circle at 57% 78%, rgba(255,255,255,.5) 0 1px, transparent 1.2px);
+    background-size: 170px 170px, 210px 210px, 260px 260px, 230px 230px, 300px 300px;
+  }
+
+  .doorway-backdrop__grain,
+  .belief-backdrop__grain {
+    position: absolute;
+    inset: 0;
+    opacity: .18;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(255,255,255,.018) 0 1px, transparent 1px 3px),
+      repeating-linear-gradient(90deg, rgba(0,0,0,.018) 0 1px, transparent 1px 4px);
+    mix-blend-mode: soft-light;
+  }
+
+  .belief-backdrop {
+    --belief-shift: 0;
+    background: #080a10;
+  }
+
+  .belief-backdrop__field {
+    position: absolute;
+    inset: -12%;
+    background:
+      radial-gradient(circle at calc(18% + var(--belief-shift) * 8%) 18%, rgba(68,112,126,.28), transparent 28%),
+      radial-gradient(circle at calc(78% - var(--belief-shift) * 12%) 28%, rgba(123,84,139,.22), transparent 30%),
+      radial-gradient(circle at 50% calc(78% - var(--belief-shift) * 10%), rgba(184,132,72,.18), transparent 34%),
+      linear-gradient(180deg, #0b0f17 0%, #0a0d13 45%, #111019 100%);
+    filter: saturate(.94) brightness(.9);
+    transform: scale(1.06);
+    transition: background 1.2s ease;
+  }
+
+  .belief-backdrop__threads {
+    position: absolute;
+    inset: 0;
+    opacity: .23;
+    background-image:
+      linear-gradient(115deg, transparent 0 31%, rgba(168,214,200,.22) 31.2% 31.35%, transparent 31.55% 100%),
+      linear-gradient(62deg, transparent 0 63%, rgba(200,167,112,.16) 63.1% 63.22%, transparent 63.4% 100%),
+      radial-gradient(circle at 16% 26%, rgba(244,240,232,.9) 0 1px, transparent 1.4px),
+      radial-gradient(circle at 71% 18%, rgba(244,240,232,.72) 0 1px, transparent 1.4px),
+      radial-gradient(circle at 52% 66%, rgba(244,240,232,.62) 0 1px, transparent 1.4px),
+      radial-gradient(circle at 84% 76%, rgba(244,240,232,.7) 0 1px, transparent 1.4px);
+    background-size: auto, auto, 190px 190px, 250px 250px, 220px 220px, 290px 290px;
+  }
+
+  :global(body:has(.doorway-post) .site-header),
+  :global(body:has(.doorway-post) .site-footer),
+  :global(body:has(.belief-post) .site-header),
+  :global(body:has(.belief-post) .site-footer) {
+    position: relative;
+    z-index: 3;
+    background: rgba(7,8,10,.72);
+    backdrop-filter: blur(14px);
+  }
+
+  :global(.doorway-post .post-body),
+  :global(.belief-post .post-body) { position: relative; }
+
+  :global(.doorway-post .doorway-era) {
+    background: rgba(9,10,12,.34) !important;
+    backdrop-filter: blur(2px);
+    border-color: rgba(255,255,255,.10) !important;
+  }
+
+  :global(.doorway-post .doorway-era--print) { background: rgba(38,26,16,.34) !important; }
+  :global(.doorway-post .doorway-era--lab) { background: rgba(6,28,32,.34) !important; }
+  :global(.doorway-post .doorway-era--psychedelic) { background: rgba(22,10,30,.30) !important; }
+  :global(.doorway-post .doorway-era--bhakti) { background: rgba(43,16,8,.31) !important; }
+  :global(.doorway-post .doorway-era--reflection) { background: rgba(5,8,15,.34) !important; }
+
+  :global(.belief-post .post-body h2) {
+    margin-top: 5.25rem;
+    padding-top: .85rem;
+    border-top: 1px solid rgba(168,214,200,.16);
+    letter-spacing: -.02em;
+  }
+
+  :global(.belief-post .post-body h2::before) {
+    content: '';
+    display: inline-block;
+    width: .48rem;
+    height: .48rem;
+    margin-right: .7rem;
+    border-radius: 50%;
+    vertical-align: .12em;
+    background: #a8d6c8;
+    box-shadow: 0 0 18px rgba(168,214,200,.46);
+  }
+
+  :global(.belief-post .post-body p) { text-wrap: pretty; }
+  :global(.belief-post .post-body strong) { color: #f8f4ec; }
+  :global(.belief-post .post-body hr) {
+    border: 0;
+    height: 1px;
+    margin: 5rem 0 2rem;
+    background: linear-gradient(90deg, transparent, rgba(168,214,200,.35), transparent);
+  }
+
+  .doorway-hero,
+  .belief-hero {
+    position: relative;
+    min-height: 34rem;
+  }
+
+  .doorway-hero { padding-right: min(30vw, 18rem); }
+  .belief-hero { padding-right: min(34vw, 22rem); }
+
+  .doorway-hero::before,
+  .belief-hero::before {
+    content: '';
+    position: absolute;
+    inset: -2rem -50vw -3rem;
+    z-index: -1;
+  }
+
+  .doorway-hero::before { background: linear-gradient(180deg, rgba(7,8,10,.28), rgba(7,8,10,.08)); }
+  .belief-hero::before { background: linear-gradient(180deg, rgba(7,10,15,.08), rgba(7,10,15,.22)); }
+
+  .doorway-hero__door {
+    position: absolute;
+    right: 1.5rem;
+    top: 2.5rem;
+    width: 11rem;
+    height: 17rem;
+    border: 1px solid rgba(244,208,145,.52);
+    box-shadow: 0 0 42px rgba(244,181,88,.12), inset 0 0 0 .8rem rgba(244,181,88,.04);
+    perspective: 600px;
+  }
+
+  .doorway-hero__door span {
+    position: absolute;
+    inset: .75rem;
+    transform-origin: left center;
+    transform: rotateY(-24deg);
+    border: 1px solid rgba(244,208,145,.44);
+    background: linear-gradient(135deg, rgba(244,184,92,.12), rgba(120,85,165,.06));
+  }
+
+  .doorway-hero__dates,
+  .belief-hero__trail {
+    display: flex;
+    align-items: center;
+    gap: .65rem;
+    margin-top: 2.5rem;
+    max-width: 34rem;
+    color: var(--muted);
+    font-family: var(--font-post-mono, monospace);
+    font-size: .72rem;
+    letter-spacing: .08em;
+  }
+
+  .doorway-hero__dates i,
+  .belief-hero__trail i {
+    flex: 1;
+    height: 1px;
+    opacity: .8;
+  }
+
+  .doorway-hero__dates i { background: linear-gradient(90deg, #d39a56, #71a7a3, #b36bd0, #f18a3b); }
+  .belief-hero__trail i { background: linear-gradient(90deg, #a8d6c8, #8b7eaa, #cda86d); }
+
+  .belief-hero__constellation {
+    position: absolute;
+    right: 1rem;
+    top: 1.8rem;
+    width: min(30vw, 21rem);
+    aspect-ratio: 1 / .85;
+    opacity: .92;
+  }
+
+  .belief-node,
+  .belief-link {
+    position: absolute;
+    display: block;
+  }
+
+  .belief-node {
+    width: .58rem;
+    height: .58rem;
+    border-radius: 50%;
+    background: #f3f0e8;
+    box-shadow: 0 0 18px rgba(168,214,200,.48);
+  }
+
+  .belief-node--a { left: 6%; top: 69%; }
+  .belief-node--b { left: 30%; top: 38%; }
+  .belief-node--c { left: 54%; top: 52%; }
+  .belief-node--d { left: 72%; top: 18%; }
+  .belief-node--e { left: 90%; top: 43%; }
+
+  .belief-link {
+    height: 1px;
+    transform-origin: left center;
+    background: linear-gradient(90deg, rgba(168,214,200,.2), rgba(168,214,200,.86));
+  }
+
+  .belief-link--ab { left: 8%; top: 69%; width: 33%; transform: rotate(-52deg); }
+  .belief-link--bc { left: 31%; top: 40%; width: 27%; transform: rotate(29deg); }
+  .belief-link--cd { left: 55%; top: 52%; width: 39%; transform: rotate(-61deg); }
+  .belief-link--de { left: 73%; top: 19%; width: 31%; transform: rotate(47deg); }
+
+  @keyframes doorway-psychedelic-drift {
+    from { transform: scale(1.05) translate3d(-1.5%, -1%, 0) rotate(-1deg); }
+    to { transform: scale(1.10) translate3d(1.5%, 1%, 0) rotate(1.5deg); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .doorway-backdrop__layer { transition: none; }
+    .doorway-backdrop__layer--psychedelic { animation: none; }
+    .belief-backdrop__field { transition: none; }
+  }
+
+  @media (max-width: 760px) {
+    .doorway-hero,
+    .belief-hero { min-height: auto; padding-right: 0; padding-bottom: 2rem; }
+    .doorway-hero__door { width: 6rem; height: 9rem; right: 0; top: 1rem; opacity: .4; }
+    .doorway-hero__dates,
+    .belief-hero__trail { margin-top: 2rem; }
+    .belief-hero__constellation {
+      width: 9rem;
+      right: -1rem;
+      top: .5rem;
+      opacity: .34;
+    }
+    :global(.belief-post .post-body h2) { margin-top: 4rem; }
+  }
+</style>

@@ -1,0 +1,16 @@
+---
+interface Props {
+  items: Array<{ title: string; detail: string }>
+}
+
+const { items } = Astro.props
+---
+
+<section class="timeline-rail">
+  {items.map((item) => (
+    <article class="timeline-rail__item">
+      <h3>{item.title}</h3>
+      <p>{item.detail}</p>
+    </article>
+  ))}
+</section>

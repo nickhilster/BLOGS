@@ -1,0 +1,13 @@
+---
+interface Props {
+  quote: string
+  source?: string
+}
+
+const { quote, source } = Astro.props
+---
+
+<blockquote class="pull-quote-wall">
+  <p>{quote}</p>
+  {source ? <footer>{source}</footer> : null}
+</blockquote>

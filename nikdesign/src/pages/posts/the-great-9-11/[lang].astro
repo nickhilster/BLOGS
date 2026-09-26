@@ -1,0 +1,38 @@
+---
+import LocalizedResponse2026 from '../../../components/great911/LocalizedResponse2026.astro'
+import FirstPartyLanguageRail from '../../../components/great911/FirstPartyLanguageRail.astro'
+import Response2026Layout from '../../../layouts/Response2026Layout.astro'
+import { response2026Locales } from '../../../lib/response2026Locales'
+import { response2026TranslationStore } from '../../../lib/response2026TranslationStore'
+
+export function getStaticPaths() {
+  return response2026Locales
+    .filter((locale) => locale.code !== 'en' && response2026TranslationStore[locale.code])
+    .map((locale) => ({ params: { lang: locale.code } }))
+}
+
+const { lang = 'es' } = Astro.params
+---
+
+<Response2026Layout>
+  <div class="response-language-host">
+    <FirstPartyLanguageRail current={lang} />
+  </div>
+  <LocalizedResponse2026 code={lang} />
+</Response2026Layout>
+
+<style is:global>
+  .response-language-host {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: 18;
+    width: 100vw;
+    transform: translateX(-50%);
+  }
+
+  .response-language-host .response-language-rail {
+    position: relative;
+    top: auto;
+  }
+</style>

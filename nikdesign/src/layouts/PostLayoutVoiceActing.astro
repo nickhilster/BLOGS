@@ -1,0 +1,652 @@
+---
+import BaseLayout from './BaseLayout.astro'
+import { resolvePostIdentity } from '../lib/postIdentity'
+
+const { post, Content } = Astro.props
+const { theme, styleVars } = resolvePostIdentity(post)
+---
+
+<BaseLayout
+  title={`${post.data.title} | NikDesign Journal`}
+  description={post.data.description}
+  theme={theme}
+  identityStyleVars={styleVars}
+  markdownAlternate={`/posts/${post.slug}.md`}
+>
+  <div class="voice-stage" data-scene="opening" aria-hidden="true">
+    <div class="voice-stage__glow"></div>
+    <div class="voice-stage__grid"></div>
+    <div class="voice-stage__wave">
+      {Array.from({ length: 42 }).map((_, index) => <i style={`--i:${index}`}></i>)}
+    </div>
+    <div class="voice-stage__cue">PERFORMANCE / NOT JUST SPEECH</div>
+  </div>
+
+  <div class="voice-progress" aria-hidden="true"><span></span></div>
+
+  <main class="post-shell post-shell--essay voice-post">
+    <header class="voice-hero">
+      <p class="voice-hero__kicker">A FIELD NOTE FROM <em>SOUL</em> TO SYNTHETIC SPEECH</p>
+      <h1>{post.data.hero.title}</h1>
+      <p class="post-dek">{post.data.hero.dek}</p>
+      <div class="post-meta"><span>{post.data.publishedAt}</span></div>
+
+      <section class="performance-lab" aria-labelledby="performance-lab-title">
+        <div class="performance-lab__topline">
+          <p id="performance-lab-title">DIRECT THE LINE</p>
+          <span>same words / different objective</span>
+        </div>
+
+        <div class="performance-lab__stage" data-performance="reassure">
+          <div class="performance-lab__meters" aria-hidden="true">
+            {Array.from({ length: 24 }).map((_, index) => <i style={`--bar:${index}`}></i>)}
+          </div>
+          <blockquote>“I understand.”</blockquote>
+          <p class="performance-lab__direction" aria-live="polite">Reassure them. Lower the energy. Let the ending breathe.</p>
+        </div>
+
+        <div class="performance-lab__controls" role="group" aria-label="Choose a performance direction">
+          <button type="button" data-performance-choice="reassure" aria-pressed="true">Reassure</button>
+          <button type="button" data-performance-choice="warn">Warn</button>
+          <button type="button" data-performance-choice="uncertain">Uncertain</button>
+          <button type="button" data-performance-choice="impatient">Impatient</button>
+          <button type="button" data-performance-choice="conceal">Hide something</button>
+          <button type="button" data-performance-choice="afraid">Afraid, but calm</button>
+        </div>
+      </section>
+
+      <p class="voice-hero__instruction">Change the intention. Notice that the sentence never changes.</p>
+    </header>
+
+    <article class="post-body prose voice-body"><Content /></article>
+
+    <section class="director-console" aria-labelledby="director-console-title">
+      <div class="director-console__intro">
+        <p class="director-console__eyebrow">THE MISSING LAYER</p>
+        <h2 id="director-console-title">Put a director between cognition and speech.</h2>
+        <p>Switch the architecture and watch what changes. The semantic job can stay the same while performance context becomes explicit.</p>
+      </div>
+
+      <div class="architecture" data-architecture="speech">
+        <div class="architecture__toggle" role="group" aria-label="Compare voice agent architectures">
+          <button type="button" data-architecture-choice="speech" aria-pressed="true">Speech pipeline</button>
+          <button type="button" data-architecture-choice="performance">Performance pipeline</button>
+        </div>
+
+        <div class="architecture__track architecture__track--speech" aria-live="polite">
+          <span>LLM</span><b>→</b><span>text</span><b>→</b><span>TTS</span><b>→</b><span>audio</span>
+        </div>
+        <div class="architecture__track architecture__track--performance" aria-live="polite">
+          <span>intent</span><b>→</b><span>character state</span><b>→</b><strong>performance direction</strong><b>→</b><span>language</span><b>→</b><span>vocal performance</span>
+        </div>
+
+        <div class="director-notes" aria-hidden="true">
+          <span>pause before answering</span>
+          <span>reassurance, not instruction</span>
+          <span>do not fill this silence</span>
+          <span>let uncertainty remain audible</span>
+          <span>do not sound like customer support</span>
+        </div>
+      </div>
+    </section>
+
+    <footer class="voice-outro">
+      <p>A cloned voice gives you an instrument.</p>
+      <strong>It does not give you the musician.</strong>
+      <button type="button" class="final-cue">How would an actor perform this?</button>
+      <p class="final-cue__echo" aria-live="polite"></p>
+    </footer>
+  </main>
+
+  <script is:inline>
+    (() => {
+      const post = document.querySelector('.voice-post');
+      const backdrop = document.querySelector('.voice-stage');
+      const progress = document.querySelector('.voice-progress span');
+      const lab = document.querySelector('.performance-lab__stage');
+      const direction = document.querySelector('.performance-lab__direction');
+      const performanceButtons = [...document.querySelectorAll('[data-performance-choice]')];
+      const architecture = document.querySelector('.architecture');
+      const architectureButtons = [...document.querySelectorAll('[data-architecture-choice]')];
+      const finalCue = document.querySelector('.final-cue');
+      const finalEcho = document.querySelector('.final-cue__echo');
+      if (!post || !backdrop || !lab) return;
+
+      const directions = {
+        reassure: 'Reassure them. Lower the energy. Let the ending breathe.',
+        warn: 'You know what comes next. Keep the volume low; make the certainty do the work.',
+        uncertain: 'You want to believe this. Hesitate just enough for the doubt to remain audible.',
+        impatient: 'You have heard enough. Clip the ending. The line is an exit, not an invitation.',
+        conceal: 'You understand more than you are willing to reveal. Keep the surface neutral.',
+        afraid: 'You are frightened. Control the breath so they do not become frightened too.'
+      };
+
+      const setPerformance = (mode) => {
+        if (!directions[mode]) return;
+        lab.dataset.performance = mode;
+        backdrop.dataset.performance = mode;
+        if (direction) direction.textContent = directions[mode];
+        performanceButtons.forEach((button) => {
+          button.setAttribute('aria-pressed', button.dataset.performanceChoice === mode ? 'true' : 'false');
+        });
+      };
+
+      performanceButtons.forEach((button) => {
+        button.addEventListener('click', () => setPerformance(button.dataset.performanceChoice));
+      });
+
+      const setArchitecture = (mode) => {
+        if (!architecture) return;
+        architecture.dataset.architecture = mode;
+        architectureButtons.forEach((button) => {
+          button.setAttribute('aria-pressed', button.dataset.architectureChoice === mode ? 'true' : 'false');
+        });
+      };
+
+      architectureButtons.forEach((button) => {
+        button.addEventListener('click', () => setArchitecture(button.dataset.architectureChoice));
+      });
+
+      const anchors = [
+        ['roots', document.getElementById('i-learned-this-before-i-knew-what-voice-acting-was')],
+        ['history', document.getElementById('animation-has-been-studying-this-problem-for-almost-a-century')],
+        ['performance', document.getElementById('speech-is-not-performance')],
+        ['direction', document.getElementById('voice-agents-need-directors')],
+        ['architecture', document.getElementById('the-architecture-may-be-missing-a-layer')],
+        ['instrument', document.getElementById('a-voice-is-an-instrument')]
+      ].filter(([, el]) => el);
+
+      const update = () => {
+        const anchor = window.innerHeight * .42;
+        let scene = 'opening';
+        for (const [candidate, el] of anchors) {
+          if (el.getBoundingClientRect().top <= anchor) scene = candidate;
+        }
+        backdrop.dataset.scene = scene;
+
+        if (progress) {
+          const max = document.documentElement.scrollHeight - window.innerHeight;
+          const ratio = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+          progress.style.transform = `scaleX(${ratio})`;
+        }
+      };
+
+      let ticking = false;
+      const requestUpdate = () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          update();
+          ticking = false;
+        });
+      };
+
+      update();
+      window.addEventListener('scroll', requestUpdate, { passive: true });
+      window.addEventListener('resize', requestUpdate, { passive: true });
+
+      window.addEventListener('pointermove', (event) => {
+        if (event.pointerType === 'touch') return;
+        backdrop.style.setProperty('--px', `${event.clientX}px`);
+        backdrop.style.setProperty('--py', `${event.clientY}px`);
+      }, { passive: true });
+
+      finalCue?.addEventListener('click', () => {
+        post.classList.remove('is-final-take');
+        void post.offsetWidth;
+        post.classList.add('is-final-take');
+        if (finalEcho) finalEcho.textContent = 'That is the question.';
+      });
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+  :global(body:has(.voice-post)) {
+    background: #080a10;
+    overflow-x: clip;
+  }
+
+  :global(body:has(.voice-post) .site-header),
+  :global(body:has(.voice-post) .site-footer) {
+    position: relative;
+    z-index: 20;
+    background: rgba(8,10,16,.72);
+    border-color: rgba(120,215,255,.12);
+    backdrop-filter: blur(16px);
+  }
+
+  .voice-stage {
+    --px: 50vw;
+    --py: 30vh;
+    --performance-hue: 196;
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    background: #080a10;
+    transition: background 1s ease;
+  }
+
+  .voice-stage[data-performance='warn'] { --performance-hue: 18; }
+  .voice-stage[data-performance='uncertain'] { --performance-hue: 266; }
+  .voice-stage[data-performance='impatient'] { --performance-hue: 352; }
+  .voice-stage[data-performance='conceal'] { --performance-hue: 152; }
+  .voice-stage[data-performance='afraid'] { --performance-hue: 42; }
+
+  .voice-stage__glow,
+  .voice-stage__grid,
+  .voice-stage__wave,
+  .voice-stage__cue {
+    position: absolute;
+    inset: 0;
+  }
+
+  .voice-stage__glow {
+    background:
+      radial-gradient(circle at var(--px) var(--py), hsla(var(--performance-hue), 88%, 67%, .12), transparent 18rem),
+      radial-gradient(circle at 50% 10%, rgba(120,215,255,.11), transparent 36rem),
+      linear-gradient(180deg, #0e1420 0%, #080a10 68%);
+    transition: background .7s ease;
+  }
+
+  .voice-stage__grid {
+    opacity: .26;
+    background-image:
+      linear-gradient(rgba(120,215,255,.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(120,215,255,.035) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,.65), transparent 75%);
+  }
+
+  .voice-stage__wave {
+    inset: auto 0 7vh;
+    height: 23vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(3px, .55vw, 9px);
+    opacity: .26;
+    transition: opacity .8s ease, transform .8s ease;
+  }
+
+  .voice-stage__wave i {
+    width: clamp(2px, .25vw, 4px);
+    height: calc(10px + (var(--i) % 9) * 7px);
+    border-radius: 999px;
+    background: hsla(var(--performance-hue), 90%, 72%, .75);
+    box-shadow: 0 0 18px hsla(var(--performance-hue), 90%, 72%, .18);
+    animation: ambient-wave calc(1.7s + (var(--i) % 5) * .18s) ease-in-out infinite alternate;
+    transition: background .6s ease, height .8s ease;
+  }
+
+  .voice-stage__cue {
+    display: grid;
+    place-items: center;
+    font-family: var(--font-post-mono, monospace);
+    font-size: clamp(3rem, 11vw, 11rem);
+    font-weight: 800;
+    letter-spacing: -.065em;
+    color: rgba(255,255,255,.018);
+    white-space: nowrap;
+    transform: rotate(-4deg) scale(.95);
+    transition: opacity .8s ease, transform .8s ease;
+  }
+
+  .voice-stage[data-scene='history'] .voice-stage__cue { opacity: .7; transform: rotate(-2deg) scale(1); }
+  .voice-stage[data-scene='performance'] .voice-stage__wave { opacity: .48; transform: scaleY(1.2); }
+  .voice-stage[data-scene='direction'] .voice-stage__grid { opacity: .45; }
+  .voice-stage[data-scene='architecture'] .voice-stage__cue { opacity: 0; }
+  .voice-stage[data-scene='instrument'] .voice-stage__wave { opacity: .12; transform: scaleY(.65); }
+
+  .voice-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    z-index: 50;
+    background: rgba(255,255,255,.04);
+  }
+  .voice-progress span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    background: linear-gradient(90deg, #78d7ff, #be8dff, #ffad77);
+  }
+
+  .voice-post {
+    position: relative;
+    z-index: 2;
+  }
+
+  .voice-hero {
+    padding-top: clamp(4rem, 10vh, 8rem);
+    padding-bottom: clamp(3rem, 8vh, 6rem);
+  }
+
+  .voice-hero__kicker,
+  .performance-lab__topline,
+  .director-console__eyebrow {
+    font-family: var(--font-post-mono, monospace);
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    font-size: .7rem;
+    color: #78d7ff;
+  }
+
+  .voice-hero h1 {
+    max-width: 13ch;
+    margin: .8rem 0 1rem;
+    font-size: clamp(3.6rem, 10vw, 8.8rem);
+    line-height: .86;
+    letter-spacing: -.065em;
+    text-wrap: balance;
+  }
+
+  .voice-hero .post-dek {
+    max-width: 720px;
+    font-size: clamp(1.2rem, 2.4vw, 1.72rem);
+    color: rgba(242,245,250,.76);
+  }
+
+  .performance-lab {
+    margin-top: clamp(3rem, 8vh, 6.5rem);
+    padding: clamp(1rem, 2.2vw, 1.5rem);
+    border: 1px solid rgba(120,215,255,.2);
+    border-radius: 24px;
+    background: rgba(10,15,24,.72);
+    box-shadow: 0 30px 90px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.04);
+    backdrop-filter: blur(20px);
+  }
+
+  .performance-lab__topline {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    color: #78d7ff;
+  }
+  .performance-lab__topline span { color: rgba(242,245,250,.4); }
+
+  .performance-lab__stage {
+    --lab-hue: 196;
+    min-height: 270px;
+    margin: 1rem 0;
+    padding: clamp(1.5rem, 4vw, 3rem);
+    border-radius: 17px;
+    display: grid;
+    align-content: center;
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 50% 38%, hsla(var(--lab-hue), 90%, 64%, .17), transparent 52%),
+      #080c14;
+    transition: background .55s ease;
+  }
+  .performance-lab__stage[data-performance='warn'] { --lab-hue: 18; }
+  .performance-lab__stage[data-performance='uncertain'] { --lab-hue: 266; }
+  .performance-lab__stage[data-performance='impatient'] { --lab-hue: 352; }
+  .performance-lab__stage[data-performance='conceal'] { --lab-hue: 152; }
+  .performance-lab__stage[data-performance='afraid'] { --lab-hue: 42; }
+
+  .performance-lab blockquote {
+    position: relative;
+    z-index: 2;
+    margin: 0;
+    border: 0;
+    padding: 0;
+    text-align: center;
+    font-size: clamp(2.8rem, 8vw, 6.5rem);
+    font-weight: 650;
+    line-height: 1;
+    letter-spacing: -.055em;
+    color: #fff;
+    transition: transform .35s ease, letter-spacing .35s ease, opacity .35s ease;
+  }
+  .performance-lab__stage[data-performance='warn'] blockquote { transform: scale(.96); letter-spacing: -.035em; }
+  .performance-lab__stage[data-performance='uncertain'] blockquote { transform: translateY(4px); opacity: .8; }
+  .performance-lab__stage[data-performance='impatient'] blockquote { transform: skewX(-3deg) scaleX(.95); letter-spacing: -.08em; }
+  .performance-lab__stage[data-performance='conceal'] blockquote { opacity: .72; }
+  .performance-lab__stage[data-performance='afraid'] blockquote { transform: scale(.98); }
+
+  .performance-lab__direction {
+    position: relative;
+    z-index: 2;
+    max-width: 620px;
+    margin: 1.4rem auto 0;
+    text-align: center;
+    color: rgba(242,245,250,.62);
+    font-family: var(--font-post-mono, monospace);
+    font-size: .78rem;
+    line-height: 1.6;
+  }
+
+  .performance-lab__meters {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    opacity: .22;
+  }
+  .performance-lab__meters i {
+    width: 3px;
+    height: calc(24px + (var(--bar) % 7) * 12px);
+    border-radius: 99px;
+    background: hsla(var(--lab-hue), 95%, 70%, .85);
+    animation: lab-wave calc(.9s + (var(--bar) % 6) * .12s) ease-in-out infinite alternate;
+  }
+
+  .performance-lab__controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .55rem;
+  }
+  .performance-lab__controls button,
+  .architecture__toggle button,
+  .final-cue {
+    appearance: none;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 999px;
+    background: rgba(255,255,255,.035);
+    color: rgba(242,245,250,.72);
+    padding: .72rem 1rem;
+    font: inherit;
+    font-size: .82rem;
+    cursor: pointer;
+    transition: transform .18s ease, background .18s ease, border-color .18s ease, color .18s ease;
+  }
+  .performance-lab__controls button:hover,
+  .architecture__toggle button:hover,
+  .final-cue:hover { transform: translateY(-1px); border-color: rgba(120,215,255,.45); color: #fff; }
+  .performance-lab__controls button[aria-pressed='true'],
+  .architecture__toggle button[aria-pressed='true'] {
+    background: rgba(120,215,255,.13);
+    border-color: rgba(120,215,255,.48);
+    color: #c9f0ff;
+  }
+
+  .voice-hero__instruction {
+    margin-top: .8rem;
+    font-size: .78rem;
+    color: rgba(242,245,250,.38);
+    text-align: right;
+  }
+
+  .voice-body {
+    --body-width: 720px;
+    max-width: var(--body-width);
+    margin-inline: auto;
+  }
+
+  :global(.voice-body h2) {
+    margin-top: clamp(5rem, 11vh, 8rem);
+    font-size: clamp(2rem, 5vw, 3.6rem);
+    line-height: .98;
+    letter-spacing: -.045em;
+    text-wrap: balance;
+    scroll-margin-top: 18vh;
+  }
+
+  :global(.voice-body p),
+  :global(.voice-body li) {
+    font-size: clamp(1.04rem, 1.55vw, 1.18rem);
+    line-height: 1.78;
+  }
+
+  :global(.voice-body blockquote) {
+    margin: 3rem -5vw;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    border: 1px solid rgba(120,215,255,.2);
+    border-left: 3px solid #78d7ff;
+    border-radius: 18px;
+    background: rgba(13,19,30,.72);
+    font-size: clamp(1.45rem, 3vw, 2.1rem);
+    line-height: 1.35;
+    color: #eef9ff;
+    backdrop-filter: blur(12px);
+  }
+
+  :global(.voice-body strong) { color: #fff; }
+
+  .director-console {
+    max-width: 1050px;
+    margin: clamp(6rem, 14vh, 11rem) auto 0;
+    padding: clamp(1.2rem, 4vw, 3rem);
+    border: 1px solid rgba(190,141,255,.24);
+    border-radius: 28px;
+    background: linear-gradient(145deg, rgba(19,16,32,.88), rgba(8,12,20,.9));
+    box-shadow: 0 34px 110px rgba(0,0,0,.42);
+    backdrop-filter: blur(20px);
+  }
+
+  .director-console__intro { max-width: 720px; }
+  .director-console__intro h2 {
+    margin: .45rem 0 1rem;
+    font-size: clamp(2.2rem, 5vw, 4.2rem);
+    line-height: .98;
+    letter-spacing: -.05em;
+  }
+  .director-console__intro > p:last-child { color: rgba(242,245,250,.62); }
+
+  .architecture {
+    margin-top: 2rem;
+    padding: clamp(1rem, 2vw, 1.4rem);
+    border-radius: 20px;
+    background: rgba(4,7,13,.7);
+    overflow: hidden;
+  }
+  .architecture__toggle { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.4rem; }
+
+  .architecture__track {
+    min-height: 160px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: .65rem;
+    font-family: var(--font-post-mono, monospace);
+    text-align: center;
+    transition: opacity .4s ease, transform .4s ease;
+  }
+  .architecture__track span,
+  .architecture__track strong {
+    padding: .72rem .85rem;
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 10px;
+    background: rgba(255,255,255,.035);
+    font-size: .8rem;
+    font-weight: 500;
+  }
+  .architecture__track strong {
+    border-color: rgba(190,141,255,.55);
+    color: #e4cfff;
+    box-shadow: 0 0 32px rgba(190,141,255,.13);
+  }
+  .architecture__track b { color: rgba(242,245,250,.3); }
+  .architecture__track--performance { display: none; }
+  .architecture[data-architecture='performance'] .architecture__track--speech { display: none; }
+  .architecture[data-architecture='performance'] .architecture__track--performance { display: flex; }
+
+  .director-notes {
+    display: none;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: .55rem;
+    margin-top: .6rem;
+  }
+  .architecture[data-architecture='performance'] .director-notes { display: grid; }
+  .director-notes span {
+    padding: .75rem;
+    border: 1px dashed rgba(190,141,255,.22);
+    border-radius: 10px;
+    font-family: var(--font-post-mono, monospace);
+    font-size: .68rem;
+    line-height: 1.45;
+    color: rgba(228,207,255,.62);
+    animation: note-arrive .45s ease both;
+  }
+  .director-notes span:nth-child(2) { animation-delay: .06s; }
+  .director-notes span:nth-child(3) { animation-delay: .12s; }
+  .director-notes span:nth-child(4) { animation-delay: .18s; }
+  .director-notes span:nth-child(5) { animation-delay: .24s; }
+
+  .voice-outro {
+    max-width: 880px;
+    margin: clamp(6rem, 15vh, 12rem) auto 4rem;
+    padding: clamp(2rem, 6vw, 5rem);
+    text-align: center;
+    border-top: 1px solid rgba(120,215,255,.16);
+  }
+  .voice-outro p:first-child { margin: 0; color: rgba(242,245,250,.5); }
+  .voice-outro strong {
+    display: block;
+    margin: .5rem 0 2.2rem;
+    font-size: clamp(2.1rem, 6vw, 5rem);
+    line-height: .95;
+    letter-spacing: -.055em;
+    color: #fff;
+  }
+  .final-cue { border-color: rgba(120,215,255,.3); color: #c9f0ff; }
+  .final-cue__echo { min-height: 1.5em; color: rgba(242,245,250,.5); font-family: var(--font-post-mono, monospace); font-size: .75rem; }
+  .voice-post.is-final-take .voice-outro strong { animation: final-take .85s ease; }
+
+  @keyframes ambient-wave {
+    from { transform: scaleY(.45); opacity: .34; }
+    to { transform: scaleY(1.08); opacity: .88; }
+  }
+  @keyframes lab-wave {
+    from { transform: scaleY(.32); opacity: .25; }
+    to { transform: scaleY(1); opacity: .72; }
+  }
+  @keyframes note-arrive {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes final-take {
+    0% { opacity: .3; filter: blur(3px); transform: scale(.98); }
+    100% { opacity: 1; filter: blur(0); transform: scale(1); }
+  }
+
+  @media (max-width: 760px) {
+    .voice-hero h1 { font-size: clamp(3.2rem, 17vw, 5.4rem); }
+    .performance-lab__topline { align-items: flex-start; flex-direction: column; }
+    .voice-hero__instruction { text-align: left; }
+    :global(.voice-body blockquote) { margin-inline: 0; }
+    .architecture__track { justify-content: flex-start; text-align: left; }
+    .architecture__track b { transform: rotate(90deg); }
+    .architecture__track--performance { flex-direction: column; align-items: stretch; }
+    .architecture__track--performance b { align-self: center; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .voice-stage__wave i,
+    .performance-lab__meters i,
+    .director-notes span,
+    .voice-post.is-final-take .voice-outro strong { animation: none !important; }
+    * { scroll-behavior: auto !important; }
+  }
+</style>

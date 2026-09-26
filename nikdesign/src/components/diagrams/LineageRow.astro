@@ -1,0 +1,29 @@
+---
+import type { MotionPresetKey } from '../../lib/motion'
+
+interface Item {
+  term: string
+  note?: string
+  emphasized?: boolean
+}
+
+interface Props {
+  items: Item[]
+  motion?: MotionPresetKey
+}
+
+const { items, motion = 'stamp-appear' } = Astro.props
+---
+
+<ul class="lineage-row" role="list">
+  {items.map((item, i) => (
+    <li
+      class={`lineage-row__item${item.emphasized ? ' lineage-row__item--emphasized' : ''}`}
+      data-motion={motion}
+      style={`--stamp-delay: ${i * 90}ms`}
+    >
+      <span class="lineage-row__term">{item.term}</span>
+      {item.note ? <span class="lineage-row__note">{item.note}</span> : null}
+    </li>
+  ))}
+</ul>

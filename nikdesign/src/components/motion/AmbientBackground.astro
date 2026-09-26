@@ -1,0 +1,114 @@
+---
+// A looped, subtly-interactive artistic background for the blog homepage.
+// Ported/adapted from the agent-based generative engine in the Pain-ter app
+// (see src/lib/ambientField.ts) — runs continuously (no click-and-drag
+// required), nudges gently toward the cursor, respects
+// prefers-reduced-motion with a static single frame, and re-themes live
+// when the site's light/dark toggle fires (see ColorModeToggle.astro).
+---
+
+<canvas class="ambient-bg" aria-hidden="true"></canvas>
+
+<script>
+  import { AmbientAgentManager, ForceField } from '../../lib/ambientField'
+  import { createAmbientStyle, type AmbientMode } from '../../lib/ambientStyle'
+  import { COLOR_MODE_EVENT, type ColorMode } from '../../lib/colorMode'
+
+  const canvas = document.querySelector<HTMLCanvasElement>('.ambient-bg')
+  const ctx = canvas?.getContext('2d')
+
+  if (canvas && ctx) {
+    let width = window.innerWidth
+    let height = window.innerHeight
+
+    function currentMode(): AmbientMode {
+      return document.body.classList.contains('theme-nocturne') ? 'dark' : 'light'
+    }
+
+    function applyBlendMode(mode: AmbientMode): void {
+      canvas!.style.mixBlendMode = mode === 'dark' ? 'screen' : 'multiply'
+    }
+
+    function resize(): void {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2)
+      width = window.innerWidth
+      height = window.innerHeight
+      canvas!.width = width * dpr
+      canvas!.height = height * dpr
+      canvas!.style.width = `${width}px`
+      canvas!.style.height = `${height}px`
+      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0)
+      manager.resize(width, height)
+    }
+
+    let mode = currentMode()
+    let style = createAmbientStyle(mode)
+    let manager = new AmbientAgentManager(width, height, style)
+    const forceField = new ForceField()
+    applyBlendMode(mode)
+    resize()
+
+    window.addEventListener('resize', resize)
+
+    window.addEventListener('pointermove', (event) => {
+      forceField.add(event.clientX, event.clientY, 220, 1.1, 'attract')
+    })
+
+    window.addEventListener(COLOR_MODE_EVENT, (event) => {
+      const detail = (event as CustomEvent<{ mode: ColorMode }>).detail
+      mode = detail.mode
+      style = createAmbientStyle(mode)
+      manager = new AmbientAgentManager(width, height, style)
+      applyBlendMode(mode)
+    })
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    if (prefersReducedMotion) {
+      // No animation loop at all — spawn one calm arrangement and draw a
+      // single static frame so the artistic background is still present.
+      for (let i = 0; i < Math.round(style.maxAgents * 0.6); i++) {
+        manager.update(1, forceField)
+      }
+      ctx.clearRect(0, 0, width, height)
+      manager.draw(ctx)
+    } else {
+      // Warm-start: advance the simulation a couple of seconds' worth
+      // before the first paint so the background reads as present
+      // immediately instead of visibly fading up from an empty canvas.
+      for (let i = 0; i < 60; i++) {
+        forceField.update(0.05)
+        manager.update(0.05, forceField)
+      }
+      ctx.clearRect(0, 0, width, height)
+      manager.draw(ctx)
+
+      let lastTime: number | null = null
+      let rafId = 0
+      let running = true
+
+      function frame(timestamp: number): void {
+        const dt = lastTime === null ? 0.016 : Math.min((timestamp - lastTime) / 1000, 0.05)
+        lastTime = timestamp
+        forceField.update(dt)
+        manager.update(dt, forceField)
+        ctx!.clearRect(0, 0, width, height)
+        manager.draw(ctx!)
+        if (running) rafId = requestAnimationFrame(frame)
+      }
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          running = false
+          cancelAnimationFrame(rafId)
+        } else if (!running) {
+          running = true
+          lastTime = null
+          rafId = requestAnimationFrame(frame)
+        }
+      })
+
+      rafId = requestAnimationFrame(frame)
+    }
+  }
+</script>

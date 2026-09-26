@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import SectionHeading from '../components/editorial/SectionHeading.astro'
+import { getThemeByKey } from '../lib/themes'
+---
+
+<BaseLayout
+  title="About | NikDesign Journal"
+  description="Where I write down what I'm thinking."
+  theme={getThemeByKey('field-notes')}
+>
+  <main class="page-shell">
+    <SectionHeading title="About" />
+
+    <div class="prose" style="max-width: 42rem;">
+      <p>
+        This is where I write down what I'm thinking.
+      </p>
+      <p>
+        Some of it's a real opinion I'll stand behind. Some of it's just me working something out loud, because
+        that's honestly how I figure out what I believe — I don't always know until I've written it. Not everything
+        here is going to hold up, and I'm fine with that.
+      </p>
+      <p>
+        If something lands for you, or you think I've got it wrong, tell me.
+      </p>
+    </div>
+  </main>
+</BaseLayout>

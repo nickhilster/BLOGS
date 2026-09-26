@@ -1,0 +1,18 @@
+---
+interface Props {
+  post: {
+    slug: string
+    data: {
+      title: string
+      publishedAt: string
+    }
+  }
+}
+
+const { post } = Astro.props
+---
+
+<li class="minimal-post-link">
+  <a href={`/posts/${post.slug}`}>{post.data.title}</a>
+  <span class="minimal-post-link__date">{post.data.publishedAt}</span>
+</li>

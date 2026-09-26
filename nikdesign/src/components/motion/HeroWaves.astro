@@ -1,0 +1,57 @@
+---
+// Subtle animated backdrop for hero sections: two drifting SVG wave lines
+// plus a handful of slowly floating bubbles. Pure CSS/SVG, no JS — colors
+// come from the active theme's custom properties, so it re-themes for free
+// when the body's theme class swaps.
+const bubbles = [
+  { left: '6%', size: 10, delay: '0s', duration: '14s' },
+  { left: '14%', size: 18, delay: '2.5s', duration: '17s' },
+  { left: '23%', size: 7, delay: '5s', duration: '12s' },
+  { left: '34%', size: 22, delay: '1s', duration: '19s' },
+  { left: '45%', size: 12, delay: '6.5s', duration: '15s' },
+  { left: '58%', size: 8, delay: '3.5s', duration: '13s' },
+  { left: '68%', size: 26, delay: '0.5s', duration: '20s' },
+  { left: '77%', size: 14, delay: '4.5s', duration: '16s' },
+  { left: '88%', size: 9, delay: '7s', duration: '14s' },
+  { left: '95%', size: 16, delay: '2s', duration: '18s' },
+]
+---
+
+<div class="hero-waves" aria-hidden="true">
+  <svg class="hero-waves__svg hero-waves__svg--back" viewBox="0 0 1600 200" preserveAspectRatio="none">
+    <g class="hero-waves__drift hero-waves__drift--slow">
+      <path
+        d="M0 100 C 100 60, 300 60, 400 100 S 700 140, 800 100 S 1100 60, 1200 100 S 1500 140, 1600 100
+           L1600 200 L0 200 Z"
+        fill="none"
+      />
+      <path
+        d="M1600 100 C 1700 60, 1900 60, 2000 100 S 2300 140, 2400 100 S 2700 60, 2800 100 S 3100 140, 3200 100
+           L3200 200 L1600 200 Z"
+        fill="none"
+      />
+    </g>
+  </svg>
+  <svg class="hero-waves__svg hero-waves__svg--front" viewBox="0 0 1600 200" preserveAspectRatio="none">
+    <g class="hero-waves__drift hero-waves__drift--fast">
+      <path
+        d="M0 130 C 120 170, 280 170, 400 130 S 680 90, 800 130 S 1080 170, 1200 130 S 1480 90, 1600 130
+           L1600 200 L0 200 Z"
+        fill="none"
+      />
+      <path
+        d="M1600 130 C 1720 170, 1880 170, 2000 130 S 2280 90, 2400 130 S 2680 170, 2800 130 S 3080 90, 3200 130
+           L3200 200 L1600 200 Z"
+        fill="none"
+      />
+    </g>
+  </svg>
+  <div class="hero-waves__bubbles">
+    {bubbles.map((bubble) => (
+      <span
+        class="hero-waves__bubble"
+        style={`left:${bubble.left}; width:${bubble.size}px; height:${bubble.size}px; animation-delay:${bubble.delay}; animation-duration:${bubble.duration};`}
+      ></span>
+    ))}
+  </div>
+</div>

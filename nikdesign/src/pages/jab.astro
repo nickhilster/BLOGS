@@ -1,0 +1,354 @@
+---
+const title = 'JobApplyBuddy (JAB) — Application Package Protocol'
+const description = 'A portable markdown protocol that helps a personal AI assistant turn a resume and job description into a stronger application package.'
+const downloadHref = '/downloads/jobapplybuddy-v1.4.md'
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        color-scheme: light dark;
+        --ink: #000;
+        --line: rgba(0, 0, 0, 0.18);
+        --panel: rgba(255, 255, 255, 0.66);
+        --panel-strong: rgba(255, 255, 255, 0.9);
+        --shadow: 0 24px 70px rgba(0, 0, 0, 0.18);
+        --radius: 28px;
+        --max: 1180px;
+        --font: "Figtree", Aptos, "Plus Jakarta Sans", Inter, "Segoe UI", Roboto, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #e8f0ff, #f7dfef);
+        color: var(--ink);
+        font-family: var(--font);
+        line-height: 1.5;
+        transition: background 420ms ease, color 180ms ease;
+      }
+      body[data-tone="light"] {
+        --ink: #fff;
+        --line: rgba(255, 255, 255, 0.24);
+        --panel: rgba(0, 0, 0, 0.26);
+        --panel-strong: rgba(0, 0, 0, 0.38);
+        --shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+      }
+      body[data-tone="dark"] {
+        --ink: #000;
+        --line: rgba(0, 0, 0, 0.18);
+        --panel: rgba(255, 255, 255, 0.62);
+        --panel-strong: rgba(255, 255, 255, 0.86);
+      }
+      a { color: inherit; }
+      .shell { width: min(var(--max), calc(100% - 32px)); margin: 0 auto; }
+      .topbar { padding: 22px 0; }
+      .topbar__inner, .nav, .cta-row, .brand-link { display: flex; align-items: center; }
+      .topbar__inner { justify-content: space-between; gap: 18px; }
+      .brand-link { gap: 12px; text-decoration: none; font-weight: 800; letter-spacing: -0.03em; }
+      .brand-icon { width: 46px; height: 46px; border: 1px solid var(--line); border-radius: 16px; background: var(--panel-strong); box-shadow: var(--shadow); padding: 8px; }
+      .brand-text span { display: block; }
+      .brand-text small { display: block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
+      .nav { gap: 18px; font-size: 0.92rem; font-weight: 700; }
+      .nav a { text-decoration: none; opacity: 0.82; }
+      .nav a:hover { opacity: 1; }
+      .hero { padding: 64px 0 42px; }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(360px, 520px);
+        gap: 32px;
+        align-items: start;
+      }
+      .eyebrow { display: inline-flex; align-items: center; gap: 10px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+      h1, h2, h3, p { margin-top: 0; }
+      h1 {
+        margin: 18px 0 18px;
+        font-size: clamp(3.4rem, 7vw, 6.4rem);
+        line-height: 0.9;
+        letter-spacing: -0.065em;
+        max-width: 8.5ch;
+        overflow-wrap: normal;
+      }
+      .hero-copy {
+        max-width: 34ch;
+        font-size: clamp(1.05rem, 1.7vw, 1.28rem);
+        line-height: 1.45;
+        font-weight: 520;
+      }
+      .cta-row { gap: 12px; flex-wrap: wrap; margin-top: 26px; }
+      .button { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 13px 18px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel-strong); color: var(--ink); font: inherit; font-size: 0.95rem; font-weight: 850; text-decoration: none; cursor: pointer; }
+      .button:hover { transform: translateY(-1px); }
+      .panel { border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); box-shadow: var(--shadow); backdrop-filter: blur(18px); }
+      .hero-card { padding: 26px; }
+      .hero-card h2 {
+        max-width: 10ch;
+        margin-bottom: 18px;
+        font-size: clamp(1.9rem, 3.2vw, 3.4rem);
+        line-height: 0.95;
+        letter-spacing: -0.05em;
+      }
+      .data-stack { display: grid; gap: 12px; }
+      .data-pill { display: grid; grid-template-columns: 42px 1fr; gap: 12px; align-items: center; padding: 14px; border: 1px solid var(--line); border-radius: 18px; background: var(--panel-strong); }
+      .data-pill strong { display: block; line-height: 1.1; }
+      .data-pill span { display: block; font-size: 0.88rem; font-weight: 650; opacity: 0.86; }
+      .data-pill .orb { display: grid; width: 42px; height: 42px; place-items: center; border: 1px solid var(--line); border-radius: 50%; font-weight: 900; }
+      section { padding: 34px 0; }
+      .section-head { display: flex; justify-content: space-between; gap: 24px; align-items: end; margin-bottom: 18px; }
+      .section-head h2 { max-width: 620px; font-size: clamp(2rem, 4.2vw, 4.8rem); line-height: 0.9; letter-spacing: -0.065em; }
+      .section-head p { max-width: 460px; font-weight: 650; }
+      .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+      .assistant-guides { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
+      .assistant-guide { padding: 22px; border: 1px solid var(--line); border-radius: 24px; background: var(--panel); }
+      .assistant-guide h3 { margin-bottom: 12px; font-size: 1.35rem; letter-spacing: -0.03em; }
+      .assistant-guide ol { display: grid; gap: 10px; margin: 0; padding-left: 1.3rem; }
+      .assistant-guide li { padding-left: 0.25rem; font-weight: 620; }
+      .card { min-height: 100%; padding: 22px; border: 1px solid var(--line); border-radius: 24px; background: var(--panel); backdrop-filter: blur(16px); }
+      .card h3 { margin-bottom: 8px; font-size: 1.25rem; letter-spacing: -0.025em; }
+      .card p, .card li { font-weight: 620; }
+      .flow { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 12px; align-items: center; padding: 18px; }
+      .flow-node { min-height: 150px; padding: 22px; border: 1px solid var(--line); border-radius: 26px; background: var(--panel-strong); }
+      .flow-node b { display: block; margin-bottom: 10px; font-size: 1.05rem; }
+      .flow-node span { display: block; font-weight: 640; }
+      .arrow { width: 34px; height: 2px; background: currentColor; position: relative; opacity: 0.78; }
+      .arrow::after { content: ''; position: absolute; right: -2px; top: -5px; width: 10px; height: 10px; border-right: 2px solid currentColor; border-top: 2px solid currentColor; transform: rotate(45deg); }
+      .bars { display: grid; gap: 14px; padding: 24px; border: 1px solid var(--line); border-radius: 28px; background: var(--panel); backdrop-filter: blur(16px); }
+      .bar-row { display: grid; grid-template-columns: 150px 1fr 44px; gap: 12px; align-items: center; font-weight: 800; }
+      .bar-track { height: 15px; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; background: transparent; }
+      .bar-fill { display: block; height: 100%; width: var(--w); background: currentColor; border-radius: inherit; }
+      .timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+      .step { position: relative; padding: 22px; border: 1px solid var(--line); border-radius: 24px; background: var(--panel); }
+      .step-number { display: inline-grid; width: 36px; height: 36px; place-items: center; margin-bottom: 14px; border: 1px solid var(--line); border-radius: 50%; background: var(--panel-strong); font-weight: 900; }
+      .options { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+      .chip { padding: 9px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel-strong); font-size: 0.9rem; font-weight: 800; text-decoration: none; }
+      a.chip:hover { transform: translateY(-1px); }
+      .footer { padding: 36px 0 44px; font-size: 0.82rem; font-weight: 700; }
+      .footer__inner { display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 18px; }
+      .tiny { opacity: 0.8; }
+      @media (max-width: 920px) {
+        .hero-grid, .grid-3, .assistant-guides, .timeline, .flow { grid-template-columns: 1fr; }
+        .arrow { width: 2px; height: 34px; margin: 0 auto; }
+        .arrow::after { right: -5px; top: auto; bottom: -2px; transform: rotate(135deg); }
+        .section-head { display: block; }
+        .nav { display: none; }
+        .bar-row { grid-template-columns: 1fr; gap: 6px; }
+        .hero { padding-top: 34px; }
+        h1 { max-width: 9ch; font-size: clamp(3rem, 16vw, 5rem); }
+      }
+    </style>
+  </head>
+  <body data-tone="dark">
+    <header class="topbar">
+      <div class="shell topbar__inner">
+        <a class="brand-link" href="https://www.nikdesign.ca/" aria-label="Go to nikdesign.ca homepage">
+          <svg class="brand-icon" viewBox="0 0 64 64" role="img" aria-label="Person working on a computer">
+            <circle cx="28" cy="16" r="7" fill="currentColor"></circle>
+            <path d="M17 34c2-8 7-12 14-12s12 4 14 12" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"></path>
+            <rect x="9" y="36" width="46" height="20" rx="5" fill="none" stroke="currentColor" stroke-width="4"></rect>
+            <path d="M22 56h20" stroke="currentColor" stroke-width="4" stroke-linecap="round"></path>
+          </svg>
+          <span class="brand-text"><span>JAB</span><small>JobApplyBuddy</small></span>
+        </a>
+        <nav class="nav" aria-label="Page navigation">
+          <a href="#how">How it works</a>
+          <a href="#outputs">Outputs</a>
+          <a href="#publish">Publish</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="shell hero-grid">
+          <div>
+            <span class="eyebrow">Markdown protocol for job applications</span>
+            <h1>JobApply<wbr />Buddy</h1>
+            <p class="hero-copy">A markdown protocol that helps your personal AI assistant turn a resume, job description, and company context into a tailored application package.</p>
+            <div class="cta-row">
+              <a class="button" href={downloadHref} download>Download the .md</a>
+              <button class="button" type="button" data-copy>Copy starter prompt</button>
+              <button class="button" type="button" data-gradient>New gradient</button>
+            </div>
+          </div>
+          <aside class="panel hero-card" aria-label="JAB data model">
+            <h2>The .md is not the data.</h2>
+            <div class="data-stack">
+              <div class="data-pill"><span class="orb">1</span><span><strong>Protocol</strong>JAB tells the assistant how to operate.</span></div>
+              <div class="data-pill"><span class="orb">2</span><span><strong>Candidate data</strong>Your assistant, resume, profile, portfolio, and preferences.</span></div>
+              <div class="data-pill"><span class="orb">3</span><span><strong>Job data</strong>The JD, company site, role requirements, and application questions.</span></div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="how">
+        <div class="shell">
+          <div class="section-head">
+            <h2>Simple inputs. Better package discipline.</h2>
+            <p>Use it inside your personal assistant. If you do not have one, paste the JAB markdown, your resume, and the job description.</p>
+          </div>
+            <div class="flow panel">
+            <div class="flow-node"><b>Candidate truth</b><span>Resume, work history, links, preferences, constraints.</span></div>
+            <span class="arrow" aria-hidden="true"></span>
+            <div class="flow-node"><b>JAB protocol</b><span>Rules for research, positioning, ATS, cover letters, and role pages.</span></div>
+            <span class="arrow" aria-hidden="true"></span>
+              <div class="flow-node"><b>Application package</b><span>Role-specific resume, letter, answers, and optional landing page.</span></div>
+            </div>
+            <div class="assistant-guides" aria-label="How to use JAB with common assistants">
+              <article class="assistant-guide">
+                <h3>ChatGPT</h3>
+                <ol>
+                  <li>Start a new chat and upload the JAB <code>.md</code> file.</li>
+                  <li>Add your resume, portfolio links, and preferences as candidate context.</li>
+                  <li>Paste the job description and ask for the application package you need.</li>
+                </ol>
+              </article>
+              <article class="assistant-guide">
+                <h3>Claude</h3>
+                <ol>
+                  <li>Create a Project and add the JAB <code>.md</code> file as project knowledge.</li>
+                  <li>Add your resume, profile, and portfolio to keep candidate context together.</li>
+                  <li>Open a project chat, share the job data, and create tailored materials.</li>
+                </ol>
+              </article>
+            </div>
+          </div>
+      </section>
+
+      <section id="modes">
+        <div class="shell">
+          <div class="section-head">
+            <h2>What you can ask for.</h2>
+            <p>JAB infers the right mode from your request — you do not have to choose.</p>
+          </div>
+          <div class="grid-3">
+            <article class="card">
+              <h3>Full Package</h3>
+              <p>Ready-to-send files: a tailored resume, cover letter, and a brand-mirrored HTML landing page, delivered as .md, .docx, .pdf, and .html.</p>
+            </article>
+            <article class="card">
+              <h3>Only Resume</h3>
+              <p>One tailored resume with a faithfulness check and an ATS audit — no cover letter, no landing page.</p>
+            </article>
+            <article class="card">
+              <h3>Let's Discuss</h3>
+              <p>Honest coaching, no artifact: a real fit read, "should I apply?", ghosting and salary questions, and interview prep.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section id="outputs">
+        <div class="shell">
+          <div class="section-head">
+            <h2>What JAB helps produce.</h2>
+            <p>It is designed to reduce generic applications and force evidence-based tailoring.</p>
+          </div>
+          <div class="bars">
+            <div class="bar-row"><span>Resume tailoring</span><span class="bar-track"><span class="bar-fill" style="--w: 96%"></span></span><span>Core</span></div>
+            <div class="bar-row"><span>Cover letter</span><span class="bar-track"><span class="bar-fill" style="--w: 88%"></span></span><span>Core</span></div>
+            <div class="bar-row"><span>ATS checks</span><span class="bar-track"><span class="bar-fill" style="--w: 82%"></span></span><span>Core</span></div>
+            <div class="bar-row"><span>Role page</span><span class="bar-track"><span class="bar-fill" style="--w: 74%"></span></span><span>Plus</span></div>
+            <div class="bar-row"><span>Q&A answers</span><span class="bar-track"><span class="bar-fill" style="--w: 68%"></span></span><span>Plus</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="shell">
+          <div class="timeline">
+            <article class="step"><span class="step-number">1</span><h3>Load JAB</h3><p>Paste or attach the markdown in your assistant.</p></article>
+            <article class="step"><span class="step-number">2</span><h3>Add resume + JD</h3><p>Or rely on your assistant’s existing candidate profile.</p></article>
+            <article class="step"><span class="step-number">3</span><h3>Run package mode</h3><p>JAB maps proof, gaps, tone, and output sequence.</p></article>
+            <article class="step"><span class="step-number">4</span><h3>Review honestly</h3><p>Verify claims, links, metrics, and final submission fit.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section id="publish">
+        <div class="shell">
+          <div class="section-head">
+            <h2>No personal website? No blocker.</h2>
+            <p>JAB now asks where the role page should live and can fall back to simpler free surfaces.</p>
+          </div>
+          <div class="grid-3">
+            <article class="card"><h3>Fastest no-code</h3><p>Notion, Google Sites, Canva website, or LinkedIn Featured.</p></article>
+            <article class="card"><h3>Static page hosting</h3><p>GitHub Pages, Vercel, or Netlify for a polished HTML page.</p></article>
+            <article class="card"><h3>Conservative fallback</h3><p>A one-page PDF role brief when publishing online is not useful.</p></article>
+          </div>
+          <div class="options" aria-label="Publishing options">
+            <a class="chip" href="https://www.notion.so/" target="_blank" rel="noopener noreferrer">Notion</a>
+            <a class="chip" href="https://sites.google.com/" target="_blank" rel="noopener noreferrer">Google Sites</a>
+            <a class="chip" href="https://pages.github.com/" target="_blank" rel="noopener noreferrer">GitHub Pages</a>
+            <a class="chip" href="https://vercel.com/" target="_blank" rel="noopener noreferrer">Vercel</a>
+            <a class="chip" href="https://www.netlify.com/" target="_blank" rel="noopener noreferrer">Netlify</a>
+            <a class="chip" href="https://www.canva.com/" target="_blank" rel="noopener noreferrer">Canva</a>
+            <a class="chip" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn Featured</a>
+            <span class="chip">PDF</span>
+          </div>
+        </div>
+      </section>
+      <section aria-label="Get JobApplyBuddy">
+        <div class="shell">
+          <div class="cta-row">
+            <a class="button" href={downloadHref} download>Download the .md</a>
+            <button class="button" type="button" data-copy>Copy starter prompt</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="shell footer__inner">
+        <span>JobApplyBuddy (JAB) by NikDesign.</span>
+      </div>
+    </footer>
+
+    <script is:inline>
+      const gradients = [
+        ['#0f172a', '#7c3aed'], ['#0b1324', '#0f766e'], ['#111827', '#b45309'], ['#1e1b4b', '#be185d'],
+        ['#f8fafc', '#bfdbfe'], ['#fff7ed', '#fed7aa'], ['#ecfeff', '#ccfbf1'], ['#fdf2f8', '#ddd6fe'],
+        ['#0f2027', '#2c5364'], ['#020617', '#334155'], ['#f5f7fa', '#c3cfe2'], ['#e0f2fe', '#fae8ff']
+      ];
+      function hexToRgb(hex) {
+        const clean = hex.replace('#', '');
+        return [parseInt(clean.slice(0, 2), 16), parseInt(clean.slice(2, 4), 16), parseInt(clean.slice(4, 6), 16)];
+      }
+      function luminance(hex) {
+        const [r, g, b] = hexToRgb(hex).map((value) => {
+          const channel = value / 255;
+          return channel <= 0.03928 ? channel / 12.92 : Math.pow((channel + 0.055) / 1.055, 2.4);
+        });
+        return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+      }
+      function applyGradient() {
+        const pair = gradients[Math.floor(Math.random() * gradients.length)];
+        const angle = 120 + Math.floor(Math.random() * 80);
+        document.body.style.background = `linear-gradient(${angle}deg, ${pair[0]}, ${pair[1]})`;
+        const average = (luminance(pair[0]) + luminance(pair[1])) / 2;
+        document.body.dataset.tone = average < 0.42 ? 'light' : 'dark';
+      }
+      applyGradient();
+      document.querySelector('[data-gradient]')?.addEventListener('click', applyGradient);
+      document.querySelectorAll('[data-copy]').forEach((button) => {
+        button.addEventListener('click', async (event) => {
+          const prompt = 'Use the attached JobApplyBuddy (JAB) Application Package Protocol. I am providing my resume and a target job description. Infer the right mode and begin.';
+          await navigator.clipboard.writeText(prompt);
+          event.currentTarget.textContent = 'Prompt copied';
+          window.setTimeout(() => { event.currentTarget.textContent = 'Copy starter prompt'; }, 1800);
+        });
+      });
+    </script>
+  </body>
+</html>

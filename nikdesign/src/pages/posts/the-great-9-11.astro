@@ -1,0 +1,28 @@
+---
+import Response2026 from '../../components/great911/Response2026.astro'
+import FirstPartyLanguageRail from '../../components/great911/FirstPartyLanguageRail.astro'
+import Response2026Layout from '../../layouts/Response2026Layout.astro'
+---
+
+<Response2026Layout>
+  <div class="response-language-host">
+    <FirstPartyLanguageRail current="en" />
+  </div>
+  <Response2026 />
+</Response2026Layout>
+
+<style is:global>
+  .response-language-host {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: 18;
+    width: 100vw;
+    transform: translateX(-50%);
+  }
+
+  .response-language-host .response-language-rail {
+    position: relative;
+    top: auto;
+  }
+</style>

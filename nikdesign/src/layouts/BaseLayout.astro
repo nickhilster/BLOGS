@@ -1,0 +1,125 @@
+---
+import '../styles/global.css'
+import '../styles/themes.css'
+import '../styles/fonts.css'
+import '../styles/motion.css'
+import '../styles/diagrams.css'
+import '../styles/bat-scene.css'
+import '../styles/identity-rain.css'
+import MotionObserver from '../components/motion/MotionObserver.astro'
+import ColorModeToggle from '../components/motion/ColorModeToggle.astro'
+import type { BlogTheme } from '../lib/themes'
+
+interface Props {
+  title: string
+  description: string
+  theme: BlogTheme
+  identityStyleVars?: Record<string, string>
+  colorModeToggle?: boolean
+  markdownAlternate?: string
+}
+
+const { title, description, theme, identityStyleVars = {}, colorModeToggle = false, markdownAlternate } = Astro.props
+const year = new Date().getFullYear()
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.ico" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {markdownAlternate && (
+      <link rel="alternate" type="text/markdown" title={`${title} (agent-readable markdown)`} href={markdownAlternate} />
+    )}
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt" />
+    <script is:inline>document.documentElement.classList.add('js-motion')</script>
+  </head>
+  <body class={theme.bodyClass} style={identityStyleVars}>
+    {colorModeToggle && (
+      // Keep the storage key/class names below in sync with src/lib/colorMode.ts —
+      // this can't import that module because it must run synchronously,
+      // before first paint, to avoid a light/dark flash.
+      <script is:inline>
+        (function () {
+          try {
+            var stored = localStorage.getItem('blog-color-mode')
+            var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+            var mode = stored === 'light' || stored === 'dark' ? stored : prefersDark ? 'dark' : 'light'
+            if (mode === 'dark') {
+              document.body.classList.remove('theme-signal')
+              document.body.classList.add('theme-nocturne')
+            }
+          } catch (e) {}
+        })()
+      </script>
+    )}
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a href="/" class="brand">NikDesign Journal</a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="/">Home</a>
+          <a href="/about">About</a>
+          <a href="/values">Values</a>
+          {colorModeToggle && <ColorModeToggle />}
+        </nav>
+      </div>
+    </header>
+    <slot />
+    <script is:inline>
+      (() => {
+        const rain = document.getElementById('identity-rain')
+        const backdrop = document.querySelector('.identity-backdrop')
+        if (!rain || !backdrop) return
+
+        const glyphs = 'ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉ0123456789NEO'
+        const buildRain = () => {
+          if (rain.childElementCount) return
+          const columns = Math.max(18, Math.min(38, Math.ceil(window.innerWidth / 34)))
+          const fragment = document.createDocumentFragment()
+          for (let i = 0; i < columns; i += 1) {
+            const column = document.createElement('span')
+            column.className = 'identity-rain__column'
+            column.style.left = `${(i + .5) * (100 / columns)}%`
+            column.style.setProperty('--delay', `${-(Math.random() * 3).toFixed(2)}s`)
+            column.style.setProperty('--speed', `${(1.2 + Math.random() * 1.5).toFixed(2)}s`)
+            column.style.setProperty('--drift', `${(-6 + Math.random() * 12).toFixed(1)}px`)
+            let text = ''
+            const glyphCount = 22 + Math.floor(Math.random() * 12)
+            for (let j = 0; j < glyphCount; j += 1) {
+              text += glyphs[Math.floor(Math.random() * glyphs.length)] + '\n'
+            }
+            column.textContent = text
+            fragment.appendChild(column)
+          }
+          rain.appendChild(fragment)
+        }
+
+        let stopTimer
+        const activateRain = () => {
+          buildRain()
+          backdrop.classList.add('is-scrolling')
+          clearTimeout(stopTimer)
+          stopTimer = window.setTimeout(() => backdrop.classList.remove('is-scrolling'), 260)
+        }
+
+        window.addEventListener('touchstart', activateRain, { passive: true })
+        window.addEventListener('touchmove', activateRain, { passive: true })
+        window.addEventListener('scroll', activateRain, { passive: true })
+        window.addEventListener('wheel', activateRain, { passive: true })
+      })()
+    </script>
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <p class="site-footer__byline">&copy; {year} Nikhil Khedkar</p>
+        <nav class="site-footer__links" aria-label="Footer">
+          <a href="/about">About</a>
+          <a href="https://linkedin.com/in/nikhilkhedkar" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </nav>
+      </div>
+    </footer>
+    <MotionObserver />
+  </body>
+</html>

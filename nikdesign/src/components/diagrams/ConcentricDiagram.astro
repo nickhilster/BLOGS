@@ -1,0 +1,53 @@
+---
+import type { MotionPresetKey } from '../../lib/motion'
+
+interface Ring {
+  label: string
+  radius?: number
+}
+
+interface Props {
+  rings: Ring[]
+  centerLabel?: string
+  motion?: MotionPresetKey
+}
+
+const { rings, centerLabel, motion = 'radar-sweep' } = Astro.props
+
+const step = 34
+const resolved = rings.map((ring, i) => ({
+  label: ring.label,
+  radius: ring.radius ?? (i + 1) * step + 20,
+}))
+
+const maxRadius = Math.max(...resolved.map((ring) => ring.radius))
+const size = maxRadius * 2 + 40
+const center = size / 2
+const reversedForDrawOrder = [...resolved].reverse()
+---
+
+<figure class="concentric-diagram" data-motion={motion}>
+  <svg
+    viewBox={`0 0 ${size} ${size}`}
+    role="img"
+    aria-label={`${centerLabel ?? 'center'} surrounded by ${resolved.map((ring) => ring.label).join(', ')}`}
+  >
+    {reversedForDrawOrder.map((ring, i) => (
+      <circle
+        class="diagram-ring"
+        cx={center}
+        cy={center}
+        r={ring.radius}
+        style={`--ring-index: ${resolved.length - i}`}
+      />
+    ))}
+    {centerLabel ? (
+      <text class="diagram-label" x={center} y={center} dy="0.35em" text-anchor="middle">{centerLabel}</text>
+    ) : null}
+  </svg>
+  <ul class="concentric-diagram__legend">
+    {resolved.map((ring) => (
+      <li>{ring.label}</li>
+    ))}
+  </ul>
+</figure>
