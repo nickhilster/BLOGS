@@ -1,0 +1,1 @@
+Connector write diagnostic. This temporary file contains no article content.
