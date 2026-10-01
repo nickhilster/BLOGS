@@ -9,9 +9,8 @@ export const GET: APIRoute = async () => {
   const lines = [
     '# Teambotics Blog',
     '',
-    '> Operational insight for teams turning AI into dependable work: field notes, implementation',
-    '> patterns, and pragmatic guidance for automation programs that need to survive contact with',
-    '> real operations.',
+    '> Teambotics is an AI lab building agents for humans. Field notes, implementation patterns, and',
+    '> pragmatic guidance for turning AI into dependable work.',
     '',
     '## Pages',
     '',
