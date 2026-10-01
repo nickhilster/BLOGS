@@ -1,6 +1,7 @@
 ---
-const title = 'JobApplyBuddy (JAB) — Application Package Protocol'
+const title = 'JobApplyBuddy (JAB) — Application Package Protocol | NikDesign Journal'
 const description = 'A portable markdown protocol that helps a personal AI assistant turn a resume and job description into a stronger application package.'
+const canonicalURL = 'https://blog.nikdesign.ca/jab'
 const downloadHref = '/downloads/jobapplybuddy-v1.4.md'
 ---
 
@@ -13,7 +14,11 @@ const downloadHref = '/downloads/jobapplybuddy-v1.4.md'
     <meta name="description" content={description} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:site_name" content="NikDesign Journal" />
     <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap" rel="stylesheet" />
@@ -311,7 +316,7 @@ const downloadHref = '/downloads/jobapplybuddy-v1.4.md'
 
     <footer class="footer">
       <div class="shell footer__inner">
-        <span>JobApplyBuddy (JAB) by NikDesign.</span>
+        <span>JobApplyBuddy (JAB). Built with ❤️ by <a href="https://www.nikdesign.ca">NikDesign</a></span>
       </div>
     </footer>
 

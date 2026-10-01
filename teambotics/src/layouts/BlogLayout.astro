@@ -10,7 +10,7 @@ interface Props {
   markdownAlternate?: string;
 }
 
-const { title, description = 'Insights on industrial automation and robotics from the Teambotics team.', ogImage, markdownAlternate } = Astro.props;
+const { title, description = 'Field notes from Teambotics, an AI lab building agents for humans.', ogImage, markdownAlternate } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const brandAssetBase = 'https://www.teambotics.app/brand';
 ---

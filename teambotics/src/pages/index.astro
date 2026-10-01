@@ -33,7 +33,10 @@ const activePostCount = filteredPosts.length;
 const posts = filteredPosts;
 ---
 
-<BlogLayout title={selectedTag ? `${selectedTag} — Teambotics Blog` : 'Teambotics Blog — Industrial Automation Insights'}>
+<BlogLayout
+  title={selectedTag ? `${selectedTag} — Teambotics Blog` : 'Teambotics Blog — Agents for Humans'}
+  description="Field notes from Teambotics, an AI lab building agents for humans."
+>
   <div class="blog-index__hero">
     <span class="blog-index__eyebrow">Teambotics Blog</span>
 
