@@ -8,6 +8,7 @@ import PostLayoutIdentity from '../../layouts/PostLayoutIdentity.astro'
 import PostLayoutLoveStories from '../../layouts/PostLayoutLoveStories.astro'
 import PostLayoutRevelation from '../../layouts/PostLayoutRevelation.astro'
 import PostLayoutVoiceActing from '../../layouts/PostLayoutVoiceActing.astro'
+import PostLayoutVillage from '../../layouts/PostLayoutVillage.astro'
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts')
@@ -19,7 +20,9 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props
 const { Content } = await render(post)
-const Layout = post.slug === 'ai-slop-you-pressed-share'
+const Layout = post.slug === 'it-takes-a-village'
+  ? PostLayoutVillage
+  : post.slug === 'ai-slop-you-pressed-share'
   ? PostLayoutDuet
   : post.slug === '9-18'
   ? PostLayoutRevelation

@@ -1,0 +1,242 @@
+---
+import BaseLayout from './BaseLayout.astro'
+import { resolvePostIdentity } from '../lib/postIdentity'
+
+const { post, Content } = Astro.props
+const { theme, styleVars } = resolvePostIdentity(post)
+---
+
+<BaseLayout
+  title={`${post.data.title} | NikDesign Journal`}
+  description={post.data.description}
+  theme={theme}
+  identityStyleVars={styleVars}
+  markdownAlternate={`/posts/${post.slug}.md`}
+>
+  <div class="village-atmosphere" id="village-atmosphere" aria-hidden="true">
+    <div class="village-atmosphere__wash"></div>
+    <div class="village-atmosphere__grain"></div>
+    <div class="village-atmosphere__bubbles" id="village-bubbles"></div>
+  </div>
+
+  <main class="village-page" id="village-page">
+    <div class="village-progress" aria-hidden="true"><span id="village-progress-fill"></span></div>
+    <header class="village-hero">
+      <div class="village-hero__copy">
+        <p class="village-eyebrow">A field note on agents, memory, and the people around them</p>
+        <h1>{post.data.hero.title}<span class="village-period">.</span></h1>
+        <p class="village-hero__dek">{post.data.hero.dek}</p>
+        <div class="village-hero__meta">
+          <span>{post.data.publishedAt}</span>
+          <span aria-hidden="true">·</span>
+          <span>Six turns in the story</span>
+        </div>
+        <a class="village-scroll-cue" href="#village-story">Follow the thread <span aria-hidden="true">↓</span></a>
+      </div>
+      <div class="village-orbit" aria-hidden="true">
+        <div class="village-orbit__ring village-orbit__ring--outer"></div>
+        <div class="village-orbit__ring village-orbit__ring--inner"></div>
+        <span class="village-orbit__line village-orbit__line--one"></span>
+        <span class="village-orbit__line village-orbit__line--two"></span>
+        <span class="village-orbit__line village-orbit__line--three"></span>
+        <span class="village-orbit__node village-orbit__node--one"></span>
+        <span class="village-orbit__node village-orbit__node--two"></span>
+        <span class="village-orbit__node village-orbit__node--three"></span>
+        <span class="village-orbit__node village-orbit__node--four"></span>
+        <span class="village-orbit__node village-orbit__node--five"></span>
+        <span class="village-orbit__center">we</span>
+        <span class="village-orbit__caption">Every signal changes the system.</span>
+      </div>
+    </header>
+
+    <div class="village-reading" id="village-story">
+      <aside class="village-chapters" aria-label="Article chapters">
+        <p class="village-chapters__eyebrow">The conversation</p>
+        <ol id="village-chapter-list"></ol>
+        <p class="village-chapters__hint">Tap anywhere open to send a ripple.</p>
+      </aside>
+      <article class="village-article prose" id="village-article"><Content /></article>
+    </div>
+    <div class="village-endmark" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+  </main>
+</BaseLayout>
+
+<style>
+  :global(body:has(.village-page)) { background: #101924; overflow-x: hidden; }
+  :global(body:has(.village-page) .site-header), :global(body:has(.village-page) .site-footer) { position: relative; z-index: 5; }
+  .village-atmosphere { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; background: #101924; }
+  .village-atmosphere__wash { position: absolute; inset: -12%; background: radial-gradient(ellipse at 18% 20%, rgb(var(--village-a, 28 94 102) / .62), transparent 54%), radial-gradient(ellipse at 82% 72%, rgb(var(--village-b, 64 49 111) / .64), transparent 58%), linear-gradient(145deg, #0d1520 5%, rgb(var(--village-c, 16 38 48)) 60%, #0b131c 100%); transition: background 200ms linear; }
+  .village-atmosphere__grain { position: absolute; inset: 0; opacity: .16; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.55' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E"); }
+  .village-atmosphere__bubbles { position: absolute; inset: 0; }
+  .village-page { position: relative; z-index: 1; color: #f1f4eb; }
+  .village-progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 12; background: rgb(255 255 255 / .08); }
+  .village-progress span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #a4e4c8, #e4c382, #c6a6f7); box-shadow: 0 0 16px #a4e4c8; }
+  .village-hero { min-height: min(780px, 88svh); width: min(1420px, calc(100% - 3rem)); margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(320px, .85fr); align-items: center; gap: 3vw; padding: 5rem 0 7rem; }
+  .village-hero__copy { position: relative; z-index: 2; }
+  .village-eyebrow, .village-chapters__eyebrow { color: #bdd4c7; font: 600 .73rem/1.5 var(--font-ui); letter-spacing: .17em; text-transform: uppercase; }
+  .village-eyebrow { max-width: 25rem; margin: 0 0 1.8rem; }
+  .village-hero h1 { max-width: 10ch; margin: 0; font: 400 clamp(4.8rem, 9.1vw, 10rem)/.82 var(--font-display); letter-spacing: -.075em; text-wrap: balance; }
+  .village-period { color: #cce994; }
+  .village-hero__dek { max-width: 33rem; margin: 2.2rem 0 0; color: #d5e7de; font-size: clamp(1.15rem, 2vw, 1.5rem); line-height: 1.5; }
+  .village-hero__meta { display: flex; gap: .7rem; margin: 1.8rem 0 0; color: #b1c6b9; font: .75rem var(--font-ui); letter-spacing: .1em; text-transform: uppercase; }
+  .village-scroll-cue { display: inline-flex; align-items: center; gap: 1rem; margin-top: 3rem; padding: .75rem 1rem .75rem 0; border-bottom: 1px solid #8ecab4; color: #e8f5df; font: 600 .83rem var(--font-ui); letter-spacing: .06em; text-decoration: none; text-transform: uppercase; }
+  .village-scroll-cue span { font-size: 1.3rem; transition: transform .25s; }
+  .village-scroll-cue:hover span { transform: translateY(5px); }
+  .village-orbit { position: relative; width: min(40vw, 540px); aspect-ratio: 1; justify-self: center; filter: drop-shadow(0 0 60px rgb(170 232 199 / .16)); animation: village-float 9s ease-in-out infinite alternate; }
+  .village-orbit__ring { position: absolute; border: 1px solid rgb(203 245 220 / .27); border-radius: 50%; }
+  .village-orbit__ring--outer { inset: 3%; }
+  .village-orbit__ring--inner { inset: 21%; border-style: dashed; border-color: rgb(215 236 200 / .24); animation: village-turn 80s linear infinite; }
+  .village-orbit__line { position: absolute; width: 1px; height: 48%; top: 25%; left: 50%; background: linear-gradient(transparent, rgb(200 244 212 / .42), transparent); transform-origin: center center; }
+  .village-orbit__line--one { transform: rotate(37deg); }
+  .village-orbit__line--two { transform: rotate(102deg); }
+  .village-orbit__line--three { transform: rotate(153deg); }
+  .village-orbit__node { position: absolute; width: 12%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 34% 29%, #f1ffdf, #a3e2c3 24%, #418a81 67%, #254657); box-shadow: 0 0 30px rgb(125 224 195 / .45), inset 0 0 15px rgb(255 255 255 / .24); }
+  .village-orbit__node--one { left: 46%; top: -2%; }
+  .village-orbit__node--two { left: 84%; top: 28%; width: 9%; background: radial-gradient(circle at 32% 28%, #fff8dc, #e8c894 32%, #926c77 83%); }
+  .village-orbit__node--three { left: 75%; top: 78%; width: 15%; background: radial-gradient(circle at 32% 28%, #f6eeff, #bba3dd 32%, #5e5a9e 83%); }
+  .village-orbit__node--four { left: 12%; top: 78%; width: 8%; }
+  .village-orbit__node--five { left: 3%; top: 32%; width: 11%; background: radial-gradient(circle at 32% 28%, #fff7df, #d5b573 32%, #84654e 83%); }
+  .village-orbit__center { position: absolute; inset: 35%; display: grid; place-items: center; border: 1px solid rgb(228 245 218 / .5); border-radius: 50%; background: radial-gradient(circle at 30% 25%, #d2eab3, #619c8a 38%, #1f4854 82%); box-shadow: 0 0 100px rgb(168 230 182 / .32); color: #102e35; font: italic 500 clamp(2rem, 5vw, 4rem)/1 var(--font-display); }
+  .village-orbit__caption { position: absolute; bottom: -2.5rem; left: 0; right: 0; color: #bcd3c6; font: .72rem var(--font-ui); letter-spacing: .14em; text-align: center; text-transform: uppercase; }
+  .village-reading { width: min(1200px, calc(100% - 3rem)); margin: 0 auto; display: grid; grid-template-columns: 220px minmax(0, 720px); justify-content: center; gap: clamp(2rem, 6vw, 6rem); padding: 4rem 0 8rem; border-top: 1px solid rgb(218 244 225 / .26); }
+  .village-chapters { align-self: start; position: sticky; top: 5rem; padding-top: .4rem; }
+  .village-chapters__eyebrow { margin: 0 0 1.5rem; }
+  .village-chapters ol { list-style: none; margin: 0; padding: 0 0 0 1.2rem; border-left: 1px solid rgb(227 246 226 / .25); }
+  .village-chapters :global(li) { margin: 0 0 1.1rem; }
+  .village-chapters :global(a) { display: block; position: relative; color: #a8c0bc; font: 500 .8rem/1.35 var(--font-ui); text-decoration: none; transition: color .3s, transform .3s; }
+  .village-chapters :global(a)::before { content: ''; position: absolute; left: calc(-1.2rem - 4px); top: .4em; width: 7px; height: 7px; border-radius: 50%; background: #637c7c; transition: background .3s, box-shadow .3s; }
+  .village-chapters :global(a:hover), .village-chapters :global(a[aria-current='location']) { color: #f4ffe0; transform: translateX(3px); }
+  .village-chapters :global(a[aria-current='location'])::before { background: #d5f5ae; box-shadow: 0 0 0 5px rgb(209 244 172 / .16), 0 0 18px #b7ebae; }
+  .village-chapters__hint { max-width: 10rem; margin-top: 2rem; color: #a7bcb4; font: .73rem/1.5 var(--font-ui); }
+  .village-article { min-width: 0; font-size: 1.08rem; }
+  .village-article :global(p), .village-article :global(li) { color: #e5eee8; font-size: clamp(1.1rem, 1.5vw, 1.24rem); line-height: 1.8; }
+  .village-article :global(h2) { position: relative; margin: 5.5rem 0 1.7rem; padding-top: 2.2rem; border-top: 1px solid rgb(230 247 222 / .27); color: #f8f9e9; font: 400 clamp(2.6rem, 5vw, 4.5rem)/1.03 var(--font-display); letter-spacing: -.055em; scroll-margin-top: 3rem; text-wrap: balance; }
+  .village-article :global(h2)::before { content: attr(data-village-index); position: absolute; top: .4rem; left: 0; color: #b9dac7; font: 600 .74rem var(--font-ui); letter-spacing: .14em; }
+  .village-article :global(blockquote) { border-left: 2px solid #b8e9c5; color: #fbffe8; background: rgb(225 245 231 / .07); padding: .7rem 1.5rem; margin: 3rem 0; }
+  .village-article :global(blockquote p) { color: inherit; }
+  .village-article :global(a) { color: #e2f2a5; text-decoration-color: rgb(226 242 165 / .6); text-underline-offset: .2em; }
+  .village-article :global(code) { color: #f0f8d2; }
+  .village-endmark { display: flex; justify-content: center; gap: 1rem; padding: 0 0 8rem; }
+  .village-endmark span { display: block; width: 9px; height: 9px; border-radius: 50%; background: #b9e6c5; box-shadow: 0 0 16px #89bfab; }
+  .village-endmark span:nth-child(2), .village-endmark span:nth-child(5) { background: #d9b7df; }
+  .village-endmark span:nth-child(3) { background: #e8d39c; }
+  @keyframes village-float { to { transform: translateY(-14px) rotate(3deg); } }
+  @keyframes village-turn { to { transform: rotate(360deg); } }
+  @media (max-width: 900px) {
+    .village-hero { min-height: 0; grid-template-columns: 1fr; padding: 6rem 0 5rem; }
+    .village-orbit { width: min(68vw, 420px); margin: 2rem auto 3rem; }
+    .village-reading { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; padding-top: 2rem; }
+    .village-chapters { position: relative; top: auto; min-width: 0; }
+    .village-chapters ol { display: flex; overflow-x: auto; gap: .5rem; padding: 0 0 .6rem; border: 0; scrollbar-width: none; }
+    .village-chapters ol::-webkit-scrollbar { display: none; }
+    .village-chapters :global(li) { flex: 0 0 auto; margin: 0; }
+    .village-chapters :global(a) { padding: .5rem .8rem; border: 1px solid rgb(227 246 226 / .25); border-radius: 999px; }
+    .village-chapters :global(a)::before, .village-chapters__hint { display: none; }
+  }
+  @media (max-width: 600px) {
+    .village-hero, .village-reading { width: min(100% - 2rem, 720px); }
+    .village-hero { padding-top: 4.5rem; }
+    .village-hero h1 { font-size: clamp(4.5rem, 17vw, 7rem); }
+    .village-orbit { width: min(78vw, 340px); }
+    .village-article :global(h2) { margin-top: 4rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .village-orbit, .village-orbit__ring--inner { animation: none; }
+    .village-scroll-cue span, .village-chapters :global(a) { transition: none; }
+  }
+</style>
+
+<script>
+  const page = document.getElementById('village-page')
+  const article = document.getElementById('village-article')
+  const list = document.getElementById('village-chapter-list')
+  const bubbles = document.getElementById('village-bubbles')
+  const atmosphere = document.getElementById('village-atmosphere')
+  const progress = document.getElementById('village-progress-fill')
+
+  if (page && article && list && bubbles && atmosphere && progress) {
+    const headings = Array.from(article.querySelectorAll<HTMLHeadingElement>('h2'))
+    const links: HTMLAnchorElement[] = []
+    headings.forEach((heading, index) => {
+      heading.id ||= `village-chapter-${index + 1}`
+      heading.dataset.villageIndex = String(index + 1).padStart(2, '0')
+      const item = document.createElement('li')
+      const link = document.createElement('a')
+      link.href = `#${heading.id}`
+      link.textContent = heading.textContent
+      item.append(link)
+      list.append(item)
+      links.push(link)
+    })
+
+    const palettes = [
+      [[28, 94, 102], [64, 49, 111], [16, 38, 48]],
+      [[44, 100, 79], [112, 80, 53], [22, 47, 46]],
+      [[54, 89, 131], [97, 64, 129], [20, 38, 60]],
+      [[119, 69, 74], [93, 56, 111], [52, 31, 53]],
+      [[42, 105, 123], [69, 98, 89], [18, 50, 65]],
+      [[94, 80, 127], [107, 79, 72], [40, 37, 63]],
+      [[56, 110, 94], [100, 84, 122], [25, 54, 57]],
+    ]
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    let frame = 0
+    let lastScrollBubble = 0
+    let lastScrollY = window.scrollY
+
+    const blend = (a: number[], b: number[], t: number) => a.map((channel, i) => Math.round(channel + (b[i] - channel) * t)).join(' ')
+    const placeBubble = (x: number, y: number, small = false) => {
+      if (reducedMotion.matches) return
+      if (bubbles.childElementCount > 22) bubbles.firstElementChild?.remove()
+      const bubble = document.createElement('span')
+      bubble.className = 'village-bubble'
+      const size = small ? 22 + Math.random() * 32 : 48 + Math.random() * 80
+      bubble.style.cssText = `left:${x}px;top:${y}px;width:${size}px;height:${size}px;--bubble-drift:${(Math.random() - .5) * 120}px;`
+      bubble.addEventListener('animationend', () => bubble.remove(), { once: true })
+      bubbles.append(bubble)
+    }
+
+    const update = () => {
+      frame = 0
+      const pageTop = page.getBoundingClientRect().top + window.scrollY
+      const maxScroll = Math.max(1, page.offsetHeight - window.innerHeight)
+      const readingProgress = Math.min(1, Math.max(0, (window.scrollY - pageTop) / maxScroll))
+      progress.style.width = `${readingProgress * 100}%`
+
+      const anchor = window.scrollY + window.innerHeight * .45
+      const stops = [pageTop, ...headings.map((heading) => heading.getBoundingClientRect().top + window.scrollY)]
+      let stage = 0
+      while (stage < stops.length - 1 && anchor >= stops[stage + 1]) stage += 1
+      const next = Math.min(stage + 1, palettes.length - 1)
+      const distance = Math.max(1, (stops[stage + 1] ?? pageTop + page.offsetHeight) - stops[stage])
+      const t = Math.min(1, Math.max(0, (anchor - stops[stage]) / distance))
+      for (let i = 0; i < 3; i += 1) {
+        atmosphere.style.setProperty(`--village-${'abc'[i]}`, blend(palettes[stage][i], palettes[next][i], t))
+      }
+      links.forEach((link, index) => {
+        if (index === Math.max(0, stage - 1)) link.setAttribute('aria-current', 'location')
+        else link.removeAttribute('aria-current')
+      })
+
+      if (!reducedMotion.matches && window.scrollY > pageTop + window.innerHeight * .4 && Math.abs(window.scrollY - lastScrollY) > 100 && performance.now() - lastScrollBubble > 450) {
+        placeBubble(window.innerWidth * (.13 + Math.random() * .74), window.innerHeight * (.55 + Math.random() * .3), true)
+        lastScrollBubble = performance.now()
+      }
+      lastScrollY = window.scrollY
+    }
+    const requestUpdate = () => { if (!frame) frame = requestAnimationFrame(update) }
+    update()
+    window.addEventListener('scroll', requestUpdate, { passive: true })
+    window.addEventListener('resize', requestUpdate)
+    document.addEventListener('pointerdown', (event) => {
+      if (event.target instanceof Element && event.target.closest('a, button, input, textarea, select, summary')) return
+      placeBubble(event.clientX, event.clientY)
+      placeBubble(event.clientX + (Math.random() - .5) * 38, event.clientY + (Math.random() - .5) * 38, true)
+    }, { passive: true })
+  }
+</script>
+
+<style is:global>
+  .village-bubble { position: absolute; display: block; border-radius: 50%; transform: translate(-50%, -50%); border: 1px solid rgb(225 255 237 / .55); background: radial-gradient(circle at 30% 24%, rgb(255 255 255 / .45), rgb(156 230 214 / .2) 35%, rgb(194 157 232 / .11) 65%, transparent 77%); box-shadow: inset -7px -10px 20px rgb(132 194 202 / .15), 0 0 24px rgb(189 223 216 / .14); animation: village-bubble-rise 2.7s ease-out forwards; }
+  @keyframes village-bubble-rise { 0% { opacity: 0; transform: translate(-50%, -40%) scale(.45); } 12% { opacity: .8; } 100% { opacity: 0; transform: translate(calc(-50% + var(--bubble-drift)), -210%) scale(1.2); } }
+  @media (prefers-reduced-motion: reduce) { .village-bubble { display: none; } }
+</style>
