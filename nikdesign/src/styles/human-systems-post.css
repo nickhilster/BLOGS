@@ -1,0 +1,426 @@
+/* A field notebook for an essay about partial views and changing conditions. */
+body:has(.human-post) {
+  font-family: "Work Sans", "Helvetica Neue", sans-serif;
+}
+
+body:has(.human-post) .site-header {
+  border-bottom: 1px solid var(--border);
+}
+
+body:has(.human-post) .brand {
+  color: var(--accent);
+  font-family: "Courier Prime", Consolas, monospace;
+  font-size: 0.84rem;
+  letter-spacing: 0.04em;
+}
+
+body:has(.human-post) .site-nav a:hover,
+body:has(.human-post) .site-nav a:focus-visible,
+body:has(.human-post) .site-footer__links a:hover {
+  color: var(--accent);
+}
+
+.human-post {
+  padding-top: clamp(3rem, 6vw, 5.5rem);
+}
+
+.human-post .human-hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  min-height: 36rem;
+  margin-bottom: clamp(4rem, 7vw, 6rem);
+  padding-right: 46%;
+}
+
+.human-hero .post-kicker,
+.human-hero .post-meta {
+  color: var(--accent);
+  font-family: "Courier Prime", Consolas, monospace;
+  font-size: 0.74rem;
+  letter-spacing: 0.055em;
+  line-height: 1.55;
+}
+
+.human-hero .post-kicker {
+  max-width: 34rem;
+  margin: 0 0 1.4rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--accent);
+}
+
+.human-hero h1 {
+  color: var(--text);
+  font-family: "Libre Baskerville", Georgia, serif;
+  font-size: clamp(3rem, 4.1vw, 4.15rem);
+  font-weight: 400;
+  letter-spacing: -0.063em;
+  line-height: 1.11;
+  text-wrap: balance;
+}
+
+.human-hero .post-dek {
+  max-width: 34rem;
+  margin-top: 1.5rem;
+  color: var(--muted);
+  font-family: "Work Sans", "Helvetica Neue", sans-serif;
+  font-size: 1.08rem;
+  line-height: 1.6;
+}
+
+.human-hero .post-meta {
+  margin-top: 1.4rem;
+}
+
+.human-hero__board {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 41%;
+  margin: 0;
+  padding: 1.25rem;
+  transform: translateY(-50%);
+  border: 1px solid var(--border);
+  border-radius: 0.45rem;
+  background-color: #e9eee8;
+  background-image: linear-gradient(rgba(23, 110, 102, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(23, 110, 102, 0.055) 1px, transparent 1px);
+  background-size: 1.6rem 1.6rem;
+  box-shadow: 0 20px 45px rgba(36, 63, 52, 0.08);
+}
+
+.human-hero__board-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid #b9cac2;
+  color: #4c7068;
+  font-family: "Courier Prime", Consolas, monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.human-hero__scene {
+  position: relative;
+  height: 23rem;
+}
+
+.human-hero__path {
+  position: absolute;
+  z-index: 0;
+  display: block;
+  width: 60%;
+  border-top: 1px dashed #7fa99d;
+  transform-origin: left center;
+}
+
+.human-hero__path--a {
+  top: 8rem;
+  left: 12%;
+  transform: rotate(24deg);
+}
+
+.human-hero__path--b {
+  top: 14rem;
+  left: 26%;
+  transform: rotate(-21deg);
+}
+
+.human-hero__card {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  width: 62%;
+  min-height: 6.2rem;
+  padding: 0.85rem 0.95rem;
+  border: 1px solid #c9d8d0;
+  background: #fffdf8;
+  box-shadow: 0 8px 22px rgba(23, 43, 41, 0.09);
+}
+
+.human-hero__card span,
+.human-hero__card small {
+  font-family: "Courier Prime", Consolas, monospace;
+  font-size: 0.66rem;
+  line-height: 1.3;
+}
+
+.human-hero__card span {
+  color: var(--accent);
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+}
+
+.human-hero__card strong {
+  margin-top: 0.4rem;
+  color: var(--text);
+  font-family: "Libre Baskerville", Georgia, serif;
+  font-size: 0.98rem;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+}
+
+.human-hero__card small {
+  margin-top: 0.35rem;
+  color: var(--muted);
+}
+
+.human-hero__card--observer {
+  top: 1.4rem;
+  left: 1%;
+  transform: rotate(-4deg);
+}
+
+.human-hero__card--participant {
+  top: 8.2rem;
+  right: 0;
+  transform: rotate(3deg);
+}
+
+.human-hero__card--situation {
+  top: 15rem;
+  left: 5%;
+  transform: rotate(-2deg);
+  border-color: #176e66;
+}
+
+.human-hero__signal {
+  position: absolute;
+  z-index: 2;
+  right: 0.1rem;
+  bottom: 0.55rem;
+  padding: 0.45rem 0.55rem;
+  transform: rotate(-4deg);
+  background: #e7b879;
+  color: #493b21;
+  font-family: "Courier Prime", Consolas, monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  box-shadow: 0 5px 12px rgba(73, 59, 33, 0.12);
+}
+
+.human-hero__board figcaption {
+  padding-top: 0.75rem;
+  border-top: 1px solid #b9cac2;
+  color: #436159;
+  font-family: "Courier Prime", Consolas, monospace;
+  font-size: 0.68rem;
+  line-height: 1.4;
+}
+
+.human-post .post-body {
+  color: #263632;
+  font-family: "Work Sans", "Helvetica Neue", sans-serif;
+  line-height: 1.72;
+}
+
+.human-post .post-body p {
+  margin-block: 0.82em;
+  text-wrap: pretty;
+}
+
+.human-post .post-body p,
+.human-post .post-body li {
+  font-size: 1.07rem;
+}
+
+.human-post .post-body > p:first-child {
+  margin-bottom: 1.6rem;
+  font-size: 1.18rem;
+  font-weight: 600;
+}
+
+.human-post .post-body h2 {
+  counter-increment: human-chapter;
+  margin-top: 4.5rem;
+  padding-top: 1.35rem;
+  border-top: 1px solid var(--border);
+  color: var(--text);
+  font-family: "Libre Baskerville", Georgia, serif;
+  font-size: clamp(1.85rem, 3.1vw, 2.5rem);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 1.22;
+}
+
+.human-post .post-body {
+  counter-reset: human-chapter;
+}
+
+.human-post .post-body h2::before {
+  display: block;
+  margin-bottom: 0.8rem;
+  color: var(--accent);
+  content: "FIELD NOTE / " counter(human-chapter, decimal-leading-zero);
+  font-family: "Courier Prime", Consolas, monospace;
+  font-size: 0.71rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+}
+
+.human-post .post-body > p:has(> strong:only-child) {
+  margin: 2.3rem 0;
+  padding: 1.2rem 1.4rem;
+  border-left: 3px solid var(--accent);
+  background: var(--surface);
+}
+
+.human-post .post-body > p > strong:only-child {
+  color: var(--text);
+  font-family: "Libre Baskerville", Georgia, serif;
+  font-size: 1.12em;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+}
+
+.human-post .post-body > p:has(> strong:only-child):has(+ .human-loop) {
+  margin: 2.5rem 0 0.8rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.human-post .post-body > p:has(+ .human-loop) > strong {
+  color: var(--accent);
+  font-family: "Courier Prime", Consolas, monospace;
+  font-size: 0.9em;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+}
+
+.human-post .human-loop {
+  margin: 0.8rem 0 2.5rem;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border-color: #183d39;
+  border-radius: 0.45rem;
+  background: #183d39;
+  color: #f5f3e9;
+  font-family: "Work Sans", "Helvetica Neue", sans-serif;
+}
+
+.human-loop figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.human-loop__eyebrow,
+.human-loop__number,
+.human-loop__note {
+  font-family: "Courier Prime", Consolas, monospace;
+}
+
+.human-loop__eyebrow {
+  color: #a8d9ca;
+  font-size: 0.71rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.human-loop figcaption strong {
+  color: #fffdf8;
+  font-family: "Libre Baskerville", Georgia, serif;
+  font-size: clamp(1.45rem, 2.8vw, 2rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+}
+
+.human-loop__steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.55rem;
+  margin: 1.6rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.human-loop__steps li {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.6rem;
+  min-height: 5.2rem;
+  padding: 0.8rem;
+  border: 1px solid rgba(226, 245, 234, 0.25);
+  color: #f5f3e9;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.human-loop__number {
+  color: #a8d9ca;
+  font-size: 0.67rem;
+  font-weight: 400;
+}
+
+.human-loop__steps .human-loop__step--revision {
+  border-color: #a8d9ca;
+  background: rgba(168, 217, 202, 0.1);
+}
+
+.human-loop__steps .human-loop__step--action {
+  border-color: #e7b879;
+  background: #e7b879;
+  color: #263632;
+}
+
+.human-loop__step--action .human-loop__number {
+  color: #493b21;
+}
+
+.human-loop .human-loop__note {
+  margin: 1.2rem 0 0;
+  color: #c4dbd2;
+  font-size: 0.82rem;
+}
+
+@media (max-width: 850px) {
+  .human-post .human-hero {
+    min-height: 0;
+    padding-right: 0;
+  }
+
+  .human-hero h1,
+  .human-hero .post-dek {
+    max-width: 40rem;
+  }
+
+  .human-hero__board {
+    position: static;
+    width: min(100%, 31rem);
+    margin: 2.75rem auto 0;
+    transform: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .human-post {
+    padding-top: 2.5rem;
+  }
+
+  .human-hero h1 {
+    font-size: clamp(2.55rem, 10vw, 3.4rem);
+  }
+
+  .human-hero__board {
+    padding: 0.9rem;
+  }
+
+  .human-hero__card {
+    width: 67%;
+  }
+
+  .human-post .post-body h2 {
+    margin-top: 3.5rem;
+  }
+
+  .human-loop__steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

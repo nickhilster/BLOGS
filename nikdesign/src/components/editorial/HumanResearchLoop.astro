@@ -1,0 +1,19 @@
+---
+const steps = ['Observe', 'Question', 'Hypothesize', 'Test', 'Update', 'Decide', 'Act']
+---
+
+<figure class="flow-diagram human-loop" data-motion="fade-drift">
+  <figcaption>
+    <span class="human-loop__eyebrow">A working model</span>
+    <strong>Observe. Revise. Act.</strong>
+  </figcaption>
+  <ol class="human-loop__steps">
+    {steps.map((step, index) => (
+      <li class:list={{ 'human-loop__step--revision': step === 'Update', 'human-loop__step--action': step === 'Act' }}>
+        <span class="human-loop__number">{String(index + 1).padStart(2, '0')}</span>
+        <span>{step}</span>
+      </li>
+    ))}
+  </ol>
+  <p class="human-loop__note">New information can send the model back through the loop.</p>
+</figure>

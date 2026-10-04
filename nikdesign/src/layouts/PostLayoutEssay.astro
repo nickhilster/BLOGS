@@ -2,12 +2,14 @@
 import BaseLayout from './BaseLayout.astro'
 import { resolvePostIdentity } from '../lib/postIdentity'
 import '../styles/muse-post.css'
+import '../styles/human-systems-post.css'
 
 const { post, Content } = Astro.props
 const { theme, styleVars, heroMotion } = resolvePostIdentity(post)
 const isDoorway = post.data.title === 'The Doorway and the Destination'
 const isBelief = post.data.title === 'I Believe'
 const isMuse = post.slug === 'open-letter-to-meta-about-muse'
+const isHumanSystems = post.slug === 'designing-for-humans-before-we-know-the-ending'
 ---
 
 <BaseLayout
@@ -36,8 +38,8 @@ const isMuse = post.slug === 'open-letter-to-meta-about-muse'
     </div>
   )}
 
-  <main class:list={["post-shell", "post-shell--essay", { "doorway-post": isDoorway, "belief-post": isBelief, "muse-post": isMuse }]}>
-    <header class:list={["post-hero", { "doorway-hero": isDoorway, "belief-hero": isBelief, "muse-hero": isMuse }]} data-motion={heroMotion}>
+  <main class:list={["post-shell", "post-shell--essay", { "doorway-post": isDoorway, "belief-post": isBelief, "muse-post": isMuse, "human-post": isHumanSystems }]}>
+    <header class:list={["post-hero", { "doorway-hero": isDoorway, "belief-hero": isBelief, "muse-hero": isMuse, "human-hero": isHumanSystems }]} data-motion={heroMotion}>
       {isDoorway && <div class="doorway-hero__door" aria-hidden="true"><span></span></div>}
       {isBelief && (
         <div class="belief-hero__constellation" aria-hidden="true">
@@ -56,6 +58,28 @@ const isMuse = post.slug === 'open-letter-to-meta-about-muse'
       <h1>{post.data.hero.title}</h1>
       <p class="post-dek">{post.data.hero.dek}</p>
       <div class="post-meta"><span>{post.data.publishedAt}</span></div>
+      {isHumanSystems && (
+        <figure class="human-hero__board" aria-labelledby="human-hero-caption">
+          <div aria-hidden="true">
+            <div class="human-hero__board-top"><span>Observation / 00</span><span>Open system</span></div>
+            <div class="human-hero__scene">
+              <span class="human-hero__path human-hero__path--a"></span>
+              <span class="human-hero__path human-hero__path--b"></span>
+              <div class="human-hero__card human-hero__card--observer">
+                <span>01 / Observer</span><strong>What I notice</strong><small>one partial picture</small>
+              </div>
+              <div class="human-hero__card human-hero__card--participant">
+                <span>02 / Participant</span><strong>What I know</strong><small>a different context</small>
+              </div>
+              <div class="human-hero__card human-hero__card--situation">
+                <span>03 / Situation</span><strong>What changes</strong><small>new information arrives</small>
+              </div>
+              <span class="human-hero__signal">New information</span>
+            </div>
+          </div>
+          <figcaption id="human-hero-caption">Same moment. Different models. No one knows the ending yet.</figcaption>
+        </figure>
+      )}
       {isMuse && (
         <div class="muse-hero__interface" aria-hidden="true">
           <div class="muse-hero__window">
