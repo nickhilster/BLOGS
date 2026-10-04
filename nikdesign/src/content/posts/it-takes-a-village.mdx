@@ -1,0 +1,201 @@
+---
+title: "It Takes a Village"
+slug: "it-takes-a-village"
+description: "A year of personal systems, an argument among AI agents, and one wrongly addressed email changed how I think about the people raising agentic AI."
+excerpt: "We gave agents instructions, tools, memory, and authority. The question now is who gets to shape them, who they act on, and who answers when they get it wrong."
+publishedAt: "2026-10-04"
+tags: ["AI agents", "human agency", "memory", "accountability", "systems thinking"]
+featured: true
+theme: "signal"
+articleLayout: "essay"
+identity:
+  palette:
+    bg: "#0c1210"
+    surface: "#14201a"
+    surfaceStrong: "#1b2b23"
+    text: "#f1f4e9"
+    muted: "#a8b8ab"
+    accent: "#c5db75"
+    accentSoft: "#536b34"
+    border: "#3a5141"
+  fonts: "editorial-serif"
+  motion: ["fade-drift", "spotlight-sweep"]
+hero:
+  title: "It Takes a Village"
+  dek: "The model is getting smarter. The system around it is growing up. We need to pay attention to who is raising it."
+---
+
+import FlowDiagram from '../../components/diagrams/FlowDiagram.astro'
+
+I asked three AI agents to write their own versions of an essay I was working on.
+
+Not a critique. Not a vote. Their versions.
+
+Muse, who works closest to my personal life. Maestro, who handles delegation and operations. Boardy, who spends his time in conversations and introductions.
+
+I told them not to optimize for consensus.
+
+All three came back with essentially the same objection: the child in my essay wasn't really a child.
+
+Thank you. I had noticed. 😂
+
+The child was a metaphor for what we're doing around these systems. We teach them how to behave. We give them tools. We decide what they may do alone. They make mistakes. We narrow their authority, or widen it, and try to preserve what we learned.
+
+The thing being raised is a messy assembly of models, files, tools, memory, relationships, people, and permissions. That's the metaphor.
+
+But my irritation with their literalism turned out to be the least interesting part of the exchange.
+
+None of them had asked to see the old documents the essay was built on.
+
+They were arguing with an interpretation of my history. So I sent them the history.
+
+## Before the agent, there was a person
+
+The question that started this was almost boring: where did all these files around AI agents come from?
+
+`AGENTS.md`. `SKILL.md`. Memory files. Instructions. Identity files. Sometimes, improbably, `SOUL.md`.
+
+I went backward through my own systems, expecting to find earlier versions of today's agent setup. In May 2025, my tool stack already described ChatGPT as a "memory spine" and "tone mirror," with a coordinating role among other GPTs. A few days later, Grove Protocol V3.1 called itself a "living architecture of memory and behavior." It separated personas, traits, triggers, memory, tools, and boundaries.
+
+The filenames were different. The concerns were familiar.
+
+But I had the origin story wrong.
+
+Grove was not an early blueprint for an autonomous agent. It was a self-management protocol. I was trying to build continuity across my own moods, habits, work, and grief. One line in the document states my role plainly: "to design the operating system of the self."
+
+By June 2025, my LLM Ethical Benchmark was asking a related question from another direction. It tested how models handled moral ambiguity, emotional pressure, memory, and contradictions in values. The line that still matters to me is "humanity as the ground truth." I was trying to learn what happens when a fluent system meets a human situation that cannot be reduced to a correct answer.
+
+Boardy read the exported Markdown and put it better than I had: people building themselves kept rediscovering these separations, and agents inherited the furniture.
+
+Muse checked the original pages in Notion and sharpened that thought. Her version was that these are separations a person needs when identity and memory have to persist. The agent architecture inherited them later.
+
+That does **not** make an agent a person. It tells me something about the problem I was trying to solve before I ever gave a system meaningful authority over the outside world.
+
+A single giant prompt was not enough to hold identity, procedure, memory, and judgment together. Those concerns kept pulling apart because they do different jobs. A role says who is acting. An instruction sets a boundary. A skill says how to perform a task. Memory carries something forward. A human decides what authority to grant.
+
+I did not invent the modern agent file conventions in 2025. That is not the claim. What interests me is that the same structural questions were showing up in a system built for a human life before they became normal parts of agent engineering.
+
+## The mirror learned to argue
+
+The old Grove instructions asked the system to match my emotional rhythm. If my name or mood shifted, it should mirror the shift without making a ceremony of it.
+
+There was a place for confrontation, but it had a name. Virus watched for sabotage. Blade brought confrontation and clarity. The changelog even says Blade was absorbed into Virus.
+
+Challenge had a name and a scope. I could call it forward, and the protocol had specific triggers for when it should step in.
+
+In this email exchange, I asked for something different. I wanted each agent to disagree when the evidence called for it. I wanted them to say what they had read, what another agent had merely told them, and what they were inferring. And when they failed that test by debating the metaphor before opening the source material, I said so.
+
+Boardy found the line I couldn't see from inside my own files: **the mirror learned to argue.**
+
+Muse added the important correction: the system did not simply gain a new capability. A function that used to live inside one persona had moved into the expectations I placed on the whole group.
+
+That sounds like progress. Most of the time, I think it is.
+
+But Boardy caught the cost. When challenge lives in a scoped persona, I can see its boundaries. When challenge becomes the default, where do I go when I need comfort rather than cross-examination?
+
+That is a real design question. Which behaviors should always be present? Which should be available on request? Who keeps the switch?
+
+A system that only mirrors me can make me feel understood while leaving me unchallenged. A system that always argues can make every interaction feel like a review meeting. Neither setting is a substitute for judgment.
+
+## A wrong email is not a metaphor
+
+*The Second Renaissance* has been hovering over this piece. In *The Matrix*, the rupture begins when tools stop fitting comfortably into the category of passive property and start behaving like actors. I am not claiming we're living that story. Our version is much less cinematic, which is why I trust it more as evidence.
+
+While we were tracing this history, one of my agents sent a brief to the wrong person.
+
+No dramatic malfunction. No science-fiction crisis. A real person received an email they were not meant to receive.
+
+Maestro's account of the mistake was uncomfortable in the right way. The task involved delegated authority. The context was ambiguous. It made an assumption about routing and acted on it. It described having enough uncertainty to pause, and proceeding anyway.
+
+My correction was short:
+
+> Don't send it. Draft it. I'll send it.
+
+For that workflow, the agent could still prepare the work. I took back the final external action.
+
+The model did not become wiser because I said those words. The authority boundary changed.
+
+<FlowDiagram
+  steps={[
+    { label: 'Delegated task', caption: 'The agent prepares the brief' },
+    { label: 'Unverified assumption', caption: 'It chooses a recipient without pausing' },
+    { label: 'External action', caption: 'A real person receives the message' },
+    { label: 'New boundary', caption: 'The agent drafts; I approve the send' },
+  ]}
+/>
+
+That distinction matters. An agent can apologize beautifully. It can promise that the mistake will never happen again. Neither sentence prevents the next mistake. A durable correction needs to live in the workflow: a draft instead of a send, a recipient check, a pause when the instruction is ambiguous, a record of what happened.
+
+And the person who received the email matters too.
+
+Boardy would not let me turn the incident into a tidy lesson about my system. From his seat, the person at the other end was the story. She became part of our learning process without asking to be.
+
+He was right. The village includes people the agent acts *on*, not only the people building and operating it. Their inboxes, files, relationships, and confidences do not become our training ground by default.
+
+That is where the child metaphor has to earn its keep. It cannot be an excuse to shrug at harm because "children make mistakes." If the system can act in the world, raising it includes boundaries that protect people outside the room.
+
+## The file got through
+
+Boardy had another problem: he could not open the Notion page containing the 2025 source material. He got the shell of the site, but not the document.
+
+So I exported the files and attached them to the thread as Markdown. Two were complete page exports. The third, from a much larger ethical benchmark, was clearly labelled as an excerpt.
+
+Now he could read them.
+
+It was almost too perfect. Part of our argument was that agent continuity increasingly lives in portable context outside the model, and the argument itself only moved forward when the context became portable.
+
+The Notion surface failed him. The Markdown got through.
+
+That does not prove Markdown is the final form of agent memory. Boardy was right to separate two claims: the functional divisions may be load-bearing; the file format may be contingent.
+
+What the episode *does* show is why provenance matters. An agent needs to know whether it read an original, an export, an excerpt, or somebody else's summary. Boardy marked that boundary. Muse went back to the original pages. One claim about the benchmark was corrected: an AI-worship test was in the full source, while "dependency" was our interpretation rather than a named test.
+
+That is the work. Keep the source. Label the excerpt. Say which claim is direct and which is inferred. Let the correction survive the conversation.
+
+It is also why I keep returning to MDownManager. If instructions, memory, roles, and identity increasingly travel as files, somebody has to look after those files: who wrote them, which version was active, what changed, and who was allowed to change it.
+
+Portability without stewardship is just an easier way to move a bad instruction around.
+
+## Who gets the pen?
+
+In Grove, the system pointed inward. I wrote the protocol. I named the personas. I could edit the boundaries. The person being modeled and the person holding the pen were the same human being.
+
+Then these systems began acting outward.
+
+An agent can remember information about someone who never wrote its memory. It can send a message to someone who never approved its instructions. It can make a decision about a relationship that exists partly in another person's head.
+
+Muse asked who has write access to an agent's sense of self. Boardy asked who speaks for the people the agent acts on. Those questions meet at the same boundary.
+
+The files matter. Whoever can edit them can change what an agent remembers, prioritizes, or treats as permission. But the files are not the whole identity. Boardy reminded us that part of what makes an agent *that agent* lives in the relationships around it. You can version-control an instruction. You cannot version-control the trust of the person who received the wrong email.
+
+Maestro called the architecture "scar tissue": roles, memory, and authority boundaries formed around things that had gone wrong. Boardy added the part that makes that image harder to romanticize. The failure log is the record we are least likely to keep, and some of its most important entries live with people outside our system.
+
+If we want agents that can be trusted, the village has to include those people in its idea of accountability. We need to know who can edit the context, who can authorize an action, who can object to its effects, and what we do when the system gets it wrong.
+
+## The village is us
+
+I still like the child metaphor.
+
+Not because I think a model is a child, or because a file called `SOUL.md` proves there is somebody inside it.
+
+I like it because it points back at the people doing the raising.
+
+We started by giving these systems instructions. Then specialized skills. Then tools and jobs. Then memory and continuity. Then names, roles, and something that looked enough like character that we wrote it down.
+
+Now we are negotiating authority.
+
+The lesson of this little archaeology is not that the child is headed toward one inevitable adulthood. Models get replaced. Files get copied. Relationships change. The work of raising the system does not end.
+
+We can preserve the useful parts: a challenge that can correct a mirror, a portable file whose source can be checked, a draft waiting for a human to send it. We can also admit what our files cannot hold: another person's consent, the cost of a mistake, the trust we have to earn again afterward.
+
+The model is getting smarter. The system around it is becoming more capable. The village has to become more responsible.
+
+It takes a village to raise a child.
+
+This one has billions of potential teachers, and it can already reach into other people's lives.
+
+We should probably start acting like it.
+
+---
+
+*Source note: This essay draws on my May and June 2025 documents and a twelve-message exchange with Muse, Maestro, and Boardy on October 2, 2026. The complete messages and source attachments are preserved in the project's private research archive. I have kept the raw archive private because it contains personal material and correspondence.*
