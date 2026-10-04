@@ -4,6 +4,7 @@ import PostLayoutCaseStudy from '../../layouts/PostLayoutCaseStudy.astro'
 import PostLayoutDanceFloor from '../../layouts/PostLayoutDanceFloor.astro'
 import PostLayoutEssay from '../../layouts/PostLayoutEssay.astro'
 import PostLayoutDuet from '../../layouts/PostLayoutDuet.astro'
+import PostLayoutHelloWorld from '../../layouts/PostLayoutHelloWorld.astro'
 import PostLayoutIdentity from '../../layouts/PostLayoutIdentity.astro'
 import PostLayoutLoveStories from '../../layouts/PostLayoutLoveStories.astro'
 import PostLayoutRevelation from '../../layouts/PostLayoutRevelation.astro'
@@ -20,7 +21,9 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props
 const { Content } = await render(post)
-const Layout = post.slug === 'it-takes-a-village'
+const Layout = post.slug === 'hello-world'
+  ? PostLayoutHelloWorld
+  : post.slug === 'it-takes-a-village'
   ? PostLayoutVillage
   : post.slug === 'ai-slop-you-pressed-share'
   ? PostLayoutDuet

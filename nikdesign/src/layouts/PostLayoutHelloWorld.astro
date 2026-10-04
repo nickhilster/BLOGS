@@ -1,0 +1,832 @@
+---
+import BaseLayout from './BaseLayout.astro'
+import { resolvePostIdentity } from '../lib/postIdentity'
+
+const { post, Content } = Astro.props
+const { theme, styleVars, heroMotion } = resolvePostIdentity(post)
+
+const stages = [
+  { id: 'hello-human', key: 'human', label: 'Human', meta: 'Presence' },
+  { id: 'hello-telephone', key: 'telephone', label: 'Telephone', meta: '1870s' },
+  { id: 'hello-program', key: 'program', label: 'Program', meta: '1972' },
+  { id: 'hello-network', key: 'network', label: 'Network', meta: 'Handshake' },
+  { id: 'hello-conversation', key: 'conversation', label: 'Conversation', meta: 'Now' },
+]
+---
+
+<BaseLayout
+  title={post.data.title + ' | NikDesign Journal'}
+  description={post.data.description}
+  theme={theme}
+  identityStyleVars={styleVars}
+  markdownAlternate={'/posts/' + post.slug + '.md'}
+>
+  <div class="hello-backdrop" data-stage="human" aria-hidden="true">
+    <div class="hello-backdrop__layer hello-backdrop__layer--human"></div>
+    <div class="hello-backdrop__layer hello-backdrop__layer--telephone"></div>
+    <div class="hello-backdrop__layer hello-backdrop__layer--program"></div>
+    <div class="hello-backdrop__layer hello-backdrop__layer--network"></div>
+    <div class="hello-backdrop__layer hello-backdrop__layer--conversation"></div>
+    <div class="hello-backdrop__grid"></div>
+    <div class="hello-backdrop__grain"></div>
+  </div>
+
+  <nav class="hello-timeline" aria-label="Communication timeline">
+    <div class="hello-timeline__track" aria-hidden="true">
+      <span></span>
+    </div>
+    <ol>
+      {stages.map((stage, index) => (
+        <li>
+          <a href={'#' + stage.id} data-stage-link={stage.key} aria-current={index === 0 ? 'step' : undefined}>
+            <i aria-hidden="true"></i>
+            <span>
+              <strong>{stage.label}</strong>
+              <small>{stage.meta}</small>
+            </span>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </nav>
+
+  <main class="post-shell post-shell--essay hello-world-post" data-stage="human">
+    <header class="post-hero hello-hero" data-motion={heroMotion}>
+      <p class="post-kicker">{post.data.tags.join(' / ')}</p>
+      <h1>{post.data.hero.title}</h1>
+      <p class="post-dek">{post.data.hero.dek}</p>
+      <div class="post-meta"><span>{post.data.publishedAt}</span></div>
+
+      <div class="hello-hero__signal" aria-label="Human to telephone to program to network to conversation">
+        <span class="hello-hero__node"><i></i><small>Human</small></span>
+        <b></b>
+        <span class="hello-hero__node"><i></i><small>Telephone</small></span>
+        <b></b>
+        <span class="hello-hero__node"><i></i><small>Program</small></span>
+        <b></b>
+        <span class="hello-hero__node"><i></i><small>Network</small></span>
+        <b></b>
+        <span class="hello-hero__node"><i></i><small>Conversation</small></span>
+      </div>
+    </header>
+
+    <article class="post-body prose hello-article"><Content /></article>
+  </main>
+
+  <script is:inline>
+    (() => {
+      const shell = document.querySelector('.hello-world-post')
+      const backdrop = document.querySelector('.hello-backdrop')
+      const timeline = document.querySelector('.hello-timeline')
+      const stages = [...document.querySelectorAll('.hello-stage')]
+      const links = [...document.querySelectorAll('[data-stage-link]')]
+      const reveals = [...document.querySelectorAll('.hello-reveal')]
+
+      if (!shell || !backdrop || !timeline || stages.length === 0) return
+
+      let activeStage = ''
+      let ticking = false
+
+      const setStage = (stage) => {
+        if (!stage || activeStage === stage) return
+        activeStage = stage
+        shell.dataset.stage = stage
+        backdrop.dataset.stage = stage
+        links.forEach((link) => {
+          const active = link.dataset.stageLink === stage
+          if (active) link.setAttribute('aria-current', 'step')
+          else link.removeAttribute('aria-current')
+        })
+      }
+
+      const update = () => {
+        const anchor = window.innerHeight * 0.46
+        let current = stages[0]
+        let best = Infinity
+
+        stages.forEach((stage) => {
+          const rect = stage.getBoundingClientRect()
+          const distance = rect.top <= anchor && rect.bottom >= anchor
+            ? 0
+            : Math.min(Math.abs(rect.top - anchor), Math.abs(rect.bottom - anchor))
+          if (distance < best) {
+            best = distance
+            current = stage
+          }
+        })
+
+        setStage(current.dataset.stage)
+
+        const first = stages[0].getBoundingClientRect()
+        const last = stages[stages.length - 1].getBoundingClientRect()
+        const total = Math.max(1, last.bottom - first.top)
+        const progressed = Math.min(total, Math.max(0, anchor - first.top))
+        timeline.style.setProperty('--hello-progress', String(progressed / total))
+      }
+
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return
+          entry.target.classList.add('is-visible')
+          observer.unobserve(entry.target)
+        })
+      }, { threshold: 0.32 })
+
+      reveals.forEach((reveal) => revealObserver.observe(reveal))
+
+      update()
+      window.addEventListener('scroll', () => {
+        if (ticking) return
+        ticking = true
+        requestAnimationFrame(() => {
+          update()
+          ticking = false
+        })
+      }, { passive: true })
+      window.addEventListener('resize', update, { passive: true })
+    })()
+  </script>
+</BaseLayout>
+
+<style>
+  :global(body:has(.hello-world-post)) {
+    background: #080b10;
+  }
+
+  .hello-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    background: #080b10;
+  }
+
+  .hello-backdrop__layer {
+    position: absolute;
+    inset: -8%;
+    opacity: 0;
+    transform: scale(1.04);
+    transition: opacity 1.15s ease, transform 1.5s ease;
+    will-change: opacity, transform;
+  }
+
+  .hello-backdrop[data-stage='human'] .hello-backdrop__layer--human,
+  .hello-backdrop[data-stage='telephone'] .hello-backdrop__layer--telephone,
+  .hello-backdrop[data-stage='program'] .hello-backdrop__layer--program,
+  .hello-backdrop[data-stage='network'] .hello-backdrop__layer--network,
+  .hello-backdrop[data-stage='conversation'] .hello-backdrop__layer--conversation {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .hello-backdrop__layer--human {
+    background:
+      radial-gradient(circle at 24% 18%, rgba(223, 176, 112, .18), transparent 30%),
+      radial-gradient(circle at 78% 72%, rgba(113, 148, 151, .10), transparent 34%),
+      linear-gradient(180deg, #100d0b 0%, #0a0d10 58%, #080b10 100%);
+  }
+
+  .hello-backdrop__layer--telephone {
+    background:
+      radial-gradient(circle at 19% 24%, rgba(207, 135, 66, .23), transparent 30%),
+      linear-gradient(115deg, transparent 0 43%, rgba(215, 153, 85, .06) 43.2% 43.35%, transparent 43.55% 100%),
+      linear-gradient(180deg, #130e0b 0%, #0b0e12 64%, #080b10 100%);
+  }
+
+  .hello-backdrop__layer--program {
+    background:
+      radial-gradient(circle at 74% 24%, rgba(87, 214, 154, .16), transparent 30%),
+      repeating-linear-gradient(0deg, rgba(102, 232, 169, .025) 0 1px, transparent 1px 5px),
+      linear-gradient(180deg, #07120d 0%, #07100f 52%, #080b10 100%);
+  }
+
+  .hello-backdrop__layer--network {
+    background:
+      radial-gradient(circle at 20% 32%, rgba(76, 151, 231, .18), transparent 31%),
+      radial-gradient(circle at 82% 67%, rgba(89, 220, 233, .12), transparent 34%),
+      linear-gradient(180deg, #07101a 0%, #08111a 48%, #080b10 100%);
+  }
+
+  .hello-backdrop__layer--conversation {
+    background:
+      radial-gradient(circle at 20% 22%, rgba(108, 201, 239, .17), transparent 29%),
+      radial-gradient(circle at 77% 32%, rgba(145, 111, 222, .17), transparent 30%),
+      radial-gradient(circle at 50% 78%, rgba(77, 179, 188, .09), transparent 35%),
+      linear-gradient(180deg, #0b0d18 0%, #09101a 56%, #080b10 100%);
+  }
+
+  .hello-backdrop__grid {
+    position: absolute;
+    inset: 0;
+    opacity: .16;
+    background-image:
+      linear-gradient(rgba(120, 216, 255, .035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(120, 216, 255, .035) 1px, transparent 1px);
+    background-size: 52px 52px;
+    mask-image: linear-gradient(to bottom, transparent, black 28%, black 72%, transparent);
+  }
+
+  .hello-backdrop__grain {
+    position: absolute;
+    inset: 0;
+    opacity: .15;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(255,255,255,.018) 0 1px, transparent 1px 4px),
+      repeating-linear-gradient(90deg, rgba(0,0,0,.02) 0 1px, transparent 1px 5px);
+    mix-blend-mode: soft-light;
+  }
+
+  :global(body:has(.hello-world-post) .site-header),
+  :global(body:has(.hello-world-post) .site-footer) {
+    position: relative;
+    z-index: 5;
+    background: rgba(8, 11, 16, .76);
+    backdrop-filter: blur(14px);
+  }
+
+  .hello-world-post {
+    position: relative;
+    z-index: 2;
+    overflow: visible;
+  }
+
+  .hello-hero {
+    position: relative;
+    min-height: 34rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 5rem;
+  }
+
+  .hello-hero::before {
+    content: '';
+    position: absolute;
+    inset: -3rem -50vw -2rem;
+    z-index: -1;
+    background:
+      radial-gradient(circle at 50% 30%, rgba(120, 216, 255, .08), transparent 36%),
+      linear-gradient(180deg, rgba(8,11,16,.06), rgba(8,11,16,.28));
+  }
+
+  .hello-hero h1 {
+    letter-spacing: -.055em;
+  }
+
+  .hello-hero__signal {
+    display: grid;
+    grid-template-columns: auto minmax(1.5rem, 1fr) auto minmax(1.5rem, 1fr) auto minmax(1.5rem, 1fr) auto minmax(1.5rem, 1fr) auto;
+    align-items: start;
+    width: min(100%, 43rem);
+    margin-top: 4.25rem;
+    color: var(--muted);
+  }
+
+  .hello-hero__node {
+    display: grid;
+    justify-items: center;
+    gap: .65rem;
+    min-width: 3.2rem;
+  }
+
+  .hello-hero__node i {
+    width: .62rem;
+    height: .62rem;
+    border-radius: 50%;
+    background: #d9eef6;
+    box-shadow: 0 0 20px rgba(120, 216, 255, .45);
+  }
+
+  .hello-hero__node small {
+    font-family: var(--font-post-mono, monospace);
+    font-size: .63rem;
+    letter-spacing: .075em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .hello-hero__signal b {
+    height: 1px;
+    margin-top: .3rem;
+    background: linear-gradient(90deg, rgba(218, 177, 118, .65), rgba(92, 219, 169, .55), rgba(120, 216, 255, .68));
+  }
+
+  .hello-timeline {
+    --hello-progress: 0;
+    position: fixed;
+    z-index: 4;
+    top: 50%;
+    left: max(1.1rem, calc((100vw - 76rem) / 2));
+    width: 9.5rem;
+    transform: translateY(-50%);
+  }
+
+  .hello-timeline__track {
+    position: absolute;
+    top: .45rem;
+    bottom: .45rem;
+    left: .32rem;
+    width: 1px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, .12);
+  }
+
+  .hello-timeline__track span {
+    display: block;
+    width: 100%;
+    height: calc(var(--hello-progress) * 100%);
+    background: linear-gradient(180deg, #d9a866, #63d9a9 44%, #78d8ff 72%, #a790ed);
+    box-shadow: 0 0 14px rgba(120,216,255,.38);
+  }
+
+  .hello-timeline ol {
+    display: grid;
+    gap: 1.65rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .hello-timeline a {
+    display: grid;
+    grid-template-columns: .72rem 1fr;
+    gap: .78rem;
+    align-items: start;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color .25s ease, transform .25s ease;
+  }
+
+  .hello-timeline a:hover {
+    color: var(--text);
+    transform: translateX(.12rem);
+  }
+
+  .hello-timeline a i {
+    width: .68rem;
+    height: .68rem;
+    margin-top: .12rem;
+    border: 1px solid rgba(255,255,255,.30);
+    border-radius: 50%;
+    background: #0a0f14;
+    transition: background .25s ease, border-color .25s ease, box-shadow .25s ease, transform .25s ease;
+  }
+
+  .hello-timeline a span {
+    display: grid;
+    gap: .12rem;
+  }
+
+  .hello-timeline a strong {
+    font-size: .72rem;
+    font-weight: 650;
+    letter-spacing: .03em;
+  }
+
+  .hello-timeline a small {
+    font-family: var(--font-post-mono, monospace);
+    font-size: .59rem;
+    letter-spacing: .06em;
+    opacity: .62;
+  }
+
+  .hello-timeline a[aria-current='step'] {
+    color: var(--text);
+  }
+
+  .hello-timeline a[aria-current='step'] i {
+    border-color: #78d8ff;
+    background: #78d8ff;
+    box-shadow: 0 0 0 .25rem rgba(120,216,255,.10), 0 0 18px rgba(120,216,255,.48);
+    transform: scale(1.08);
+  }
+
+  :global(.hello-article) {
+    position: relative;
+    padding-bottom: 7rem;
+  }
+
+  :global(.hello-stage) {
+    position: relative;
+    scroll-margin-top: 6rem;
+    margin: 0 0 6rem;
+  }
+
+  :global(.hello-stage + .hello-stage) {
+    padding-top: 2rem;
+  }
+
+  :global(.hello-stage + .hello-stage::before) {
+    content: '';
+    display: block;
+    width: 5rem;
+    height: 1px;
+    margin: 0 0 4.25rem;
+    background: linear-gradient(90deg, rgba(120,216,255,.55), transparent);
+  }
+
+  :global(.hello-stage p) {
+    text-wrap: pretty;
+  }
+
+  :global(.hello-stage blockquote) {
+    margin: 2.5rem 0;
+    padding: 1.2rem 1.4rem;
+    border-left: 2px solid rgba(216, 166, 100, .65);
+    background: rgba(24, 19, 15, .36);
+    font-style: normal;
+  }
+
+  :global(.hello-stage strong) {
+    color: #f5f8fa;
+  }
+
+  :global(.hello-reveal) {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity .7s ease, transform .8s cubic-bezier(.2,.8,.2,1);
+  }
+
+  :global(.hello-reveal.is-visible) {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  :global(.hello-gesture),
+  :global(.hello-phone),
+  :global(.hello-terminal),
+  :global(.hello-handshake),
+  :global(.hello-dialogue),
+  :global(.hello-final) {
+    margin: 3rem 0 3.5rem;
+  }
+
+  :global(.hello-gesture) {
+    display: grid;
+    grid-template-columns: auto minmax(4rem, 1fr) auto;
+    align-items: center;
+    gap: 1rem;
+    max-width: 34rem;
+    color: #f1eee7;
+    font-family: var(--font-post-mono, monospace);
+    font-size: .78rem;
+    letter-spacing: .04em;
+  }
+
+  :global(.hello-gesture__line) {
+    height: 1px;
+    background: linear-gradient(90deg, rgba(218,177,118,.18), rgba(218,177,118,.85), rgba(218,177,118,.18));
+    position: relative;
+  }
+
+  :global(.hello-gesture__line::after) {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: .42rem;
+    height: .42rem;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    background: #d9a866;
+    box-shadow: 0 0 18px rgba(217,168,102,.45);
+  }
+
+  :global(.hello-phone) {
+    display: grid;
+    grid-template-columns: auto minmax(5rem, 1fr) auto;
+    align-items: center;
+    gap: 1rem;
+    max-width: 36rem;
+    padding: 1.2rem 1.35rem;
+    border: 1px solid rgba(219, 155, 88, .22);
+    border-radius: .85rem;
+    background: rgba(28, 19, 13, .36);
+    font-family: var(--font-post-mono, monospace);
+    color: #f4e8dc;
+  }
+
+  :global(.hello-phone i) {
+    position: relative;
+    height: 1px;
+    overflow: visible;
+    background: rgba(219,155,88,.34);
+  }
+
+  :global(.hello-phone i::after) {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: .38rem;
+    height: .38rem;
+    margin-top: -.19rem;
+    border-radius: 50%;
+    background: #db9b58;
+    box-shadow: 0 0 14px rgba(219,155,88,.5);
+    animation: hello-signal 2.8s ease-in-out infinite;
+  }
+
+  :global(.hello-terminal) {
+    display: flex;
+    align-items: center;
+    gap: .65rem;
+    width: min(100%, 35rem);
+    padding: 1.1rem 1.25rem;
+    border: 1px solid rgba(93, 216, 161, .22);
+    border-radius: .65rem;
+    background: rgba(4, 14, 10, .72);
+    box-shadow: inset 0 0 32px rgba(82, 221, 160, .035), 0 18px 60px rgba(0,0,0,.16);
+    color: #78e0ae;
+    font-family: var(--font-post-mono, monospace);
+  }
+
+  :global(.hello-terminal code) {
+    padding: 0;
+    background: none;
+    color: inherit;
+    font-size: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0;
+  }
+
+  :global(.hello-terminal.is-visible code) {
+    animation: hello-type 1.35s steps(13, end) .2s forwards;
+  }
+
+  :global(.hello-terminal__prompt) {
+    opacity: .65;
+  }
+
+  :global(.hello-terminal__cursor) {
+    width: .48rem;
+    height: 1.05rem;
+    background: #78e0ae;
+    opacity: 0;
+  }
+
+  :global(.hello-terminal.is-visible .hello-terminal__cursor) {
+    opacity: 1;
+    animation: hello-cursor .9s steps(1, end) infinite;
+  }
+
+  :global(.hello-handshake) {
+    display: grid;
+    grid-template-columns: 6.5rem 1fr 6.5rem;
+    align-items: center;
+    gap: 1rem;
+    width: min(100%, 38rem);
+  }
+
+  :global(.hello-handshake__node) {
+    display: grid;
+    justify-items: center;
+    gap: .35rem;
+    padding: 1rem .75rem;
+    border: 1px solid rgba(120,216,255,.18);
+    border-radius: .8rem;
+    background: rgba(8, 19, 30, .58);
+  }
+
+  :global(.hello-handshake__node strong) {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: rgba(120,216,255,.10);
+    color: #aee8ff;
+    font-family: var(--font-post-mono, monospace);
+    font-size: .75rem;
+  }
+
+  :global(.hello-handshake__node span) {
+    color: #8bbdd0;
+    font-family: var(--font-post-mono, monospace);
+    font-size: .62rem;
+    letter-spacing: .09em;
+  }
+
+  :global(.hello-handshake__wire) {
+    position: relative;
+    height: 1px;
+    background: rgba(120,216,255,.22);
+  }
+
+  :global(.hello-handshake__wire::before),
+  :global(.hello-handshake__wire::after) {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(120,216,255,.6), transparent);
+    opacity: .25;
+  }
+
+  :global(.hello-handshake__wire::before) { top: -.45rem; }
+  :global(.hello-handshake__wire::after) { top: .45rem; }
+
+  :global(.hello-handshake__wire i) {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: .45rem;
+    height: .45rem;
+    margin-top: -.225rem;
+    border-radius: 50%;
+    background: #78d8ff;
+    box-shadow: 0 0 16px rgba(120,216,255,.58);
+    animation: hello-packet 2.6s ease-in-out infinite alternate;
+  }
+
+  :global(.hello-dialogue) {
+    display: grid;
+    gap: .85rem;
+    width: min(100%, 36rem);
+  }
+
+  :global(.hello-dialogue p) {
+    display: grid;
+    gap: .25rem;
+    width: fit-content;
+    min-width: 8.5rem;
+    margin: 0;
+    padding: .9rem 1.1rem;
+    border-radius: 1rem 1rem 1rem .25rem;
+    background: rgba(120,216,255,.10);
+    border: 1px solid rgba(120,216,255,.16);
+  }
+
+  :global(.hello-dialogue p:last-child) {
+    justify-self: end;
+    border-radius: 1rem 1rem .25rem 1rem;
+    background: rgba(167,144,237,.11);
+    border-color: rgba(167,144,237,.19);
+    transform: translateY(.35rem);
+  }
+
+  :global(.hello-dialogue.is-visible p:last-child) {
+    animation: hello-reply .65s ease .55s both;
+  }
+
+  :global(.hello-dialogue span) {
+    color: var(--muted);
+    font-family: var(--font-post-mono, monospace);
+    font-size: .58rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  :global(.hello-final) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    width: min(100%, 42rem);
+    padding: 2.8rem 0;
+    font-size: clamp(2rem, 6vw, 4.2rem);
+    font-weight: 650;
+    letter-spacing: -.055em;
+    line-height: .95;
+  }
+
+  :global(.hello-final span:last-child) {
+    text-align: right;
+    color: #a790ed;
+  }
+
+  @keyframes hello-signal {
+    0% { left: 0; opacity: .2; }
+    45% { opacity: 1; }
+    100% { left: calc(100% - .38rem); opacity: .2; }
+  }
+
+  @keyframes hello-type {
+    from { width: 0; }
+    to { width: 13ch; }
+  }
+
+  @keyframes hello-cursor {
+    0%, 48% { opacity: 1; }
+    49%, 100% { opacity: 0; }
+  }
+
+  @keyframes hello-packet {
+    from { left: 0; }
+    to { left: calc(100% - .45rem); }
+  }
+
+  @keyframes hello-reply {
+    from { opacity: 0; transform: translateY(.9rem); }
+    to { opacity: 1; transform: translateY(.35rem); }
+  }
+
+  @media (max-width: 1100px) {
+    .hello-timeline {
+      left: 1rem;
+      width: .8rem;
+    }
+
+    .hello-timeline a span {
+      display: none;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .hello-hero {
+      min-height: auto;
+      padding-bottom: 3rem;
+    }
+
+    .hello-hero__signal {
+      margin-top: 2.75rem;
+      grid-template-columns: repeat(9, minmax(0, auto));
+    }
+
+    .hello-hero__node small {
+      display: none;
+    }
+
+    .hello-timeline {
+      top: auto;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: auto;
+      padding: .7rem 1rem calc(.7rem + env(safe-area-inset-bottom));
+      transform: none;
+      background: rgba(8, 11, 16, .88);
+      border-top: 1px solid rgba(255,255,255,.08);
+      backdrop-filter: blur(14px);
+    }
+
+    .hello-timeline__track {
+      top: 0;
+      right: 0;
+      bottom: auto;
+      left: 0;
+      width: 100%;
+      height: 1px;
+    }
+
+    .hello-timeline__track span {
+      height: 100%;
+      width: calc(var(--hello-progress) * 100%);
+      background: linear-gradient(90deg, #d9a866, #63d9a9 44%, #78d8ff 72%, #a790ed);
+    }
+
+    .hello-timeline ol {
+      grid-template-columns: repeat(5, 1fr);
+      gap: .25rem;
+    }
+
+    .hello-timeline a {
+      display: flex;
+      justify-content: center;
+    }
+
+    .hello-timeline a i {
+      margin: 0;
+    }
+
+    :global(.hello-stage) {
+      margin-bottom: 4.5rem;
+    }
+
+    :global(.hello-handshake) {
+      grid-template-columns: 5rem 1fr 5rem;
+      gap: .65rem;
+    }
+
+    :global(.hello-final) {
+      padding: 2rem 0;
+    }
+
+    :global(body:has(.hello-world-post) .site-footer) {
+      padding-bottom: 4.5rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hello-backdrop__layer,
+    .hello-timeline a,
+    .hello-timeline a i,
+    :global(.hello-reveal) {
+      transition: none;
+    }
+
+    :global(.hello-phone i::after),
+    :global(.hello-terminal.is-visible code),
+    :global(.hello-terminal.is-visible .hello-terminal__cursor),
+    :global(.hello-handshake__wire i),
+    :global(.hello-dialogue.is-visible p:last-child) {
+      animation: none;
+    }
+
+    :global(.hello-terminal.is-visible code) {
+      width: auto;
+    }
+  }
+</style>
