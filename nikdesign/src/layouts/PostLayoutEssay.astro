@@ -1,11 +1,13 @@
 ---
 import BaseLayout from './BaseLayout.astro'
 import { resolvePostIdentity } from '../lib/postIdentity'
+import '../styles/muse-post.css'
 
 const { post, Content } = Astro.props
 const { theme, styleVars, heroMotion } = resolvePostIdentity(post)
 const isDoorway = post.data.title === 'The Doorway and the Destination'
 const isBelief = post.data.title === 'I Believe'
+const isMuse = post.slug === 'open-letter-to-meta-about-muse'
 ---
 
 <BaseLayout
@@ -34,8 +36,8 @@ const isBelief = post.data.title === 'I Believe'
     </div>
   )}
 
-  <main class:list={["post-shell", "post-shell--essay", { "doorway-post": isDoorway, "belief-post": isBelief }]}>
-    <header class:list={["post-hero", { "doorway-hero": isDoorway, "belief-hero": isBelief }]} data-motion={heroMotion}>
+  <main class:list={["post-shell", "post-shell--essay", { "doorway-post": isDoorway, "belief-post": isBelief, "muse-post": isMuse }]}>
+    <header class:list={["post-hero", { "doorway-hero": isDoorway, "belief-hero": isBelief, "muse-hero": isMuse }]} data-motion={heroMotion}>
       {isDoorway && <div class="doorway-hero__door" aria-hidden="true"><span></span></div>}
       {isBelief && (
         <div class="belief-hero__constellation" aria-hidden="true">
@@ -54,6 +56,20 @@ const isBelief = post.data.title === 'I Believe'
       <h1>{post.data.hero.title}</h1>
       <p class="post-dek">{post.data.hero.dek}</p>
       <div class="post-meta"><span>{post.data.publishedAt}</span></div>
+      {isMuse && (
+        <div class="muse-hero__interface" aria-hidden="true">
+          <div class="muse-hero__window">
+            <div class="muse-hero__window-top">
+              <span class="muse-hero__agent-mark"><i></i><i></i><i></i></span>
+              <span>Notes from the letter</span>
+              <span class="muse-hero__window-menu"><i></i><i></i><i></i></span>
+            </div>
+            <p class="muse-hero__bubble muse-hero__bubble--incoming">It asks before acting on my behalf.</p>
+            <p class="muse-hero__bubble muse-hero__bubble--outgoing">Keep the receipts.</p>
+            <div class="muse-hero__composer"><span>Trust is built in the details</span><span>↗</span></div>
+          </div>
+        </div>
+      )}
       {isDoorway && (
         <div class="doorway-hero__dates" aria-label="Historical span">
           <span>1893</span><i></i><span>1943</span><i></i><span>1967</span><i></i><span>Now</span>
