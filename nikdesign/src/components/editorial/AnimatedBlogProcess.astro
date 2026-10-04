@@ -1,0 +1,539 @@
+---
+const steps = [
+  {
+    label: '01',
+    cue: 'Notice',
+    title: 'An idea nags at me',
+    detail: 'A question, observation, frustration, or connection feels worth chasing.',
+    tone: 'spark',
+  },
+  {
+    label: '02',
+    cue: 'Talk',
+    title: 'Conversation with AI',
+    detail: 'I talk it out at length. The argument usually emerges through the exchange.',
+    tone: 'dialogue',
+  },
+  {
+    label: '03',
+    cue: 'Challenge',
+    title: 'Pressure-test the idea',
+    detail: 'We look for weak claims, missing angles, and what I am actually trying to say.',
+    tone: 'pressure',
+  },
+  {
+    label: '04',
+    cue: 'Ground',
+    title: 'Research the context',
+    detail: 'History, examples, and evidence give the thought something solid to stand on.',
+    tone: 'research',
+  },
+  {
+    label: '05',
+    cue: 'Write',
+    title: 'Draft the post',
+    detail: 'The conversation becomes a piece another person can follow.',
+    tone: 'draft',
+  },
+  {
+    label: '06',
+    cue: 'Choose',
+    title: 'Edit for voice and signal',
+    detail: 'I cut the filler, keep what holds up, and make the language sound like me.',
+    tone: 'edit',
+  },
+  {
+    label: '07',
+    cue: 'Shape',
+    title: 'Design the reading experience',
+    detail: 'Structure, diagrams, motion, or interaction help when the idea calls for them.',
+    tone: 'design',
+  },
+  {
+    label: '08',
+    cue: 'Release',
+    title: 'Publish, build, deploy',
+    detail: 'The page goes through the repo, gets built, goes live, and gets checked there.',
+    tone: 'publish',
+  },
+  {
+    label: '09',
+    cue: 'Read',
+    title: 'You meet the idea',
+    detail: 'It leaves the room where it was made and becomes yours to consider.',
+    tone: 'reader',
+  },
+  {
+    label: '10',
+    cue: 'Continue',
+    title: 'The conversation continues',
+    detail: 'A question, disagreement, or new connection can become the next starting point.',
+    tone: 'continue',
+  },
+]
+---
+
+<section class="process-flow" aria-labelledby="process-flow-title" data-process-flow>
+  <header class="process-flow__heading">
+    <p class="process-flow__kicker">The editorial loop</p>
+    <h2 id="process-flow-title">From spark to something shared</h2>
+    <p>Follow an idea from the first question to the next conversation.</p>
+  </header>
+
+  <div class="process-flow__canvas" data-process-canvas>
+    <div class="process-flow__track" data-process-track aria-hidden="true">
+      <span class="process-flow__fill"></span>
+      <span class="process-flow__traveller"></span>
+    </div>
+
+    <ol class="process-flow__steps">
+      {steps.map((step) => (
+        <li class={`process-step process-step--${step.tone}`} data-process-step>
+          <span class="process-step__node" data-process-node aria-hidden="true">{step.label}</span>
+          <div class="process-step__card">
+            <p class="process-step__cue">{step.label} / {step.cue}</p>
+            <h3>{step.title}</h3>
+            <p class="process-step__detail">{step.detail}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<script>
+  const flow = document.querySelector<HTMLElement>('[data-process-flow]')
+  const prefersMotion = window.matchMedia('(prefers-reduced-motion: no-preference)')
+
+  if (flow && prefersMotion.matches && 'IntersectionObserver' in window) {
+    const canvas = flow.querySelector<HTMLElement>('[data-process-canvas]')
+    const track = flow.querySelector<HTMLElement>('[data-process-track]')
+    const steps = Array.from(flow.querySelectorAll<HTMLElement>('[data-process-step]'))
+    const nodes = Array.from(flow.querySelectorAll<HTMLElement>('[data-process-node]'))
+
+    if (canvas && track && steps.length && nodes.length) {
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-revealed')
+              revealObserver.unobserve(entry.target)
+            }
+          }
+        },
+        { threshold: 0.15, rootMargin: '0px 0px -8% 0px' },
+      )
+
+      const update = () => {
+        const anchor = window.innerHeight * 0.56
+        const first = nodes[0].getBoundingClientRect()
+        const last = nodes[nodes.length - 1].getBoundingClientRect()
+        const firstCenter = first.top + first.height / 2
+        const lastCenter = last.top + last.height / 2
+        const progress = Math.max(0, Math.min(1, (anchor - firstCenter) / Math.max(1, lastCenter - firstCenter)))
+
+        flow.style.setProperty('--flow-progress', String(progress))
+        flow.style.setProperty('--traveller-position', `${progress * 100}%`)
+
+        let currentIndex = -1
+        for (let index = 0; index < nodes.length; index += 1) {
+          const rect = nodes[index].getBoundingClientRect()
+          if (rect.top + rect.height / 2 <= anchor) currentIndex = index
+        }
+        steps.forEach((step, index) => step.classList.toggle('is-current', index === currentIndex))
+      }
+
+      const measure = () => {
+        const canvasRect = canvas.getBoundingClientRect()
+        const first = nodes[0].getBoundingClientRect()
+        const last = nodes[nodes.length - 1].getBoundingClientRect()
+        const top = first.top + first.height / 2 - canvasRect.top
+        const bottom = last.top + last.height / 2 - canvasRect.top
+        track.style.top = `${top}px`
+        track.style.bottom = 'auto'
+        track.style.height = `${Math.max(0, bottom - top)}px`
+        update()
+      }
+
+      let frame = 0
+      const requestUpdate = () => {
+        if (frame) return
+        frame = requestAnimationFrame(() => {
+          update()
+          frame = 0
+        })
+      }
+
+      for (const step of steps) {
+        if (step.getBoundingClientRect().top < window.innerHeight * 0.92) step.classList.add('is-revealed')
+        revealObserver.observe(step)
+      }
+
+      measure()
+      flow.classList.add('is-enhanced')
+      window.addEventListener('scroll', requestUpdate, { passive: true })
+      window.addEventListener('resize', measure, { passive: true })
+      if ('ResizeObserver' in window) new ResizeObserver(measure).observe(canvas)
+    }
+  }
+</script>
+
+<style>
+  .process-flow {
+    --flow-progress: 1;
+    --traveller-position: 100%;
+    position: relative;
+    max-width: 67rem;
+    margin: 3rem auto 5rem;
+  }
+
+  .process-flow__heading {
+    max-width: 40rem;
+    margin: 0 auto 3rem;
+    text-align: center;
+  }
+
+  .process-flow__kicker,
+  .process-step__cue {
+    color: var(--accent);
+    font-family: var(--font-ui);
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+
+  .process-flow__kicker {
+    margin: 0 0 0.55rem;
+  }
+
+  .process-flow__heading h2 {
+    margin: 0;
+    font-size: clamp(1.9rem, 4vw, 3rem);
+    line-height: 1.12;
+    letter-spacing: -0.035em;
+  }
+
+  .process-flow__heading > p:last-child {
+    color: var(--muted);
+    font-size: 1.04rem;
+    margin: 0.75rem 0 0;
+  }
+
+  .process-flow__canvas {
+    position: relative;
+  }
+
+  .process-flow__track {
+    position: absolute;
+    z-index: 0;
+    top: 6.25rem;
+    bottom: 6.25rem;
+    left: 50%;
+    width: 3px;
+    transform: translateX(-50%);
+    border-radius: 99px;
+    background: var(--border);
+  }
+
+  .process-flow__fill {
+    display: block;
+    width: 100%;
+    height: 100%;
+    transform-origin: top;
+    background: linear-gradient(180deg, #df9054 0%, #8e72cf 24%, #3eab99 49%, #458ade 74%, #9774cc 100%);
+    border-radius: inherit;
+    box-shadow: 0 0 18px var(--accent-soft);
+  }
+
+  .process-flow__traveller {
+    display: none;
+    position: absolute;
+    top: var(--traveller-position);
+    left: 50%;
+    width: 0.85rem;
+    height: 0.85rem;
+    transform: translate(-50%, -50%);
+    border: 2px solid var(--surface);
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 0.35rem var(--accent-soft), 0 0 1.6rem var(--accent);
+  }
+
+  .process-flow__steps {
+    display: grid;
+    gap: 2.1rem;
+    position: relative;
+    z-index: 1;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .process-step {
+    --step-color: #4c82d1;
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 5rem minmax(0, 1fr);
+    align-items: center;
+    min-height: 12.5rem;
+  }
+
+  .process-step::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: calc(50% - 2.5rem);
+    width: 2.5rem;
+    height: 1px;
+    background: var(--border);
+    transition: background 350ms ease, box-shadow 350ms ease;
+  }
+
+  .process-flow:not(.is-enhanced) .process-flow__track {
+    display: none;
+  }
+
+  .process-flow:not(.is-enhanced) .process-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    z-index: 0;
+    top: 50%;
+    left: 50%;
+    width: 3px;
+    height: calc(100% + 2.1rem);
+    transform: translateX(-50%);
+    background: var(--border);
+  }
+
+  .process-step:nth-child(even)::before {
+    left: 50%;
+  }
+
+  .process-step.is-current::before {
+    background: var(--step-color);
+    box-shadow: 0 0 0.8rem var(--step-color);
+  }
+
+  .process-step--spark { --step-color: #d88c50; }
+  .process-step--dialogue { --step-color: #9271d4; }
+  .process-step--pressure { --step-color: #d4778c; }
+  .process-step--research { --step-color: #44a990; }
+  .process-step--draft { --step-color: #4f8dcc; }
+  .process-step--edit { --step-color: #9a76c2; }
+  .process-step--design { --step-color: #469dc3; }
+  .process-step--publish { --step-color: #4aa89f; }
+  .process-step--reader { --step-color: #d69660; }
+  .process-step--continue { --step-color: #9d7bd1; }
+
+  .process-step__node {
+    grid-column: 2;
+    grid-row: 1;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    justify-self: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    border: 2px solid var(--step-color);
+    border-radius: 50%;
+    background: var(--surface);
+    color: var(--text);
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    box-shadow: 0 0 0 0.4rem var(--bg);
+    transition: transform 350ms ease, box-shadow 350ms ease, background 350ms ease;
+  }
+
+  .process-step.is-current .process-step__node {
+    transform: scale(1.14);
+    background: color-mix(in srgb, var(--surface) 80%, var(--step-color));
+    box-shadow: 0 0 0 0.45rem var(--bg), 0 0 0 0.8rem var(--accent-soft), 0 0 2rem var(--step-color);
+  }
+
+  .process-step__card {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: end;
+    width: 100%;
+    max-width: 29rem;
+    padding: 1.4rem 1.55rem;
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--step-color);
+    border-radius: 1.15rem;
+    background: var(--surface);
+    box-shadow: 0 1rem 2.5rem rgba(20, 34, 53, 0.06);
+    transition: transform 350ms ease, border-color 350ms ease, box-shadow 350ms ease;
+  }
+
+  .process-step:nth-child(even) .process-step__card {
+    grid-column: 3;
+    justify-self: start;
+  }
+
+  .process-step.is-current .process-step__card {
+    transform: translateY(-0.35rem);
+    border-color: var(--step-color);
+    box-shadow: 0 1.5rem 3.5rem rgba(20, 34, 53, 0.12), 0 0 2.5rem var(--accent-soft);
+  }
+
+  .process-step__cue {
+    margin: 0 0 0.35rem;
+  }
+
+  .process-step__card h3 {
+    margin: 0 0 0.45rem;
+    font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+  }
+
+  .process-step__detail {
+    color: var(--muted);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .process-flow.is-enhanced .process-flow__fill {
+      transform: scaleY(var(--flow-progress));
+    }
+
+    .process-flow.is-enhanced .process-flow__traveller {
+      display: block;
+    }
+
+    .process-flow.is-enhanced .process-step__card,
+    .process-flow.is-enhanced .process-step__node {
+      transition-duration: 700ms;
+      transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .process-flow.is-enhanced .process-step:not(.is-revealed) .process-step__card {
+      opacity: 0;
+      filter: blur(7px);
+      transform: translateY(2.5rem) scale(0.96);
+    }
+
+    .process-flow.is-enhanced .process-step:not(.is-revealed) .process-step__node {
+      opacity: 0.25;
+      transform: scale(0.65);
+    }
+
+    .process-flow.is-enhanced .process-step.is-current .process-step__node {
+      animation: process-node-pulse 2.2s ease-in-out infinite;
+    }
+  }
+
+  @keyframes process-node-pulse {
+    50% {
+      box-shadow: 0 0 0 0.45rem var(--bg), 0 0 0 1rem var(--accent-soft), 0 0 2.8rem var(--step-color);
+    }
+  }
+
+  @media (max-width: 720px) {
+    .process-flow {
+      margin: 2rem auto 4rem;
+    }
+
+    .process-flow__heading {
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+
+    .process-flow__track {
+      top: 2rem;
+      bottom: 2rem;
+      left: 1.375rem;
+    }
+
+    .process-flow__steps {
+      gap: 2.3rem;
+    }
+
+    .process-step {
+      grid-template-columns: 2.75rem minmax(0, 1fr);
+      align-items: start;
+      gap: 0.85rem;
+      min-height: 0;
+    }
+
+    .process-step::before {
+      top: 1.6rem;
+      left: 1.375rem;
+      width: 2rem;
+    }
+
+    .process-step:nth-child(even)::before {
+      left: 1.375rem;
+    }
+
+    .process-flow:not(.is-enhanced) .process-step:not(:last-child)::after {
+      top: 1.575rem;
+      left: 1.375rem;
+      height: calc(100% + 2.3rem);
+    }
+
+    .process-step__node {
+      grid-column: 1;
+      width: 2.75rem;
+      height: 2.75rem;
+      margin-top: 0.2rem;
+      font-size: 0.68rem;
+    }
+
+    .process-step__card,
+    .process-step:nth-child(even) .process-step__card {
+      grid-column: 2;
+      justify-self: stretch;
+      max-width: none;
+      padding: 1.1rem 1.15rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .process-flow__track {
+      display: none !important;
+    }
+
+    .process-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      z-index: 0;
+      top: 50%;
+      left: 50%;
+      width: 3px;
+      height: calc(100% + 2.1rem);
+      transform: translateX(-50%);
+      background: var(--border);
+    }
+
+    .process-flow__fill {
+      transform: none !important;
+    }
+
+    .process-flow__traveller {
+      display: none !important;
+    }
+
+    .process-step::before,
+    .process-step__card,
+    .process-step__node {
+      animation: none !important;
+      transition: none !important;
+      opacity: 1 !important;
+      filter: none !important;
+      transform: none !important;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) and (max-width: 720px) {
+    .process-step:not(:last-child)::after {
+      top: 1.575rem;
+      left: 1.375rem;
+      height: calc(100% + 2.3rem);
+    }
+  }
+</style>

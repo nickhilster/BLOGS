@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import AnimatedBlogProcess from '../components/editorial/AnimatedBlogProcess.astro'
+import SectionHeading from '../components/editorial/SectionHeading.astro'
+import HeroWaves from '../components/motion/HeroWaves.astro'
+import { getThemeByKey } from '../lib/themes'
+---
+
+<BaseLayout
+  title="Process | NikDesign Journal"
+  description="How ideas become posts in the NikDesign Journal, from the first question to the conversation after publishing."
+  theme={getThemeByKey('signal')}
+  colorModeToggle
+>
+  <main class="page-shell process-page">
+    <section class="hero process-hero" aria-label="Introduction">
+      <HeroWaves />
+      <p class="process-hero__eyebrow">Behind the journal</p>
+      <SectionHeading
+        title="How this blog gets made"
+        description="It usually starts with something I can't stop thinking about. I talk it through with AI, push on the weak spots, and decide what is worth sharing."
+      />
+    </section>
+
+    <AnimatedBlogProcess />
+
+    <section class="process-note" aria-labelledby="process-note-title">
+      <p class="process-note__eyebrow">A note on the writing</p>
+      <h2 id="process-note-title">The point is the idea.</h2>
+      <div class="process-note__body">
+        <p>
+          AI is openly part of this workflow. It helps me explore, challenge, and shape a thought. I check what needs
+          checking, choose what survives, and edit for my own voice. The judgment is mine.
+        </p>
+        <p>
+          This blog isn't chasing a Booker Prize. I'd rather put a useful idea into clear language than polish every
+          sentence until the original thought disappears. If a post helps you see something differently, ask a better
+          question, or tell me where I'm wrong, it has done its job.
+        </p>
+      </div>
+      <a href="/">Read the journal <span aria-hidden="true">→</span></a>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .process-page {
+    overflow: clip;
+  }
+
+  .process-hero {
+    padding: 2rem 0 3rem;
+  }
+
+  .process-hero__eyebrow,
+  .process-note__eyebrow {
+    color: var(--accent);
+    font-family: var(--font-ui);
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .process-hero__eyebrow {
+    position: relative;
+    z-index: 1;
+    margin: 0 0 0.8rem;
+  }
+
+  .process-hero :global(.section-heading) {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 0;
+    max-width: 49rem;
+  }
+
+  .process-hero :global(.section-heading p) {
+    max-width: 38rem;
+    line-height: 1.6;
+  }
+
+  .process-note {
+    max-width: 47rem;
+    margin: 1rem auto 0;
+    padding: 2.5rem 0 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .process-note__eyebrow {
+    margin: 0 0 0.6rem;
+  }
+
+  .process-note h2 {
+    margin: 0;
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+  }
+
+  .process-note__body {
+    max-width: 42rem;
+    margin: 1.5rem 0 1.75rem;
+  }
+
+  .process-note__body p {
+    margin: 0 0 1rem;
+    font-size: 1.08rem;
+    line-height: 1.75;
+  }
+
+  .process-note a {
+    color: var(--accent);
+    font-family: var(--font-ui);
+    font-weight: 700;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.25em;
+  }
+
+  @media (max-width: 720px) {
+    .process-hero {
+      padding: 1rem 0 2rem;
+    }
+
+    .process-note__body p {
+      font-size: 1rem;
+    }
+  }
+</style>
