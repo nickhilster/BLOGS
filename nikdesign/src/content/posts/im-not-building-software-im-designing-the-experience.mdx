@@ -1,0 +1,283 @@
+---
+title: "I'm Not Building Software. I'm Designing the Experience."
+description: "What DJing, salt, and AI taught me about the difference between operating tools and designing what another human actually experiences."
+excerpt: "You don't need to know how to cook to know there is too much salt. You don't need to know how to DJ to know when the room lost its energy. Software is starting to feel the same way to me."
+publishedAt: "2026-10-04"
+tags: ["experience design", "AI", "DJing", "software", "workflows", "human agency"]
+featured: true
+theme: "nocturne"
+articleLayout: "essay"
+identity:
+  palette:
+    bg: "#080b10"
+    surface: "#10151d"
+    surfaceStrong: "#171e28"
+    text: "#f4f0e8"
+    muted: "#969eaa"
+    accent: "#f2b84b"
+    accentSoft: "#443313"
+    border: "#2a3340"
+  fonts: "editorial-serif"
+  motion: ["fade-drift", "signal-pulse"]
+hero:
+  title: "I'm Not Building Software. I'm Designing the Experience."
+  dek: "I learned this from DJing. Then I explained it with salt. It took AI for me to realize I had been talking about software the whole time."
+---
+
+I've had an analogy for DJing for years.
+
+Salt.
+
+I'm not even that good a cook, which is part of the point.
+
+I don't need to know how to cook a great meal to know when something is too salty. I don't need to know the chemistry of seasoning, the temperature of the pan, the timing of the ingredients, or what the chef did twenty minutes before the plate arrived.
+
+I eat it.
+
+I know.
+
+DJing works the same way.
+
+Most people on a dance floor do not know what I'm doing behind the decks. They don't need to know about phrasing, gain staging, EQ, cueing, harmonic relationships, or what I am listening to privately in my headphones before I decide whether they should hear it.
+
+They know something much more important.
+
+They know when it feels good.
+
+And they definitely know when it doesn't.
+
+Nobody compliments you because the gain was correct. Nobody stops dancing to congratulate you for bringing the bass back at exactly the right moment. If you are doing the job well, most of the machinery disappears.
+
+Get it slightly wrong and suddenly everyone has an opinion.
+
+That used to be an analogy I had for DJing.
+
+I'm realizing now that it explains how I think about software too.
+
+## I don't actually want to operate the software
+
+For most of computing history, using software has meant learning enough of somebody else's system to get what you want.
+
+Pick the application.
+
+Find the menu.
+
+Understand the information architecture.
+
+Fill in the fields.
+
+Move information from one application to another.
+
+Remember where you put it.
+
+Learn the workflow.
+
+Learn the exceptions to the workflow.
+
+Then, if you're lucky, accomplish the thing you came to do.
+
+We've become so used to this that we often confuse operating software with accomplishing work.
+
+Those are not the same thing.
+
+A restaurant could put salt, vegetables, spices and a frying pan on my table and technically give me access to an excellent kitchen.
+
+That is not dinner.
+
+A DJ booth full of beautiful equipment is not a night out.
+
+And a collection of powerful applications is not a workflow.
+
+The tools are ingredients.
+
+The experience is what happens after someone has made decisions with them.
+
+## The DJ isn't the equipment
+
+I've been DJing long enough to know that the equipment can become a distraction.
+
+Four decks give me more possibilities than two. A controller gives me controls. Software gives me effects, loops, cue points, waveforms, libraries and increasingly ridiculous amounts of music.
+
+None of that tells me what the room needs.
+
+That's the job.
+
+What should stay?
+
+What should disappear?
+
+How long can I hold this tension?
+
+Do I give them the obvious track now, or make them wait?
+
+Can I layer this percussion under something else without anyone consciously noticing it?
+
+Did the room lose energy because the music is wrong, or because I got impatient?
+
+The audience does not need my interface.
+
+They need my judgment.
+
+The equipment expands the possibility space.
+
+The DJ navigates it.
+
+That distinction has become much more important to me since AI started changing what I can make.
+
+## AI gave me access to the booth
+
+I am not a traditional software engineer.
+
+I can understand systems. I can reason about architecture. I can look at a workflow and see where it feels stupid. I can test something, break it, argue with it, change the requirement, and know when the experience is getting closer to what I wanted.
+
+AI has dramatically increased how directly I can turn that judgment into working systems.
+
+That does not suddenly make implementation irrelevant. Quite the opposite. Good infrastructure matters enormously.
+
+But it changes where I can participate.
+
+The old path often looked something like:
+
+**human need → product/design interpretation → specification → engineering → software → human experience**
+
+Increasingly, I can work much closer to:
+
+**human need → intended experience → AI-assisted construction → use it → notice what feels wrong → change it**
+
+That loop feels very familiar.
+
+It feels like DJing.
+
+Try the transition.
+
+Listen.
+
+Too busy.
+
+Take something out.
+
+Try again.
+
+Don't explain the mixer to the dance floor.
+
+Fix the mix.
+
+## Shift Manager made this obvious to me
+
+Recently I built a system I call Shift Manager.
+
+"Built" is already an awkward word for what I mean.
+
+Underneath it are repositories, agents, issue tracking, calendars, email, state, source-of-truth rules, scheduled execution, Markdown, HTML rendering and a bunch of boring decisions about which system owns what.
+
+I care about those decisions because if they are wrong, the experience eventually goes wrong.
+
+But none of that is the product I want to experience.
+
+What I want is closer to this:
+
+**Here is what happened while you were doing something else.**
+
+**Here is what actually matters.**
+
+**Here is what you already committed to.**
+
+**You have four hours. These two things make sense next.**
+
+**Pick 1, 2 or 3 and I'll arrange the shift.**
+
+That is the experience.
+
+Everything underneath it is the booth.
+
+The first version worked, and then I immediately noticed something missing: after telling me what mattered, it still left me to go operate the other systems.
+
+So we changed it.
+
+Now the report can become a control surface. It can suggest existing tracked work, look at real calendar capacity, and offer specific next actions. I still choose. The machinery handles the boring transition from decision to setup.
+
+That improvement did not come from me discovering a more elegant data structure.
+
+It came from using the thing and saying:
+
+**This transition feels wrong.**
+
+## Good software might be like good salt
+
+There is a strange thing about mature craft.
+
+The better it gets, the less the recipient may notice the craft itself.
+
+Good typography lets you read.
+
+Good sound lets you listen.
+
+Good hospitality lets you feel looked after.
+
+Good editing lets you follow the story.
+
+Good seasoning lets you taste the food.
+
+Good DJing lets you experience the room.
+
+Maybe good software should let you do the thing you came to do.
+
+Not admire the software.
+
+Not learn the software.
+
+Not organize your life around the software.
+
+Do the thing.
+
+This does not mean the machinery should be careless or simplistic. A professional kitchen is complicated. A club sound system is complicated. Modern software is absurdly complicated.
+
+The point is not to remove complexity from existence.
+
+The point is to stop handing all of it to the person you are supposed to be serving.
+
+## Someone still has to choose
+
+There is an important limit here.
+
+I do not want AI to make every decision for me.
+
+That would solve the wrong problem.
+
+When I'm DJing, my headphones let me explore privately before I commit something to the room. The system gives me freedom to experiment without surrendering the decision.
+
+I increasingly want software to work the same way.
+
+Let the machine absorb the boring complexity.
+
+Let it reconcile the sources.
+
+Let it find the issue.
+
+Let it check the calendar.
+
+Let it prepare the options.
+
+Then, where the decision actually matters, give it back to me.
+
+**Remove the boring work. Keep the meaningful choice.**
+
+That might be the clearest description yet of what I am trying to build.
+
+Actually, no.
+
+Not build.
+
+Design.
+
+I'm not particularly interested in building software for people to operate.
+
+I'm interested in creating experiences and workflows that take boring experiences away from humans.
+
+The software can stay backstage.
+
+If we did it properly, maybe nobody will appreciate how much work it is doing.
+
+They'll just notice when it's slightly off.
+
+As a DJ, I can live with that.
