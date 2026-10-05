@@ -903,7 +903,7 @@ export const staticBlogPosts: StaticBlogPost[] = [
     content: absorbComplexityPreserveAgencyContent,
     author: 'Nikhil Khedkar',
     tags: ['human-ai-systems', 'experience-design', 'ai-governance', 'agentic-ai', 'teambotics-values'],
-    cover_image_url: '/thumbnails/multi-agent-systems-workflow.svg',
+    cover_image_url: '/thumbnails/absorb-complexity-preserve-agency.svg',
     published_at: '2026-10-04T00:00:00.000Z',
   },
 
