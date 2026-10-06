@@ -893,7 +893,7 @@ That is not a limitation on agentic systems.
 For us, it is the point.
 `;
 
-const graduatedAgencyKitchenContent = String.raw\`Sam Altman recently made a blunt argument about AI risk in an interview with POLITICO's Decoded: society should accept that some bad outcomes will occur if we want the benefits of powerful AI and broad human agency.
+const graduatedAgencyKitchenContent = String.raw`Sam Altman recently made a blunt argument about AI risk in an interview with POLITICO's Decoded: society should accept that some bad outcomes will occur if we want the benefits of powerful AI and broad human agency.
 
 The useful question for builders is not whether that statement is comfortable.
 
@@ -1068,7 +1068,7 @@ That is how powerful technology becomes ordinary infrastructure: not when it bec
 
 ---
 
-*The Sam Altman remarks discussed here were made in an October 2026 interview with POLITICO's Decoded. Contemporary reporting includes [Fortune](https://fortune.com/2026/10/05/sam-altman-ai-risks-bad-things-benefits-trump-voluntary-safety-pact-openai-regulation/) and [Business Insider](https://www.businessinsider.com/sam-altman-says-ai-benefits-outweigh-some-bad-things-happening-2026-10).*\`;
+*The Sam Altman remarks discussed here were made in an October 2026 interview with POLITICO's Decoded. Contemporary reporting includes [Fortune](https://fortune.com/2026/10/05/sam-altman-ai-risks-bad-things-benefits-trump-voluntary-safety-pact-openai-regulation/) and [Business Insider](https://www.businessinsider.com/sam-altman-says-ai-benefits-outweigh-some-bad-things-happening-2026-10).*`;
 
 export const staticBlogPosts: StaticBlogPost[] = [
   {
