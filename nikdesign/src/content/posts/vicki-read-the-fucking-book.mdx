@@ -1,0 +1,237 @@
+---
+title: "Vicki Read the Fucking Book"
+description: "A robot girl on television taught me the most useful thing I know about AI: stop measuring a machine's relationship with information by human reading speed."
+excerpt: "Long before prompt engineering, a robot girl flipped through a book, remembered it, and answered the question. Decades later, that scene became my mental model for AI."
+publishedAt: "2026-10-06"
+tags: ["AI", "operators", "language", "prompting", "Small Wonder", "human agency"]
+featured: true
+theme: "signal"
+articleLayout: "essay"
+identity:
+  palette:
+    bg: "#071014"
+    surface: "#0c1a20"
+    surfaceStrong: "#112932"
+    text: "#e8f7f5"
+    muted: "#93aaa9"
+    accent: "#54e3d2"
+    accentSoft: "#257c76"
+    border: "#21444a"
+  fonts: "signal-mono"
+  motion: ["radar-sweep", "fade-drift"]
+hero:
+  title: "Vicki Read the Fucking Book"
+  dek: "I may have learned the most important lesson about operating AI from a 1980s sitcom."
+---
+
+There is a scene from *Small Wonder* that has lived in my head for decades.
+
+Vicki — the robot girl — is handed a book. She flips through the pages at a ridiculous speed. Someone looks at her and essentially asks: did you just read the whole thing?
+
+Yes.
+
+Of course she did.
+
+Not only did she read it. She remembers it.
+
+As a kid, I thought that was fucking amazing.
+
+As an adult working with AI, I have realized something slightly stranger:
+
+**that scene may have taught me how to use these machines.**
+
+## Stop reading like a human
+
+Give a human a 2,000-page technical repository and we immediately start budgeting attention.
+
+Where do I begin?
+
+Which files matter?
+
+How long is this going to take?
+
+Can somebody summarize it?
+
+That is reasonable. Human attention is finite. Human memory is messy. We get tired. We lose the thread. We have lunch.
+
+But when I work with AI, I try very hard not to project those limitations onto the machine.
+
+My instinct is much simpler:
+
+**Give Vicki the fucking book.**
+
+The point is not that an AI literally reads infinitely fast, remembers everything perfectly, or understands every artifact it encounters. It does not. Context windows exist. Retrieval fails. Models hallucinate. Tools have permissions. Important things are undocumented.
+
+The point is that **human reading speed is the wrong unit of measurement for imagining what the machine can inspect.**
+
+A repository is language.
+
+Code is language.
+
+Logs are language.
+
+Email is language.
+
+Documentation is language.
+
+A database is structured language.
+
+An image, once represented digitally, is information a machine can increasingly interpret alongside the rest.
+
+Modern organizations are absolutely drowning in things they have already written down.
+
+The machine's relationship to that pile is fundamentally different from ours.
+
+That changes the job of the human.
+
+## We used to need the keyword
+
+When internet search became ordinary, one little word became enormously important:
+
+**keyword.**
+
+The web contained more information than any person could browse manually. So the skill was no longer simply knowing the answer. It was knowing which words might lead you to the answer.
+
+Search trained an entire generation to compress intention into tiny retrieval spells.
+
+"cheap flights toronto mumbai december"
+
+Ugly sentence. Excellent technology literacy.
+
+And, in retrospect, wonderfully close to magic.
+
+Say the right words and the hidden thing appears.
+
+Abracadabra.
+
+*Khul ja simsim.*
+
+Open sesame.
+
+We have apparently been rehearsing this interface for thousands of years.
+
+## The keyword became a key sentence
+
+Then the machine changed.
+
+Search engines mostly asked us to identify what information we wanted retrieved.
+
+LLMs can do something more interesting with what they retrieve.
+
+So the key got longer.
+
+"Authentication" is a keyword.
+
+"Where is authentication implemented?" is a query.
+
+"Trace authentication from the user's login action through every service it touches and show me where state can become inconsistent" is something else.
+
+I think of it as a **key sentence**.
+
+The sentence does not merely identify the shelf.
+
+It tells Vicki what to notice while she is reading the book.
+
+And the really interesting version is even less prescriptive:
+
+"I think authentication is causing this bug. Don't assume I'm right. Trace the failure backward from the observed behaviour, identify competing explanations, and show me the evidence for each."
+
+Now I am not asking the machine for an answer.
+
+I am designing an investigation.
+
+That is why I have never been completely satisfied with the term *prompt engineering*.
+
+It sounds like there must be a secret combination of words that unlocks extra intelligence.
+
+There isn't.
+
+The durable skill is **inquiry**.
+
+## The better Vicki gets, the better your questions need to get
+
+This connects directly to something I wrote earlier in *We Built the Genie. Now Learn How to Make a Wish.*
+
+The genie metaphor is about specification.
+
+Vicki adds another dimension: scale.
+
+The genie says: tell me what you want.
+
+Vicki says: I can read the material.
+
+Put those together and the human job becomes clearer.
+
+You need to know what material matters.
+
+You need to know what question is worth asking.
+
+You need to know which assumptions should be challenged.
+
+You need to recognize when the machine has produced a beautiful answer to the wrong question.
+
+You need to know when to ask for evidence.
+
+And eventually, when agents can act on what they find, you need to know what authority you are actually delegating.
+
+That is not prompt engineering.
+
+That is operating.
+
+## The interface keeps changing
+
+There is a progression here that I cannot unsee.
+
+**The library gave us the index.**
+
+**The internet gave us the keyword.**
+
+**Search taught us the query.**
+
+**AI gives us the key sentence.**
+
+**Agents turn the sentence into action.**
+
+Every step increases the expressive power of the interface between intention and computation.
+
+And every step moves the human bottleneck somewhere else.
+
+When information was scarce, knowing things mattered enormously.
+
+When information became abundant, finding things became the skill.
+
+When machines became capable of reading, comparing, synthesizing, reasoning over, and acting on information, **asking good questions became disproportionately valuable.**
+
+The better the answer machine becomes, the more interesting the question becomes.
+
+## Vicki is real enough
+
+No, we do not have the *Small Wonder* robot.
+
+The humanoid part is still very much a work in progress.
+
+And today's models are not Vicki's fictional perfect memory wrapped in a child-sized android body.
+
+But the part that fascinated me as a kid — the idea of a machine whose relationship with information is radically unlike mine — is no longer science fiction.
+
+That part is sitting on my desk.
+
+It is on my phone.
+
+It is connected to repositories, browsers, documents, email, tools, images, databases, and increasingly the machinery that actually does work.
+
+So when somebody hands me a giant codebase and says, "This is going to take forever to understand," some little part of my brain still sees that scene.
+
+Flip.
+
+Flip.
+
+Flip.
+
+Done.
+
+And then comes the part the television show did not teach me.
+
+Vicki has read the book.
+
+**Now what are you going to ask her?**
