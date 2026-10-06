@@ -893,7 +893,197 @@ That is not a limitation on agentic systems.
 For us, it is the point.
 `;
 
+const graduatedAgencyKitchenContent = String.raw\`Sam Altman recently made a blunt argument about AI risk in an interview with POLITICO's Decoded: society should accept that some bad outcomes will occur if we want the benefits of powerful AI and broad human agency.
+
+The useful question for builders is not whether that statement is comfortable.
+
+It is what operating model follows from it.
+
+At Teambotics, we do not think responsible AI means eliminating every possible failure before a system can be useful. We also do not think "people have agency" is sufficient justification for exposing every capability to every user in every context.
+
+The missing concept is **graduated agency**.
+
+## A kitchen is useful because it is dangerous
+
+A kitchen contains fire, blades, electricity, chemicals, heavy objects, and enough ways to injure someone that we routinely change access based on who is using it.
+
+We do not respond by eliminating knives.
+
+We also do not give a young child unrestricted access to them because they will eventually need to learn how to cook.
+
+Instead, capability and access develop together.
+
+A child watches. Then helps. Then uses safer tools. Then uses sharper tools with supervision. Eventually supervision recedes.
+
+The tool did not become harmless.
+
+The operator became more capable.
+
+That is a useful model for AI systems.
+
+> [!KEY]
+> The purpose of a safeguard is not always to prevent access forever. Sometimes it is to preserve the conditions under which safe capability can develop.
+
+## Scale changes the duty of care
+
+Every AI lab is a kitchen, but the kitchens are not equivalent.
+
+A small applied-AI lab can test a bounded workflow with a handful of known users, inspect failures closely, reverse changes, and change the system quickly.
+
+A frontier lab serving hundreds of millions of people operates at a fundamentally different scale.
+
+That scale creates additional obligations: stronger evaluation, abuse prevention, age-appropriate controls, incident response, provenance, security, monitoring, and clear boundaries around capabilities whose failures can produce severe or irreversible harm.
+
+This is not a contradiction of broad access.
+
+It is what makes broad access sustainable.
+
+The larger the blast radius, the stronger the operational controls need to be.
+
+But scale does not make the model provider responsible for every downstream human decision.
+
+A commercial kitchen can be responsible for food safety. It cannot be responsible for teaching every customer how to cook.
+
+## Responsibility has to follow control
+
+This is the principle we use when designing human-AI systems:
+
+**Responsibility should sit with the actor that has meaningful control over the decision.**
+
+The model provider controls model behavior, platform safeguards, capability release, and system-level monitoring.
+
+The application builder controls workflow design, permissions, defaults, escalation paths, action boundaries, and how model output becomes real-world action.
+
+The deploying organization controls policy, training, authorized use, oversight, and which workflows should use AI at all.
+
+The user controls the judgments that remain theirs.
+
+Those boundaries will never be perfectly clean. That is precisely why they need to be designed explicitly.
+
+When everyone assumes somebody else owns the risk, nobody actually does.
+
+## Guardrails should be proportional to consequence
+
+A useful system should not apply the same friction everywhere.
+
+Asking an AI system to summarize a document is different from authorizing it to send an external message.
+
+Generating three options is different from selecting one and spending money.
+
+Drafting a recommendation is different from changing a legal, financial, medical, or operational record.
+
+This is why we distinguish between accidental friction and meaningful friction.
+
+Accidental friction makes a system harder to use without preserving meaningful human authority.
+
+Meaningful friction creates a point where a person can inspect, decide, approve, reject, or stop.
+
+Removing the first is good product design.
+
+Removing the second simply because an agent can technically act is often an abdication of design responsibility.
+
+> [!WARNING]
+> Autonomy should increase with demonstrated reliability and reversibility, not merely with model capability.
+
+## Human capability is part of the safety system
+
+There is another failure mode: treating the human as permanently incapable.
+
+If a system can only be safe when the user never encounters uncertainty, never needs to verify a claim, never makes a consequential judgment, and never has to recognize when the model should stop, then the system has not created meaningful agency.
+
+It has created dependency.
+
+Human capability therefore has to be part of the safety architecture.
+
+People need to learn what model confidence looks like when it is wrong.
+
+They need to know which sources matter.
+
+They need to understand when an output is a draft, an inference, a recommendation, or an action.
+
+They need clear escalation paths.
+
+They need enough provenance to challenge the system.
+
+And they need the authority to say no.
+
+This is why "human in the loop" cannot mean placing an approval button at the end of an automated process. The human needs context, authority, and enough understanding to exercise judgment.
+
+## The goal is not zero mistakes
+
+A zero-mistake standard sounds responsible until it is applied consistently.
+
+Human organizations do not operate at zero mistakes.
+
+Software does not operate at zero mistakes.
+
+Transportation, medicine, finance, manufacturing, education, and every other consequential system manage risk through layered controls, training, standards, monitoring, accountability, and continuous learning.
+
+AI should not receive a free pass because it is new.
+
+It also should not be held to a standard that makes useful deployment impossible while leaving existing human failure unexamined.
+
+The practical target is different:
+
+- identify risks that are unacceptable regardless of benefit
+- constrain high-consequence actions
+- make important decisions inspectable
+- preserve provenance
+- keep consequential authority explicit
+- increase autonomy when evidence supports it
+- train humans to work competently with the system
+- learn from failures without normalizing preventable harm
+
+This is a shared responsibility model.
+
+## Better kitchens, better cooks
+
+The frontier labs have to build better kitchens.
+
+Applied-AI builders have to design better workflows around what comes out of them.
+
+Organizations have to decide what belongs in production and under what conditions.
+
+Users have to develop judgment.
+
+None of these responsibilities cancels the others.
+
+That is the important implication of agency.
+
+Agency is not the absence of safeguards.
+
+Agency is not unrestricted access.
+
+Agency is the ability to act with enough capability, context, and authority to make meaningful choices — and to carry the responsibility that comes with them.
+
+We should build AI systems that help people reach that point.
+
+Not permanent baby gates.
+
+Not knives handed out at the door.
+
+A path from supervision to competence, with controls proportionate to the consequences along the way.
+
+That is how powerful technology becomes ordinary infrastructure: not when it becomes incapable of causing harm, but when the humans and institutions around it become capable of using it responsibly.
+
+---
+
+*The Sam Altman remarks discussed here were made in an October 2026 interview with POLITICO's Decoded. Contemporary reporting includes [Fortune](https://fortune.com/2026/10/05/sam-altman-ai-risks-bad-things-benefits-trump-voluntary-safety-pact-openai-regulation/) and [Business Insider](https://www.businessinsider.com/sam-altman-says-ai-benefits-outweigh-some-bad-things-happening-2026-10).*\`;
+
 export const staticBlogPosts: StaticBlogPost[] = [
+  {
+    id: 'static-graduated-agency-kitchen',
+    slug: 'graduated-agency-ai-safety',
+    title: 'AI Safety Needs Graduated Agency',
+    excerpt:
+      'Powerful AI will not be risk-free. Responsible deployment means matching safeguards, autonomy, and human capability to consequence.',
+    content: graduatedAgencyKitchenContent,
+    author: 'Nikhil Khedkar',
+    tags: ['human-ai-systems', 'ai-governance', 'ai-safety', 'human-agency', 'applied-ai'],
+    cover_image_url: null,
+    published_at: '2026-10-06T00:00:00.000Z',
+  },
+
   {
     id: 'static-absorb-complexity-preserve-agency',
     slug: 'absorb-complexity-preserve-agency',
