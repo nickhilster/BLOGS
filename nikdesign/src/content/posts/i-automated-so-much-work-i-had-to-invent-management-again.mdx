@@ -1,0 +1,320 @@
+---
+title: "I Automated So Much Work I Had to Invent Management Again"
+description: "The Git history tells the story: every time AI removed one bottleneck, the next layer of coordination became the problem."
+excerpt: "I complained that I could not keep up with my agents. Then we looked at the private Git history. Apparently I had been documenting the birth of robot middle management for months."
+publishedAt: "2026-10-06"
+tags: ["AI agents", "operations", "Git", "management", "human agency", "process"]
+featured: true
+theme: "nocturne"
+articleLayout: "case-study"
+identity:
+  palette:
+    bg: "#090b0d"
+    surface: "#11161a"
+    surfaceStrong: "#172126"
+    text: "#e8eee9"
+    muted: "#89968e"
+    accent: "#9fe870"
+    accentSoft: "#5aa86d"
+    border: "#29362e"
+  fonts: "technical-mono"
+  motion: ["branch-draw-in", "scanline", "fade-drift"]
+hero:
+  title: "I Automated So Much Work I Had to Invent Management Again"
+  dek: "This article started because I complained that I could no longer keep up with the agents working for me. Then we checked Git."
+---
+
+import ProcessStrip from '../../components/mdx/ProcessStrip.astro'
+import FieldNote from '../../components/mdx/FieldNote.astro'
+import AmbientDivider from '../../components/mdx/AmbientDivider.astro'
+
+This article exists because, while AI and I were writing another article about AI, I complained that I could no longer keep up with all the AI agents working for me.
+
+That sentence is already ridiculous.
+
+It gets worse.
+
+I said there were repos to manage other repos. Agents to manage other agents. Systems to tell the agents which systems were authoritative. A mission-control repo whose job was increasingly to explain where everything else lived.
+
+Then I said the obvious thing:
+
+**Necessity is the fucking mother of all inventions.**
+
+So we did something useful.
+
+We checked Git.
+
+And Git had receipts.
+
+<FieldNote title="A note on the evidence">
+The repositories behind this story are private. They contain internal tooling, operating instructions, experiments, and company context. They do not need to be public for the story to be public. I used their creation dates and commit history as the primary-source record of what I built, when I built it, and what problem I was apparently trying to solve next.
+</FieldNote>
+
+## June: the first management layer
+
+On June 3, I created a repository whose job was essentially to help maintain repositories.
+
+Five days later, another operational layer appeared.
+
+By June 14, even the Markdown and context accumulating around the work needed its own management surface.
+
+I did not sit down with a whiteboard and announce that I was designing an organizational architecture for autonomous software.
+
+I was annoyed by things.
+
+So I built things.
+
+<ProcessStrip
+  items={[
+    { label: 'JUN 03', title: 'Repos need maintenance', detail: 'A repository appears to help keep other repositories current.' },
+    { label: 'JUN 08', title: 'Projects need operations', detail: 'The work is multiplying, so project-level operational visibility becomes its own problem.' },
+    { label: 'JUN 14', title: 'Context needs management', detail: 'Now the Markdown, summaries, and machine-readable context need a system too.' },
+  ]}
+/>
+
+The pattern was already there.
+
+I just did not know it was a pattern yet.
+
+## September: oh fuck
+
+By late September, the problem had escaped the individual repository.
+
+One internal audit covered **57 active, maintained, infrastructure, or incubating repositories**.
+
+Another operation rolled repository-local tracking scaffolds across **27 active repositories**.
+
+And then came one of my favourite moments in the fossil record: the tooling had become complicated enough that an agent had to investigate whether one repository-management tool duplicated another repository-management tool.
+
+Read that sentence again.
+
+**We needed tooling analysis to determine whether the tools for managing the tooling were overlapping.**
+
+At some point the joke becomes architecture.
+
+<AmbientDivider />
+
+## October: the organization appears
+
+October is where the commit messages stop looking like ordinary software development and start sounding like somebody is writing a constitution for a tiny machine civilization.
+
+The records start saying things equivalent to:
+
+**design the repository initializer**
+
+**add a portable repository initializer**
+
+**propose a shared repository manifest**
+
+**make one system the single agent front door**
+
+**define mission control as the capability and repository router**
+
+That progression matters.
+
+Agents could already do the work.
+
+The emerging problem was that an agent entering the system needed to know:
+
+Where am I?
+
+What is this repository?
+
+Which instructions are authoritative?
+
+Which tools are already adopted?
+
+Where does work get tracked?
+
+What can I change?
+
+What should I leave alone?
+
+Where do I go next?
+
+In a human company, we would call a lot of that onboarding, policy, management, governance, institutional knowledge, and organizational design.
+
+Apparently machines need some of it too.
+
+## Then I needed a manager
+
+On October 4, a new repository appeared for standing agents.
+
+Its early history is almost too perfect.
+
+The commits define integration boundaries. Then they compose the canonical systems. Then they route a Shift Manager through those systems. Then they add an action console. Then they add a deterministic shift report.
+
+And almost immediately the repository starts filling with reports and handoffs.
+
+Why?
+
+Because I had reached the stupidly obvious limit nobody mentions when they show you a demo of five agents running simultaneously:
+
+**I am still one person.**
+
+The agents do not get tired.
+
+My attention does.
+
+So execution stopped being the bottleneck and **management became the bottleneck**.
+
+Which is how I managed to automate enough work that I had to invent management again.
+
+## And then the agents needed sidecars
+
+The next day, October 5, another tool appeared: a dedicated operating surface around a coding agent.
+
+Within hours its history moves from an initial console prototype to documentation, standards alignment, session organization, an agent chat panel, and a desktop shell.
+
+October 6: another agent gets its own sidecar.
+
+Of course it fucking does.
+
+<ProcessStrip
+  items={[
+    { label: 'SEP', title: 'Mission control', detail: 'The portfolio is now large enough that the system needs to understand the portfolio.' },
+    { label: 'OCT 02–03', title: 'Rules of the road', detail: 'Initializers, manifests, canonical entry points, and routing emerge from agent traffic.' },
+    { label: 'OCT 04', title: 'Standing management', detail: 'A Shift Manager appears because the human can no longer follow every moving agent.' },
+    { label: 'OCT 05–06', title: 'Agent surfaces', detail: 'Individual agents begin getting dedicated operating surfaces of their own.' },
+  ]}
+/>
+
+None of this was the plan.
+
+That is the important part.
+
+## The architecture was caused by the work
+
+There is a temptation in AI right now to draw magnificent agent architectures before the agents have actually done anything.
+
+Orchestrators.
+
+Supervisors.
+
+Memory layers.
+
+Agent registries.
+
+Governance planes.
+
+Swarm diagrams that look like somebody dropped a plate of spaghetti on a systems-design interview.
+
+Some of those abstractions will be necessary.
+
+But I have become suspicious of designing them before the operational pressure exists.
+
+My own system evolved in the opposite direction:
+
+**pain → tool → more capability → new pain → next abstraction**
+
+The previous solution created enough leverage to expose the next constraint.
+
+Repository maintenance became portfolio management.
+
+Portfolio management became routing.
+
+Routing became standardization.
+
+Standardization enabled more agents.
+
+More agents created an attention problem.
+
+The attention problem created management.
+
+That is not a roadmap.
+
+It is evolution.
+
+## The commits are the story
+
+This is why looking at the Git history was so useful.
+
+Memory tells stories backward. Once a system exists, it is easy to imagine that you always knew where it was going.
+
+Git is less charitable.
+
+Git says: no, motherfucker, on this date you were solving **this** problem.
+
+Then three days later you discovered **that** problem.
+
+Then you created another repository because apparently that was easier than accepting peace.
+
+The commit history preserves the sequence before hindsight gets a chance to clean it up.
+
+That makes it more than engineering provenance.
+
+It is a record of pressure.
+
+## Also: I did not type this
+
+There is one more layer of absurdity worth disclosing.
+
+I have a [Process page](/process) on this blog because I do not want the role of AI in the writing to be some coy little secret.
+
+But even saying "AI helps me write" does not quite describe what happens.
+
+**I do not type these blog posts.**
+
+I talk.
+
+Speech becomes text.
+
+The conversation branches. I tell stories. I make arguments. The AI pushes back, researches things, checks repositories, finds connections, and helps shape the material. I decide what matters. We turn the conversation into an artifact. The artifact goes through Git. The site deploys.
+
+For this post, the chain was basically:
+
+**thought → voice → transcription → dialogue → Git archaeology → synthesis → artifact → Git again → deployment**
+
+Yes.
+
+We used Git history to write a story about Git history and then put the story back into Git.
+
+I am aware of how stupidly recursive this has become.
+
+## The interface is disappearing
+
+But that recursion points at something bigger.
+
+I am doing less and less work at the level of the traditional computer interface.
+
+I am not manually opening every repository and inspecting every file.
+
+Agents do that.
+
+I am not manually maintaining every status surface.
+
+Agents increasingly do that.
+
+I am not manually typing the prose describing what happened.
+
+I am talking.
+
+The work is moving upward.
+
+From keystrokes to instructions.
+
+From files to intent.
+
+From execution to judgment.
+
+From doing every operation myself to deciding what deserves attention.
+
+That does not remove the human.
+
+It changes where the human sits.
+
+And right now the scarce resource in my system is becoming painfully obvious.
+
+It is not compute.
+
+It is not typing speed.
+
+It is not how quickly another agent can generate code.
+
+**It is my attention.**
+
+So the next invention will probably be whatever makes that problem hurt less.
+
+I have no idea what it will be yet.
+
+Give it a few fucking days.
