@@ -1070,7 +1070,150 @@ That is how powerful technology becomes ordinary infrastructure: not when it bec
 
 *The Sam Altman remarks discussed here were made in an October 2026 interview with POLITICO's Decoded. Contemporary reporting includes [Fortune](https://fortune.com/2026/10/05/sam-altman-ai-risks-bad-things-benefits-trump-voluntary-safety-pact-openai-regulation/) and [Business Insider](https://www.businessinsider.com/sam-altman-says-ai-benefits-outweigh-some-bad-things-happening-2026-10).*`;
 
+const keySentenceContent = String.raw`AI capability changes the economics of reading.
+
+A human encountering a large repository, policy archive, support history, research corpus, or operational knowledge base has to ration attention. We sample. We search. We rely on indexes, summaries, specialists, and memory.
+
+AI systems can inspect and traverse encoded information at a radically different scale and speed. They are not unlimited, infallible, or perfectly attentive. Context windows, retrieval quality, permissions, stale data, hallucination, and missing documentation remain real constraints.
+
+But human reading speed is no longer the right baseline for designing the workflow.
+
+That changes the scarce skill.
+
+## From keyword to key sentence
+
+The internet made the **keyword** an everyday form of technical literacy.
+
+Once the web became too large to browse manually, users learned to compress intent into searchable terms. Good search operators did not need to know where every answer lived. They needed to know how to ask the information system to surface the right region of the map.
+
+Generative AI extends that interface.
+
+A keyword identifies a subject.
+
+A query asks for information.
+
+A **key sentence** can define an investigation.
+
+Consider a software repository:
+
+- "authentication" identifies a topic
+- "Where is authentication implemented?" requests retrieval
+- "Trace authentication from login through every service it touches and identify where state can become inconsistent" specifies a reasoning task
+- "I suspect authentication is responsible, but do not assume I am right. Trace the failure backward, test competing explanations, and show the evidence for each" defines an investigative method
+
+The underlying information may be identical.
+
+The quality of the operator's inquiry changes what becomes visible.
+
+## Prompt engineering is too narrow
+
+Prompt engineering is useful terminology when the problem is instruction construction.
+
+It becomes misleading when treated as the whole discipline.
+
+The durable skill is not memorizing special phrases that make a model behave more intelligently. It is being able to formulate intent, supply relevant context, identify constraints, define evidence, expose uncertainty, and specify what authority the system has.
+
+That is closer to **inquiry design** than incantation.
+
+The distinction matters more as AI moves from chat interfaces into agents.
+
+When a system can only answer, a weak question produces a weak answer.
+
+When a system can search repositories, inspect documents, call tools, modify software, send messages, or trigger workflows, a weak instruction can produce weak action.
+
+The interface between human intention and machine capability therefore deserves the same design attention we give any consequential interface.
+
+## Machine-scale inspection does not eliminate human judgment
+
+The obvious mistake is to conclude that because AI can inspect more information, humans become less important.
+
+In practice, the human role moves.
+
+An operator still has to decide:
+
+- which information sources are relevant
+- which sources are authoritative
+- what the system should look for
+- which assumptions deserve challenge
+- what counts as sufficient evidence
+- where uncertainty must remain visible
+- which actions are reversible
+- which actions require approval
+- whether the result answers the actual operational question
+
+This is consistent with a broader principle in applied AI: model capability and local correctness are different things.
+
+A system can read a large amount of material and still weight the wrong evidence.
+
+It can produce a coherent answer to the wrong version of the question.
+
+It can find a pattern that is statistically plausible but operationally irrelevant.
+
+Scale of inspection is not a substitute for judgment.
+
+It makes judgment more leveraged.
+
+## A useful progression
+
+Information interfaces have steadily moved the human role upward in abstraction.
+
+**The library gave us the index.**
+
+**The internet gave us the keyword.**
+
+**Search taught us the query.**
+
+**AI gives us the key sentence.**
+
+**Agents turn the sentence into action.**
+
+Each transition reduces some mechanical burden while increasing the importance of expressing intention clearly.
+
+That has consequences for AI adoption.
+
+Training people to use an AI product cannot stop at interface mechanics. Knowing where the prompt box is will quickly become as uninteresting as knowing where the browser address bar is.
+
+People need to learn how to decompose problems, establish context, ask diagnostic questions, test hypotheses, challenge outputs, verify evidence, and delegate authority deliberately.
+
+Those are operator skills.
+
+## The new literacy is asking
+
+Organizations have spent decades building enormous stores of encoded institutional knowledge: source code, tickets, policies, email, documentation, customer interactions, research, telemetry, databases, design artifacts, and meeting records.
+
+Historically, much of that information was expensive to traverse because human attention was the retrieval layer.
+
+AI changes that constraint.
+
+The opportunity is not simply faster summarization.
+
+It is the ability to interrogate operational information from multiple perspectives without requiring a person to manually read every artifact first.
+
+But the machine still needs direction.
+
+The competitive advantage will not come merely from giving everyone access to a powerful model. The same model can produce radically different value depending on who is operating it, what context it can access, how the request is framed, and how the result is evaluated.
+
+As answering becomes cheaper, **question quality becomes more valuable**.
+
+That is why the future of AI literacy is not primarily about prompts.
+
+It is about learning to operate systems that can read far more than we can, without surrendering the judgment required to decide what any of it means.`;
+
 export const staticBlogPosts: StaticBlogPost[] = [
+  {
+    id: 'static-key-sentence-ai-operator-literacy',
+    slug: 'from-keyword-to-key-sentence',
+    title: 'From Keyword to Key Sentence',
+    excerpt:
+      'Search made keywords a basic digital skill. AI changes the interface again: the scarce skill is increasingly the ability to design the question, investigation, and delegation.',
+    content: keySentenceContent,
+    author: 'Nikhil Khedkar',
+    tags: ['ai-literacy', 'applied-ai', 'human-ai-systems', 'ai-operators', 'agentic-ai'],
+    cover_image_url: null,
+    published_at: '2026-10-06T00:00:00.000Z',
+  },
+
+
   {
     id: 'static-graduated-agency-kitchen',
     slug: 'graduated-agency-ai-safety',
