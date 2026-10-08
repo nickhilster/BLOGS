@@ -1361,6 +1361,17 @@ If you are wondering who the right person is and whether you can get a real conv
     published_at: '2026-09-11T00:00:00.000Z',
   },
   {
+    id: 'static-help-is-a-function-not-a-destination',
+    slug: 'help-is-a-function-not-a-destination',
+    title: 'Help Is a Function, Not a Destination',
+    excerpt: 'From F1 documentation to agentic action: why useful AI needs clear boundaries for explanation, guidance, authorization, and handoffs.',
+    content: firstFunctionCompanionContent,
+    author: 'Teambotics',
+    tags: ['human-ai-systems', 'agentic-ai', 'product-design', 'trust', 'frontline-teams'],
+    cover_image_url: null,
+    published_at: '2026-10-08T00:00:00.000Z',
+  },
+  {
     id: 'static-ai-should-not-replace-care',
     slug: 'ai-should-not-replace-care',
     title: 'AI Should Not Replace Care',
@@ -1421,6 +1432,88 @@ If you are wondering who the right person is and whether you can get a real conv
     published_at: '2026-09-11T00:00:00.000Z',
   },
 ];
+
+const firstFunctionCompanionContent = String.raw`# Help Is a Function, Not a Destination
+
+Software has always had a responsibility to help people use it. The F1 key made that responsibility visible: press a button, open the documentation, find your way forward.
+
+AI agents change the nature of that promise.
+
+Help is no longer necessarily an instruction that a person reads and executes. It can be a conversation that interprets intent, a workflow that gathers context, or an action performed on someone's behalf.
+
+That makes the help experience more powerful. It also makes the design responsibility substantially greater.
+
+## From command to intent
+
+Traditional interfaces translate a human intention into a machine operation. Consider the familiar floppy-disk save icon: the machine stores bytes; the human wants reassurance that their work won't disappear.
+
+That distinction between technical operation and human intention matters more in agentic software.
+
+A person rarely arrives with a perfectly specified command. They arrive with a goal, incomplete context, and constraints they may not have articulated.
+
+A useful assistant helps them move forward without requiring them to learn the internal architecture of every application they touch.
+
+But interpreting intent isn't the same as acquiring permission.
+
+**Understanding what someone wants does not automatically authorize every action that might achieve it.**
+
+## Three kinds of help
+
+We find it useful to distinguish three capabilities.
+
+**Explain.** Make the situation legible. Tell the person what is happening, what is uncertain, and what options exist.
+
+**Guide.** Help the person decide. Ask a targeted question, offer a reversible next step, or prepare an action for review.
+
+**Act.** Execute a bounded, authorized task and leave an inspectable record of what happened.
+
+These aren't maturity levels where the goal is always to reach the third. Sometimes an explanation is the best product outcome. Sometimes the right action is to ask for clarification. Sometimes an agent should stop.
+
+The design challenge is choosing the right mode for the moment.
+
+## An error can now leave the screen
+
+A wrong answer in documentation can waste someone's time. A wrong action can spend their money, disclose information, change a record, or commit them to an appointment.
+
+The risk isn't simply that AI makes mistakes. Software has always made mistakes.
+
+The change is that an interpretation can become a real-world consequence without the user manually carrying out each step.
+
+That is why agentic help needs more than a conversational interface.
+
+It needs clear boundaries around authorization. It needs evidence of what was observed versus inferred. It needs meaningful review before consequential actions. It needs a record of completed work and a practical path to correction.
+
+And it needs to know when to hand control back to a human.
+
+## The interface includes the handoff
+
+For frontline teams, this isn't an abstract question.
+
+A worker might ask an assistant to find the right procedure, prepare a customer response, or update a case record. Each request crosses a different boundary.
+
+Finding a procedure is retrieval. Preparing a response is drafting. Sending that response or changing a record is an external action.
+
+A system that treats all three as equivalent may appear efficient in a demo and become dangerous in daily operation.
+
+At Teambotics, our design principle is to make the handoff visible: what the agent understood, what it proposes, what it has permission to do, and what it actually did.
+
+That isn't bureaucracy layered onto intelligence. It's how intelligence becomes usable in a workplace where errors affect real people.
+
+## The new first function
+
+The future of help isn't another destination to visit when a workflow breaks.
+
+It's assistance embedded where work happens: able to explain, guide, and—within clear limits—act.
+
+The best version of that future won't make humans learn more machine commands. It will make software better at understanding human goals while respecting human authority.
+
+**Help should be a function of the experience, not an escape route from it.**
+
+And the responsibility behind that function remains the same as it was when F1 opened a help page: build something that helps people find their way.
+
+---
+
+*Companion essay: [“The First Function” on NikDesign](https://blog.nikdesign.ca/the-first-function), a personal reflection on growing up with F1, floppy disks, and the evolution of software help.*`;
 
 export function getStaticBlogPost(slug: string) {
   return staticBlogPosts.find((post) => post.slug === slug) ?? null;
