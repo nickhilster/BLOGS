@@ -199,6 +199,18 @@ It needs clear boundaries around authorization. It needs evidence of what was ob
 
 And it needs to know when to hand control back to a human.
 
+## The mechanism, not just the principle
+
+Making the handoff visible takes a concrete grammar.
+
+**Draft.** Show what the system observed, what it inferred, and what remains uncertain. A person should be able to tell which parts came from the record and which parts are the assistant's interpretation.
+
+**Review.** Keep drafting, reviewing, and sending as separate acts. Preparing a message does not mean it has been approved; approval does not mean it has been sent. The person should see the proposed action and its consequences before it happens.
+
+**Receipt.** Leave behind IDs and timestamps that can be checked: what changed, where, and when. The record should stand on its own, without asking someone to take the assistant's word for what it did.
+
+This week's generated-UI moment made the point tangible: **a generated button is an action wearing an interface.** The interface is part of the permission boundary. It should make the action and its state legible before someone commits.
+
 ## The interface includes the handoff
 
 For frontline teams, this isn't an abstract question.
@@ -227,7 +239,7 @@ And the responsibility behind that function remains the same as it was when F1 o
 
 ---
 
-*Companion essay: [“The First Function” on NikDesign](https://blog.nikdesign.ca/the-first-function), a personal reflection on growing up with F1, floppy disks, and the evolution of software help.*`;
+*Companion essay: [“The First Function” on NikDesign](https://blog.nikdesign.ca/posts/the-first-function), a personal reflection on growing up with F1, floppy disks, and the evolution of software help.*`;
 
 
 export type StaticBlogPost = {
