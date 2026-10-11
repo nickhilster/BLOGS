@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Designing for gratitude in human–AI interaction</title>
+  <desc id="desc">A warm paper field with three human-made tools connected by a fine, open line.</desc>
+  <defs>
+    <linearGradient id="paper" x2="1" y2="1">
+      <stop stop-color="#f4e8d4"/>
+      <stop offset="1" stop-color="#ddc5a1"/>
+    </linearGradient>
+    <linearGradient id="ink" x2="1">
+      <stop stop-color="#865035"/>
+      <stop offset="1" stop-color="#b87849"/>
+    </linearGradient>
+    <pattern id="grain" width="9" height="9" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="2" r=".6" fill="#76543b" opacity=".18"/>
+      <circle cx="7" cy="6" r=".45" fill="#fff9ed" opacity=".65"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#paper)"/>
+  <rect width="1200" height="630" fill="url(#grain)" opacity=".36"/>
+  <path d="M96 82H1104V548H96z" fill="none" stroke="#76543b" stroke-opacity=".25"/>
+  <path d="M190 400C350 330 440 330 590 382S850 436 1010 320" fill="none" stroke="#8f674b" stroke-width="2" stroke-dasharray="3 12"/>
+  <g transform="translate(295 274) rotate(-9)">
+    <rect width="180" height="130" rx="7" fill="#6b3d2b"/>
+    <path d="M18 14h70v102H18z" fill="#efdbb7"/>
+    <path d="M92 14h70v102H92z" fill="#f8edda"/>
+    <path d="M90 14v102" stroke="#af865d" stroke-width="3"/>
+    <path d="M34 42h38M34 54h40M108 42h38M108 54h38" stroke="#aa8661" stroke-width="3"/>
+  </g>
+  <g transform="translate(590 333)">
+    <circle r="73" fill="#c18e48"/>
+    <circle r="61" fill="#e7c680" stroke="#8d642f" stroke-width="3"/>
+    <circle r="35" fill="none" stroke="#9b703a" stroke-width="2"/>
+    <path d="M-15 16l13-47 17 47M-10 4h20" fill="none" stroke="#8f6232" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(850 286) rotate(24)">
+    <rect x="-14" y="-65" width="28" height="230" rx="12" fill="url(#ink)"/>
+    <path d="M-11-63Q0-112 11-63" fill="#39312a"/>
+    <rect x="-15" y="-44" width="30" height="22" rx="4" fill="#c58b53"/>
+    <path d="M0 35v82" stroke="#eed5ac" stroke-width="2" opacity=".7"/>
+  </g>
+  <g fill="#6f4934" font-family="Georgia,serif">
+    <text x="600" y="178" text-anchor="middle" font-size="19" letter-spacing="6">HUMAN MEANING / HONEST SYSTEMS</text>
+    <text x="600" y="500" text-anchor="middle" font-size="16" letter-spacing="4">KNOWLEDGE · LIVELIHOOD · MAKING</text>
+  </g>
+</svg>

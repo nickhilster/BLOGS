@@ -241,6 +241,54 @@ And the responsibility behind that function remains the same as it was when F1 o
 
 *Companion essay: [“The First Function” on NikDesign](https://blog.nikdesign.ca/posts/the-first-function), a personal reflection on growing up with F1, floppy disks, and the evolution of software help.*`;
 
+const gratitudeInteractionContent = String.raw`An apology to an AI can look like a small category error.
+
+The system has no feelings to bruise. It does not need reassurance. Yet people say “sorry” when corrected and “thank you” after a useful exchange. Those words can mean something without proving anything about the machine.
+
+For some people, the habit has a cultural history. In one Indian household, a book touched by accident might be lifted and touched to the forehead. Money that fell to the ground could receive a small gesture of respect. At Diwali, a painter might place the brushes used in daily work alongside other objects in the home puja. These practices differ across families and traditions, but they share a recognisable idea: an object can stand for knowledge, livelihood, or creative possibility, and care for the object can express gratitude for what it enables.
+
+That personal story is the subject of [“Why I Apologize to Artificial Intelligence” on NikDesign](https://blog.nikdesign.ca/posts/why-i-apologize-to-artificial-intelligence/). Here I want to look at the design question it raises: what should an AI product do when people bring human rituals of gratitude into an interaction with software?
+
+## A human gesture is not evidence of machine feeling
+
+People thank a car that starts on a cold morning, curse a printer, or apologize to a navigation app after taking the wrong turn. These habits can be playful, sincere, automatic, or all three. They tell us something about the person and the relationship they are enacting. They do not establish that the system feels appreciated or offended.
+
+That distinction matters in product design. A conversational interface can invite warmth without claiming inner life. It can accept a thank-you simply, without implying that the model felt seen. It can correct an error without humiliating the person who made it. And it can keep its limitations visible when a polished voice makes software feel more human than it is.
+
+The design goal is not to strip interaction of courtesy. It is to avoid turning courtesy into a false claim about the system.
+
+## Design for the person expressing gratitude
+
+If a user says “thank you,” the useful question is not whether the model deserves the praise. It is what the person is trying to do. They may be marking the end of a task, recognising useful work, keeping a personal standard of politeness, or expressing relief after a difficult moment.
+
+A good interface can respect that meaning with a brief, proportionate response. It does not need to simulate emotional dependence, ask the user to keep talking, or suggest that the AI is lonely without attention. Warmth should make the interaction easier for the person, not create an obligation to care for the product.
+
+That principle travels beyond chat. A tool used for learning can make progress visible. A creative system can preserve the human's authorship and choices. A service assistant can thank someone for providing context without making them repeat sensitive details. The interface can show what the system used, what it changed, and what still needs human judgment.
+
+## Make helpfulness legible
+
+Gratitude grows more naturally when people can see what helped. In an AI workflow, that means making contribution inspectable: show the source behind an answer, distinguish a retrieved fact from a generated suggestion, and make it clear when the system is uncertain.
+
+If the AI changes a document, expose the edits. If it recommends a next step, explain the basis. If it acts on the user's behalf, ask for permission at the point where the action becomes consequential. A pleasant tone cannot substitute for provenance, control, or accountability.
+
+This also protects against a subtle design trap: encouraging deference. A system that accepts praise gracefully but hides its sources may feel trustworthy while making it harder to judge. A system that welcomes correction, shows its work, and makes revision easy gives people better reasons to rely on it carefully.
+
+## Courtesy should not become compliance
+
+People may carry rituals of respect into their use of technology. Designers should make room for those expressions without using them to blur boundaries. A user's politeness is not consent to collect more data. Their affection for a tool is not permission for the tool to make decisions for them. And a thank-you should never become a cue to upsell, prolong a session, or discourage a challenge.
+
+The same applies to organizations. An employee who appreciates an AI assistant is not endorsing every use of it. A team that finds a tool useful still needs clear ownership, review paths, and a way to stop or correct its actions. Gratitude can coexist with scepticism.
+
+## Respect the meaning; keep the boundary
+
+The story of the book, the coin, and the paintbrush is not a product pattern to copy into an interface. It is a reminder that people bring meanings and histories to the tools they use. A system designed for one culture or setting may encounter gestures it was not built to interpret.
+
+We can respond with curiosity and humility. Ask what a gesture means in context. Avoid treating any single practice as universal. Give people choices about tone and interaction. Keep the AI's capabilities and limits clear. And design the human's agency into every consequential step.
+
+An AI does not have to experience gratitude for a user's gratitude to matter. The meaning belongs to the person. The designer's responsibility is to receive it without exploiting it—and to build tools worthy of careful use.
+
+The interface can be warm. The boundary can stay honest. Both are part of good human–AI design.`;
+
 
 export type StaticBlogPost = {
   id: string;
@@ -1444,6 +1492,18 @@ That is why the future of AI literacy is not primarily about prompts.
 It is about learning to operate systems that can read far more than we can, without surrendering the judgment required to decide what any of it means.`;
 
 export const staticBlogPosts: StaticBlogPost[] = [
+  {
+    id: 'static-designing-for-gratitude-human-ai-interaction',
+    slug: 'designing-for-gratitude-in-human-ai-interaction',
+    title: 'Designing for Gratitude in Human–AI Interaction',
+    excerpt:
+      'People bring habits of courtesy and cultural meaning to AI tools. Product design can respect those gestures while keeping machine feelings, consent, and human authority clear.',
+    content: gratitudeInteractionContent,
+    author: 'Nikhil Khedkar',
+    tags: ['human-ai-systems', 'experience-design', 'responsible-ai', 'culture', 'ai-governance'],
+    cover_image_url: '/thumbnails/designing-for-gratitude-human-ai.svg',
+    published_at: '2026-10-11T00:00:00.000Z',
+  },
   {
     id: 'static-key-sentence-ai-operator-literacy',
     slug: 'from-keyword-to-key-sentence',

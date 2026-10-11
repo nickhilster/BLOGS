@@ -25,6 +25,7 @@ const diagramOptionalPosts = new Set([
   "the-dance-floor-is-a-sacred-place",
   "the-doorway-and-the-destination",
   "what-our-ancestors-leave-in-art",
+  "why-i-apologize-to-artificial-intelligence",
 ]);
 
 const expectedPosts = [

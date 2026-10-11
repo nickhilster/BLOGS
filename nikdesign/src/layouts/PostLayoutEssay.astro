@@ -10,6 +10,7 @@ const isDoorway = post.data.title === 'The Doorway and the Destination'
 const isBelief = post.data.title === 'I Believe'
 const isMuse = post.slug === 'open-letter-to-meta-about-muse'
 const isHumanSystems = post.slug === 'designing-for-humans-before-we-know-the-ending'
+const isReverence = post.slug === 'why-i-apologize-to-artificial-intelligence'
 ---
 
 <BaseLayout
@@ -38,8 +39,8 @@ const isHumanSystems = post.slug === 'designing-for-humans-before-we-know-the-en
     </div>
   )}
 
-  <main class:list={["post-shell", "post-shell--essay", { "doorway-post": isDoorway, "belief-post": isBelief, "muse-post": isMuse, "human-post": isHumanSystems }]}>
-    <header class:list={["post-hero", { "doorway-hero": isDoorway, "belief-hero": isBelief, "muse-hero": isMuse, "human-hero": isHumanSystems }]} data-motion={heroMotion}>
+  <main class:list={["post-shell", "post-shell--essay", { "doorway-post": isDoorway, "belief-post": isBelief, "muse-post": isMuse, "human-post": isHumanSystems, "reverence-post": isReverence }]}>
+    <header class:list={["post-hero", { "doorway-hero": isDoorway, "belief-hero": isBelief, "muse-hero": isMuse, "human-hero": isHumanSystems, "reverence-hero": isReverence }]} data-motion={heroMotion}>
       {isDoorway && <div class="doorway-hero__door" aria-hidden="true"><span></span></div>}
       {isBelief && (
         <div class="belief-hero__constellation" aria-hidden="true">
@@ -58,6 +59,14 @@ const isHumanSystems = post.slug === 'designing-for-humans-before-we-know-the-en
       <h1>{post.data.hero.title}</h1>
       <p class="post-dek">{post.data.hero.dek}</p>
       <div class="post-meta"><span>{post.data.publishedAt}</span></div>
+      {isReverence && (
+        <figure class="reverence-still-life" aria-labelledby="reverence-caption">
+          <div class="reverence-still-life__book" aria-hidden="true"><i></i><b></b></div>
+          <div class="reverence-still-life__coin" aria-hidden="true"><i></i></div>
+          <div class="reverence-still-life__brush" aria-hidden="true"><i></i><b></b></div>
+          <figcaption id="reverence-caption">Knowledge / livelihood / making</figcaption>
+        </figure>
+      )}
       {isHumanSystems && (
         <figure class="human-hero__board" aria-labelledby="human-hero-caption">
           <div aria-hidden="true">
@@ -204,6 +213,37 @@ const isHumanSystems = post.slug === 'designing-for-humans-before-we-know-the-en
 
   :global(body:has(.doorway-post)) { background: #13100d; }
   :global(body:has(.belief-post)) { background: #080a10; }
+  :global(body:has(.reverence-post)) { background: #f2e8d7; }
+
+  .reverence-post { --reverence-ink: #34271e; --reverence-rust: #9b542e; --reverence-gold: #bd8b49; }
+  .reverence-hero { position: relative; padding: 4rem clamp(1.25rem, 5vw, 4.5rem) 2.5rem; border: 1px solid rgba(90, 61, 39, .2); background: linear-gradient(135deg, rgba(255,253,247,.9), rgba(232,215,187,.74)); box-shadow: 0 22px 64px rgba(78, 51, 31, .09); }
+  .reverence-hero::before { content: ''; position: absolute; inset: .55rem; border: 1px solid rgba(155,84,46,.16); pointer-events: none; }
+  .reverence-hero h1 { max-width: 12ch; color: var(--reverence-ink); font-family: var(--font-display); }
+  .reverence-hero .post-kicker { color: var(--reverence-rust); letter-spacing: .14em; }
+  .reverence-hero .post-dek { max-width: 38rem; color: #67513d; }
+  .reverence-still-life { position: relative; display: flex; align-items: center; justify-content: center; gap: clamp(1rem, 4vw, 3.25rem); min-height: 13rem; max-width: 41rem; margin: 2rem auto 0; padding: 2rem; border-top: 1px solid rgba(90,61,39,.18); border-bottom: 1px solid rgba(90,61,39,.18); background: radial-gradient(ellipse at 50% 100%, rgba(119,79,46,.13), transparent 70%); }
+  .reverence-still-life__book { position: relative; width: 7.5rem; height: 5rem; transform: rotate(-8deg); border: 1px solid #79553a; border-radius: .2rem .6rem .6rem .2rem; background: linear-gradient(90deg, #713e2b 0 .5rem, #e7c992 .52rem 48%, #f5e6c8 50% 100%); box-shadow: 0 .7rem 1rem rgba(51,35,24,.18); }
+  .reverence-still-life__book::before { content: ''; position: absolute; inset: .45rem .42rem .45rem .78rem; border: 1px solid rgba(113,62,43,.35); }
+  .reverence-still-life__book i { position: absolute; left: 3.7rem; top: .8rem; width: 1px; height: 3.4rem; background: rgba(113,62,43,.26); }
+  .reverence-still-life__book b { position: absolute; right: .1rem; inset-block: .5rem; width: .23rem; background: repeating-linear-gradient(180deg,#b89a6d 0 2px,#eee0c4 2px 4px); }
+  .reverence-still-life__coin { display: grid; place-items: center; width: 4.6rem; aspect-ratio: 1; border: 1px solid #9a6d34; border-radius: 50%; background: radial-gradient(circle, #edcd84 0 52%, #c08e42 53% 59%, #e4bd70 60% 100%); box-shadow: 0 .65rem 1rem rgba(51,35,24,.17), inset 0 0 0 .25rem rgba(255,244,210,.35); }
+  .reverence-still-life__coin i { width: 1.35rem; aspect-ratio: 1; border: 1px solid rgba(112,72,35,.55); border-radius: 50%; }
+  .reverence-still-life__brush { position: relative; width: 1.1rem; height: 7.3rem; transform: rotate(25deg); border-radius: .4rem; background: linear-gradient(90deg,#704629,#bd8652 48%,#e1bd83 52%,#825334); box-shadow: 0 .7rem 1rem rgba(51,35,24,.18); }
+  .reverence-still-life__brush::before { content: ''; position: absolute; left: -.16rem; top: -.9rem; width: 1.42rem; height: 1.5rem; border-radius: 80% 80% 18% 18%; background: linear-gradient(90deg,#30271f,#76604a 48%,#332820); }
+  .reverence-still-life__brush i { position: absolute; left: .12rem; right: .12rem; top: 1rem; height: .75rem; border-radius: 50%; background: #b66c42; }
+  .reverence-still-life__brush b { position: absolute; inset: 2rem .22rem 1rem; border-left: 1px solid rgba(255,238,203,.45); }
+  .reverence-still-life figcaption { position: absolute; bottom: -.7rem; padding: 0 .8rem; color: #78624d; background: #f7efe1; font: .7rem/1.4 var(--font-post-mono); letter-spacing: .1em; text-transform: uppercase; }
+  :global(body:has(.reverence-post) .site-header), :global(body:has(.reverence-post) .site-footer) { color: #493827; }
+  :global(.reverence-post .post-body h2) { margin-top: 4rem; color: var(--reverence-ink); font-family: var(--font-display); }
+  :global(.reverence-post .post-body blockquote) { border-left-color: var(--reverence-rust); color: #654832; }
+  @media (max-width: 600px) {
+    .reverence-hero { padding: 2.5rem 1.1rem 1.5rem; }
+    .reverence-still-life { min-height: 10rem; gap: 1rem; padding: 1.5rem .5rem; }
+    .reverence-still-life__book { width: 5.5rem; height: 3.8rem; }
+    .reverence-still-life__book i { left: 2.7rem; height: 2.5rem; }
+    .reverence-still-life__coin { width: 3.5rem; }
+    .reverence-still-life__brush { height: 5.8rem; }
+  }
 
   .doorway-backdrop,
   .belief-backdrop {
