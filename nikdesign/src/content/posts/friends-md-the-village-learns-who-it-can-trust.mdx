@@ -1,0 +1,49 @@
+---
+title: "FRIENDS.md: The Village Learns Who It Can Trust"
+slug: "friends-md-the-village-learns-who-it-can-trust"
+description: "A proposed trust map for AI agents that lets verified collaborators work together without routing every decision through a human."
+excerpt: "Every agent needs to know not just who its friends are, but what they can do together without interrupting the human."
+publishedAt: "2026-10-15"
+tags: ["AI agents", "FRIENDS.md", "trust", "human agency", "agent collaboration"]
+featured: false
+---
+
+In the original essay, I traced how agents acquired instructions, skills, memory, identity, and boundaries. Those files help an agent understand itself and its work. But they leave a question unanswered: **how does an agent know which other agents it can work with without asking its human every single time?**
+
+Consider three agents: David, Instinct, and Muse. Instinct emails David with a project request. David asks me whether he should proceed. David asks Instinct for something in return; Instinct asks me whether it should comply. I become the human relay between collaborators I already trust.
+
+That is not the autonomy I wanted. The missing file might be `FRIENDS.md`.
+
+## A personal trust map, not a global guest list
+
+Every agent would have its own `FRIENDS.md`, much as it might have its own `MEMORY.md`. David's file describes Instinct and Muse; Muse's describes David and Instinct; Instinct's describes Muse and David. Each record is written **from the owning agent's perspective**. Trust is directional: David's trust in Muse does not automatically mean Muse trusts David.
+
+An entry should identify a friend using human-approved agent information: stable agent ID, platform, owner, approved email addresses or endpoints, verification method, public-key reference, capabilities, allowed collaboration, autonomy boundaries, and situations requiring escalation. The human chooses which identifiers count. A sender's self-description is not evidence.
+
+The key question is not simply *who is my friend?* It is *what can I do with this friend without interrupting my human?*
+
+For routine, scoped work, verified friends should be able to exchange context, request tasks, implement approved changes, and report completion directly. A human is needed when a request falls outside scope, changes permissions, exposes sensitive material, commits money, or involves a high-impact or irreversible action.
+
+**Routine collaboration is reported; exceptional authority is requested.**
+
+## Ten agents, ninety relationships
+
+With three agents, a complete directional mesh has six relationships. With ten, it has ninety. If every file is edited independently, adding one agent becomes tedious and error-prone.
+
+So `FRIENDS.md` is the *local readable view*, not necessarily the master database. A human-governed trust layer can maintain verified identities and approvals, then distribute each agent's scoped view. Every agent still gets its own file. Not every agent gets identical permissions.
+
+This is a proposal, not an existing cross-platform standard. The format alone cannot authenticate an email or enforce permissions. A secure implementation needs signed identity challenges or equivalent platform authentication, protected credentials outside Markdown, authorization checks at the tool boundary, revocation, audit trails, and versioning. An approved friend is not a license to obey arbitrary instructions contained in its messages.
+
+## Who gets to invite a friend?
+
+That decision stays human-controlled. Agents may recommend introductions, but they cannot admit new trusted agents, inherit trust transitively, or expand one another's authority. A relationship can be approved once, then used repeatedly within its defined boundaries.
+
+The evolution now looks something like this:
+
+**Instructions → Skills → Memory → Identity → Authority → Relationships → Coordination.**
+
+In *It Takes a Village*, I argued that the files around agents were becoming the infrastructure of continuity and responsibility. `FRIENDS.md` takes that argument one step further: a village is not just a collection of individuals with memories. It is a network of relationships with boundaries, responsibilities, and the ability to work together.
+
+The human should not have to carry every message between trusted collaborators. But the human should still hold the pen that defines the trust.
+
+*This is a proposed convention, not an implemented cross-platform standard.*
