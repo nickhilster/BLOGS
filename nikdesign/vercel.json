@@ -13,5 +13,15 @@
       "destination": "/posts/the-doorway-and-the-destination/",
       "permanent": true
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/posts/software-is-art-feels-like-home",
+      "destination": "/posts/software-is-art-feels-like-home/index.html"
+    },
+    {
+      "source": "/posts/software-is-art-feels-like-home/",
+      "destination": "/posts/software-is-art-feels-like-home/index.html"
+    }
   ]
 }
