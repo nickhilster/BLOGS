@@ -12,7 +12,7 @@ hero:
   dek: "We stopped playing. The words kept moving."
 ---
 
-<style is:global>
+<style>{`
 .sport-atlas{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:1rem;margin:2rem 0}
 .sport-tile{min-height:220px;border-radius:16px;padding:1.4rem;display:flex;flex-direction:column;justify-content:space-between;color:#fff;position:relative;overflow:hidden;background:#222}
 .sport-tile::after{content:attr(data-symbol);position:absolute;right:-.04em;bottom:-.3em;font-size:10rem;opacity:.16;pointer-events:none}
@@ -21,7 +21,7 @@ hero:
 .sport-tile small{letter-spacing:.16em;text-transform:uppercase;font-weight:700}
 .sport-tile.cricket{background:#24583b}.sport-tile.football{background:#7a342c}.sport-tile.soccer{background:#145c61}.sport-tile.hockey{background:#254f85}.sport-tile.boxing{background:#842b39}.sport-tile.poker{background:#34305f}.sport-tile.curling{background:#3b687b}.sport-tile.baseball{background:#755125}
 .sport-note{font-size:.9rem;opacity:.75}
-</style>
+`}</style>
 
 It started with a simple question: how many things do we say every day without realizing we're quoting a sport?
 
