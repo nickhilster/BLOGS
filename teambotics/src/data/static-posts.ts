@@ -1,3 +1,5 @@
+import { kindOnesPost } from './kind-ones';
+
 const agentAgnosticSetupContent = String.raw`# Give Every Agent the Same Map
 
 *How to build an agent-agnostic setup that survives the next tool, model, or account change*
@@ -1607,6 +1609,7 @@ That is why the future of AI literacy is not primarily about prompts.
 It is about learning to operate systems that can read far more than we can, without surrendering the judgment required to decide what any of it means.`;
 
 export const staticBlogPosts: StaticBlogPost[] = [
+  kindOnesPost,
   {
     id: 'static-designing-for-gratitude-human-ai-interaction',
     slug: 'designing-for-gratitude-in-human-ai-interaction',
