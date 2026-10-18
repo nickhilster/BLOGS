@@ -18,3 +18,7 @@ body:has(.ralph-credits-post){background:#080d1b!important}
 .ralph-credits-post .post-body hr{border:0;border-top:3px dashed #597391;margin-block:3rem}
 @media(max-width:600px){.ralph-credits-post .post-hero{padding:2rem 1.1rem}.ralph-credits-post .post-hero h1{text-shadow:2px 2px 0 #b83d79,4px 4px 0 #233c75}.ralph-credits-post .post-body{border-inline:0}}
 @media(prefers-reduced-motion:no-preference){.ralph-credits-post .post-hero::before{animation:credits-blink 3s steps(2,end) infinite}@keyframes credits-blink{50%{opacity:.35}}}
+
+/* Responsive, image-free opening video treatment. */
+.ralph-credits-post .ralph-video-opening{position:relative;aspect-ratio:16/9;width:100%;margin:0 0 2.5rem;border:2px solid var(--pixel-cyan);border-radius:8px;overflow:hidden;background:#050816;box-shadow:5px 5px 0 #24476b,0 0 30px #65f6f125}
+.ralph-credits-post .ralph-video-opening iframe{display:block;width:100%;height:100%;border:0}
