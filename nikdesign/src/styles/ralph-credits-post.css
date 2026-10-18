@@ -1,0 +1,20 @@
+/* Original CSS-only arcade / early-internet tribute. No third-party images or assets. */
+:root:has(.ralph-credits-post){color-scheme:dark}
+body:has(.ralph-credits-post){background:#080d1b!important}
+.ralph-credits-post{--pixel-cyan:#65f6f1;--pixel-pink:#ff6fae;--pixel-gold:#ffd16c;position:relative;isolation:isolate;color:#f1f6ff}
+.ralph-credits-post::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(rgba(71,195,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(71,195,255,.045) 1px,transparent 1px);background-size:32px 32px;mask-image:linear-gradient(#000,transparent 70%)}
+.ralph-credits-post .post-hero{position:relative;overflow:hidden;border:2px solid #63e9ee;border-radius:12px 12px 4px 4px;padding:clamp(2rem,6vw,5rem);background:radial-gradient(circle at 80% 20%,#51234c 0%,transparent 42%),linear-gradient(135deg,#131d39,#090d1e 80%);box-shadow:8px 8px 0 #1b3153,0 0 70px #3ef1ee20}
+.ralph-credits-post .post-hero::before{content:"INSERT COIN  •  CONTINUE?  •  PRESS START";display:block;margin-bottom:2rem;color:var(--pixel-cyan);font:700 clamp(.55rem,1.3vw,.8rem)/1.8 monospace;letter-spacing:.2em;text-shadow:0 0 12px #65f6f188}
+.ralph-credits-post .post-hero::after{content:"01  ▣  10  ▤  11  ◇  00  ▣  01";display:block;white-space:nowrap;overflow:hidden;margin-top:2.4rem;padding:1rem 0;border-top:1px dashed #4d7898;color:#ffca67;font:700 .75rem monospace;letter-spacing:.55em;opacity:.85}
+.ralph-credits-post .post-kicker{font-family:monospace!important;letter-spacing:.14em!important;color:var(--pixel-gold)!important;text-transform:uppercase}
+.ralph-credits-post .post-hero h1{font-family:Impact,"Arial Black",sans-serif!important;font-size:clamp(3.2rem,10vw,8rem)!important;font-weight:900;line-height:.94!important;letter-spacing:-.055em;text-transform:uppercase;max-width:12ch;color:#fff!important;text-shadow:4px 4px 0 #b83d79,8px 8px 0 #233c75}
+.ralph-credits-post .post-dek{color:#b7e7f5!important;max-width:43rem;font-size:clamp(1.05rem,2vw,1.4rem)}
+.ralph-credits-post .post-meta{font-family:monospace;color:#9cc4d8}
+.ralph-credits-post .post-body{max-width:760px;margin-inline:auto;padding:clamp(1.25rem,4vw,3rem);background:#101a30;border-left:1px solid #31536a;border-right:1px solid #31536a;color:#e5edfa}
+.ralph-credits-post .post-body h2{font-family:Impact,"Arial Black",sans-serif;text-transform:uppercase;letter-spacing:.025em;color:var(--pixel-cyan);text-shadow:2px 2px 0 #174d73;border-bottom:2px dashed #355877;padding-bottom:.5em}
+.ralph-credits-post .post-body strong{color:var(--pixel-gold)}
+.ralph-credits-post .post-body a{color:var(--pixel-cyan)}
+.ralph-credits-post .post-body blockquote{border-left:4px solid var(--pixel-pink);background:#202344;padding:1rem}
+.ralph-credits-post .post-body hr{border:0;border-top:3px dashed #597391;margin-block:3rem}
+@media(max-width:600px){.ralph-credits-post .post-hero{padding:2rem 1.1rem}.ralph-credits-post .post-hero h1{text-shadow:2px 2px 0 #b83d79,4px 4px 0 #233c75}.ralph-credits-post .post-body{border-inline:0}}
+@media(prefers-reduced-motion:no-preference){.ralph-credits-post .post-hero::before{animation:credits-blink 3s steps(2,end) infinite}@keyframes credits-blink{50%{opacity:.35}}}
