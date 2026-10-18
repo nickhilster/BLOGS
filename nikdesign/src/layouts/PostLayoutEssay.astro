@@ -3,6 +3,7 @@ import BaseLayout from './BaseLayout.astro'
 import { resolvePostIdentity } from '../lib/postIdentity'
 import '../styles/muse-post.css'
 import '../styles/human-systems-post.css'
+import '../styles/ralph-credits-post.css'
 
 const { post, Content } = Astro.props
 const { theme, styleVars, heroMotion } = resolvePostIdentity(post)
@@ -11,6 +12,7 @@ const isBelief = post.data.title === 'I Believe'
 const isMuse = post.slug === 'open-letter-to-meta-about-muse'
 const isHumanSystems = post.slug === 'designing-for-humans-before-we-know-the-ending'
 const isReverence = post.slug === 'why-i-apologize-to-artificial-intelligence'
+const isRalphCredits = post.slug === 'never-gonna-skip-your-credits'
 ---
 
 <BaseLayout
@@ -39,7 +41,7 @@ const isReverence = post.slug === 'why-i-apologize-to-artificial-intelligence'
     </div>
   )}
 
-  <main class:list={["post-shell", "post-shell--essay", { "doorway-post": isDoorway, "belief-post": isBelief, "muse-post": isMuse, "human-post": isHumanSystems, "reverence-post": isReverence }]}>
+  <main class:list={["post-shell", "post-shell--essay", { "doorway-post": isDoorway, "belief-post": isBelief, "muse-post": isMuse, "human-post": isHumanSystems, "reverence-post": isReverence, "ralph-credits-post": isRalphCredits }]}>
     <header class:list={["post-hero", { "doorway-hero": isDoorway, "belief-hero": isBelief, "muse-hero": isMuse, "human-hero": isHumanSystems, "reverence-hero": isReverence }]} data-motion={heroMotion}>
       {isDoorway && <div class="doorway-hero__door" aria-hidden="true"><span></span></div>}
       {isBelief && (
