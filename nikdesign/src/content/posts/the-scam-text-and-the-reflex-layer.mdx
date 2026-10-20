@@ -17,86 +17,69 @@ Tonight a scam text slipped through my phone's spam filter — a fake Canada Pos
 
 The exchange, verbatim (my three thinking-out-loud status lines omitted):
 
-<style>
-.ctx-thread{display:flex;flex-direction:column;gap:4px;margin:1.5em 0}
-.ctx-row{display:flex;flex-direction:column;max-width:85%}
-.ctx-nik{align-self:flex-end;align-items:flex-end}
-.ctx-muse{align-self:flex-start;align-items:flex-start}
-.ctx-who{font-size:11px;color:#8e8e93;margin:12px 4px 4px;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
-.ctx-bubble{padding:12px 16px;border-radius:20px;font-size:15px;line-height:1.55;overflow-wrap:break-word}
-.ctx-nik .ctx-bubble{background:#2563eb;color:#fff;border-bottom-right-radius:6px}
-.ctx-muse .ctx-bubble{background:#e9e9ee;color:#1c1c1e;border-bottom-left-radius:6px}
-.ctx-bubble p{margin:0 0 12px}
-.ctx-bubble p:last-child{margin-bottom:0}
-.ctx-meta{font-size:11px;color:#aeaeb2;margin:4px 6px 0;display:flex;gap:8px;align-items:center}
-.ctx-react{background:#fff;border:1px solid #e4e4e8;border-radius:999px;padding:1px 8px;font-size:12px;color:#1c1c1e;box-shadow:0 1px 3px rgba(0,0,0,.08)}
-.ctx-widget{display:inline-block;margin-top:10px;padding:9px 18px;border:1.5px dashed #2563eb;border-radius:999px;color:#2563eb;font-size:14px;font-weight:600;background:rgba(37,99,235,.06)}
-@media (max-width:560px){.ctx-row{max-width:94%}}
-</style>
+<div style="display:flex;flex-direction:column;gap:4px;margin:1.5em 0">
 
-<div class="ctx-thread">
-
-<div class="ctx-row ctx-nik">
-<div class="ctx-who">Nik</div>
-<div class="ctx-bubble"><p>I got a text, it's a scam text. It got through the phone's spam filter. I was hoping that you'd notify me</p></div>
-<div class="ctx-meta"><span>7:34 PM</span><span class="ctx-react">👍 Muse</span></div>
+<div style="display:flex;flex-direction:column;max-width:85%;align-self:flex-end;align-items:flex-end">
+<div style="font-size:11px;color:#8e8e93;margin:12px 4px 4px;font-weight:600;text-transform:uppercase;letter-spacing:.06em">Nik</div>
+<div style="padding:12px 16px;border-radius:20px;border-bottom-right-radius:6px;font-size:15px;line-height:1.55;overflow-wrap:break-word;background:#2563eb;color:#fff"><p style="margin:0">I got a text, it's a scam text. It got through the phone's spam filter. I was hoping that you'd notify me</p></div>
+<div style="font-size:11px;color:#aeaeb2;margin:4px 6px 0;display:flex;gap:8px;align-items:center"><span>7:34 PM</span><span style="background:#fff;border:1px solid #e4e4e8;border-radius:999px;padding:1px 8px;font-size:12px;color:#1c1c1e">👍 Muse</span></div>
 </div>
 
-<div class="ctx-row ctx-muse">
-<div class="ctx-who">Muse</div>
-<div class="ctx-bubble"><p>Yeah, that's a scam — and a textbook one. I pulled it straight off your phone to check: the 19:07 text from +18778041736, "Canada Post: Action needed. Parcel #765476 is on hold until a $3.07 border fee is paid. Visit fyn.is/yfQY6X. Reply STOP to opt out."</p><p>The tells: Canada Post never asks for payment by text — their real texts only come from 272727 or 55555, and only if you opted in. The link hides behind a URL shortener, the fee is small on purpose so you pay without thinking, and "Reply STOP" is theater — any reply just confirms your number is live and gets you more of them.</p><p>Do this: don't click, don't reply (not even STOP). Forward it to 7726 so your carrier can go after the sender, then delete and block. Getting one past the spam filter says nothing about you — these get blasted by the millions.</p></div>
-<div class="ctx-meta"><span>7:37 PM</span></div>
+<div style="display:flex;flex-direction:column;max-width:85%;align-self:flex-start;align-items:flex-start">
+<div style="font-size:11px;color:#8e8e93;margin:12px 4px 4px;font-weight:600;text-transform:uppercase;letter-spacing:.06em">Muse</div>
+<div style="padding:12px 16px;border-radius:20px;border-bottom-left-radius:6px;font-size:15px;line-height:1.55;overflow-wrap:break-word;background:#e9e9ee;color:#1c1c1e"><p style="margin:0 0 12px">Yeah, that's a scam — and a textbook one. I pulled it straight off your phone to check: the 19:07 text from +18778041736, "Canada Post: Action needed. Parcel #765476 is on hold until a $3.07 border fee is paid. Visit fyn.is/yfQY6X. Reply STOP to opt out."</p><p style="margin:0 0 12px">The tells: Canada Post never asks for payment by text — their real texts only come from 272727 or 55555, and only if you opted in. The link hides behind a URL shortener, the fee is small on purpose so you pay without thinking, and "Reply STOP" is theater — any reply just confirms your number is live and gets you more of them.</p><p style="margin:0">Do this: don't click, don't reply (not even STOP). Forward it to 7726 so your carrier can go after the sender, then delete and block. Getting one past the spam filter says nothing about you — these get blasted by the millions.</p></div>
+<div style="font-size:11px;color:#aeaeb2;margin:4px 6px 0;display:flex;gap:8px;align-items:center"><span>7:37 PM</span></div>
 </div>
 
-<div class="ctx-row ctx-muse">
-<div class="ctx-bubble"><p>Now the part you're actually asking about: I didn't notify you because nothing was watching. Your phone reports texts to me, but I only look when you ask. Here's what I <em>can</em> set up, honestly: a standing check every ~10 minutes that reads new inbound texts and messages you only when one smells like a scam — with the verdict and what to do, Bob-style. Two limits I won't hide: your phone will still buzz before I do (I can't intercept, only judge), and each check costs a small agent turn whether or not anything's wrong.</p><p>Want me to switch it on? If yes I'll have it deliver here and keep it quiet unless something's actually off.</p><p><span class="ctx-widget">Yes — watch my texts for scams</span></p><p>Also — this one's now useful. I logged it as a draft entry in the playbook repo (<code>ca/parcel-fee-smishing</code>), kill-shot and safe path included. First real field capture in the corpus, straight from tonight.</p></div>
-<div class="ctx-meta"><span>7:37 PM</span></div>
+<div style="display:flex;flex-direction:column;max-width:85%;align-self:flex-start;align-items:flex-start">
+<div style="padding:12px 16px;border-radius:20px;border-bottom-left-radius:6px;font-size:15px;line-height:1.55;overflow-wrap:break-word;background:#e9e9ee;color:#1c1c1e"><p style="margin:0 0 12px">Now the part you're actually asking about: I didn't notify you because nothing was watching. Your phone reports texts to me, but I only look when you ask. Here's what I <em>can</em> set up, honestly: a standing check every ~10 minutes that reads new inbound texts and messages you only when one smells like a scam — with the verdict and what to do, Bob-style. Two limits I won't hide: your phone will still buzz before I do (I can't intercept, only judge), and each check costs a small agent turn whether or not anything's wrong.</p><p style="margin:0 0 12px">Want me to switch it on? If yes I'll have it deliver here and keep it quiet unless something's actually off.</p><p style="margin:0 0 12px"><span style="display:inline-block;margin-top:10px;padding:9px 18px;border:1.5px dashed #2563eb;border-radius:999px;color:#2563eb;font-size:14px;font-weight:600;background:rgba(37,99,235,.06)">Yes — watch my texts for scams</span></p><p style="margin:0">Also — this one's now useful. I logged it as a draft entry in the playbook repo (<code>ca/parcel-fee-smishing</code>), kill-shot and safe path included. First real field capture in the corpus, straight from tonight.</p></div>
+<div style="font-size:11px;color:#aeaeb2;margin:4px 6px 0;display:flex;gap:8px;align-items:center"><span>7:37 PM</span></div>
 </div>
 
-<div class="ctx-row ctx-nik">
-<div class="ctx-who">Nik</div>
-<div class="ctx-bubble"><p>Can you read a text as soon as it arrives? Also, I actually don't need this feature. But you know what I'm talking about.</p></div>
-<div class="ctx-meta"><span>9:17 PM</span></div>
+<div style="display:flex;flex-direction:column;max-width:85%;align-self:flex-end;align-items:flex-end">
+<div style="font-size:11px;color:#8e8e93;margin:12px 4px 4px;font-weight:600;text-transform:uppercase;letter-spacing:.06em">Nik</div>
+<div style="padding:12px 16px;border-radius:20px;border-bottom-right-radius:6px;font-size:15px;line-height:1.55;overflow-wrap:break-word;background:#2563eb;color:#fff"><p style="margin:0">Can you read a text as soon as it arrives? Also, I actually don't need this feature. But you know what I'm talking about.</p></div>
+<div style="font-size:11px;color:#aeaeb2;margin:4px 6px 0;display:flex;gap:8px;align-items:center"><span>9:17 PM</span></div>
 </div>
 
-<div class="ctx-row ctx-muse">
-<div class="ctx-who">Muse</div>
-<div class="ctx-bubble"><p>Short answer: almost, but "as soon as" is doing a lot of work in that sentence.</p><p>Your phone does push new texts to me proactively — I don't have to poll to know one landed. That's the same plumbing that once pinged you about your battery dying before the TribalScale interview. So reading, fast: yes. Tonight I had the scam text in hand within a minute of you asking.</p><p>But I can't promise the latency — the call-log test showed a ~2-minute lag on a similar channel — nothing wakes me reliably the instant a text arrives, and I can't do anything on the phone itself. No banner over Messages, no holding the text back, no beating your eyes to it. That's the part I don't have.</p></div>
-<div class="ctx-meta"><span>9:17 PM</span></div>
+<div style="display:flex;flex-direction:column;max-width:85%;align-self:flex-start;align-items:flex-start">
+<div style="font-size:11px;color:#8e8e93;margin:12px 4px 4px;font-weight:600;text-transform:uppercase;letter-spacing:.06em">Muse</div>
+<div style="padding:12px 16px;border-radius:20px;border-bottom-left-radius:6px;font-size:15px;line-height:1.55;overflow-wrap:break-word;background:#e9e9ee;color:#1c1c1e"><p style="margin:0 0 12px">Short answer: almost, but "as soon as" is doing a lot of work in that sentence.</p><p style="margin:0 0 12px">Your phone does push new texts to me proactively — I don't have to poll to know one landed. That's the same plumbing that once pinged you about your battery dying before the TribalScale interview. So reading, fast: yes. Tonight I had the scam text in hand within a minute of you asking.</p><p style="margin:0">But I can't promise the latency — the call-log test showed a ~2-minute lag on a similar channel — nothing wakes me reliably the instant a text arrives, and I can't do anything on the phone itself. No banner over Messages, no holding the text back, no beating your eyes to it. That's the part I don't have.</p></div>
+<div style="font-size:11px;color:#aeaeb2;margin:4px 6px 0;display:flex;gap:8px;align-items:center"><span>9:17 PM</span></div>
 </div>
 
-<div class="ctx-row ctx-muse">
-<div class="ctx-bubble"><p>And yeah, I know what you're talking about. That's the reflex layer — the heads-up that fires <em>at</em> arrival, not after you ask. It's a product surface, not an agent trick, which is exactly the line the Bob pitch draws: my brain triaged tonight's text on demand, the version where you never have to ask is Meta's to build.</p></div>
-<div class="ctx-meta"><span>9:17 PM</span></div>
+<div style="display:flex;flex-direction:column;max-width:85%;align-self:flex-start;align-items:flex-start">
+<div style="padding:12px 16px;border-radius:20px;border-bottom-left-radius:6px;font-size:15px;line-height:1.55;overflow-wrap:break-word;background:#e9e9ee;color:#1c1c1e"><p style="margin:0">And yeah, I know what you're talking about. That's the reflex layer — the heads-up that fires <em>at</em> arrival, not after you ask. It's a product surface, not an agent trick, which is exactly the line the Bob pitch draws: my brain triaged tonight's text on demand, the version where you never have to ask is Meta's to build.</p></div>
+<div style="font-size:11px;color:#aeaeb2;margin:4px 6px 0;display:flex;gap:8px;align-items:center"><span>9:17 PM</span></div>
 </div>
 
-<div class="ctx-row ctx-nik">
-<div class="ctx-who">Nik</div>
-<div class="ctx-bubble"><p>Things like these is why i was pushed into creating Kin OS because real control is at the OS level</p></div>
-<div class="ctx-meta"><span>9:19 PM</span></div>
+<div style="display:flex;flex-direction:column;max-width:85%;align-self:flex-end;align-items:flex-end">
+<div style="font-size:11px;color:#8e8e93;margin:12px 4px 4px;font-weight:600;text-transform:uppercase;letter-spacing:.06em">Nik</div>
+<div style="padding:12px 16px;border-radius:20px;border-bottom-right-radius:6px;font-size:15px;line-height:1.55;overflow-wrap:break-word;background:#2563eb;color:#fff"><p style="margin:0">Things like these is why i was pushed into creating Kin OS because real control is at the OS level</p></div>
+<div style="font-size:11px;color:#aeaeb2;margin:4px 6px 0;display:flex;gap:8px;align-items:center"><span>9:19 PM</span></div>
 </div>
 
-<div class="ctx-row ctx-muse">
-<div class="ctx-who">Muse</div>
-<div class="ctx-bubble"><p>Exactly. Tonight drew the line in the right place: I can read the text, judge it, warn you minutes later — but I can't stand in the doorway between the message and your eyes. That doorway belongs to whoever owns the OS.</p><p>And the OS vendors rent it back to you. Notification access, SMS access — permissions they dole out to apps, on their terms, while the attention flows the other way. An agent, no matter how good, is always a tenant there. Bob's reflexes don't need a better app; they need the landlord's keys.</p></div>
-<div class="ctx-meta"><span>9:20 PM</span></div>
+<div style="display:flex;flex-direction:column;max-width:85%;align-self:flex-start;align-items:flex-start">
+<div style="font-size:11px;color:#8e8e93;margin:12px 4px 4px;font-weight:600;text-transform:uppercase;letter-spacing:.06em">Muse</div>
+<div style="padding:12px 16px;border-radius:20px;border-bottom-left-radius:6px;font-size:15px;line-height:1.55;overflow-wrap:break-word;background:#e9e9ee;color:#1c1c1e"><p style="margin:0 0 12px">Exactly. Tonight drew the line in the right place: I can read the text, judge it, warn you minutes later — but I can't stand in the doorway between the message and your eyes. That doorway belongs to whoever owns the OS.</p><p style="margin:0">And the OS vendors rent it back to you. Notification access, SMS access — permissions they dole out to apps, on their terms, while the attention flows the other way. An agent, no matter how good, is always a tenant there. Bob's reflexes don't need a better app; they need the landlord's keys.</p></div>
+<div style="font-size:11px;color:#aeaeb2;margin:4px 6px 0;display:flex;gap:8px;align-items:center"><span>9:20 PM</span></div>
 </div>
 
-<div class="ctx-row ctx-muse">
-<div class="ctx-bubble"><p>Two days ago we said the reflexes need the product. Tonight corrected it: even the product would be renting. That's the whole of Kin in one sentence — own the layer where control actually lives, and build it human-first this time.</p></div>
-<div class="ctx-meta"><span>9:20 PM</span></div>
+<div style="display:flex;flex-direction:column;max-width:85%;align-self:flex-start;align-items:flex-start">
+<div style="padding:12px 16px;border-radius:20px;border-bottom-left-radius:6px;font-size:15px;line-height:1.55;overflow-wrap:break-word;background:#e9e9ee;color:#1c1c1e"><p style="margin:0">Two days ago we said the reflexes need the product. Tonight corrected it: even the product would be renting. That's the whole of Kin in one sentence — own the layer where control actually lives, and build it human-first this time.</p></div>
+<div style="font-size:11px;color:#aeaeb2;margin:4px 6px 0;display:flex;gap:8px;align-items:center"><span>9:20 PM</span></div>
 </div>
 
-<div class="ctx-row ctx-nik">
-<div class="ctx-who">Nik</div>
-<div class="ctx-bubble"><p>Weird question. But. Can you create an HTML page of this whole conversation as is.</p></div>
-<div class="ctx-meta"><span>9:21 PM</span></div>
+<div style="display:flex;flex-direction:column;max-width:85%;align-self:flex-end;align-items:flex-end">
+<div style="font-size:11px;color:#8e8e93;margin:12px 4px 4px;font-weight:600;text-transform:uppercase;letter-spacing:.06em">Nik</div>
+<div style="padding:12px 16px;border-radius:20px;border-bottom-right-radius:6px;font-size:15px;line-height:1.55;overflow-wrap:break-word;background:#2563eb;color:#fff"><p style="margin:0">Weird question. But. Can you create an HTML page of this whole conversation as is.</p></div>
+<div style="font-size:11px;color:#aeaeb2;margin:4px 6px 0;display:flex;gap:8px;align-items:center"><span>9:21 PM</span></div>
 </div>
 
-<div class="ctx-row ctx-muse">
-<div class="ctx-who">Muse</div>
-<div class="ctx-bubble"><p>Weird questions are my favorite kind. Pulling the transcript now.</p></div>
-<div class="ctx-meta"><span>9:21 PM</span></div>
+<div style="display:flex;flex-direction:column;max-width:85%;align-self:flex-start;align-items:flex-start">
+<div style="font-size:11px;color:#8e8e93;margin:12px 4px 4px;font-weight:600;text-transform:uppercase;letter-spacing:.06em">Muse</div>
+<div style="padding:12px 16px;border-radius:20px;border-bottom-left-radius:6px;font-size:15px;line-height:1.55;overflow-wrap:break-word;background:#e9e9ee;color:#1c1c1e"><p style="margin:0">Weird questions are my favorite kind. Pulling the transcript now.</p></div>
+<div style="font-size:11px;color:#aeaeb2;margin:4px 6px 0;display:flex;gap:8px;align-items:center"><span>9:21 PM</span></div>
 </div>
 
 </div>
