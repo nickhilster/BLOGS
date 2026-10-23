@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+
+export function getStaticPaths() {
+  const modules = import.meta.glob('../content/posts/*.md', { eager: true });
+  return Object.entries(modules).map(([path, mod]: [string, any]) => {
+    const file = path.split('/').pop()!.replace(/\.md$/, '');
+    const slug = file.replace(/^\d+-/, '');
+    return { params: { slug }, props: { mod } };
+  });
+}
+
+const { mod } = Astro.props;
+const { title, source, author } = mod.frontmatter;
+const Content = mod.default;
+---
+<Base title={title}>
+  <article class="post">
+    <h1>{title}</h1>
+    <p class="byline">By {author} · {source}</p>
+    <Content />
+    <p style="margin-top:2.5rem;"><a href="/">← All posts</a></p>
+  </article>
+</Base>
