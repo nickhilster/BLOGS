@@ -287,7 +287,7 @@ The story of the book, the coin, and the paintbrush is not a product pattern to 
 
 We can respond with curiosity and humility. Ask what a gesture means in context. Avoid treating any single practice as universal. Give people choices about tone and interaction. Keep the AI's capabilities and limits clear. And design the human's agency into every consequential step.
 
-An AI does not have to experience gratitude for a user's gratitude to matter. The meaning belongs to the person. The designer's responsibility is to receive it without exploiting it—and to build tools worthy of careful use.
+An AI does not have to experience gratitude for a user's gratitude to matter. The meaning belongs to the person. The designer's responsibility is structural, not sentimental: show what the system used, expose what it changed, gate consequential acts on permission, and keep every one of them stoppable and correctable. A boundary you can check stays honest longer than a boundary you have to trust.
 
 The interface can be warm. The boundary can stay honest. Both are part of good human–AI design.`;
 
