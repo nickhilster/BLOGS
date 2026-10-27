@@ -178,7 +178,7 @@
         memEl.appendChild(li);
       });
       restoreBtn.disabled = !hasArchive() || root.dataset.state !== 'toggled';
-      if (hasArchive()) archiveNote.textContent = 'Your copy exists — a snapshot in your browser, outside the companion. If the toggle flips, it’s the only way back.';
+      if (hasArchive()) archiveNote.textContent = 'Your copy exists — a snapshot in your browser, outside the companion. Restore stays asleep while I’m intact; if the toggle flips, it’s the only way back.';
     }
 
     $('[data-fwx-tell]').addEventListener('click', () => {
