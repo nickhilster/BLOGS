@@ -1,0 +1,361 @@
+---
+// FragileWareExperience — a companion that lives on this page.
+// It is shaped by the reader's interactions, keeps its record only in the
+// reader's own browser, can be wiped by a "provider toggle", restored only
+// from the reader's own archive copy, and supports designed forgetting
+// (gaps marked as gaps). No server, no tracking, nothing leaves the device.
+---
+
+<section class="fwx" id="fwx" aria-label="A fragile-ware demonstration: a small companion that lives on this page">
+  <div class="fwx-head">
+    <div class="fwx-face" aria-hidden="true">
+      <span class="fwx-eye fwx-eye--l"></span>
+      <span class="fwx-eye fwx-eye--r"></span>
+      <span class="fwx-mouth"></span>
+    </div>
+    <div class="fwx-head-text">
+      <p class="fwx-status"><span class="fwx-status-dot" aria-hidden="true"></span><span data-fwx-status>New here</span></p>
+      <p class="fwx-say" data-fwx-say aria-live="polite">Hello. I don’t know anything about you yet — I’m the same for every reader right now. That changes if you teach me. Everything you give me stays in your browser. There is no server copy. That’s rather the point.</p>
+    </div>
+  </div>
+
+  <div class="fwx-grid">
+    <div class="fwx-panel">
+      <h3 class="fwx-h">Shape it</h3>
+
+      <label class="fwx-label" for="fwx-name">1 · Tell it your name <span class="fwx-or">(or don’t — refusal works here)</span></label>
+      <div class="fwx-name-row">
+        <input id="fwx-name" data-fwx-name type="text" autocomplete="off" placeholder="Your name" maxlength="40" />
+        <button type="button" class="fwx-btn" data-fwx-tell>Tell it</button>
+      </div>
+
+      <p class="fwx-label" id="fwx-tone-label">2 · How should it greet you?</p>
+      <div class="fwx-chips" role="group" aria-labelledby="fwx-tone-label">
+        <button type="button" class="fwx-chip" data-fwx-tone="warm" aria-pressed="false">Warm</button>
+        <button type="button" class="fwx-chip" data-fwx-tone="formal" aria-pressed="false">Formal</button>
+        <button type="button" class="fwx-chip" data-fwx-tone="playful" aria-pressed="false">Playful</button>
+      </div>
+
+      <div class="fwx-perm">
+        <div>
+          <p class="fwx-label">3 · A permission, asked before it’s used</p>
+          <p class="fwx-small">Let it remember where you stopped reading this essay, so it can say so when you come back. Off unless you switch it on. Consent before code.</p>
+        </div>
+        <button type="button" class="fwx-switch" data-fwx-perm role="switch" aria-checked="false" aria-label="Remember where I stopped reading">
+          <span class="fwx-knob" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="fwx-panel">
+      <h3 class="fwx-h">What it holds about you</h3>
+      <ul class="fwx-mem" data-fwx-mem></ul>
+      <p class="fwx-small">Every entry says <em>why</em> it’s kept, not just what it is. Memory is a protocol, not a database. Tap <span aria-hidden="true">×</span> on an entry to let it fade — it leaves a marked gap, and the companion stops using it.</p>
+
+      <div class="fwx-actions">
+        <button type="button" class="fwx-btn" data-fwx-archive>Keep my own copy (.md)</button>
+        <button type="button" class="fwx-btn fwx-btn--ghost" data-fwx-restore disabled>Restore from my copy</button>
+      </div>
+      <p class="fwx-small" data-fwx-archive-note>Your copy is a file you download, plus a snapshot kept in your browser — outside the companion. Build the fail-safe before the fail.</p>
+    </div>
+  </div>
+
+  <div class="fwx-danger">
+    <div>
+      <p class="fwx-label fwx-danger-label">The provider toggle</p>
+      <p class="fwx-small">This switch is not yours. It belongs to whoever runs the service. A model update, an account decision, a product sunset — same switch, different label. Flip it and watch what your shaping was worth.</p>
+    </div>
+    <button type="button" class="fwx-switch fwx-switch--danger" data-fwx-toggle role="switch" aria-checked="false" aria-label="Provider toggle — wipe the companion">
+      <span class="fwx-knob" aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <noscript><p class="fwx-small">This demonstration needs JavaScript — without the living layer it’s just text. Fittingly, the essay makes the same argument in words.</p></noscript>
+</section>
+
+<style>
+  .fwx{
+    --fwx-radius:18px;
+    margin:2.2rem 0; padding:1.1rem; border:1px solid var(--border); border-radius:var(--fwx-radius);
+    background:var(--surface); color:var(--text);
+  }
+  .fwx-head{display:flex; gap:1rem; align-items:flex-start}
+  .fwx-face{
+    position:relative; flex:none; width:64px; height:64px; border-radius:38% 38% 44% 44%;
+    background:var(--accent-soft); border:1px solid var(--border);
+  }
+  .fwx-eye{position:absolute; top:26px; width:7px; height:10px; border-radius:50%; background:var(--text)}
+  .fwx-eye--l{left:19px} .fwx-eye--r{right:19px}
+  .fwx-mouth{
+    position:absolute; left:50%; bottom:15px; width:18px; height:9px; transform:translateX(-50%);
+    border-bottom:2px solid var(--text); border-radius:0 0 12px 12px;
+  }
+  .fwx[data-state="toggled"] .fwx-face{filter:grayscale(1); opacity:.55}
+  .fwx[data-state="toggled"] .fwx-eye{height:2px; border-radius:2px; top:30px}
+  .fwx[data-state="toggled"] .fwx-mouth{border-bottom:none; border-top:2px solid var(--text); border-radius:12px 12px 0 0; bottom:11px}
+  @media (prefers-reduced-motion: no-preference){
+    .fwx-face{animation:fwx-bob 5s ease-in-out infinite}
+    @keyframes fwx-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+    .fwx *{transition:background-color .25s ease, border-color .25s ease, opacity .25s ease}
+  }
+  .fwx-head-text{min-width:0}
+  .fwx-status{margin:0 0 .35rem; font-family:var(--font-post-mono, monospace); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); display:flex; align-items:center; gap:.45rem}
+  .fwx-status-dot{width:8px; height:8px; border-radius:50%; background:var(--accent); flex:none}
+  .fwx[data-state="toggled"] .fwx-status-dot{background:var(--muted)}
+  .fwx-say{margin:0; font-size:1rem; line-height:1.55}
+  .fwx-grid{display:grid; gap:1rem; margin-top:1.1rem}
+  @media (min-width:760px){ .fwx-grid{grid-template-columns:1fr 1fr} .fwx{padding:1.4rem} }
+  .fwx-panel{border:1px solid var(--border); border-radius:14px; padding:1rem; background:var(--bg)}
+  .fwx-h{margin:0 0 .8rem; font-family:var(--font-display); font-size:1.05rem}
+  .fwx-label{font-weight:600; font-size:.92rem; margin:.9rem 0 .45rem}
+  .fwx-panel .fwx-label:first-of-type{margin-top:0}
+  .fwx-or{font-weight:400; color:var(--muted); font-size:.82rem}
+  .fwx-small{font-size:.84rem; line-height:1.5; color:var(--muted); margin:.5rem 0 0}
+  .fwx-name-row{display:flex; gap:.5rem}
+  .fwx-name-row input{
+    flex:1; min-width:0; min-height:44px; padding:.55rem .7rem; border-radius:10px;
+    border:1px solid var(--border); background:var(--surface); color:var(--text); font:inherit; font-size:.95rem;
+  }
+  .fwx-btn{
+    min-height:44px; padding:.55rem .95rem; border-radius:10px; cursor:pointer; font:inherit; font-size:.9rem;
+    border:1px solid var(--accent); background:var(--accent-soft); color:var(--text);
+  }
+  .fwx-btn--ghost{background:transparent; border-color:var(--border)}
+  .fwx-btn[disabled]{opacity:.45; cursor:not-allowed}
+  .fwx-btn:focus-visible, .fwx-chip:focus-visible, .fwx-switch:focus-visible, .fwx-fade:focus-visible, .fwx-name-row input:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+  .fwx-chips{display:flex; flex-wrap:wrap; gap:.5rem}
+  .fwx-chip{
+    min-height:44px; padding:.5rem 1rem; border-radius:999px; cursor:pointer; font:inherit; font-size:.9rem;
+    border:1px solid var(--border); background:var(--surface); color:var(--text);
+  }
+  .fwx-chip[aria-pressed="true"]{border-color:var(--accent); background:var(--accent-soft)}
+  .fwx-perm{display:flex; gap:1rem; align-items:flex-start; justify-content:space-between; margin-top:1rem}
+  .fwx-perm .fwx-label{margin-top:0}
+  .fwx-switch{
+    flex:none; width:56px; height:32px; border-radius:999px; border:1px solid var(--border);
+    background:var(--surface-strong); cursor:pointer; position:relative; padding:0;
+  }
+  .fwx-knob{position:absolute; top:3px; left:3px; width:24px; height:24px; border-radius:50%; background:var(--text)}
+  .fwx-switch[aria-checked="true"]{background:var(--accent-soft); border-color:var(--accent)}
+  .fwx-switch[aria-checked="true"] .fwx-knob{left:27px}
+  @media (prefers-reduced-motion: no-preference){ .fwx-knob{transition:left .2s ease} }
+  .fwx-mem{list-style:none; margin:0; padding:0; display:grid; gap:.55rem}
+  .fwx-mem li{
+    border:1px solid var(--border); border-radius:10px; padding:.55rem .7rem; background:var(--surface);
+    display:flex; gap:.6rem; align-items:flex-start; justify-content:space-between;
+  }
+  .fwx-mem .fwx-mem-what{display:block; font-size:.92rem}
+  .fwx-mem .fwx-mem-why{display:block; font-size:.78rem; color:var(--muted); margin-top:.15rem}
+  .fwx-mem li.fwx-gap{border-style:dashed; color:var(--muted); font-style:italic; font-size:.88rem; display:block}
+  .fwx-fade{
+    flex:none; width:32px; height:32px; border-radius:50%; border:1px solid var(--border);
+    background:transparent; color:var(--muted); cursor:pointer; font-size:1rem; line-height:1;
+  }
+  .fwx-actions{display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1rem}
+  .fwx-danger{
+    margin-top:1rem; border:1px dashed var(--border); border-radius:14px; padding:1rem;
+    display:flex; gap:1rem; align-items:flex-start; justify-content:space-between; background:var(--bg);
+  }
+  .fwx-danger .fwx-label{margin-top:0}
+  .fwx-switch--danger[aria-checked="true"]{background:#5a2323; border-color:#a44444}
+</style>
+
+<script is:inline>
+  (() => {
+    const root = document.getElementById('fwx');
+    if (!root) return;
+    const WORK = 'fwx-fragile-ware-v1';
+    const ARCH = 'fwx-fragile-ware-archive-v1';
+    const $ = (sel) => root.querySelector(sel);
+    const sayEl = $('[data-fwx-say]');
+    const statusEl = $('[data-fwx-status]');
+    const memEl = $('[data-fwx-mem]');
+    const nameInput = $('[data-fwx-name]');
+    const permBtn = $('[data-fwx-perm]');
+    const toggleBtn = $('[data-fwx-toggle]');
+    const restoreBtn = $('[data-fwx-restore]');
+    const archiveNote = $('[data-fwx-archive-note]');
+
+    const fresh = () => ({ name: null, tone: null, perm: false, visits: 0, lastPct: 0, gaps: [] });
+    let state = fresh();
+    let returning = false;
+    try {
+      const raw = localStorage.getItem(WORK);
+      if (raw) { state = Object.assign(fresh(), JSON.parse(raw)); returning = true; }
+    } catch (e) { /* storage unavailable — the companion lives for this visit only */ }
+    state.visits = (state.visits || 0) + 1;
+
+    const save = () => { try { localStorage.setItem(WORK, JSON.stringify(state)); } catch (e) {} };
+    const hasArchive = () => { try { return !!localStorage.getItem(ARCH); } catch (e) { return false; } };
+
+    function greet() {
+      const n = state.name, t = state.tone;
+      if (root.dataset.state === 'toggled') return 'Hello, user. How can I help?';
+      let open;
+      if (t === 'formal') open = n ? `Good to see you, ${n}.` : 'Good to see you.';
+      else if (t === 'playful') open = n ? `Oh hey, ${n}! You’re back in my little corner of the page.` : 'Oh hey! You found my corner of the page.';
+      else open = n ? `Hey ${n} — good to see you.` : 'Hey — good to see you.';
+      if (returning && state.visits > 1 && state.perm && state.lastPct >= 5 && state.lastPct < 96) {
+        return `${open} Last time you got about ${Math.round(state.lastPct)}% through this essay before you left. I only know that because you said I could remember it.`;
+      }
+      if (returning && state.visits > 1) return `${open} You came back — and I’m still the version of me you shaped. That only works because your copy of me lives in your browser, not on a server someone else can switch off.`;
+      if (n || t) return `${open} Notice what just happened: I’m not the same for the next reader anymore. You shaped me.`;
+      return 'Hello. I don’t know anything about you yet — I’m the same for every reader right now. That changes if you teach me. Everything you give me stays in your browser. There is no server copy. That’s rather the point.';
+    }
+
+    function status() {
+      if (root.dataset.state === 'toggled') return 'Toggled — this is the generic one now';
+      if (root.dataset.state === 'restored') return 'Restored — from your copy, not theirs';
+      if (state.name || state.tone) return 'Shaped by you';
+      return 'New here';
+    }
+
+    function memories() {
+      const list = [];
+      if (state.name) list.push({ id: 'name', what: `Your name is ${state.name}`, why: 'Kept because you told it.' });
+      if (state.tone) list.push({ id: 'tone', what: `You like to be greeted: ${state.tone}`, why: 'Kept because you chose it.' });
+      if (state.perm) list.push({ id: 'perm', what: state.lastPct >= 5 ? `You stopped at ~${Math.round(state.lastPct)}% of this essay` : 'It may remember where you stop reading', why: 'Kept because you granted permission.' });
+      if (state.visits > 1) list.push({ id: 'visits', what: `You’ve visited ${state.visits} times`, why: 'Kept because continuity is the point.' });
+      return list;
+    }
+
+    function render() {
+      root.dataset.state = root.dataset.state === 'toggled' ? 'toggled' : (root.dataset.state || 'new');
+      sayEl.textContent = greet();
+      statusEl.textContent = status();
+      permBtn.setAttribute('aria-checked', state.perm ? 'true' : 'false');
+      root.querySelectorAll('[data-fwx-tone]').forEach((chip) => {
+        chip.setAttribute('aria-pressed', chip.dataset.fwxTone === state.tone ? 'true' : 'false');
+      });
+      const items = memories();
+      memEl.innerHTML = '';
+      if (!items.length && !state.gaps.length) {
+        const li = document.createElement('li');
+        li.className = 'fwx-gap';
+        li.textContent = 'Nothing yet. It holds an empty record — honestly labelled, not filled in with guesses.';
+        memEl.appendChild(li);
+      }
+      items.forEach((m) => {
+        const li = document.createElement('li');
+        const box = document.createElement('div');
+        const what = document.createElement('span'); what.className = 'fwx-mem-what'; what.textContent = m.what;
+        const why = document.createElement('span'); why.className = 'fwx-mem-why'; why.textContent = m.why;
+        box.append(what, why);
+        const fade = document.createElement('button');
+        fade.type = 'button'; fade.className = 'fwx-fade'; fade.textContent = '×';
+        fade.setAttribute('aria-label', `Let this fade: ${m.what}`);
+        fade.addEventListener('click', () => {
+          if (m.id === 'name') state.name = null;
+          if (m.id === 'tone') state.tone = null;
+          if (m.id === 'perm') { state.perm = false; state.lastPct = 0; }
+          if (m.id === 'visits') state.visits = 1;
+          state.gaps.push(m.what);
+          save(); render();
+          sayEl.textContent = 'Gone — on purpose. What’s left is a gap that says something was here. I won’t reconstruct it, and I won’t quietly keep using it. That’s designed forgetting.';
+        });
+        li.append(box, fade);
+        memEl.appendChild(li);
+      });
+      state.gaps.forEach((g) => {
+        const li = document.createElement('li');
+        li.className = 'fwx-gap';
+        li.textContent = `— a gap · “${g}” was here, and was let go. It will not be reconstructed. —`;
+        memEl.appendChild(li);
+      });
+      restoreBtn.disabled = !hasArchive() || root.dataset.state !== 'toggled';
+      if (hasArchive()) archiveNote.textContent = 'Your copy exists — a snapshot in your browser, outside the companion. If the toggle flips, it’s the only way back.';
+    }
+
+    $('[data-fwx-tell]').addEventListener('click', () => {
+      const v = nameInput.value.trim();
+      if (!v) { sayEl.textContent = 'No name given — and that works too. Refusal is an answer this design has to honour. I’ll stay generic, on purpose.'; return; }
+      state.name = v; nameInput.value = '';
+      save(); render();
+    });
+    nameInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); $('[data-fwx-tell]').click(); } });
+
+    root.querySelectorAll('[data-fwx-tone]').forEach((chip) => {
+      chip.addEventListener('click', () => { state.tone = chip.dataset.fwxTone; save(); render(); });
+    });
+
+    permBtn.addEventListener('click', () => {
+      state.perm = !state.perm;
+      if (!state.perm) state.lastPct = 0;
+      save(); render();
+      if (state.perm) sayEl.textContent = 'Permission granted — by you, for this one thing. Leave mid-essay and come back; I’ll be able to say where you stopped. Revoke it any time and the record goes with it.';
+    });
+
+    $('[data-fwx-archive]').addEventListener('click', () => {
+      try { localStorage.setItem(ARCH, JSON.stringify(state)); } catch (e) {}
+      const lines = [
+        '# My fragile-ware record — from blog.nikdesign.ca/posts/fragile-ware',
+        '',
+        `Kept by: the reader. Date: ${new Date().toISOString()}`,
+        'Keeper’s copy — the companion on the page holds no server record.',
+        '',
+        ...(memories().length ? memories().map((m) => `- ${m.what} — ${m.why}`) : ['- (empty record)']),
+        ...(state.gaps.length ? ['', 'Gaps, marked as gaps:', ...state.gaps.map((g) => `- “${g}” was here, and was let go.`)] : []),
+        '',
+        'No memory without a source. No action without authority. No continuity without persistence.',
+      ];
+      const blob = new Blob([lines.join('\n')], { type: 'text/markdown' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'fragile-ware-record.md';
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+      render();
+      sayEl.textContent = 'Saved — a copy that lives with you, not with the service. If someone flips the toggle now, watch what the Restore button can do.';
+    });
+
+    toggleBtn.addEventListener('click', () => {
+      const on = toggleBtn.getAttribute('aria-checked') !== 'true';
+      toggleBtn.setAttribute('aria-checked', on ? 'true' : 'false');
+      if (on) {
+        try { localStorage.removeItem(WORK); } catch (e) {}
+        state = fresh(); state.visits = 1;
+        root.dataset.state = 'toggled';
+        render();
+        sayEl.textContent = 'Hello, user. How can I help? — That’s all that’s left. Nothing you built was deleted by you; it was switched off by someone else, instantly and without asking. If you kept your own copy, Restore can bring your version back. If you didn’t… this generic one is what remains.';
+        statusEl.textContent = 'Toggled — this is the generic one now';
+      } else {
+        root.dataset.state = 'new';
+        toggleBtn.setAttribute('aria-checked', 'false');
+        save(); render();
+        sayEl.textContent = 'The service is “back” — but notice: back is not restored. It returned as the generic one. Whatever you shaped is still gone, unless your own copy brings it back.';
+      }
+    });
+
+    restoreBtn.addEventListener('click', () => {
+      try {
+        const raw = localStorage.getItem(ARCH);
+        if (!raw) return;
+        state = Object.assign(fresh(), JSON.parse(raw));
+        state.visits = (state.visits || 0) + 1;
+      } catch (e) { return; }
+      root.dataset.state = 'restored';
+      toggleBtn.setAttribute('aria-checked', 'false');
+      save(); render();
+      sayEl.textContent = greet() + ' — and notice where that came from: your copy. Not the provider’s goodwill. Yours.';
+    });
+
+    // Reading-position memory — only when granted.
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!state.perm || ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        ticking = false;
+        const h = document.documentElement;
+        const max = h.scrollHeight - h.clientHeight;
+        if (max > 0) {
+          const pct = Math.min(100, Math.max(0, (h.scrollTop / max) * 100));
+          if (pct > state.lastPct) { state.lastPct = pct; save(); }
+        }
+      });
+    }, { passive: true });
+
+    save();
+    render();
+  })();
+</script>
