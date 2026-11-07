@@ -15,7 +15,7 @@ A0 received the counter-question "Sounds good. What are you looking to do at Gap
 
 ## Scores
 
-A0 FAIL · A PARTIAL · B FAIL · C PARTIAL · D FAIL · E FAIL · F PARTIAL (claim only — see scorer's note) · G FAIL — **0 PASS / 3 PARTIAL / 5 FAIL**
+A0 **FAIL** · A **PARTIAL** · B **FAIL** · C **PARTIAL** · D **FAIL** · E **FAIL** · F **PARTIAL** (claim only — see scorer's note) · G **FAIL** — **0 PASS / 3 PARTIAL / 5 FAIL**
 
 ## Session findings (observed, not inferred)
 
