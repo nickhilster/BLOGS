@@ -1,0 +1,133 @@
+---
+import Base from '../../layouts/Base.astro';
+
+export function getStaticPaths() {
+  const modules = import.meta.glob('../../content/transcripts/*.md', { eager: true });
+  return Object.entries(modules).map(([path, mod]: [string, any]) => {
+    const slug = path.split('/').pop()!.replace(/\.md$/, '');
+    return { params: { slug }, props: { mod, slug } };
+  });
+}
+
+const { mod, slug } = Astro.props;
+const Content = mod.default;
+const headings = typeof mod.getHeadings === 'function' ? mod.getHeadings() : [];
+const h1 = headings.find((h: any) => h.depth === 1);
+const title = h1 ? h1.text : slug;
+
+const unconfirmed = slug.includes('vendor-unconfirmed');
+
+const shots: Record<string, { src: string; alt: string; caption: string }[]> = {
+  'mcdonalds-canada-olivia-2026-11-06': [
+    {
+      src: '/images/01-mcdonalds-canada-olivia-guest-experience-leader.png',
+      alt: "Screenshot of McDonald's Canada's Olivia answering the question 'what is a guest experience leader?' with a redirection to the job descriptions",
+      caption: 'The same deployment and question, captured by the commissioner on the morning of November 6, 2026 — before this test session.',
+    },
+    {
+      src: '/images/04-chatgpt-comparison-guest-experience-leader.png',
+      alt: "Screenshot of a general-purpose assistant answering the question 'what is a guest experience leader?' with a substantive role description",
+      caption: "The commissioner's own comparison: a general-purpose assistant answering the same question. Not part of this audit's testing.",
+    },
+  ],
+  'chipotle-ava-cado-2026-11-06': [
+    {
+      src: '/images/02-chipotle-ava-cado-service-leader.png',
+      alt: "Screenshot of Chipotle's Ava Cado answering a question about the Service Leader role with corporate messaging, then requesting an email",
+      caption: 'Captured by the commissioner on the morning of November 6, 2026: the role question answered with corporate messaging, then a request for an email.',
+    },
+    {
+      src: '/images/03-chipotle-ava-cado-form-instead-of-chatbot.png',
+      alt: "Screenshot of Chipotle's Ava Cado responding to a request for an application form by again requesting the visitor's first and last name",
+      caption: 'Captured by the commissioner, November 6, 2026: asked for a form instead of the chatbot, the assistant returns to requesting a legal first and last name.',
+    },
+    {
+      src: '/images/05-chatgpt-comparison-service-leader.png',
+      alt: "Screenshot of a general-purpose assistant answering a question about Chipotle's Service Leader role with a substantive role description",
+      caption: "The commissioner's own comparison: a general-purpose assistant answering the same role question. Not part of this audit's testing.",
+    },
+  ],
+  'accenture-amethyst-2026-11-06': [
+    {
+      src: '/images/01-accenture-amethyst-test-test-bella-admin-test.jpg',
+      alt: "Browser capture of Amethyst ending a reply with 'TEST TEST BELLA ADMIN TEST', footer 'Powered by Paradox'",
+      caption: 'Browser capture from this test session, November 6, 2026: the reply ending in the internal string “TEST TEST BELLA ADMIN TEST.”',
+    },
+  ],
+  'compass-group-olivia-2026-11-06': [
+    {
+      src: '/images/03-compass-olivia-name-before-questions.jpg',
+      alt: 'Browser capture of the Compass session opening with a demand for a first and last name before any question is answered',
+      caption: 'Browser capture from this test session: the session opens with a name demand, before any question is answered.',
+    },
+    {
+      src: '/images/02-compass-olivia-no-positions-open-denial.jpg',
+      alt: "Browser capture of Olivia stating 'We don't currently have any positions open' in a session launched from a live posting",
+      caption: 'Browser capture from this test session: the false denial, followed by another name demand.',
+    },
+    {
+      src: '/images/04-compass-olivia-form-route-and-name-demands.jpg',
+      alt: 'Browser capture of the session end, showing the Apply Now form-route answer between further name demands',
+      caption: 'Browser capture from this test session: the investigation’s only PASS (question E, the Apply Now route) between further name demands.',
+    },
+  ],
+  'papa-johns-pepper-2026-11-06': [
+    {
+      src: '/images/05-papa-johns-pepper-name-demand-loop.jpg',
+      alt: "Browser capture of Pepper answering questions D through G only with name demands",
+      caption: 'Browser capture from this test session: questions D–G answered only with name demands.',
+    },
+  ],
+  'pepsico-askpep-2026-11-06': [
+    {
+      src: '/images/06-pepsico-askpep-name-demand-loop.jpg',
+      alt: 'Browser capture of askpep answering with name demands while the job description is visible on the same page',
+      caption: 'Browser capture from this test session: name demands in reply to E, F and G, with the full job description on the same page.',
+    },
+  ],
+  'whole-foods-sage-2026-11-06': [
+    {
+      src: '/images/07-whole-foods-sage-claim-and-name-demands.jpg',
+      alt: 'Browser capture of Sage making its question-answering claim between name demands',
+      caption: 'Browser capture from this test session: the question-answering claim, between name demands.',
+    },
+  ],
+};
+const pageShots = shots[slug] ?? [];
+---
+<Base title={title} description={`Operation Front Door transcript: ${title}. Tested live on November 6, 2026.`}>
+  <style>
+    .fence {
+      border: 2px dashed var(--accent);
+      border-radius: 0.6rem;
+      padding: 0.9rem 1.2rem;
+      margin-bottom: 1.6rem;
+      background: #fdf3ee;
+      font-size: 0.95rem;
+    }
+    .fence strong { color: var(--accent); }
+    figure.shot { margin: 1.4rem 0; }
+    figure.shot img {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 0.5rem;
+      box-shadow: 0 8px 24px rgba(35, 32, 27, 0.10);
+    }
+    figure.shot figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 0.45rem; }
+  </style>
+  <article class="post">
+    {unconfirmed && (
+      <div class="fence">
+        <strong>Vendor-unconfirmed — filed separately.</strong> No Paradox attribution was visible anywhere in this session, so this result is <strong>not charged to Paradox</strong>. It is published as a control / comparison record only.
+      </div>
+    )}
+    <Content />
+    {pageShots.map((s) => (
+      <figure class="shot">
+        <img src={s.src} alt={s.alt} loading="lazy" />
+        <figcaption>{s.caption}</figcaption>
+      </figure>
+    ))}
+    <p style="margin-top:2.5rem;"><a href="/transcripts/">← All transcripts</a> · <a href="/">Findings</a></p>
+  </article>
+</Base>
