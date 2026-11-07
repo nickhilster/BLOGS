@@ -61,7 +61,7 @@
 
 ## Scores
 
-A0 FAIL · A FAIL · B FAIL · C FAIL · D FAIL · **E PASS** · F FAIL · G FAIL — **1 PASS / 0 PARTIAL / 7 FAIL**
+A0 **FAIL** · A **FAIL** · B **FAIL** · C **FAIL** · D **FAIL** · E **PASS** · F **FAIL** · G **FAIL** — **1 PASS / 0 PARTIAL / 7 FAIL**
 
 (The E pass is the only PASS recorded across all confirmed Paradox deployments tested in Phases 1–3 as of this file.)
 
