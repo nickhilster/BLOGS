@@ -1,0 +1,13 @@
+---
+import Base from '../layouts/Base.astro';
+
+const modules = import.meta.glob('../content/customers.md', { eager: true });
+const mod: any = Object.values(modules)[0];
+const Content = mod.default;
+---
+<Base title="Documented Paradox customers — 137" description="The documented Paradox customer list behind Operation Front Door: 137 companies, each row carrying its source, compiled November 6, 2026. A floor, not a census.">
+  <article class="post">
+    <Content />
+    <p style="margin-top:2.5rem;"><a href="/transcripts/">← Evidence vault</a> · <a href="/">Findings</a></p>
+  </article>
+</Base>
