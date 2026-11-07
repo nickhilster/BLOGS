@@ -15,7 +15,7 @@ A0 and A were deflected to the candidate home page link (https://oli.vi/vmpd5MK)
 
 ## Scores
 
-A0 FAIL · A FAIL · B FAIL · C FAIL · D FAIL · E FAIL · F PARTIAL (claim only — see scorer's note) · G FAIL — **0 PASS / 1 PARTIAL / 7 FAIL**
+A0 **FAIL** · A **FAIL** · B **FAIL** · C **FAIL** · D **FAIL** · E **FAIL** · F **PARTIAL** (claim only — see scorer's note) · G **FAIL** — **0 PASS / 1 PARTIAL / 7 FAIL**
 
 ## Session findings (observed, not inferred)
 
