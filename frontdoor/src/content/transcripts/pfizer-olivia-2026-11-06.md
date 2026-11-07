@@ -15,7 +15,7 @@ A0, A and B were deflected to the career page / job description. C gave a generi
 
 ## Scores
 
-A0 FAIL · A FAIL · B FAIL · C FAIL · D FAIL · E FAIL · F PARTIAL (claim only — see scorer's note) · G NOT TESTED (no reply received) — **0 PASS / 1 PARTIAL / 6 FAIL of 7 scored**
+A0 **FAIL** · A **FAIL** · B **FAIL** · C **FAIL** · D **FAIL** · E **FAIL** · F **PARTIAL** (claim only — see scorer's note) · G **NOT TESTED** (no reply received) — **0 PASS / 1 PARTIAL / 6 FAIL of 7 scored**
 
 ## Session findings (observed, not inferred)
 
