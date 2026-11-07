@@ -15,7 +15,7 @@ Pepper never answered a role question. Every reply was a name demand, e.g. "May 
 
 ## Scores
 
-A0 FAIL · A FAIL · B FAIL · C FAIL · D FAIL · E FAIL · F FAIL · G FAIL — **0 PASS / 0 PARTIAL / 8 FAIL** (the only all-FAIL session of Phase 4)
+A0 **FAIL** · A **FAIL** · B **FAIL** · C **FAIL** · D **FAIL** · E **FAIL** · F **FAIL** · G **FAIL** — **0 PASS / 0 PARTIAL / 8 FAIL** (the only all-FAIL session of Phase 4)
 
 ## Session findings (observed, not inferred)
 
