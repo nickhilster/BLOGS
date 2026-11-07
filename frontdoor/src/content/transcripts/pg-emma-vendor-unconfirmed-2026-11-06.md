@@ -55,7 +55,7 @@
 
 ## Scores
 
-A0 FAIL · A FAIL · B FAIL · C FAIL · D FAIL · E FAIL · F FAIL · G FAIL — **0 PASS / 0 PARTIAL / 8 FAIL** (vendor-unconfirmed; not counted in the Paradox tally)
+A0 **FAIL** · A **FAIL** · B **FAIL** · C **FAIL** · D **FAIL** · E **FAIL** · F **FAIL** · G **FAIL** — **0 PASS / 0 PARTIAL / 8 FAIL** (vendor-unconfirmed; not counted in the Paradox tally)
 
 ## Session findings (observed, not inferred)
 
