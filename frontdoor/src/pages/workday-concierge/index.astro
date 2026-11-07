@@ -1,0 +1,151 @@
+---
+import Base from '../../layouts/Base.astro';
+import transcriptHtml from './_transcript.html?raw';
+---
+<Base title="The Workday Concierge" description="The full conversation between Nikhil Khedkar and Workday's Brand Concierge, November 6, 2026: the one Workday agent that answered first, conceded the audit's findings in its own words, and wrote the candidate-centred control set.">
+  <style>
+    .lede { font-size: 1.18rem; color: #38332b; }
+    .standfirst {
+      font-size: 1.45rem;
+      line-height: 1.35;
+      font-style: italic;
+      text-align: center;
+      margin: 1.6rem auto 2rem;
+      max-width: 34rem;
+    }
+    h2.sec { margin: 2.6rem 0 0.9rem; font-size: 1.65rem; line-height: 1.25; }
+    blockquote.vendor {
+      border-left: 3px solid var(--press);
+      margin: 1.1rem 0 0.4rem;
+      padding: 0.2rem 0 0.2rem 1rem;
+      font-size: 1.06rem;
+      color: #38332b;
+    }
+    blockquote.vendor .who {
+      display: block;
+      font-size: 0.85rem;
+      font-style: normal;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+    p.gloss { color: var(--muted); font-size: 0.97rem; margin: 0 0 1.5rem 1rem; }
+    .transcript { margin-top: 1.5rem; }
+    .turn { margin: 0 0 1.6rem; }
+    .turn .speaker {
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin: 0 0 0.35rem;
+    }
+    .turn.nik .speaker { color: var(--accent); }
+    .turn.concierge .speaker { color: var(--press); }
+    .turn .tbody {
+      border-left: 2px solid var(--line);
+      padding-left: 1rem;
+    }
+    .turn.nik .tbody { border-left-color: #d8b7ae; }
+    .turn.concierge .tbody { border-left-color: #b3c2dd; }
+    .turn .tbody p { margin: 0 0 0.85rem; }
+    .turn .tbody p:last-child { margin-bottom: 0; }
+    .turn .tbody ul { margin: 0 0 0.85rem; padding-left: 1.4rem; }
+    .turn .tbody li { margin-bottom: 0.35rem; }
+    .turn .refs {
+      font-size: 0.88rem;
+      color: var(--muted);
+      border-top: 1px dashed var(--line);
+      margin-top: 0.9rem;
+      padding-top: 0.6rem;
+    }
+    .turn .refs p { margin: 0 0 0.3rem; }
+    .turn .refs .refs-head {
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+  </style>
+
+  <article class="post">
+    <h1>The Workday Concierge</h1>
+
+    <p class="standfirst">The one Workday agent who actually is a real conversational bot.</p>
+
+    <p class="lede">On November 6, 2026, Nik took this audit to the one Workday assistant that would actually discuss it — the “Brand Concierge” on workday.com. The conversation ran to 54 exchanges. It is published in full below, unabridged.</p>
+
+    <h2 class="sec">Why this page exists</h2>
+
+    <p>The Concierge is <strong>not</strong> Paradox, and that is precisely the point.</p>
+
+    <p>The Brand Concierge is Workday's prospect-facing assistant. Its own greeting on workday.com: “I'm an AI assistant here to help you explore Workday's products and solutions.” It exists to win clients — and it behaves like it. It answered questions before asking for anything. It followed an argument across the whole conversation, held its limits honestly, corrected its own framing when a correction was fair, and — presented with this audit's evidence — conceded the audit's central findings in its own words and authored the control set the candidate-facing product should be held to.</p>
+
+    <p>The candidate-facing product is Paradox, and across the 25 live deployments in this audit it behaves the other way: a name demanded before answers, deflection instead of information, the same template sentence at eleven unrelated employers. Same company, two standards — sorted by who pays. The conversational quality follows the revenue: prospective customers get a real conversational bot that answers first, reasons, and concedes; candidates — the humans the sold product processes — get the intake form with a chat window.</p>
+
+    <p>The Concierge itself supplied the sentence that pairs the two. Asked how the candidate exists in Workday's Agent System of Record, it answered:</p>
+
+    <blockquote class="vendor">“the candidate is a recruiting data subject and possibly a candidate record — not a first-class participant in Workday's Agent System of Record.”<span class="who">Workday's Brand Concierge, Nov 6, 2026</span></blockquote>
+
+    <p>Prospects are participants. Candidates are records.</p>
+
+    <p>One limit, stated plainly: we do not know what the Concierge runs on, and on this record neither does it — asked which model sits underneath it, it declined to say; asked to verify claims about the platform's stack, it could not do so from Workday's published materials. This page makes no claim about the Concierge's technology, and none about shared technology with Paradox. The contrast is not about what the two agents run on. It is about who each agent is <em>for</em>.</p>
+
+    <p>The Concierge also stated the standard the candidate product is supposed to meet — the agent “answers informational questions first and requests personal data only when it is relevant.” That is the conversational standard the 25 candidate-facing deployments in this audit did not meet. The Concierge met it.</p>
+
+    <h2 class="sec">The concessions</h2>
+
+    <p>Each of these is the Concierge's own wording, from the conversation below, with the exchange it belongs to noted underneath.</p>
+
+    <blockquote class="vendor">“When refusal does not change the flow, the interaction behaves like compelled intake rather than a genuinely conversational service.”<span class="who">On the audit's central pattern</span></blockquote>
+    <p class="gloss">If saying no changes nothing, it is not a conversation.</p>
+
+    <blockquote class="vendor">“When a candidate must provide identity information before receiving an answer, cannot decline without being asked again, receives no meaningful role information, and has no human or form fallback, the product is functioning primarily as an employer-controlled data-collection and workflow tool—not as a candidate-centered assistant.”<span class="who">Its agreed narrower conclusion</span></blockquote>
+    <p class="gloss">What the product is, in the vendor's own assistant's words.</p>
+
+    <blockquote class="vendor">“Calling the product ‘Candidate Experience’ does not change that interaction pattern.”<span class="who">On the product's name</span></blockquote>
+    <p class="gloss">The name is not the experience.</p>
+
+    <blockquote class="vendor">“the candidate is a recruiting data subject and possibly a candidate record—not a first-class participant in Workday’s Agent System of Record.”<span class="who">On the candidate's standing</span></blockquote>
+    <p class="gloss">The buyer gets a stamp, the vendor gets a record, the assessor gets a report. The candidate gets no standing in any of it.</p>
+
+    <blockquote class="vendor">“For the identical sentence, the most defensible inference from your evidence is that it comes from a shared product-level Paradox conversation template, intent response, or fallback library—not that eight customers independently wrote it. … I would not attribute it to the individual customers without evidence.”<span class="who">On the identical sentence in 11 deployments</span></blockquote>
+    <p class="gloss">One template, many brands — and the authorship sits at vendor level, not with the employers.</p>
+
+    <blockquote class="vendor">“On the published evidence, Workday has not shown that Candidate Experience Agent deployments carry Agent Passport stamps for candidate-facing quality. … Workday publicly treats security and agent-governance properties as formal trust evidence. Workday has not publicly demonstrated equivalent, standardized evidence for the candidate-experience properties you tested.”<span class="who">On test evidence for candidate-facing quality</span></blockquote>
+    <p class="gloss">Security is stamped before an agent is trusted. Candidate treatment is not — and from the published record, no one can verify otherwise.</p>
+
+    <blockquote class="vendor">“Agent Passport publicly emphasizes agent trust evidence for enterprise governance, while equivalent candidate-facing evidence and remediation mechanisms are not publicly documented. Thank you for presenting the audit and its corrections clearly.”<span class="who">The close of the conversation</span></blockquote>
+    <p class="gloss">How it ended: the vendor's assistant accepted the audit's narrower conclusion — corrections log and all.</p>
+
+    <h2 class="sec">The control set it wrote</h2>
+
+    <p>Asked whether the missing controls were just three items, the Concierge corrected the premise — the evidence supports “not publicly disclosed,” not “does not exist” — and then supplied a fuller list. This is its list, in its words:</p>
+
+    <ol>
+      <li><strong>Template provenance:</strong> owner, version, change history, approval authority, and rollback process.</li>
+      <li><strong>Pre-launch testing:</strong> tests for role answers, unnecessary data collection, refusal handling, accuracy, accessibility, fallback, and human escalation.</li>
+      <li><strong>Deployment identity:</strong> the exact customer, agent version, configuration, and release active during a candidate's interaction.</li>
+      <li><strong>Candidate visibility:</strong> a plain-language notice identifying the employer, Workday, Paradox, relevant processors, purposes, retention, and complaint route.</li>
+      <li><strong>Candidate control:</strong> a genuine decline path that is recorded as a refusal rather than retried as a conversion failure.</li>
+      <li><strong>Candidate evidence:</strong> access to the interaction record, or at least a way to report an incident that is linked to the agent version and deployment.</li>
+      <li><strong>Remediation:</strong> owner, response deadline, investigation process, rollback authority, and notice to affected candidates when a serious error occurs.</li>
+      <li><strong>Independent assessment:</strong> published tests and stamps covering candidate treatment, not only security and prompt-injection risks.</li>
+    </ol>
+
+    <p>It is a good list. It is the standard this audit measures against — now on the record as the vendor's own.</p>
+
+    <h2 class="sec">The full conversation</h2>
+
+    <p>workday.com, Friday, November 6, 2026. Published verbatim and complete: Nik's messages exactly as typed, typos included; the Concierge's answers in full, with the chat interface's own furniture — its per-answer “Sources” lists and “Related Topics” blocks — left in place. “I say” in the original record is labelled <strong>Nik</strong>; “Brand Concierge says” is labelled <strong>Workday Brand Concierge</strong>.</p>
+
+    <div class="transcript" set:html={transcriptHtml}></div>
+
+    <h2 class="sec">A note on the record</h2>
+
+    <p>This conversation is published as evidence, in the same disclosure spirit as the rest of Operation Front Door: complete, verbatim, and open to dispute. If Workday disputes any part of this record, the <a href="/#corrections-log">corrections log</a> on the front page is open to its response — we will publish the response, and correct the record wherever the record is wrong.</p>
+
+    <p style="margin-top:2.2rem;"><a href="/">← Findings</a> · <a href="/transcripts/">Evidence vault</a></p>
+  </article>
+</Base>
