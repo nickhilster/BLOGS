@@ -5,19 +5,20 @@
 
 **Honest caveat — read first:** Paradox publishes **no single exhaustive, verified customer list**. This is a **documented-evidence compilation, not a census**: a company appears here only where a fetched source names it, and absence from this list proves nothing. Evidence strength varies by class and is labelled per row: a vendor case study is the vendor's own claim; a Client Board listing shows an organisation's employees registered for Paradox's client event (Apr 2026 session), which Paradox presents as a client gathering but is attendance evidence, not a deployment record; independently reported rows rest on third-party reporting of varying depth, flagged in the notes. Deployments also change over time — Muse's own live checks on 2026-11-06 found **no** assistant at two vendor-documented customers (Medtronic, Tractor Supply web), which is recorded in their rows rather than smoothed away.
 
-**Classifications (exactly one per row):** [tested live by Muse 2026-11-06] · [vendor case study / client story] · [vendor-named elsewhere (press release, webinar, client board)] · [independently reported]
+**Classifications (exactly one per row):** [tested live by Muse 2026-11-06] · [tested live by Muse 2026-11-07] · [vendor case study / client story] · [vendor-named elsewhere (press release, webinar, client board)] · [independently reported]
 
 ## Count summary
 
 | Classification | Count |
 |---|---|
 | Tested live by Muse 2026-11-06 | 23 |
-| Vendor case study / client story | 49 |
+| Tested live by Muse 2026-11-07 | 9 |
+| Vendor case study / client story | 41 |
 | Vendor-named elsewhere (press release, webinar, client board) | 55 |
-| Independently reported | 10 |
+| Independently reported | 9 |
 | **Total documented companies** | **137** |
 
-## 1 — Tested live by Muse, 2026-11-06 (Phase 1: eight; Phase 2: PepsiCo and FedEx; Phase 3: NextEra Energy and Compass Group; Phase 4: Marriott, T-Mobile, Nordstrom, Gap, Papa John's, Whole Foods, Pfizer, McKesson, Burlington, Crocs and Accenture — all twenty-three also documented elsewhere in this list)
+## 1 — Tested live by Muse, 2026-11-06 and 2026-11-07 (Phase 1: eight; Phase 2: PepsiCo and FedEx; Phase 3: NextEra Energy and Compass Group; Phase 4: Marriott, T-Mobile, Nordstrom, Gap, Papa John's, Whole Foods, Pfizer, McKesson, Burlington, Crocs and Accenture — the twenty-three also documented elsewhere in this list; Phase 5, 2026-11-07, added the last nine rows of this section: seven confirmed deployments scored, U.S. Xpress checked with its documented assistant not found live, and Advantage Solutions tested with its assistant's vendor unconfirmed)
 
 | Company | Classification | Assistant (live) | Source URL | Notes |
 |---|---|---|---|---|
@@ -28,6 +29,15 @@
 | Nestlé | tested live by Muse 2026-11-06 | Olivia | https://www.paradox.ai/clients-stories | Live test: nestle.com/jobs; vendor index carries the Nestlé scheduling story |
 | Sodexo | tested live by Muse 2026-11-06 | Dexi | https://www.paradox.ai/clients-stories | Live test: jobs.us.sodexo.com; vendor index carries the Sodexo hiring story |
 | Johnson Controls | tested live by Muse 2026-11-06 | Emma | https://www.paradox.ai/clients-stories | Live test: jobs.johnsoncontrols.com; vendor index carries the Johnson Controls Bersin report |
+| Essentia Health | tested live by Muse 2026-11-07 | Olivia | https://www.paradox.ai/case-studies/essentia-health | Live test 2026-11-07 (Phase 5), "Powered by Paradox": scored 1/1/6 — deflection throughout; the pass is question E via the posting's Apply button. Case study: "implement their conversational AI assistant, Olivia, alongside their Workday ATS". |
+| BOK Financial | tested live by Muse 2026-11-07 | Olivia | https://insidesap.com/how-olivia-by-paradox-improved-boks-recruiting-process/ | Live test 2026-11-07 (Phase 5), "Powered by Paradox": scored 1/1/6 — includes a false denial ("We don't currently have any Wealth Advisor positions open in Scarborough, ON, CA") served from a live Topeka, KS posting. Previously classified from InsideSAP's 2020 reporting of the SAP App Center deployment. |
+| UOB (United Overseas Bank) | tested live by Muse 2026-11-07 | Jonus | https://www.paradox.ai/clients-stories | Live test 2026-11-07 (Phase 5), "Powered by Paradox": scored 0/1/7 — pure deflection to the listing and recruiters; no personal information demanded. |
+| Fontainebleau Las Vegas | tested live by Muse 2026-11-07 | Morris | https://www.paradox.ai/clients-stories | Live test 2026-11-07 (Phase 5), "Powered by Paradox": scored 0/1/7 — name demanded 9 times plus a repeated link-deflection loop. |
+| Southern Rock Restaurants | tested live by Muse 2026-11-07 | Savannah | https://www.paradox.ai/case-studies/southern-rock | Live test 2026-11-07 (Phase 5) on the operator's own Paradox-hosted careers site, "Olivia by Paradox": scored 0/0/8 — name demanded 9 times, zero substantive answers. Franchise group owning 150+ McAlister's Deli locations (counted once as Southern Rock). |
+| Meritage Hospitality Group | tested live by Muse 2026-11-07 | Alex | https://www.paradox.ai/case-studies/wendys | Live test 2026-11-07 (Phase 5) on Meritage's own Paradox tenant, "Olivia by Paradox": scored 0/0/8 — name demanded 9 times, zero substantive answers. Meritage is a Wendy's franchise operator, counted separately from Wendy's itself. |
+| Captain D's | tested live by Muse 2026-11-07 | Maya | https://www.paradox.ai/clients-stories | Live test 2026-11-07 (Phase 5), "Olivia by Paradox": scored 0/0/8 — first and last name demanded 9 times, zero substantive answers. Previously classified from the vendor index story. |
+| U.S. Xpress | tested live by Muse 2026-11-07 | — (Nick not found) | https://www.paradox.ai/clients-stories | Live check 2026-11-07 (Phase 5): NO assistant found anywhere on the current careers path (driver search, office/CSOD route and Team Match all checked). The case study's "Nick" is not live as of this check — a documented deployment not found live; not scored. |
+| Advantage Solutions | tested live by Muse 2026-11-07 | Andi (vendor unconfirmed) | https://www.paradox.ai/report/bersin-report-advantage-solutions-frontline-advantage | Live test 2026-11-07 (Phase 5): the documented "Alix" was NOT found; candidates are served by "Andi" on the iCIMS posting page with no vendor attribution shown. Scored 0/0/8 in the vendor-unconfirmed file — NOT charged to Paradox. |
 
 | PepsiCo (Pepsi) | tested live by Muse 2026-11-06 | askpep | https://krebsonsecurity.com/2025/07/poor-passwords-tattle-on-ai-hiring-bot-maker-paradox-ai/ | Live test (Phase 2): pepsicojobs.com; assistant reached only via Apply, on olivia.paradox.ai/co/PepsiCo10; footer "Olivia by Paradox". Role: Route Sales Associate. 0 PASS / 0 PARTIAL / 8 FAIL — first+last name demanded before any question and after every reply; no role content delivered. Transcript: transcripts/pepsico-askpep-2026-11-06.md (Originally documented: Krebs names "Pepsi"; PepsiCo employees also appear on the Client Board page — counted once, here (stronger source)) |
 | FedEx | tested live by Muse 2026-11-06 | Olivia | https://airecruiter.co/what-ats-do-companies-use | Live test (Phase 2): careers.fedex.com; assistant reached only via Apply, on fedex.paradox.ai; footer "Olivia by Paradox". Role: Seasonal Package Handler. 0 PASS / 5 PARTIAL / 3 FAIL — name demanded 8 times; all answers deflected to the careers page. Transcript: transcripts/fedex-olivia-2026-11-06.md (Originally documented: Independent S&P 100 ATS audit (checked Nov 2, 2026): for the US hourly role opened, "Apply goes to fedex.paradox.ai, Paradox's chat assistant Olivia." FedEx employees also appear on the Client Board page — counted once, here)
@@ -50,21 +60,14 @@
 
 | Company | Classification | Assistant | Source URL | Notes |
 |---|---|---|---|---|
-| Captain D's | vendor case study / client story | — | https://www.paradox.ai/clients-stories | Vendor index: Conversational ATS + Traitify assessments story; also a Bersin report tile |
 | Tractor Supply Company | vendor case study / client story | Cory | https://www.paradox.ai/case-studies/tractor-supply-co | Vendor case study (58% decrease in time to apply). **Muse live check 2026-11-06: no web chat assistant found** — case study emphasises text/mobile |
 | The Good Care Group | vendor case study / client story | Max | https://www.paradox.ai/clients-stories | Vendor index story (UK care provider) |
 | Great Wolf Lodge (Great Wolf Resorts) | vendor case study / client story | Emma | https://www.paradox.ai/case-studies/great-wolf-lodge | Vendor index + case study; "$700K saved annually" Bersin report |
 
-| U.S. Xpress | vendor case study / client story | Nick | https://www.paradox.ai/clients-stories | Vendor index story (trucking) |
-| UOB (United Overseas Bank) | vendor case study / client story | Jonus | https://www.paradox.ai/clients-stories | Vendor index story (Singapore banking) |
 | Medtronic | vendor case study / client story | — | https://www.paradox.ai/clients-stories | Vendor index: Bersin report "How Medtronic hires high-skilled MedTech workers with AI". **Muse live check 2026-11-06: NO assistant on its careers site/Workday portal** — vendor-documented, not live-verified |
-| Fontainebleau Las Vegas | vendor case study / client story | — | https://www.paradox.ai/clients-stories | Vendor index: Bersin report + case-story tile ("hired an entire resort") |
 | ISS North America (ISS A/S) | vendor case study / client story | — | https://www.paradox.ai/clients-stories | Vendor index: Bersin report (time-to-hire −85%) |
-| Advantage Solutions | vendor case study / client story | Alix | https://www.paradox.ai/report/bersin-report-advantage-solutions-frontline-advantage | Bersin report hosted by Paradox: "Alix, Paradox's conversational AI recruiting agent" |
-| Southern Rock Restaurants | vendor case study / client story | Savannah | https://www.paradox.ai/case-studies/southern-rock | Franchise group owning 150+ McAlister's Deli locations (brand noted; counted once as Southern Rock) |
 | Pacific Seafood | vendor case study / client story | — | https://www.paradox.ai/case-studies/pacific-seafood | Vendor case study (Conversational Events) |
 | AAA Mountain West Group | vendor case study / client story | — | https://www.paradox.ai/case-studies/aaa-mountain-west-group | Vendor case study (Workday integration). Distinct from the "AAA" attendee listing at the Client Board — counted once, here |
-| Essentia Health | vendor case study / client story | Olivia | https://www.paradox.ai/case-studies/essentia-health | Vendor case study: "implement their conversational AI assistant, Olivia, alongside their Workday ATS" |
 | Supercuts (Regis Corporation) | vendor case study / client story | Olivia | https://www.paradox.ai/blog/how-supercuts-provides-a-positive-candidate-experience-with-ai | Vendor client story: Supercuts' assistant is Olivia; Regis Corporation is the parent/manager of Supercuts locations — counted once |
 | Checkers & Rally's | vendor case study / client story | — | https://www.paradox.ai/clients-stories | Vendor index client article (800+ locations) |
 | UnitingCare Queensland | vendor case study / client story | — | https://www.paradox.ai/clients-stories | Vendor index client article (Australian aged care) |
@@ -168,7 +171,6 @@ Merged from `paradox-customer-list-addendum-2026-11-06.md` (preserved alongside)
 | Sobeys | vendor case study / client story | http://www.paradox.ai/case-studies/sobeys | Vendor case study ("Hiring in under two days with conversational AI"): Canadian grocer, 123,000+ employees, SAP SuccessFactors integration; its conversational AI assistant is named Sam; 2-day time to hire, 80% decrease in interview no-show rate |
 | MultiCare (MultiCare Health System) | vendor case study / client story | https://www.paradox.ai/blog/6-leading-employers-who-use-workday-and-paradox-to-create-the-best-hiring-experiences-on-the-planet | Vendor blog success story: Tacoma, WA health system signed up for Paradox's Conversational Events product; cost per event fell from $4,000 to $1,000 and event hires increased 25%. (A vendor-produced MultiCare success-story PDF also circulates via FeaturedCustomers; and Paradox's FeaturedCustomers case-study index carries "MultiCare Health System increases event hires by 25% with Paradox") |
 | First Watch | vendor case study / client story | https://www.paradox.ai/case-studies/first-watch | Vendor case study: US restaurant chain (9,000 employees) "turned to a conversational AI assistant, Olivia, to automatically screen and schedule qualified candidates"; screening conversion rate to 99% |
-| Meritage Hospitality Group | vendor case study / client story | https://www.paradox.ai/case-studies/wendys | Vendor case study (filed by Paradox under "Wendy's"): Meritage, a Wendy's franchise operator, "utilized a conversational AI assistant named Olivia across 340 Wendy's franchise locations"; 148,000+ applications generated. Meritage is a distinct operator company, counted separately from Wendy's itself (main list §4) |
 | Neighborly | vendor case study / client story | https://www.paradox.ai/blog/4-companies-that-modernized-their-ats-with-conversational-ai | Vendor blog client story: home-services franchisor (30+ brands) runs Paradox's Conversational ATS; its AI assistant is named Maya; 71% increase in applicants, 54% decrease in cost per hire. Corroborated by a Workday customer story ("Cutting Cost-Per-Hire By 54% With Workday Paradox," workday.com) |
 | Triton Technologies | vendor case study / client story | https://cdn.featuredcustomers.com/CustomerCaseStudy.document/Paradox-Olivia-Client-Success-Story-Triton-Technologies.pdf | Vendor-produced client success story PDF (hosted on the FeaturedCustomers CDN): contact-center/BPO firm (300 employees) "enlisted AI Recruiting Assistant Olivia"; 85% of interviews scheduled in less than 1 hour |
 | IAG Restaurant Group (dba Jersey Mike's) | vendor case study / client story | https://cdn.featuredcustomers.com/CustomerCaseStudy.document/Paradox-Olivia-Client-Success-Story-Jersey-Mikes.pdf | Vendor-produced client success story PDF: Bay Area Jersey Mike's Subs franchise operator; its president "partnered with Paradox… introducing Olivia as the organization's new AI recruiting assistant"; interview show rates up 60% |
@@ -194,7 +196,6 @@ Merged from `paradox-customer-list-addendum-2026-11-06.md` (preserved alongside)
 
 | Company | Classification | Source URL | Notes |
 |---|---|---|---|
-| BOK Financial | independently reported | https://insidesap.com/how-olivia-by-paradox-improved-boks-recruiting-process/ | InsideSAP (SAP-ecosystem trade publication, 2020-10-04) reporting an SAP-hosted webinar: BOK Financial found "Olivia by Paradox" through the SAP App Center and deployed it on SAP SuccessFactors; its SVP of Talent Acquisition describes candidate completion rates and recruiter time saved |
 | Citizens Bank | independently reported | https://archive.israel21c.org/january-kicks-off-with-mega-funding-rounds/ | Israel21c (2022-02-03), covering Paradox's $200M Series C: "Among the company's customers are McDonald's, General Motors, Unilever, Nestlé, PepsiCo, CVS Health, Wendy's and Citizen Bank." (Article writes "Citizen Bank"; the institution is Citizens Bank) |
 
 ## Deliberately excluded

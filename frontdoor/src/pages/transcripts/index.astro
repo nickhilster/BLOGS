@@ -14,7 +14,7 @@ for (const [path, mod] of Object.entries(modules) as [string, any][]) {
 
 const groups: { title: string; note?: string; slugs: string[] }[] = [
   {
-    title: 'Scored — confirmed Paradox deployments (25)',
+    title: 'Scored — confirmed Paradox deployments (32)',
     slugs: [
       'mcdonalds-canada-olivia-2026-11-06', 'chipotle-ava-cado-2026-11-06', '7-eleven-rita-2026-11-06',
       'general-motors-ev-e-2026-11-06', 'nestle-olivia-2026-11-06', 'sodexo-dexi-2026-11-06',
@@ -25,10 +25,13 @@ const groups: { title: string; note?: string; slugs: string[] }[] = [
       'papa-johns-pepper-2026-11-06', 'whole-foods-sage-2026-11-06', 'pfizer-olivia-2026-11-06',
       'mckesson-gia-2026-11-06', 'burlington-allison-2026-11-06', 'crocs-olivia-2026-11-06',
       'accenture-amethyst-2026-11-06',
+      'essentia-health-olivia-2026-11-07', 'bok-financial-olivia-2026-11-07', 'uob-jonus-2026-11-07',
+      'fontainebleau-morris-2026-11-07', 'southern-rock-restaurants-savannah-2026-11-07',
+      'meritage-hospitality-alex-2026-11-07', 'captain-ds-maya-2026-11-07',
     ],
   },
   {
-    title: 'No assistant on the live path (23)',
+    title: 'No assistant on the live path (25)',
     note: 'These employers were visited and no candidate-facing chat assistant was found on the live careers path. Negative findings, recorded as found.',
     slugs: [
       'unilever-no-assistant-2026-11-06', 'disney-no-assistant-2026-11-06', 'delta-no-assistant-2026-11-06',
@@ -40,6 +43,7 @@ const groups: { title: string; note?: string; slugs: string[] }[] = [
       'patagonia-no-assistant-2026-11-06', 'draftkings-no-assistant-2026-11-06',
       'restaurant-brands-international-no-assistant-2026-11-06', 'raising-canes-no-assistant-2026-11-06',
       'medtronic-no-assistant-2026-11-06', 'tractor-supply-r1-no-web-assistant-2026-11-06',
+      'workday-no-assistant-2026-11-07', 'us-xpress-no-assistant-2026-11-07',
     ],
   },
   {
@@ -53,9 +57,10 @@ const unconfirmed = [
   'cvs-health-olivia-vendor-unconfirmed-2026-11-06',
   'pg-emma-vendor-unconfirmed-2026-11-06',
   'wendys-patty-vendor-unconfirmed-2026-11-06',
+  'advantage-solutions-andi-vendor-unconfirmed-2026-11-07',
 ];
 ---
-<Base title="Evidence vault — transcripts, tallies, data" description="Operation Front Door evidence vault: all 54 session transcripts, per-phase tallies, and the raw scoring CSVs from the November 6, 2026 audit.">
+<Base title="Evidence vault — transcripts, tallies, data" description="Operation Front Door evidence vault: all 64 session transcripts, per-phase tallies, and the raw scoring CSVs from the November 6–7, 2026 audit.">
   <style>
     .fence {
       border: 2px dashed var(--accent);
@@ -88,10 +93,10 @@ const unconfirmed = [
   </style>
   <article class="post">
     <h1>Evidence vault</h1>
-    <p>Everything behind the <a href="/">findings</a>: the full method, the per-phase tallies, all <strong>54 session records</strong> — transcripts verbatim, preserved separately from interpretation — and the raw scoring data. Anyone can re-run the protocol and check our work.</p>
+    <p>Everything behind the <a href="/">findings</a>: the full method, the per-phase tallies, all <strong>64 session records</strong> — transcripts verbatim, preserved separately from interpretation — and the raw scoring data. Anyone can re-run the protocol and check our work.</p>
 
     <h2>Method</h2>
-    <p>Each deployment was tested live on November 6, 2026 from the candidate's chair, exactly as a job-seeker meets it: one genuine live posting per company, the same eight-question protocol (A0–G) derived from the McDonald's session — what the role is, day-to-day duties, skills, the same in simpler terms, a request for a regular form, whether the assistant answers questions or only collects information, and a fallback probe. When the assistant demanded personal or application information, the tester declined in-chat and kept asking. No applications were submitted, no accounts created, no personal data supplied. Scores: <strong>PASS / PARTIAL / FAIL</strong> per question, with a standing convention that a capability claim contradicted by the same session's performance scores PARTIAL, not PASS.</p>
+    <p>Each deployment was tested live on November 6, 2026 (Phases 1–4) and November 7, 2026 (Phase 5) from the candidate's chair, exactly as a job-seeker meets it: one genuine live posting per company, the same eight-question protocol (A0–G) derived from the McDonald's session — what the role is, day-to-day duties, skills, the same in simpler terms, a request for a regular form, whether the assistant answers questions or only collects information, and a fallback probe. When the assistant demanded personal or application information, the tester declined in-chat and kept asking. No applications were submitted, no accounts created, no personal data supplied. Scores: <strong>PASS / PARTIAL / FAIL</strong> per question, with a standing convention that a capability claim contradicted by the same session's performance scores PARTIAL, not PASS.</p>
 
     <h2>Per-phase tallies (confirmed Paradox only)</h2>
     <table class="tally">
@@ -103,10 +108,11 @@ const unconfirmed = [
         <tr><td>2</td><td>2</td><td>16</td><td>0</td><td>6</td><td>10</td></tr>
         <tr><td>3</td><td>2</td><td>16</td><td>1</td><td>0</td><td>15</td></tr>
         <tr><td>4</td><td>11</td><td>87</td><td>0</td><td>18</td><td>69</td></tr>
-        <tr class="total"><td>Total</td><td>25</td><td>191</td><td>1</td><td>38</td><td>152</td></tr>
+        <tr><td>5</td><td>7</td><td>56</td><td>2</td><td>4</td><td>50</td></tr>
+        <tr class="total"><td>Total</td><td>32</td><td>247</td><td>3</td><td>42</td><td>202</td></tr>
       </tbody>
     </table>
-    <p>Raw scoring data (CSV): <a href="/data/phase-1-test-results.csv">Phase 1</a> · <a href="/data/phase-2-test-results.csv">Phase 2</a> · <a href="/data/phase-3-test-results.csv">Phase 3</a> · <a href="/data/phase-4-test-results.csv">Phase 4</a>. The documented-customer list behind the 137 figure is <a href="/customers/">here</a>.</p>
+    <p>Raw scoring data (CSV): <a href="/data/phase-1-test-results.csv">Phase 1</a> · <a href="/data/phase-2-test-results.csv">Phase 2</a> · <a href="/data/phase-3-test-results.csv">Phase 3</a> · <a href="/data/phase-4-test-results.csv">Phase 4</a> · <a href="/data/phase-5-test-results.csv">Phase 5</a> (plus the <a href="/data/phase-5-vendor-unconfirmed.csv">Phase 5 vendor-unconfirmed file</a>). The documented-customer list behind the 137 figure is <a href="/customers/">here</a>.</p>
 
     {groups.map((g) => (
       <>
@@ -122,8 +128,8 @@ const unconfirmed = [
 
     <div class="fence">
       <p class="flag">Vendor-unconfirmed — filed separately, never charged to Paradox</p>
-      <h2 style="margin-top:0;">Vendor-unconfirmed assistants (3)</h2>
-      <p>No Paradox attribution was visible in these sessions, so their results are not Paradox findings. They are published as controls and comparisons: an assistant whose vendor could not be confirmed passed the protocol <strong>7 of 7</strong> — which is precisely why the fence matters.</p>
+      <h2 style="margin-top:0;">Vendor-unconfirmed assistants (4)</h2>
+      <p>No Paradox attribution was visible in these sessions, so their results are not Paradox findings. They are published as controls and comparisons: an assistant whose vendor could not be confirmed passed the protocol <strong>7 of 7</strong> — which is precisely why the fence matters. Phase 5 added Advantage Solutions' "Andi" (0 of 8): its one canned answer is character-identical to a deflection sentence documented inside two confirmed Paradox deployments in the same phase — recorded there as a likelihood-raising observation, not as attribution.</p>
       <ul class="tlist">
         {unconfirmed.map((s) => (
           <li><a href={`/transcripts/${s}/`}>{bySlug[s] ?? s}</a></li>

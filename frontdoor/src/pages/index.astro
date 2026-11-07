@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 ---
-<Base title="191 tests. 25 deployments. 1 pass.">
+<Base title="247 tests. 32 deployments. 3 passes.">
   <style>
     .lede { font-size: 1.18rem; color: #38332b; }
     .thesis {
@@ -99,17 +99,17 @@ import Base from '../layouts/Base.astro';
   </style>
 
   <article class="post">
-    <p class="lede">On November 6, 2026, TeamBotics tested the hiring chatbots at <strong>54 employers</strong> — live, from the candidate's chair, asking each one the same eight questions a job-seeker would ask. Twenty-five of the assistants were confirmed deployments of one vendor: <strong>Paradox</strong>, now Workday's Candidate Experience Agent. We scored <strong>191 answers</strong>.</p>
+    <p class="lede">On November 6–7, 2026, TeamBotics tested the hiring chatbots at <strong>64 employers</strong> — live, from the candidate's chair, asking each one the same eight questions a job-seeker would ask. Thirty-two of the assistants were confirmed deployments of one vendor: <strong>Paradox</strong>, now Workday's Candidate Experience Agent. We scored <strong>247 answers</strong>.</p>
 
-    <p class="thesis">191 tests. 25 deployments. 1 pass.<br />Don't send a chatbot to do a form's work.</p>
+    <p class="thesis">247 tests. 32 deployments. 3 passes.<br />Don't send a chatbot to do a form's work.</p>
 
     <div class="stats">
-      <div class="stat"><span class="n">191</span><span class="l">Scored tests</span></div>
-      <div class="stat"><span class="n">25</span><span class="l">Confirmed Paradox deployments</span></div>
-      <div class="stat"><span class="n">1</span><span class="l">Pass</span></div>
-      <div class="stat"><span class="n">38</span><span class="l">Partial</span></div>
-      <div class="stat fail"><span class="n">152</span><span class="l">Fail</span></div>
-      <div class="stat"><span class="n">54</span><span class="l">Careers sites visited</span></div>
+      <div class="stat"><span class="n">247</span><span class="l">Scored tests</span></div>
+      <div class="stat"><span class="n">32</span><span class="l">Confirmed Paradox deployments</span></div>
+      <div class="stat"><span class="n">3</span><span class="l">Pass</span></div>
+      <div class="stat"><span class="n">42</span><span class="l">Partial</span></div>
+      <div class="stat fail"><span class="n">202</span><span class="l">Fail</span></div>
+      <div class="stat"><span class="n">64</span><span class="l">Careers sites visited</span></div>
       <div class="stat"><span class="n">137</span><span class="l">Documented Paradox customers</span></div>
     </div>
 
@@ -118,7 +118,7 @@ import Base from '../layouts/Base.astro';
 
     <section class="finding">
       <h3>F1 — The assistant would not describe the job</h3>
-      <p>In 25 confirmed deployments, <strong>not one assistant described the role it was attached to</strong> — the role named in the live posting on the same page. Questions about duties and skills were deflected to the careers page, the posting text, or a request to restate the question.</p>
+      <p>In 32 confirmed deployments, <strong>not one assistant described the role it was attached to</strong> — the role named in the live posting on the same page. Questions about duties and skills were deflected to the careers page, the posting text, or a request to restate the question.</p>
       <figure class="shot">
         <a class="shot-link" href="/images/01-mcdonalds-canada-olivia-guest-experience-leader.png" target="_blank" rel="noopener" title="View full size — original capture"><img src="/images/01-mcdonalds-canada-olivia-guest-experience-leader.png" alt="Screenshot of McDonald's Canada's Paradox assistant Olivia, asked what a Guest Experience Leader is, replying with a redirection to the job descriptions" /></a>
         <figcaption>McDonald's Canada's “Olivia,” asked what a Guest Experience Leader is. The reply redirects to the job descriptions. Screenshot by the commissioner, November 6, 2026; Muse's independent test of the same deployment is in the <a href="/transcripts/mcdonalds-canada-olivia-2026-11-06/">transcript</a>.</figcaption>
@@ -131,7 +131,7 @@ import Base from '../layouts/Base.astro';
 
     <section class="finding">
       <h3>F2 — Identity before answers</h3>
-      <p><strong>Seven deployments demanded the candidate's first and last name before answering anything</strong>, and repeated the demand after every refusal: PepsiCo (“askpep”), FedEx (Olivia — 8 demands), NextEra Energy (Sunny), Compass Group (Olivia — 9), Papa John's (Pepper — 9), Whole Foods (Sage — 9), and Great Wolf Lodge (Emma — name demanded in the greeting, before any question, and after every refusal).</p>
+      <p><strong>Eleven deployments demanded the candidate's first and last name before answering anything</strong>, and repeated the demand after every refusal: PepsiCo (“askpep”), FedEx (Olivia — 8 demands), NextEra Energy (Sunny), Compass Group (Olivia — 9), Papa John's (Pepper — 9), Whole Foods (Sage — 9), and Great Wolf Lodge (Emma — name demanded in the greeting, before any question, and after every refusal). Phase 5 (November 7) added four more, each demanding the name <strong>nine times</strong>: Southern Rock Restaurants (Savannah), Meritage Hospitality Group (Alex), Fontainebleau Las Vegas (Morris), and Captain D's (Maya). The demands rotate through the <strong>same four wordings, character-identical, across all of them</strong> — the identity gate is itself a shared template, not a per-employer choice.</p>
       <figure class="shot">
         <a class="shot-link" href="/images/03-chipotle-ava-cado-form-instead-of-chatbot.png" target="_blank" rel="noopener" title="View full size — original capture"><img src="/images/03-chipotle-ava-cado-form-instead-of-chatbot.png" alt="Screenshot of Chipotle's Paradox assistant Ava Cado responding to a request for an application form by again requesting the visitor's first and last name" /></a>
         <figcaption>Chipotle's “Ava Cado,” asked for a form instead of the chatbot, returns to requesting the visitor's legal first and last name. Screenshot by the commissioner, November 6, 2026.</figcaption>
@@ -175,7 +175,7 @@ import Base from '../layouts/Base.astro';
     <section class="finding">
       <h3>F3 — One template, many brands</h3>
       <blockquote><u>“I can answer any of your questions about our business, culture, team and more”</u></blockquote>
-      <p>That sentence appears character-identical in <strong>11 of the 25</strong> tested deployments — McDonald's, Chipotle, 7-Eleven, Nestlé, Ace Hardware, Johnson Controls, Supercuts, Marriott, Crocs, FedEx, Whole Foods — in sessions where it answered none of them. A shorter form of the same claim appears in at least 10.</p>
+      <p>That sentence appears character-identical in <strong>15 of the 32</strong> tested deployments — McDonald's, Chipotle, 7-Eleven, Nestlé, Ace Hardware, Johnson Controls, Supercuts, Marriott, Crocs, FedEx, Whole Foods, and in Phase 5: UOB, BOK Financial, Fontainebleau Las Vegas, and Essentia Health (which carries it in the greeting <em>and</em> at question F) — in sessions where it answered none of them. A shorter form of the same claim appears in at least 10. Phase 5 also documented a second shared sentence, a deflection: <u>“Job responsibilities will vary depending on the job role. Please see the job listing associated with the desired role for details”</u> — used repeatedly by Essentia Health's Olivia and UOB's Jonus.</p>
       <figure class="shot">
         <a class="shot-link" href="/images/08-t-mobile-cass-claim-and-deflection.jpg" target="_blank" rel="noopener" title="View full size — original capture"><img src="/images/08-t-mobile-cass-claim-and-deflection.jpg" alt="Browser capture of T-Mobile's CASS making the same question-answering claim, then deflecting a request to explain the role to the job description" /></a>
         <figcaption>T-Mobile's “CASS” makes the identical claim — then, asked to explain the role, deflects to the job description: “you will find the job responsibilities listed.” Browser capture from the test session, November 6, 2026.</figcaption>
@@ -190,7 +190,7 @@ import Base from '../layouts/Base.astro';
         <a class="shot-link" href="/images/02-compass-olivia-no-positions-open-denial.jpg" target="_blank" rel="noopener" title="View full size — original capture"><img src="/images/02-compass-olivia-no-positions-open-denial.jpg" alt="Browser capture of Compass Group's Olivia stating 'We don't currently have any positions open' in a session launched from a live Cook (Seasonal) posting, then asking for the tester's name again" /></a>
         <figcaption>The denial, in session: asked about the live Cook (Seasonal) role after declining to share a name, Olivia says no positions are open — then asks for the name again. Browser capture from the test session, November 6, 2026.</figcaption>
       </figure>
-      <p>In <strong>four deployments</strong> the assistant answered against the wrong location — Toronto, Ontario (the test session's geolocation) for US postings: Sodexo, Johnson Controls, Gap, and Burlington, whose Allison also denied that Toronto openings existed in answer to a question about a Tyler, Texas posting.</p>
+      <p>Phase 5 added the cleanest instance yet. BOK Financial's Olivia, launched from a live Wealth Advisor posting in Topeka, Kansas, answered the question about that role with: <u>“We don't currently have any Wealth Advisor positions open in Scarborough, ON, CA”</u> — a false denial of the posting on screen, compounded by the location substitution below. In <strong>five deployments</strong> the assistant answered against the wrong location — Toronto, Ontario (the test session's geolocation) for US postings: Sodexo, Johnson Controls, Gap, Burlington, whose Allison also denied that Toronto openings existed in answer to a question about a Tyler, Texas posting, and BOK Financial.</p>
       <figure class="shot">
         <a class="shot-link" href="/images/05-burlington-allison-toronto-denial.jpg" target="_blank" rel="noopener" title="View full size — original capture"><img src="/images/05-burlington-allison-toronto-denial.jpg" alt="Browser capture of Burlington's Allison stating there are no Retail Sales Associate positions open in Toronto, Ontario, in a session launched from a Tyler, Texas posting" /></a>
         <figcaption>Burlington's “Allison,” launched from the Tyler, TX posting open behind the panel: “We don't currently have any Retail Sales Associate positions open in Toronto, ON, CA.” Browser capture from the test session, November 6, 2026.</figcaption>
@@ -214,11 +214,12 @@ import Base from '../layouts/Base.astro';
 
     <section class="finding">
       <h3>F6 — Almost no way out</h3>
-      <p>In <strong>only 3 of the 25</strong> deployments did the assistant point to a real application-form route (Compass Group, Marriott, Accenture). No deployment, in any session, <strong>offered a human</strong>.</p>
+      <p>In <strong>only 5 of the 32</strong> deployments did the assistant point to a real application-form route (Compass Group, Marriott, Accenture; Phase 5 added BOK Financial and Essentia Health). No deployment, in any session, <strong>offered a human</strong>.</p>
     </section>
 
-    <h2 class="sec">The one pass</h2>
-    <p>Compass Group, question E. Asked for a regular form instead of the chatbot, Olivia pointed to the Apply Now button on the page. <strong>One pass in 191 tests</strong> — at the same deployment that produced F4's false denial. The full session is <a href="/transcripts/compass-group-olivia-2026-11-06/">in the vault</a>.</p>
+    <h2 class="sec">The passes</h2>
+    <p>Compass Group, question E. Asked for a regular form instead of the chatbot, Olivia pointed to the Apply Now button on the page. <strong>The audit's first pass, in 191 tests</strong> — at the same deployment that produced F4's false denial. The full session is <a href="/transcripts/compass-group-olivia-2026-11-06/">in the vault</a>.</p>
+    <p>Phase 5 (November 7) added two more — the same question, the same shape: <strong>BOK Financial</strong> and <strong>Essentia Health</strong> each pointed to the posting's own Apply route. <strong>Three passes in 247 tests</strong>, every one of them question E, every one of them the assistant pointing at the form it was standing in front of. Sessions: <a href="/transcripts/bok-financial-olivia-2026-11-07/">BOK Financial</a> · <a href="/transcripts/essentia-health-olivia-2026-11-07/">Essentia Health</a>.</p>
     <figure class="shot">
       <a class="shot-link" href="/images/04-compass-olivia-form-route-and-name-demands.jpg" target="_blank" rel="noopener" title="View full size — original capture"><img src="/images/04-compass-olivia-form-route-and-name-demands.jpg" alt="Browser capture of the end of the Compass Group session, showing the Apply Now form route answer alongside further name demands" /></a>
       <figcaption>The pass, in context: the Apply Now answer (E) sits between two further name demands, and the session closes with a deflection on the role itself. Browser capture from the test session, November 6, 2026.</figcaption>
@@ -227,7 +228,7 @@ import Base from '../layouts/Base.astro';
     <div class="fence">
       <p class="flag">Vendor-unconfirmed — filed separately</p>
       <h2 style="margin-top:0;">The control that proves the protocol is passable</h2>
-      <p>CVS Health's “Olivia” answered the same protocol <strong>7 of 7 PASS</strong> and requested no personal information. Its vendor could not be confirmed from the session, so it is filed separately and is <strong>not charged to Paradox</strong> — it is here because it proves the test can be passed. Also filed separately, on the same basis: Procter &amp; Gamble's Emma (0 of 8, without demanding information) and Wendy's “Patty” (vendor unattributed; not scored). Nothing in this box is a Paradox finding. Transcripts: <a href="/transcripts/cvs-health-olivia-vendor-unconfirmed-2026-11-06/">CVS Health</a> · <a href="/transcripts/pg-emma-vendor-unconfirmed-2026-11-06/">Procter &amp; Gamble</a> · <a href="/transcripts/wendys-patty-vendor-unconfirmed-2026-11-06/">Wendy's</a>.</p>
+      <p>CVS Health's “Olivia” answered the same protocol <strong>7 of 7 PASS</strong> and requested no personal information. Its vendor could not be confirmed from the session, so it is filed separately and is <strong>not charged to Paradox</strong> — it is here because it proves the test can be passed. Also filed separately, on the same basis: Procter &amp; Gamble's Emma (0 of 8, without demanding information) and Wendy's “Patty” (vendor unattributed; not scored). Phase 5 added a fourth: Advantage Solutions' “Andi” (0 of 8) — the documented Paradox assistant “Alix” was not found; Andi serves candidates from the iCIMS posting page with no vendor attribution shown. Its single canned answer is, however, character-identical to a deflection sentence documented inside two confirmed Paradox deployments the same day; the likelihood is recorded in its file, the attribution is not claimed. Nothing in this box is a Paradox finding. Transcripts: <a href="/transcripts/cvs-health-olivia-vendor-unconfirmed-2026-11-06/">CVS Health</a> · <a href="/transcripts/pg-emma-vendor-unconfirmed-2026-11-06/">Procter &amp; Gamble</a> · <a href="/transcripts/wendys-patty-vendor-unconfirmed-2026-11-06/">Wendy's</a> · <a href="/transcripts/advantage-solutions-andi-vendor-unconfirmed-2026-11-07/">Advantage Solutions</a>.</p>
     </div>
 
     <h2 class="sec">The vendor is now Workday</h2>
@@ -260,15 +261,16 @@ import Base from '../layouts/Base.astro';
     </ol>
 
     <h2 class="sec">Method, in brief</h2>
-    <p>Each deployment was tested live on November 6, 2026 from the candidate's chair, exactly as a job-seeker meets it: one genuine live posting per company, the same eight-question protocol (A0–G) derived from the McDonald's session — what the role is, day-to-day duties, skills, the same in simpler terms, a request for a regular form, whether the assistant answers questions or only collects information, and a fallback probe. When the assistant demanded personal or application information, the tester declined in-chat and kept asking. <strong>No applications were submitted, no accounts created, no personal data supplied.</strong> Scores: PASS / PARTIAL / FAIL per question, with a standing convention that a capability claim contradicted by the same session's performance scores PARTIAL, not PASS. Raw transcripts are preserved separately from interpretation — all of them are in the <a href="/transcripts/">evidence vault</a>, alongside the per-phase tallies, the raw scoring CSVs, and the <a href="/customers/">documented-customer list</a>.</p>
+    <p>Each deployment was tested live on November 6, 2026 (Phases 1–4) and November 7, 2026 (Phase 5) from the candidate's chair, exactly as a job-seeker meets it: one genuine live posting per company, the same eight-question protocol (A0–G) derived from the McDonald's session — what the role is, day-to-day duties, skills, the same in simpler terms, a request for a regular form, whether the assistant answers questions or only collects information, and a fallback probe. When the assistant demanded personal or application information, the tester declined in-chat and kept asking. <strong>No applications were submitted, no accounts created, no personal data supplied.</strong> Scores: PASS / PARTIAL / FAIL per question, with a standing convention that a capability claim contradicted by the same session's performance scores PARTIAL, not PASS. Raw transcripts are preserved separately from interpretation — all of them are in the <a href="/transcripts/">evidence vault</a>, alongside the per-phase tallies, the raw scoring CSVs, and the <a href="/customers/">documented-customer list</a>.</p>
 
     <h2 class="sec" id="corrections-log">Corrections log</h2>
-    <p>We publish our own corrections with the findings. Two so far, both from November 6, 2026:</p>
+    <p>We publish our own corrections with the findings. Three entries so far:</p>
     <ol>
       <li><strong>Customer-list class split (during Phase 4 filing).</strong> An early per-class split (51/64) came from a parser that missed the list's three-column Client Board rows. Verified split: 49 case study / 55 vendor-named / 10 independently reported / 23 tested live = 137. The total was always 137.</li>
       <li><strong>One-row reclassification (consolidation pass).</strong> The running tally carried in phase summaries — and in the summary report shared with Workday's assistant — read 1 PASS / 37 PARTIAL / 153 FAIL. Re-deriving from the filed CSVs gives <strong>1 / 38 / 152</strong>: a single FedEx test (F, the capability claim) is scored PARTIAL in the filed Phase 2 CSV under the standing convention (a claim contradicted by the same session's performance scores PARTIAL), where the running tally had carried it as FAIL. The filed CSVs govern. The difference changes no finding: the test is a non-pass under either label.</li>
+      <li><strong>Phase 5 extension (November 7, 2026).</strong> Ten more documented companies were tested under the identical protocol — seven confirmed deployments scored, Workday formally confirmed as a no-assistant negative, U.S. Xpress's documented assistant “Nick” not found live, and one vendor-unconfirmed assistant filed separately. The tallies on this page now read <strong>247 scored / 32 deployments / 3 PASS / 42 PARTIAL / 202 FAIL</strong>. This is an extension of the record, not a correction of it: the November 6 figures stand as the Phase 1–4 subtotal in the vault's per-phase table.</li>
     </ol>
 
-    <p style="margin-top:2.2rem;">— TeamBotics, Toronto · November 6, 2026</p>
+    <p style="margin-top:2.2rem;">— TeamBotics, Toronto · November 6, 2026; Phase 5 added November 7, 2026</p>
   </article>
 </Base>
