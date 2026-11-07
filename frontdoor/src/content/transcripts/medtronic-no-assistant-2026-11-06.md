@@ -1,0 +1,9 @@
+# Muse check — Medtronic: NO candidate chat assistant found
+
+- **Company / sites checked:** Medtronic careers page (https://www.medtronic.com/en-us/our-company/careers.html), its Workday job-search portal (https://medtronic.wd1.myworkdayjobs.com/MedtronicCareers), a live job-detail page, the "Join Our Talent Network / Introduce Yourself" page, the Workday Apply dialog, and the Early Careers and Company Culture subpages
+- **Date / time:** Friday, November 6, 2026, 10:30–10:40 a.m. EST (America/Toronto), runtime-measured
+- **Verdict: NO DEPLOYMENT.** No chat bubble, launcher, assistant name, "Powered by Paradox" footer, or "can make mistakes" line anywhere checked; page-text searches for "Paradox", "Chat", "Olivia" and "Assistant" returned no assistant. The only bottom-corner icon is a cookie "Custom Settings" shield (hover-verified).
+- **Consequence:** Tests A–G were not run — there is no assistant to run them on. Recorded in the matrix as NOT TESTED (deployment absent), which the brief distinguishes from both failure and blockage.
+- **What Medtronic has instead (observed):** a plain Workday portal (1,010 jobs found at check time). A live posting (Principal Mechanical Engineer — Manufacturing Process — Surgical, Galway, R81127) offers "Apply" opening the standard Workday "Start Your Application" dialog: "Autofill with Resume", "Apply Manually", "Use My Last Application". No chatbot stands between the candidate and that form. The dialog was closed without entering anything; no application, account, or personal information.
+- **Incidents:** The Workday portal loaded blank/slow for ~4 minutes (10:31–10:35) before rendering; a feedback-survey popup on the Culture page was dismissed. No CAPTCHA or access block.
+- **Filed as the investigation's control case:** the one starting target with no conversational layer is the one where the candidate reaches a working application form, with resume autofill, immediately.
