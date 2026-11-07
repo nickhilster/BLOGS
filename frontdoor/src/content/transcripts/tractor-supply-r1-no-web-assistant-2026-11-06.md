@@ -1,0 +1,9 @@
+# Muse check — Replacement R1, Tractor Supply Company: NO web chat assistant found
+
+- **Basis for selection:** Paradox's own case study (paradox.ai/case-studies/tractor-supply-co) documents Tractor Supply as a Paradox conversational-AI customer whose assistant is "Cory" — see `replacement-targets-2026-11-06.md`. Approved by Nik 2026-11-06 as replacement target R1.
+- **Sites checked:** Official careers site reached from tractorsupply.com's footer "Work With Us > Careers": https://www.tractorsupply.careers — homepage (visited twice), Location/Job Search landing page, job-search results (6,776 jobs), one job detail page (Team Member, Clover SC, Req. ID 1418347500, posted 10/27/2026) scrolled to footer, and the Apply flow.
+- **Date / time:** Friday, November 6, 2026, 10:48–10:51 a.m. EST (America/Toronto), runtime-measured.
+- **Verdict: NO DEPLOYMENT FOUND on the web careers site.** No chat widget, floating chat button, assistant entry point, "Cory" text, "Powered by Paradox" footer, or "can make mistakes" line on any page checked. Tests A–G were not run.
+- **What exists instead (observed):** "Apply now" redirects to SAP SuccessFactors (career4.successfactors.com, company=tractorsup) — a sign-in/create-account page with no chat assistant. Recorded as NOT TESTED (no web deployment found).
+- **Scope caution, recorded honestly:** the vendor's case study emphasises mobile/text engagement ("chat to apply"). This check covers the **web** careers experience only, which is the surface this investigation's protocol tests. It does not establish that Tractor Supply runs no Paradox channel anywhere (e.g., SMS); it establishes that a candidate arriving at the official careers website on 2026-11-06 meets no assistant there.
+- No personal information entered, no application, no account, no CAPTCHA. Cookies rejected.
