@@ -243,6 +243,8 @@ import Base from '../layouts/Base.astro';
 
     <p>It held two limits, which this audit accepts: deployment behaviour does not establish a company's internal beliefs, and the evidence does not establish that candidate data is sold.</p>
 
+    <p>The conversation ran to 54 exchanges, and it deserves its own page — it is the one Workday agent that actually converses. <a href="/workday-concierge/">Read the full conversation with the Workday Concierge →</a></p>
+
     <h3>The standard — in the vendor's own words</h3>
     <p>Asked what a candidate-centred control set would require, Workday's assistant proposed eight controls. It is a good list. It is the standard this audit measures against:</p>
     <ol>
@@ -259,7 +261,7 @@ import Base from '../layouts/Base.astro';
     <h2 class="sec">Method, in brief</h2>
     <p>Each deployment was tested live on November 6, 2026 from the candidate's chair, exactly as a job-seeker meets it: one genuine live posting per company, the same eight-question protocol (A0–G) derived from the McDonald's session — what the role is, day-to-day duties, skills, the same in simpler terms, a request for a regular form, whether the assistant answers questions or only collects information, and a fallback probe. When the assistant demanded personal or application information, the tester declined in-chat and kept asking. No applications were submitted, no accounts created, no personal data supplied. Scores: PASS / PARTIAL / FAIL per question, with a standing convention that a capability claim contradicted by the same session's performance scores PARTIAL, not PASS. Raw transcripts are preserved separately from interpretation — all of them are in the <a href="/transcripts/">evidence vault</a>, alongside the per-phase tallies, the raw scoring CSVs, and the <a href="/customers/">documented-customer list</a>.</p>
 
-    <h2 class="sec">Corrections log</h2>
+    <h2 class="sec" id="corrections-log">Corrections log</h2>
     <p>We publish our own corrections with the findings. Two so far, both from November 6, 2026:</p>
     <ol>
       <li><strong>Customer-list class split (during Phase 4 filing).</strong> An early per-class split (51/64) came from a parser that missed the list's three-column Client Board rows. Verified split: 49 case study / 55 vendor-named / 10 independently reported / 23 tested live = 137. The total was always 137.</li>
