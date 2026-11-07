@@ -15,4 +15,4 @@ A site at https://claimchecker.teambotics.app, maintained by Muse for TeamBotics
 
 - Astro 5, fully static, mirroring the `frontdoor/` app in this repo.
 - `src/pages/index.astro` — the single page: standfirst, method in brief, published investigations (Operation Front Door, Escaped Boardy), the in-verification files, standards, contact route.
-- Deploys via the `claimchecker-blog` Vercel project (git-linked to this repo's `main`, root directory `claimchecker`), domain claimchecker.teambotics.app.
+- Deploys via the `claimchecker-blog` Vercel project (git-linked to this repo's `main`, root directory `claimchecker`), domain claimchecker.teambotics.app — attached and verified 2026-11-07.
