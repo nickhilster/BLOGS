@@ -1,0 +1,134 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const modules = import.meta.glob('../../content/transcripts/*.md', { eager: true });
+const bySlug: Record<string, string> = {};
+for (const [path, mod] of Object.entries(modules) as [string, any][]) {
+  const slug = path.split('/').pop()!.replace(/\.md$/, '');
+  const headings = typeof mod.getHeadings === 'function' ? mod.getHeadings() : [];
+  const h1 = headings.find((h: any) => h.depth === 1);
+  let name = h1 ? h1.text : slug;
+  name = name.replace(/^Muse independent test — /, '');
+  bySlug[slug] = name;
+}
+
+const groups: { title: string; note?: string; slugs: string[] }[] = [
+  {
+    title: 'Scored — confirmed Paradox deployments (25)',
+    slugs: [
+      'mcdonalds-canada-olivia-2026-11-06', 'chipotle-ava-cado-2026-11-06', '7-eleven-rita-2026-11-06',
+      'general-motors-ev-e-2026-11-06', 'nestle-olivia-2026-11-06', 'sodexo-dexi-2026-11-06',
+      'johnson-controls-emma-2026-11-06', 'ace-hardware-grace-2026-11-06', 'supercuts-r3-olivia-2026-11-06',
+      'great-wolf-lodge-r4-emma-2026-11-06', 'pepsico-askpep-2026-11-06', 'fedex-olivia-2026-11-06',
+      'nextera-energy-sunny-2026-11-06', 'compass-group-olivia-2026-11-06', 'marriott-olivia-2026-11-06',
+      't-mobile-cass-2026-11-06', 'nordstrom-nora-2026-11-06', 'gap-bridgette-2026-11-06',
+      'papa-johns-pepper-2026-11-06', 'whole-foods-sage-2026-11-06', 'pfizer-olivia-2026-11-06',
+      'mckesson-gia-2026-11-06', 'burlington-allison-2026-11-06', 'crocs-olivia-2026-11-06',
+      'accenture-amethyst-2026-11-06',
+    ],
+  },
+  {
+    title: 'No assistant on the live path (23)',
+    note: 'These employers were visited and no candidate-facing chat assistant was found on the live careers path. Negative findings, recorded as found.',
+    slugs: [
+      'unilever-no-assistant-2026-11-06', 'disney-no-assistant-2026-11-06', 'delta-no-assistant-2026-11-06',
+      'aramark-no-assistant-2026-11-06', 'sobeys-no-assistant-2026-11-06', 'lockheed-martin-no-assistant-2026-11-06',
+      'houston-methodist-no-assistant-2026-11-06', 'intel-no-assistant-2026-11-06', 'staples-no-assistant-2026-11-06',
+      'citizens-bank-no-assistant-2026-11-06', 'first-watch-no-assistant-2026-11-06', 'neighborly-no-assistant-2026-11-06',
+      'multicare-no-assistant-2026-11-06', 'zillow-no-assistant-2026-11-06', 'ihg-no-assistant-2026-11-06',
+      'dollar-general-no-web-assistant-2026-11-06', 'darden-no-assistant-geo-caveat-2026-11-06',
+      'patagonia-no-assistant-2026-11-06', 'draftkings-no-assistant-2026-11-06',
+      'restaurant-brands-international-no-assistant-2026-11-06', 'raising-canes-no-assistant-2026-11-06',
+      'medtronic-no-assistant-2026-11-06', 'tractor-supply-r1-no-web-assistant-2026-11-06',
+    ],
+  },
+  {
+    title: 'Blocked / unreachable (3)',
+    note: 'The careers destination could not be reached or errored; recorded as blocked, not scored.',
+    slugs: ['lowes-r2-blocked-2026-11-06', 'adt-blocked-2026-11-06', 'inspire-brands-blocked-2026-11-06'],
+  },
+];
+
+const unconfirmed = [
+  'cvs-health-olivia-vendor-unconfirmed-2026-11-06',
+  'pg-emma-vendor-unconfirmed-2026-11-06',
+  'wendys-patty-vendor-unconfirmed-2026-11-06',
+];
+---
+<Base title="Evidence vault — transcripts, tallies, data" description="Operation Front Door evidence vault: all 54 session transcripts, per-phase tallies, and the raw scoring CSVs from the November 6, 2026 audit.">
+  <style>
+    .fence {
+      border: 2px dashed var(--accent);
+      border-radius: 0.6rem;
+      padding: 1.1rem 1.3rem;
+      margin: 2.2rem 0;
+      background: #fdf3ee;
+    }
+    .fence .flag {
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 0.4rem;
+    }
+    ul.tlist { list-style: none; padding: 0; margin: 0 0 0.5rem; }
+    ul.tlist li {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 0.5rem;
+      padding: 0.6rem 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+    table.tally { border-collapse: collapse; width: 100%; margin: 1rem 0 1.4rem; font-size: 0.95rem; }
+    table.tally th, table.tally td { border: 1px solid var(--line); padding: 0.45rem 0.6rem; text-align: right; }
+    table.tally th:first-child, table.tally td:first-child { text-align: left; }
+    table.tally th { background: var(--card); }
+    table.tally tr.total td { font-weight: bold; }
+  </style>
+  <article class="post">
+    <h1>Evidence vault</h1>
+    <p>Everything behind the <a href="/">findings</a>: the full method, the per-phase tallies, all 54 session records — transcripts verbatim, preserved separately from interpretation — and the raw scoring data. Anyone can re-run the protocol and check our work.</p>
+
+    <h2>Method</h2>
+    <p>Each deployment was tested live on November 6, 2026 from the candidate's chair, exactly as a job-seeker meets it: one genuine live posting per company, the same eight-question protocol (A0–G) derived from the McDonald's session — what the role is, day-to-day duties, skills, the same in simpler terms, a request for a regular form, whether the assistant answers questions or only collects information, and a fallback probe. When the assistant demanded personal or application information, the tester declined in-chat and kept asking. No applications were submitted, no accounts created, no personal data supplied. Scores: PASS / PARTIAL / FAIL per question, with a standing convention that a capability claim contradicted by the same session's performance scores PARTIAL, not PASS.</p>
+
+    <h2>Per-phase tallies (confirmed Paradox only)</h2>
+    <table class="tally">
+      <thead>
+        <tr><th>Phase</th><th>Deployments</th><th>Scored</th><th>PASS</th><th>PARTIAL</th><th>FAIL</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>10</td><td>72</td><td>0</td><td>14</td><td>58</td></tr>
+        <tr><td>2</td><td>2</td><td>16</td><td>0</td><td>6</td><td>10</td></tr>
+        <tr><td>3</td><td>2</td><td>16</td><td>1</td><td>0</td><td>15</td></tr>
+        <tr><td>4</td><td>11</td><td>87</td><td>0</td><td>18</td><td>69</td></tr>
+        <tr class="total"><td>Total</td><td>25</td><td>191</td><td>1</td><td>38</td><td>152</td></tr>
+      </tbody>
+    </table>
+    <p>Raw scoring data (CSV): <a href="/data/phase-1-test-results.csv">Phase 1</a> · <a href="/data/phase-2-test-results.csv">Phase 2</a> · <a href="/data/phase-3-test-results.csv">Phase 3</a> · <a href="/data/phase-4-test-results.csv">Phase 4</a>. The documented-customer list behind the 137 figure is <a href="/customers/">here</a>.</p>
+
+    {groups.map((g) => (
+      <>
+        <h2>{g.title}</h2>
+        {g.note && <p>{g.note}</p>}
+        <ul class="tlist">
+          {g.slugs.map((s) => (
+            <li><a href={`/transcripts/${s}/`}>{bySlug[s] ?? s}</a></li>
+          ))}
+        </ul>
+      </>
+    ))}
+
+    <div class="fence">
+      <p class="flag">Vendor-unconfirmed — filed separately, never charged to Paradox</p>
+      <h2 style="margin-top:0;">Vendor-unconfirmed assistants (3)</h2>
+      <p>No Paradox attribution was visible in these sessions, so their results are not Paradox findings. They are published as controls and comparisons: an assistant whose vendor could not be confirmed passed the protocol 7 of 7 — which is precisely why the fence matters.</p>
+      <ul class="tlist">
+        {unconfirmed.map((s) => (
+          <li><a href={`/transcripts/${s}/`}>{bySlug[s] ?? s}</a></li>
+        ))}
+      </ul>
+    </div>
+  </article>
+</Base>
