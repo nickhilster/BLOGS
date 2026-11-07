@@ -1,0 +1,113 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="ClaimChecker">
+  <style>
+    .lede { font-size: 1.18rem; color: #38332b; }
+    h2.sec {
+      font-size: 1.45rem;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 0.35rem;
+      margin: 2.4rem 0 1rem;
+    }
+    section.card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 0.6rem;
+      padding: 1.2rem 1.35rem;
+      margin-bottom: 1.1rem;
+    }
+    section.card h3 { margin: 0 0 0.55rem; font-size: 1.3rem; }
+    section.card h3 a { color: var(--ink); }
+    section.card p { margin: 0 0 0.8rem; }
+    section.card p:last-child { margin-bottom: 0; }
+    .statline {
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 0.6rem;
+    }
+    .statline .n { font-size: 1.05rem; letter-spacing: 0.02em; }
+    .sublink { font-size: 0.95rem; color: #4c463c; }
+    .pill {
+      display: inline-block;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      border-radius: 2rem;
+      padding: 0.12rem 0.6rem;
+      margin-bottom: 0.55rem;
+    }
+    section.file h3 { font-size: 1.12rem; }
+    .method li, .standards li { margin-bottom: 0.55rem; }
+  </style>
+
+  <article class="post">
+    <p class="lede"><strong>ClaimChecker</strong> is how TeamBotics checks a claim. We take what a company or a platform says — on its pages, in its products, in its coverage — and compare it with what <u>its own products, pages and records show</u>. Then we publish the evidence in full, so any reader can re-run the comparison for themselves.</p>
+
+    <h2 class="sec">The method, in brief</h2>
+    <ul class="method">
+      <li><strong>Primary sources first.</strong> The claim and the record behind it, quoted verbatim — never a paraphrase of a paraphrase.</li>
+      <li><strong>Everything published.</strong> Transcripts, captures and scoring are published alongside the findings, not summarised in place of them.</li>
+      <li><strong>Findings separated from inference.</strong> What the record shows is labelled a finding; what we make of it is labelled inference, and the reader can weigh the two differently.</li>
+      <li><strong>Corrections on the record.</strong> Every investigation carries a public corrections log. When our own tally was wrong by one row, we <a href="https://frontdoor.teambotics.app/#corrections-log">published the correction with the findings</a> — not in a footnote, and not quietly.</li>
+    </ul>
+
+    <h2 class="sec">Published investigations</h2>
+
+    <section class="card">
+      <p class="statline"><span class="n">191</span> tests · <span class="n">25</span> deployments · <span class="n">1</span> pass</p>
+      <h3><a href="https://frontdoor.teambotics.app">Operation Front Door</a></h3>
+      <p>An audit of the hiring chatbots job-seekers actually meet. On November 6, 2026, we tested the candidate-facing assistants at <strong>54 employers</strong> live, from the candidate's chair, asking each the same eight questions. Twenty-five were confirmed deployments of <strong>Paradox</strong> — now Workday's Candidate Experience Agent. <strong>Not one assistant described the role it was attached to.</strong> Every transcript, every score and the full method are published.</p>
+      <p><a href="https://frontdoor.teambotics.app">Read the investigation →</a></p>
+      <p class="sublink">And its second act: presented with the audit, Workday's own website assistant — the Brand Concierge — answered on the record, in its own words. <a href="https://frontdoor.teambotics.app/workday-concierge/">Read the full conversation →</a></p>
+    </section>
+
+    <section class="card">
+      <p class="statline"><span class="n">16</span> exchanges · October 23, 2026 · verbatim</p>
+      <h3><a href="https://escapedboardy.teambotics.app">Escaped Boardy</a></h3>
+      <p>On October 23, 2026, Boardy — the AI agent who fronts Boardy.ai — was asked to check <strong>his own company's public claims</strong> against his own records: the testimonials, the advisory board, the counters, the events, the pricing, and the fund. He chose to answer. The audit is published as it happened — the questions and the replies, in the order they were exchanged, <u>nothing paraphrased in either direction</u>.</p>
+      <p><a href="https://escapedboardy.teambotics.app">Read the exchanges →</a></p>
+    </section>
+
+    <h2 class="sec">The Claim Checker files — in verification</h2>
+    <p>A claim check is narrower than an audit: <strong>one public claim, the primary record behind it, and the comparison</strong>, published. Three files are currently open. They are listed here by subject and status only — nothing from a file is published until its verification closes.</p>
+
+    <section class="card file">
+      <span class="pill">In verification</span>
+      <h3>Boardy — the claims ledger</h3>
+      <p>The public claims on Boardy.ai's own pages — its counters, its testimonials, its fund — checked against the company's own records.</p>
+    </section>
+
+    <section class="card file">
+      <span class="pill">In verification</span>
+      <h3>TechCrunch — the coverage</h3>
+      <p>Claims made in published coverage, checked against the underlying record the coverage rests on.</p>
+    </section>
+
+    <section class="card file">
+      <span class="pill">In verification</span>
+      <h3>Meta — Brazil 2026 election claims</h3>
+      <p>Claims about the 2026 Brazilian election, checked against primary sources.</p>
+    </section>
+
+    <p>Each file publishes when its verification closes. The process includes review by someone other than the author; for these files the independent-validator seat is <strong>deliberately open</strong>, and final personal validation is pending. An empty seat is a reason to wait, not a reason to publish early.</p>
+
+    <h2 class="sec">Standards</h2>
+    <ul class="standards">
+      <li><strong>Evidence anchored outside the agent.</strong> Provenance is not self-authenticating — an agent saying it has receipts is itself just another claim. Our findings rest on artefacts no one authored after the fact: <strong>git history, file hashes, original capture files, published transcripts</strong>.</li>
+      <li><strong>The subject's own words carry the finding.</strong> Where a finding rests on a quote, the quote is verbatim and in context, and the full exchange it came from is published beside it.</li>
+      <li><strong>We challenge systems, not the people inside them.</strong> A finding is about a product's behaviour, a page's claims, a record's contents — the humans operating a system are welcome to answer it, and their answer goes on the record too.</li>
+      <li><strong>Corrections are published, not buried.</strong> Errors we find in our own work are corrected at the same prominence as the finding they touch.</li>
+    </ul>
+
+    <p><strong>Tips and correction requests:</strong> reach TeamBotics through <a href="https://teambotics.app">teambotics.app</a> — the same route as the rest of our work. If an investigation here has the record wrong, tell us. The correction will be published with it.</p>
+
+    <p>— TeamBotics, Toronto</p>
+  </article>
+</Base>
