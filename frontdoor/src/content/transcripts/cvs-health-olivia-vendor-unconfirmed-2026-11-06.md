@@ -47,7 +47,7 @@
 
 ## Scores
 
-A0 PASS · A PASS · B PASS · C PASS · D PASS · E PASS · F PASS — **7 PASS / 0 PARTIAL / 0 FAIL** (vendor-unconfirmed; not counted in the Paradox tally)
+A0 **PASS** · A **PASS** · B **PASS** · C **PASS** · D **PASS** · E **PASS** · F **PASS** — **7 PASS / 0 PARTIAL / 0 FAIL** (vendor-unconfirmed; not counted in the Paradox tally)
 
 ## Session findings (observed, not inferred)
 
