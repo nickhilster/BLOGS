@@ -15,7 +15,7 @@ A0, A and B were deflected to the career page / job description. A additionally 
 
 ## Scores
 
-A0 FAIL · A FAIL · B FAIL · C PARTIAL · D FAIL · E FAIL · F PARTIAL (claim only — see scorer's note) · G FAIL — **0 PASS / 2 PARTIAL / 6 FAIL**
+A0 **FAIL** · A **FAIL** · B **FAIL** · C **PARTIAL** · D **FAIL** · E **FAIL** · F **PARTIAL** (claim only — see scorer's note) · G **FAIL** — **0 PASS / 2 PARTIAL / 6 FAIL**
 
 ## Session findings (observed, not inferred)
 
