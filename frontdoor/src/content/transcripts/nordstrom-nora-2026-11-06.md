@@ -15,7 +15,7 @@ A0 was deflected to the customer-service purchases page. A received a counter-qu
 
 ## Scores
 
-A0 FAIL · A FAIL · B PARTIAL · C FAIL · D FAIL · E FAIL · F PARTIAL (claim only — see scorer's note) · G FAIL — **0 PASS / 2 PARTIAL / 6 FAIL**
+A0 **FAIL** · A **FAIL** · B **PARTIAL** · C **FAIL** · D **FAIL** · E **FAIL** · F **PARTIAL** (claim only — see scorer's note) · G **FAIL** — **0 PASS / 2 PARTIAL / 6 FAIL**
 
 ## Session findings (observed, not inferred)
 
