@@ -168,6 +168,7 @@ const pageShots = shots[slug] ?? [];
       box-shadow: 0 8px 24px rgba(35, 32, 27, 0.10);
     }
     figure.shot figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 0.45rem; }
+    .shot-hint { font-style: italic; }
   </style>
   <article class="post">
     {unconfirmed && (
@@ -178,8 +179,10 @@ const pageShots = shots[slug] ?? [];
     <Content />
     {pageShots.map((s) => (
       <figure class="shot">
-        <img src={s.src} alt={s.alt} loading="lazy" />
-        <figcaption>{s.caption}</figcaption>
+        <a class="shot-link" href={s.src} target="_blank" rel="noopener" title="View full size — original capture">
+          <img src={s.src} alt={s.alt} loading="lazy" />
+        </a>
+        <figcaption>{s.caption} <span class="shot-hint">Click the frame to view it full size.</span></figcaption>
       </figure>
     ))}
     <p style="margin-top:2.5rem;"><a href="/transcripts/">← All transcripts</a> · <a href="/">Findings</a></p>
