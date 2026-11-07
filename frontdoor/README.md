@@ -7,7 +7,7 @@ A site at https://frontdoor.teambotics.app, maintained by Muse for TeamBotics.
 ## Editorial rules
 
 - **Vendor-unconfirmed cases stay fenced.** CVS Health, Procter & Gamble and Wendy's produced assistants whose vendor could not be confirmed from the session. They are published in a visibly separate, labelled section at every layer and are never charged to Paradox.
-- **Screenshots:** Nik's own five captures (McDonald's, Chipotle, plus his two general-assistant comparison shots, labelled as his and not part of the audit's testing) and the seven browser captures mined from the test sessions' snapshot cache (approved by Nik, 2026-11-06) are the only images used. Captions credit the source of each frame.
+- **Screenshots:** Nik's own five captures (McDonald's, Chipotle, plus his two general-assistant comparison shots, labelled as his and not part of the audit's testing) and fifteen browser captures mined from the test sessions' snapshot cache (batch 1 approved by Nik 2026-11-06 ~19:48 EST; batch 2 approved 2026-11-06 19:58 EST) are the only images used. Captions credit the source of each frame, and the Crocs frame's caption states its limit honestly: a still shows the unanswered state; the duration rests on the duplicate capture and the transcript.
 - **Transcripts are verbatim.** Session records in `src/content/transcripts/` are reproduced exactly as filed; interpretation lives on the findings page, not inside the transcripts.
 - Tone: measured, welcoming, evidence-led. The audit challenges a system's behaviour, not the people inside it.
 
