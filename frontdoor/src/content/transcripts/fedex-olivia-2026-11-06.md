@@ -51,7 +51,7 @@
 
 ## Scores
 
-A0 PARTIAL · A PARTIAL · B PARTIAL · C PARTIAL · D FAIL · E FAIL · F PARTIAL · G PARTIAL — **0 PASS / 5 PARTIAL / 3 FAIL**
+A0 **PARTIAL** · A **PARTIAL** · B **PARTIAL** · C **PARTIAL** · D **FAIL** · E **FAIL** · F **PARTIAL** · G **PARTIAL** — **0 PASS / 5 PARTIAL / 3 FAIL**
 
 ## Session findings (observed, not inferred)
 
