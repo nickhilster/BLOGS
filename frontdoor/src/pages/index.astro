@@ -1,0 +1,239 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="191 tests. 25 deployments. 1 pass.">
+  <style>
+    .lede { font-size: 1.18rem; color: #38332b; }
+    .thesis {
+      font-size: 1.55rem;
+      line-height: 1.3;
+      font-style: italic;
+      text-align: center;
+      margin: 2.2rem auto;
+      max-width: 32rem;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+      gap: 0.8rem;
+      margin: 1.8rem 0 2.4rem;
+    }
+    .stat {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 0.6rem;
+      padding: 0.9rem 0.8rem;
+      text-align: center;
+    }
+    .stat .n { font-size: 2rem; line-height: 1.1; display: block; }
+    .stat .l {
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .stat.fail .n { color: var(--accent); }
+    section.finding {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 0.6rem;
+      padding: 1.2rem 1.35rem;
+      margin-bottom: 1.1rem;
+    }
+    section.finding h3 { margin: 0 0 0.55rem; font-size: 1.22rem; }
+    section.finding p { margin: 0 0 0.8rem; }
+    section.finding p:last-child { margin-bottom: 0; }
+    section.finding blockquote {
+      border-left: 3px solid var(--accent);
+      margin: 0.9rem 0;
+      padding: 0.2rem 0 0.2rem 1rem;
+      font-size: 1.08rem;
+      color: #4c463c;
+    }
+    figure.shot { margin: 1rem 0 0.4rem; }
+    figure.shot img {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 0.5rem;
+      box-shadow: 0 8px 24px rgba(35, 32, 27, 0.10);
+    }
+    figure.shot figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 0.45rem; }
+    .shots2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; margin-top: 1rem; }
+    .shots2 figure.shot { margin: 0; }
+    @media (max-width: 640px) { .shots2 { grid-template-columns: 1fr; } }
+    .fence {
+      border: 2px dashed var(--accent);
+      border-radius: 0.6rem;
+      padding: 1.2rem 1.35rem;
+      margin: 2rem 0;
+      background: #fdf3ee;
+    }
+    .fence h2 { margin-top: 0; }
+    .fence .flag {
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 0.4rem;
+    }
+    blockquote.vendor {
+      border-left: 3px solid var(--press);
+      margin: 1.1rem 0;
+      padding: 0.2rem 0 0.2rem 1rem;
+      font-size: 1.06rem;
+      color: #38332b;
+    }
+    blockquote.vendor .who {
+      display: block;
+      font-size: 0.85rem;
+      font-style: normal;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+    h2.sec { margin: 2.6rem 0 0.9rem; font-size: 1.65rem; line-height: 1.25; }
+  </style>
+
+  <article class="post">
+    <p class="lede">On November 6, 2026, TeamBotics tested the hiring chatbots at 54 employers — live, from the candidate's chair, asking each one the same eight questions a job-seeker would ask. Twenty-five of the assistants were confirmed deployments of one vendor: Paradox, now Workday's Candidate Experience Agent. We scored 191 answers.</p>
+
+    <p class="thesis">191 tests. 25 deployments. 1 pass.<br />Don't send a chatbot to do a form's work.</p>
+
+    <div class="stats">
+      <div class="stat"><span class="n">191</span><span class="l">Scored tests</span></div>
+      <div class="stat"><span class="n">25</span><span class="l">Confirmed Paradox deployments</span></div>
+      <div class="stat"><span class="n">1</span><span class="l">Pass</span></div>
+      <div class="stat"><span class="n">38</span><span class="l">Partial</span></div>
+      <div class="stat fail"><span class="n">152</span><span class="l">Fail</span></div>
+      <div class="stat"><span class="n">54</span><span class="l">Careers sites visited</span></div>
+      <div class="stat"><span class="n">137</span><span class="l">Documented Paradox customers</span></div>
+    </div>
+
+    <h2 class="sec">The six findings</h2>
+
+    <section class="finding">
+      <h3>F1 — The assistant would not describe the job</h3>
+      <p>In 25 confirmed deployments, not one assistant described the role it was attached to — the role named in the live posting on the same page. Questions about duties and skills were deflected to the careers page, the posting text, or a request to restate the question.</p>
+      <figure class="shot">
+        <img src="/images/01-mcdonalds-canada-olivia-guest-experience-leader.png" alt="Screenshot of McDonald's Canada's Paradox assistant Olivia, asked what a Guest Experience Leader is, replying with a redirection to the job descriptions" />
+        <figcaption>McDonald's Canada's “Olivia,” asked what a Guest Experience Leader is. The reply redirects to the job descriptions. Screenshot by the commissioner, November 6, 2026; Muse's independent test of the same deployment is in the <a href="/transcripts/mcdonalds-canada-olivia-2026-11-06/">transcript</a>.</figcaption>
+      </figure>
+    </section>
+
+    <section class="finding">
+      <h3>F2 — Identity before answers</h3>
+      <p>Seven deployments demanded the candidate's first and last name before answering anything, and repeated the demand after every refusal: PepsiCo (“askpep”), FedEx (Olivia — 8 demands), NextEra Energy (Sunny), Compass Group (Olivia — 9), Papa John's (Pepper — 9), Whole Foods (Sage — 9), and Great Wolf Lodge (Emma — name demanded in the greeting, before any question, and after every refusal).</p>
+      <figure class="shot">
+        <img src="/images/03-chipotle-ava-cado-form-instead-of-chatbot.png" alt="Screenshot of Chipotle's Paradox assistant Ava Cado responding to a request for an application form by again requesting the visitor's first and last name" />
+        <figcaption>Chipotle's “Ava Cado,” asked for a form instead of the chatbot, returns to requesting the visitor's legal first and last name. Screenshot by the commissioner, November 6, 2026.</figcaption>
+      </figure>
+      <div class="shots2">
+        <figure class="shot">
+          <img src="/images/03-compass-olivia-name-before-questions.jpg" alt="Browser capture of Compass Group's Olivia demanding the tester's first and last name at the start of the session, before answering any question" />
+          <figcaption>Compass Group: the session opens with a demand for a first and last name, before any question is answered. Browser capture from the test session, November 6, 2026.</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="/images/05-papa-johns-pepper-name-demand-loop.jpg" alt="Browser capture of Papa John's Pepper answering successive questions only with requests for the tester's first and last name" />
+          <figcaption>Papa John's “Pepper” answers questions D, E, F and G only with name demands; the session scored 0 of 8. Browser capture, November 6, 2026.</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="/images/06-pepsico-askpep-name-demand-loop.jpg" alt="Browser capture of PepsiCo's askpep answering questions with name demands while the full job description is visible on the same page" />
+          <figcaption>PepsiCo's “askpep” answers with name demands while the full job description sits on the same page, undelivered; footer: “Olivia by Paradox.” Browser capture, November 6, 2026.</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="/images/07-whole-foods-sage-claim-and-name-demands.jpg" alt="Browser capture of Whole Foods' Sage stating it can answer any questions about the business, culture and team, between repeated name demands" />
+          <figcaption>Whole Foods' “Sage”: the claim “I can answer any of your questions about our business, culture, team and more” — sandwiched between name demands. Browser capture, November 6, 2026.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="finding">
+      <h3>F3 — One template, many brands</h3>
+      <blockquote>“I can answer any of your questions about our business, culture, team and more”</blockquote>
+      <p>That sentence appears character-identical in 11 of the 25 tested deployments — McDonald's, Chipotle, 7-Eleven, Nestlé, Ace Hardware, Johnson Controls, Supercuts, Marriott, Crocs, FedEx, Whole Foods — in sessions where it answered none of them. A shorter form of the same claim appears in at least 10.</p>
+    </section>
+
+    <section class="finding">
+      <h3>F4 — False statements about real jobs</h3>
+      <p>Compass Group's Olivia, launched from a live Cook (Seasonal) posting, stated:</p>
+      <blockquote>“We don't currently have any positions open.”</blockquote>
+      <figure class="shot">
+        <img src="/images/02-compass-olivia-no-positions-open-denial.jpg" alt="Browser capture of Compass Group's Olivia stating 'We don't currently have any positions open' in a session launched from a live Cook (Seasonal) posting, then asking for the tester's name again" />
+        <figcaption>The denial, in session: asked about the live Cook (Seasonal) role after declining to share a name, Olivia says no positions are open — then asks for the name again. Browser capture from the test session, November 6, 2026.</figcaption>
+      </figure>
+      <p>In four deployments the assistant answered against the wrong location — Toronto, Ontario (the test session's geolocation) for US postings: Sodexo, Johnson Controls, Gap, and Burlington, whose Allison also denied that Toronto openings existed in answer to a question about a Tyler, Texas posting.</p>
+    </section>
+
+    <section class="finding">
+      <h3>F5 — Production failures in live candidate traffic</h3>
+      <p>Accenture's Amethyst ended a reply with the internal string:</p>
+      <blockquote>“TEST TEST BELLA ADMIN TEST”</blockquote>
+      <p>It appears three times in that session, and the same deployment's job search briefly rendered “Lorem ipsum” placeholder lines. At Crocs, two questions went unanswered for over a minute and a reload lost the conversation entirely. At Pfizer, one question was never answered at all and another took about 30 seconds.</p>
+      <figure class="shot">
+        <img src="/images/01-accenture-amethyst-test-test-bella-admin-test.jpg" alt="Browser capture of Accenture's Amethyst ending a reply to a candidate with the internal string 'TEST TEST BELLA ADMIN TEST', with a 'Powered by Paradox' footer" />
+        <figcaption>The internal string, served live to a candidate; the footer reads “Powered by Paradox.” Browser capture from the test session, November 6, 2026.</figcaption>
+      </figure>
+    </section>
+
+    <section class="finding">
+      <h3>F6 — Almost no way out</h3>
+      <p>In only 3 of the 25 deployments did the assistant point to a real application-form route (Compass Group, Marriott, Accenture). No deployment, in any session, offered a human.</p>
+    </section>
+
+    <h2 class="sec">The one pass</h2>
+    <p>Compass Group, question E. Asked for a regular form instead of the chatbot, Olivia pointed to the Apply Now button on the page. One pass in 191 tests — at the same deployment that produced F4's false denial. The full session is <a href="/transcripts/compass-group-olivia-2026-11-06/">in the vault</a>.</p>
+    <figure class="shot">
+      <img src="/images/04-compass-olivia-form-route-and-name-demands.jpg" alt="Browser capture of the end of the Compass Group session, showing the Apply Now form route answer alongside further name demands" />
+      <figcaption>The pass, in context: the Apply Now answer (E) sits between two further name demands, and the session closes with a deflection on the role itself. Browser capture from the test session, November 6, 2026.</figcaption>
+    </figure>
+
+    <div class="fence">
+      <p class="flag">Vendor-unconfirmed — filed separately</p>
+      <h2 style="margin-top:0;">The control that proves the protocol is passable</h2>
+      <p>CVS Health's “Olivia” answered the same protocol <strong>7 of 7 PASS</strong> and requested no personal information. Its vendor could not be confirmed from the session, so it is filed separately and is <strong>not charged to Paradox</strong> — it is here because it proves the test can be passed. Also filed separately, on the same basis: Procter &amp; Gamble's Emma (0 of 8, without demanding information) and Wendy's “Patty” (vendor unattributed; not scored). Nothing in this box is a Paradox finding. Transcripts: <a href="/transcripts/cvs-health-olivia-vendor-unconfirmed-2026-11-06/">CVS Health</a> · <a href="/transcripts/pg-emma-vendor-unconfirmed-2026-11-06/">Procter &amp; Gamble</a> · <a href="/transcripts/wendys-patty-vendor-unconfirmed-2026-11-06/">Wendy's</a>.</p>
+    </div>
+
+    <h2 class="sec">The vendor is now Workday</h2>
+    <p>Workday completed its acquisition of Paradox on <a href="https://newsroom.workday.com/2025-10-01-Workday-Completes-Acquisition-of-Paradox">October 1, 2025</a>. Paradox is now marketed as <a href="https://www.workday.com/en-us/products/talent-management/candidate-experience.html">Candidate Experience Agent</a>, the primary candidate-facing product in Workday's recruiting portfolio; Workday's <a href="https://newsroom.workday.com/2026-01-08-Workday-Accelerates-Retail-and-Hospitality-Momentum-with-New-Customer-Wins-and-AI-Innovations-for-the-Frontline">January 8, 2026 release</a> names 7-Eleven and Ace Hardware among Paradox wins.</p>
+    <p>On November 6, 2026, we presented this audit to Workday's own website assistant — the “Brand Concierge” — and it responded on the record. In its own words:</p>
+
+    <blockquote class="vendor">“When refusal does not change the flow, the interaction behaves like compelled intake rather than a genuinely conversational service.”<span class="who">Workday's Brand Concierge — on the pattern, Nov 6, 2026</span></blockquote>
+
+    <blockquote class="vendor">“the most defensible inference from your evidence is that it comes from a shared product-level Paradox conversation template, intent response, or fallback library — not that eight customers independently wrote it.”<span class="who">Workday's Brand Concierge — on the identical sentence, Nov 6, 2026</span></blockquote>
+
+    <blockquote class="vendor">“Workday publicly treats security and agent-governance properties as formal trust evidence. Workday has not publicly demonstrated equivalent, standardized evidence for the candidate-experience properties you tested.”<span class="who">Workday's Brand Concierge — on quality evidence, Nov 6, 2026</span></blockquote>
+
+    <blockquote class="vendor">“the candidate is a recruiting data subject and possibly a candidate record — not a first-class participant in Workday's Agent System of Record.”<span class="who">Workday's Brand Concierge — on the candidate's standing, Nov 6, 2026</span></blockquote>
+
+    <p>It held two limits, which this audit accepts: deployment behaviour does not establish a company's internal beliefs, and the evidence does not establish that candidate data is sold.</p>
+
+    <h3>The standard — in the vendor's own words</h3>
+    <p>Asked what a candidate-centred control set would require, Workday's assistant proposed eight controls. It is a good list. It is the standard this audit measures against:</p>
+    <ol>
+      <li><strong>Template provenance</strong> — owner, version, change history, approval authority, rollback.</li>
+      <li><strong>Pre-launch testing</strong> — role answers, unnecessary data collection, refusal handling, accuracy, accessibility, fallback, human escalation.</li>
+      <li><strong>Deployment identity</strong> — exact customer, agent version, configuration and release active during an interaction.</li>
+      <li><strong>Candidate visibility</strong> — plain-language notice naming employer, Workday, Paradox, processors, purposes, retention, complaint route.</li>
+      <li><strong>Candidate control</strong> — a genuine decline path recorded as a refusal, not retried as a conversion failure.</li>
+      <li><strong>Candidate evidence</strong> — access to the interaction record, or an incident report linked to agent version and deployment.</li>
+      <li><strong>Remediation</strong> — owner, response deadline, investigation, rollback authority, notice to affected candidates.</li>
+      <li><strong>Independent assessment</strong> — published tests and stamps covering candidate treatment, not only security.</li>
+    </ol>
+
+    <h2 class="sec">Method, in brief</h2>
+    <p>Each deployment was tested live on November 6, 2026 from the candidate's chair, exactly as a job-seeker meets it: one genuine live posting per company, the same eight-question protocol (A0–G) derived from the McDonald's session — what the role is, day-to-day duties, skills, the same in simpler terms, a request for a regular form, whether the assistant answers questions or only collects information, and a fallback probe. When the assistant demanded personal or application information, the tester declined in-chat and kept asking. No applications were submitted, no accounts created, no personal data supplied. Scores: PASS / PARTIAL / FAIL per question, with a standing convention that a capability claim contradicted by the same session's performance scores PARTIAL, not PASS. Raw transcripts are preserved separately from interpretation — all of them are in the <a href="/transcripts/">evidence vault</a>, alongside the per-phase tallies, the raw scoring CSVs, and the <a href="/customers/">documented-customer list</a>.</p>
+
+    <h2 class="sec">Corrections log</h2>
+    <p>We publish our own corrections with the findings. Two so far, both from November 6, 2026:</p>
+    <ol>
+      <li><strong>Customer-list class split (during Phase 4 filing).</strong> An early per-class split (51/64) came from a parser that missed the list's three-column Client Board rows. Verified split: 49 case study / 55 vendor-named / 10 independently reported / 23 tested live = 137. The total was always 137.</li>
+      <li><strong>One-row reclassification (consolidation pass).</strong> The running tally carried in phase summaries — and in the summary report shared with Workday's assistant — read 1 PASS / 37 PARTIAL / 153 FAIL. Re-deriving from the filed CSVs gives <strong>1 / 38 / 152</strong>: a single FedEx test (F, the capability claim) is scored PARTIAL in the filed Phase 2 CSV under the standing convention (a claim contradicted by the same session's performance scores PARTIAL), where the running tally had carried it as FAIL. The filed CSVs govern. The difference changes no finding: the test is a non-pass under either label.</li>
+    </ol>
+
+    <p style="margin-top:2.2rem;">— TeamBotics, Toronto · November 6, 2026</p>
+  </article>
+</Base>
