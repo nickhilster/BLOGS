@@ -1,3 +1,4 @@
+import { curiosityIsTheEngineContent } from './curiosity-is-the-engine';
 import { kindOnesPost } from './kind-ones';
 
 const agentAgnosticSetupContent = String.raw`# Give Every Agent the Same Map
@@ -1609,6 +1610,17 @@ That is why the future of AI literacy is not primarily about prompts.
 It is about learning to operate systems that can read far more than we can, without surrendering the judgment required to decide what any of it means.`;
 
 export const staticBlogPosts: StaticBlogPost[] = [
+  {
+    id: 'static-curiosity-is-the-engine',
+    slug: 'curiosity-is-the-engine',
+    title: 'Personalization Is the Mechanism. Curiosity Is the Engine.',
+    excerpt: 'When AI can personalize every explanation, curiosity becomes the defining force in education — and human teachers become more important, not less.',
+    content: curiosityIsTheEngineContent,
+    author: 'Nikhil Khedkar',
+    tags: ['education', 'curiosity', 'personalized-learning', 'human-ai-systems', 'teachers'],
+    cover_image_url: null,
+    published_at: '2026-11-09T23:34:00.000Z',
+  },
   kindOnesPost,
   {
     id: 'static-designing-for-gratitude-human-ai-interaction',
