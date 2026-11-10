@@ -1,0 +1,51 @@
+name: Deploy Front Door Blog
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'frontdoor/**'
+      - '.github/workflows/deploy-frontdoor.yml'
+
+concurrency:
+  group: frontdoor-blog-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_ORG_ID: team_OWwjnhbor7MbYnw2kUlbr28r
+      VERCEL_PROJECT_ID: prj_g4Ay9K6MNVtTAqPE2OxSkB7YAFcr
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontdoor/package-lock.json
+      - run: npm ci
+        working-directory: frontdoor
+      - run: npx --yes vercel pull --yes --environment=production --local-config ./frontdoor/vercel.json --token "$VERCEL_TOKEN"
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      - run: npx --yes vercel build --prod --local-config ./frontdoor/vercel.json --token "$VERCEL_TOKEN"
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      - run: npx --yes vercel deploy --prebuilt --prod --local-config ./frontdoor/vercel.json --token "$VERCEL_TOKEN"
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      - name: Verify production domain identity
+        run: |
+          for attempt in 1 2 3 4 5 6 7 8; do
+            body=$(curl --fail --silent --max-time 15 -H "Cache-Control: no-cache" -A "FrontDoor-Deploy-Verify/1.0" "https://frontdoor.teambotics.app/") && ok=1 || ok=0
+            if [ "$ok" = 1 ] && grep -qF "Operation Front Door" <<< "$body"; then
+              echo "Verified production identity: https://frontdoor.teambotics.app/ (markers present)"
+              exit 0
+            fi
+            echo "Attempt $attempt: production identity not verified yet"
+            sleep 10
+          done
+          echo "Production identity verification FAILED: https://frontdoor.teambotics.app/"
+          exit 1
