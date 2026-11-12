@@ -12,14 +12,90 @@ on:
       - 'nikdesign/**'
       - 'teambotics/**'
       - '.github/workflows/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Cancel superseded PR runs; never cancel a push-to-main run.
+concurrency:
+  group: blog-ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
+  changes:
+    runs-on: ubuntu-latest
+    # dorny/paths-filter needs pull-requests: read to list changed files via
+    # the API; job-level permissions replace (not add to) the workflow-level
+    # block, so contents: read is restated here. Same gotcha ryfine's ci.yml
+    # documents.
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      sites: ${{ steps.select.outputs.sites }}
+    steps:
+      - name: Detect changed sites
+        id: filter
+        uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # v4.0.3
+        with:
+          filters: |
+            nikdesign:
+              - 'nikdesign/**'
+            teambotics:
+              - 'teambotics/**'
+            deps:
+              - 'nikdesign/package.json'
+              - 'nikdesign/package-lock.json'
+              - 'teambotics/package.json'
+              - 'teambotics/package-lock.json'
+            shared:
+              - '.github/workflows/**'
+      - name: Select sites to build (fail-safe to both)
+        id: select
+        env:
+          F_NIKDESIGN: ${{ steps.filter.outputs.nikdesign }}
+          F_TEAMBOTICS: ${{ steps.filter.outputs.teambotics }}
+          F_DEPS: ${{ steps.filter.outputs.deps }}
+          F_SHARED: ${{ steps.filter.outputs.shared }}
+          EVENT_NAME: ${{ github.event_name }}
+          PUSH_BEFORE: ${{ github.event.before }}
+          PUSH_FORCED: ${{ github.event.forced }}
+        run: |
+          sites=()
+          reason=""
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            sites=(nikdesign teambotics); reason="manual dispatch: validate both"
+          elif [ "$EVENT_NAME" = "push" ] && { [ "$PUSH_BEFORE" = "0000000000000000000000000000000000000000" ] || [ -z "$PUSH_BEFORE" ] || [ "$PUSH_FORCED" = "true" ]; }; then
+            sites=(nikdesign teambotics); reason="uncertain push history (before=$PUSH_BEFORE forced=$PUSH_FORCED): fail-safe to both"
+          elif [ "$F_SHARED" = "true" ]; then
+            sites=(nikdesign teambotics); reason="workflow files changed: fail-safe to both"
+          elif [ "$F_DEPS" = "true" ]; then
+            sites=(nikdesign teambotics); reason="dependency manifest/lockfile changed: fail-safe to both"
+          else
+            [ "$F_NIKDESIGN" = "true" ] && sites+=(nikdesign)
+            [ "$F_TEAMBOTICS" = "true" ] && sites+=(teambotics)
+            if [ ${#sites[@]} -eq 0 ]; then
+              sites=(nikdesign teambotics); reason="no site attributed (zero-affected): fail-safe to both"
+            else
+              reason="site-scoped change"
+            fi
+          fi
+          json=$(printf '%s\n' "${sites[@]}" | jq -R . | jq -cs .)
+          echo "Selected sites: $json — $reason"
+          echo "sites=$json" >> "$GITHUB_OUTPUT"
+
   build:
+    needs: changes
+    # The select step never emits an empty list (zero-affected fails safe to
+    # both); this guard keeps a hypothetical empty matrix from erroring the
+    # run — the result job below reports it as a failure instead.
+    if: needs.changes.outputs.sites != '[]' && needs.changes.outputs.sites != ''
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        blog: [nikdesign, teambotics]
+        blog: ${{ fromJSON(needs.changes.outputs.sites) }}
     defaults:
       run:
         working-directory: ${{ matrix.blog }}
@@ -32,3 +108,25 @@ jobs:
           cache-dependency-path: ${{ matrix.blog }}/package-lock.json
       - run: npm ci
       - run: npm run build
+
+  result:
+    name: Blog CI result
+    needs: [changes, build]
+    # Always reports, so a future required status check has one stable name
+    # ("Blog CI result") that can never sit pending on a path-skipped run.
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Report overall result
+        run: |
+          echo "Selected sites: ${{ needs.changes.outputs.sites }}"
+          echo "changes job: ${{ needs.changes.result }} | build job: ${{ needs.build.result }}"
+          if [ "${{ needs.changes.result }}" != "success" ]; then
+            echo "::error::change detection did not succeed — failing the run (fail-safe)"
+            exit 1
+          fi
+          case "${{ needs.build.result }}" in
+            success) echo "All selected site builds passed." ;;
+            skipped) echo "::error::build job skipped unexpectedly"; exit 1 ;;
+            *) echo "::error::build job result: ${{ needs.build.result }}"; exit 1 ;;
+          esac
