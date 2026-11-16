@@ -1,5 +1,6 @@
 import { curiosityIsTheEngineContent } from './curiosity-is-the-engine';
 import { kindOnesPost } from './kind-ones';
+import { herdingCatsContent } from './herding-cats';
 
 const agentAgnosticSetupContent = String.raw`# Give Every Agent the Same Map
 
@@ -1610,6 +1611,17 @@ That is why the future of AI literacy is not primarily about prompts.
 It is about learning to operate systems that can read far more than we can, without surrendering the judgment required to decide what any of it means.`;
 
 export const staticBlogPosts: StaticBlogPost[] = [
+  {
+    id: 'static-herding-cats-better-teams',
+    slug: 'herding-cats-better-teams',
+    title: 'Herding Cats: What If We Built Better Teams Instead?',
+    excerpt: 'We have spent decades optimizing the management of people. What if the next leap comes from designing smaller, more capable human-agent teams around demonstrated outcomes?',
+    content: herdingCatsContent,
+    author: 'Nikhil Khedkar',
+    tags: ['human-ai-systems', 'multi-agent-systems', 'organizational-change', 'team-productivity', 'ai-practice'],
+    cover_image_url: null,
+    published_at: '2026-11-16T14:00:00.000Z',
+  },
   {
     id: 'static-curiosity-is-the-engine',
     slug: 'curiosity-is-the-engine',
