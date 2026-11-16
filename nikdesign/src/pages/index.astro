@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content'
 import MinimalPostLink from '../components/editorial/MinimalPostLink.astro'
 import SectionHeading from '../components/editorial/SectionHeading.astro'
+import TopicFilter from '../components/editorial/TopicFilter.astro'
 import AmbientBackground from '../components/motion/AmbientBackground.astro'
 import HeroWaves from '../components/motion/HeroWaves.astro'
 import BaseLayout from '../layouts/BaseLayout.astro'
@@ -29,22 +30,16 @@ const tagIndex = buildTagIndex(posts)
     </section>
 
     <section>
-      <ul class="minimal-post-list">
+      <ul class="minimal-post-list" data-topic-list>
         {posts.map((post) => (
           <MinimalPostLink post={post} />
         ))}
       </ul>
+      <p class="topic-filter__empty" data-topic-empty hidden>
+        No posts carry this topic yet. <a href="/">Browse all topics</a>
+      </p>
     </section>
 
-    <section>
-      <h2>Tags</h2>
-      <ul class="tag-list">
-        {tagIndex.map((entry) => (
-          <li>
-            <a href={`/tags/${entry.slug}`}>{entry.tag} ({entry.count})</a>
-          </li>
-        ))}
-      </ul>
-    </section>
+    <TopicFilter tags={tagIndex} />
   </main>
 </BaseLayout>

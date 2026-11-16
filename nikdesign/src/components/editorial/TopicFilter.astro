@@ -1,0 +1,78 @@
+---
+interface Props {
+  tags: { tag: string; count: number; slug: string }[]
+}
+
+const { tags } = Astro.props;
+---
+
+<details class="topic-filter" id="topics" data-topic-filter>
+  <summary class="topic-filter__fab">
+    <span>Topics</span>
+    <strong data-topic-current>All topics</strong>
+    <span class="topic-filter__count">{tags.length}</span>
+  </summary>
+  <div class="topic-filter__panel">
+    <div class="topic-filter__panel-header">
+      <div>
+        <div class="topic-filter__label">Browse by topic</div>
+        <p>Narrow the feed without giving the filter bar the whole stage.</p>
+      </div>
+      <a href="/" class="topic-filter__reset" data-topic-reset hidden>Clear</a>
+    </div>
+    <div class="topic-filter__tags">
+      <a href="/" class="topic-filter__tag topic-filter__tag--active" data-topic-link data-topic-slug="">
+        All topics
+      </a>
+      {tags.map((entry) => (
+        <a
+          href={`/?tag=${entry.slug}`}
+          class="topic-filter__tag"
+          data-topic-link
+          data-topic-slug={entry.slug}
+        >
+          {entry.tag} ({entry.count})
+        </a>
+      ))}
+    </div>
+  </div>
+</details>
+
+<script>
+  // Filter the homepage post list by topic without a reload.
+  // Links remain real ?tag= URLs, so deep links work; this just
+  // applies the same filter in place.
+  const filter = document.querySelector('[data-topic-filter]');
+  const list = document.querySelector('.minimal-post-list');
+  const items = [...(list?.querySelectorAll('[data-tags]') ?? [])];
+  const current = filter?.querySelector('[data-topic-current]');
+  const reset = filter?.querySelector('[data-topic-reset]');
+  const empty = document.querySelector('[data-topic-empty]');
+
+  const apply = (slug) => {
+    let visible = 0;
+    for (const item of items) {
+      const show = !slug || item.dataset.tags?.split(' ').includes(slug);
+      item.hidden = !show;
+      if (show) visible++;
+    }
+    if (empty) empty.hidden = visible > 0;
+    if (current) current.textContent = slug ? decodeURIComponent(slug).replaceAll('-', ' ') : 'All topics';
+    if (reset) reset.hidden = !slug;
+    for (const link of filter?.querySelectorAll('[data-topic-link]') ?? []) {
+      link.classList.toggle('topic-filter__tag--active', link.dataset.topicSlug === slug);
+    }
+  };
+
+  apply(new URLSearchParams(location.search).get('tag') ?? '');
+
+  filter?.addEventListener('click', (event) => {
+    const link = event.target.closest('[data-topic-link]');
+    if (!(link instanceof HTMLAnchorElement)) return;
+    event.preventDefault();
+    const slug = link.dataset.topicSlug ?? '';
+    history.replaceState(null, '', slug ? `/?tag=${slug}` : '/');
+    apply(slug);
+    filter.querySelector('summary')?.focus();
+  });
+</script>

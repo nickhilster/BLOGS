@@ -5,14 +5,18 @@ interface Props {
     data: {
       title: string
       publishedAt: string
+      tags?: string[]
     }
   }
 }
 
 const { post } = Astro.props
+const tagSlugs = (post.data.tags ?? []).map((tag) =>
+  tag.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''),
+)
 ---
 
-<li class="minimal-post-link">
+<li class="minimal-post-link" data-tags={tagSlugs.join(' ')}>
   <a href={`/posts/${post.slug}`}>{post.data.title}</a>
   <span class="minimal-post-link__date">{post.data.publishedAt}</span>
 </li>
