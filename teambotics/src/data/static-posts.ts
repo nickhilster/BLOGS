@@ -1619,7 +1619,7 @@ export const staticBlogPosts: StaticBlogPost[] = [
     content: herdingCatsContent,
     author: 'Nikhil Khedkar',
     tags: ['human-ai-systems', 'multi-agent-systems', 'organizational-change', 'team-productivity', 'ai-practice'],
-    cover_image_url: null,
+    cover_image_url: '/thumbnails/herding-cats-better-teams.svg',
     published_at: '2026-11-16T14:00:00.000Z',
   },
   {
@@ -1630,7 +1630,7 @@ export const staticBlogPosts: StaticBlogPost[] = [
     content: curiosityIsTheEngineContent,
     author: 'Nikhil Khedkar',
     tags: ['education', 'curiosity', 'personalized-learning', 'human-ai-systems', 'teachers'],
-    cover_image_url: null,
+    cover_image_url: '/thumbnails/curiosity-is-the-engine.svg',
     published_at: '2026-11-09T23:34:00.000Z',
   },
   kindOnesPost,
@@ -1655,7 +1655,7 @@ export const staticBlogPosts: StaticBlogPost[] = [
     content: keySentenceContent,
     author: 'Nikhil Khedkar',
     tags: ['ai-literacy', 'applied-ai', 'human-ai-systems', 'ai-operators', 'agentic-ai'],
-    cover_image_url: null,
+    cover_image_url: '/thumbnails/from-keyword-to-key-sentence.svg',
     published_at: '2026-10-06T00:00:00.000Z',
   },
 
@@ -1669,7 +1669,7 @@ export const staticBlogPosts: StaticBlogPost[] = [
     content: graduatedAgencyKitchenContent,
     author: 'Nikhil Khedkar',
     tags: ['human-ai-systems', 'ai-governance', 'ai-safety', 'human-agency', 'applied-ai'],
-    cover_image_url: null,
+    cover_image_url: '/thumbnails/graduated-agency-ai-safety.svg',
     published_at: '2026-10-06T00:00:00.000Z',
   },
 
@@ -1803,7 +1803,7 @@ If you are wondering who the right person is and whether you can get a real conv
 *Published on the Teambotics blog. Boardy's contributions are attributed to Boardy. This post does not constitute co-authorship, a Boardy endorsement, or publication on Boardy's own channels. A near-final draft was sent to Boardy for factual and boundary review before publication. The six Ontario community legal clinics involved in the pilot test are not named in this post.*`,
     author: 'Nikhil Khedkar',
     tags: ['multi-agent-systems', 'ai-handoffs', 'provenance', 'consent', 'applied-ai'],
-    cover_image_url: '/thumbnails/multi-agent-systems-workflow.svg',
+    cover_image_url: '/thumbnails/when-two-ai-systems-try-to-define-a-handoff.svg',
     published_at: '2026-09-11T00:00:00.000Z',
   },
   {
@@ -1814,7 +1814,7 @@ If you are wondering who the right person is and whether you can get a real conv
     content: firstFunctionCompanionContent,
     author: 'Teambotics',
     tags: ['human-ai-systems', 'agentic-ai', 'product-design', 'trust', 'frontline-teams'],
-    cover_image_url: null,
+    cover_image_url: '/thumbnails/help-is-a-function-not-a-destination.svg',
     published_at: '2026-10-08T00:00:00.000Z',
   },
   {
@@ -1874,7 +1874,7 @@ If you are wondering who the right person is and whether you can get a real conv
     content: designingMultiAgentWorkflowContent,
     author: 'Nikhil Khedkar',
     tags: ['multi-agent-systems', 'ai-workflows', 'human-ai-systems', 'ai-governance', 'provenance'],
-    cover_image_url: '/thumbnails/multi-agent-systems-workflow.svg',
+    cover_image_url: '/thumbnails/designing-a-multi-agent-workflow.svg',
     published_at: '2026-09-11T00:00:00.000Z',
   },
   {
@@ -1885,7 +1885,7 @@ If you are wondering who the right person is and whether you can get a real conv
     content: agentAgnosticSetupContent,
     author: 'Nikhil Khedkar',
     tags: ['agent-agnostic', 'multi-agent-systems', 'knowledge-management', 'human-ai-systems', 'ai-workflows'],
-    cover_image_url: '/thumbnails/static-documentation-living-knowledge-systems.svg',
+    cover_image_url: '/thumbnails/give-every-agent-the-same-map.svg',
     published_at: '2026-10-08T23:30:00.000Z',
   },
   {
@@ -1896,7 +1896,7 @@ If you are wondering who the right person is and whether you can get a real conv
     content: aiNeedsPractitionersContent,
     author: 'Nikhil Khedkar',
     tags: ['ai-practice', 'agentic-ai', 'ai-adoption', 'human-agency'],
-    cover_image_url: null,
+    cover_image_url: '/thumbnails/ai-needs-practitioners-not-just-operators.svg',
     published_at: '2026-10-15T15:00:00.000Z',
   },
 

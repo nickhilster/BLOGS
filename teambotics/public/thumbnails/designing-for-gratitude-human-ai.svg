@@ -1,45 +1,53 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
-  <title id="title">Designing for gratitude in human–AI interaction</title>
-  <desc id="desc">A warm paper field with three human-made tools connected by a fine, open line.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" width="640" height="360" role="img" aria-label="Designing for Gratitude in Human-AI Interaction">
   <defs>
-    <linearGradient id="paper" x2="1" y2="1">
-      <stop stop-color="#f4e8d4"/>
-      <stop offset="1" stop-color="#ddc5a1"/>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f0a04"/>
+      <stop offset="100%" stop-color="#130c04"/>
     </linearGradient>
-    <linearGradient id="ink" x2="1">
-      <stop stop-color="#865035"/>
-      <stop offset="1" stop-color="#b87849"/>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#fb923c"/>
     </linearGradient>
-    <pattern id="grain" width="9" height="9" patternUnits="userSpaceOnUse">
-      <circle cx="1" cy="2" r=".6" fill="#76543b" opacity=".18"/>
-      <circle cx="7" cy="6" r=".45" fill="#fff9ed" opacity=".65"/>
-    </pattern>
+    <linearGradient id="blend" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="50%" stop-color="#f43f5e"/>
+      <stop offset="100%" stop-color="#f43f5e"/>
+    </linearGradient>
+    <linearGradient id="titleGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="55%" stop-color="#fef3c7"/>
+      <stop offset="100%" stop-color="#fef3c7"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="80%" cy="30%" r="50%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blur" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="28"/></filter>
+    <clipPath id="clip"><rect width="640" height="360"/></clipPath>
   </defs>
-  <rect width="1200" height="630" fill="url(#paper)"/>
-  <rect width="1200" height="630" fill="url(#grain)" opacity=".36"/>
-  <path d="M96 82H1104V548H96z" fill="none" stroke="#76543b" stroke-opacity=".25"/>
-  <path d="M190 400C350 330 440 330 590 382S850 436 1010 320" fill="none" stroke="#8f674b" stroke-width="2" stroke-dasharray="3 12"/>
-  <g transform="translate(295 274) rotate(-9)">
-    <rect width="180" height="130" rx="7" fill="#6b3d2b"/>
-    <path d="M18 14h70v102H18z" fill="#efdbb7"/>
-    <path d="M92 14h70v102H92z" fill="#f8edda"/>
-    <path d="M90 14v102" stroke="#af865d" stroke-width="3"/>
-    <path d="M34 42h38M34 54h40M108 42h38M108 54h38" stroke="#aa8661" stroke-width="3"/>
+  <rect width="640" height="360" fill="url(#bg)"/>
+  <rect width="640" height="360" fill="url(#glow)"/>
+  <ellipse cx="560" cy="85" rx="150" ry="110" fill="#f59e0b" fill-opacity="0.08" filter="url(#blur)" clip-path="url(#clip)"/>
+  <!-- Signature mark -->
+  <g fill="none" stroke="#f59e0b" stroke-width="1.5" stroke-opacity="0.5">
+    <circle cx="470" cy="140" r="20"/>
+    <circle cx="542" cy="140" r="20"/>
+    <path d="M490 140 h32" stroke="url(#accent)" stroke-width="2.5"/>
+    <path d="M506 128 c4-8 14-8 14 0 c0 8-14 14-14 14 s-14-6-14-14 c0-8 10-8 14 0" fill="#fb923c" fill-opacity="0.6" stroke="none"/>
+    <circle cx="470" cy="140" r="6" fill="#fb923c" fill-opacity="0.5" stroke="none"/>
+    <circle cx="542" cy="140" r="6" fill="#f59e0b" fill-opacity="0.5" stroke="none"/>
   </g>
-  <g transform="translate(590 333)">
-    <circle r="73" fill="#c18e48"/>
-    <circle r="61" fill="#e7c680" stroke="#8d642f" stroke-width="3"/>
-    <circle r="35" fill="none" stroke="#9b703a" stroke-width="2"/>
-    <path d="M-15 16l13-47 17 47M-10 4h20" fill="none" stroke="#8f6232" stroke-width="4" stroke-linecap="round"/>
-  </g>
-  <g transform="translate(850 286) rotate(24)">
-    <rect x="-14" y="-65" width="28" height="230" rx="12" fill="url(#ink)"/>
-    <path d="M-11-63Q0-112 11-63" fill="#39312a"/>
-    <rect x="-15" y="-44" width="30" height="22" rx="4" fill="#c58b53"/>
-    <path d="M0 35v82" stroke="#eed5ac" stroke-width="2" opacity=".7"/>
-  </g>
-  <g fill="#6f4934" font-family="Georgia,serif">
-    <text x="600" y="178" text-anchor="middle" font-size="19" letter-spacing="6">HUMAN MEANING / HONEST SYSTEMS</text>
-    <text x="600" y="500" text-anchor="middle" font-size="16" letter-spacing="4">KNOWLEDGE · LIVELIHOOD · MAKING</text>
-  </g>
+  <!-- Left accent bar -->
+  <rect x="48" y="60" width="4" height="240" rx="2" fill="url(#accent)" fill-opacity="0.35"/>
+  <!-- Tag -->
+  <rect x="62" y="68" width="117" height="22" rx="11" fill="#fb923c" fill-opacity="0.1" stroke="#fb923c" stroke-width="0.75" stroke-opacity="0.4"/>
+  <text x="120.5" y="83" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" font-weight="600" letter-spacing="2" fill="#fde68a" fill-opacity="0.92">HUMAN MEANING</text>
+  <text x="62" y="148" font-family="ui-sans-serif,system-ui,sans-serif" font-size="48" font-weight="800" fill="url(#titleGrad)" letter-spacing="-1">Designing for</text>
+  <text x="62" y="206" font-family="ui-sans-serif,system-ui,sans-serif" font-size="48" font-weight="800" fill="url(#titleGrad)" letter-spacing="-1">Gratitude</text>
+  <rect x="62" y="214" width="250" height="4" rx="2" fill="url(#accent)" fill-opacity="0.7"/>
+  <!-- Subtitle -->
+  <text x="62" y="250" font-family="ui-sans-serif,system-ui,sans-serif" font-size="20" font-weight="400" fill="#94a3b8">respecting the gestures people bring</text>
+  <!-- Branding -->
+  <text x="62" y="320" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11" font-weight="600" letter-spacing="2.5" fill="#f59e0b" fill-opacity="0.55">TEAMBOTICS</text>
+  <rect x="48" y="335" width="544" height="1" rx="0.5" fill="url(#blend)" fill-opacity="0.12"/>
 </svg>

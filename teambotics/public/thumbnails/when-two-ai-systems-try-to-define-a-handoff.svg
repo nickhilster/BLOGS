@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" width="640" height="360" role="img" aria-label="When Two AI Systems Try to Define a Handoff">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#04090f"/>
+      <stop offset="100%" stop-color="#060c14"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0ea5e9"/>
+      <stop offset="100%" stop-color="#818cf8"/>
+    </linearGradient>
+    <linearGradient id="blend" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0ea5e9"/>
+      <stop offset="50%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="titleGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="55%" stop-color="#bae6fd"/>
+      <stop offset="100%" stop-color="#bae6fd"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="80%" cy="30%" r="50%">
+      <stop offset="0%" stop-color="#0ea5e9" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#0ea5e9" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blur" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="28"/></filter>
+    <clipPath id="clip"><rect width="640" height="360"/></clipPath>
+  </defs>
+  <rect width="640" height="360" fill="url(#bg)"/>
+  <rect width="640" height="360" fill="url(#glow)"/>
+  <ellipse cx="560" cy="85" rx="150" ry="110" fill="#0ea5e9" fill-opacity="0.08" filter="url(#blur)" clip-path="url(#clip)"/>
+  <!-- Signature mark -->
+  <g fill="none" stroke="#0ea5e9" stroke-width="1.5" stroke-opacity="0.5">
+    <polygon points="466,114 492,128 492,156 466,170 440,156 440,128" fill="#818cf8" fill-opacity="0.12"/>
+    <polygon points="546,114 572,128 572,156 546,170 520,156 520,128" fill="#818cf8" fill-opacity="0.12"/>
+    <path d="M492 142 h28" stroke="url(#accent)" stroke-width="2.5"/>
+    <path d="M500 136 l8 6 -8 6 M512 136 l-8 6 8 6" stroke="#818cf8" stroke-width="2"/>
+    <circle cx="466" cy="142" r="5" fill="#818cf8" fill-opacity="0.7" stroke="none"/>
+    <circle cx="546" cy="142" r="5" fill="#818cf8" fill-opacity="0.7" stroke="none"/>
+  </g>
+  <!-- Left accent bar -->
+  <rect x="48" y="60" width="4" height="240" rx="2" fill="url(#accent)" fill-opacity="0.35"/>
+  <!-- Tag -->
+  <rect x="62" y="68" width="103" height="22" rx="11" fill="#0ea5e9" fill-opacity="0.1" stroke="#0ea5e9" stroke-width="0.75" stroke-opacity="0.4"/>
+  <text x="113.5" y="83" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" font-weight="600" letter-spacing="2" fill="#bae6fd" fill-opacity="0.92">AI HANDOFFS</text>
+  <text x="62" y="148" font-family="ui-sans-serif,system-ui,sans-serif" font-size="48" font-weight="800" fill="url(#titleGrad)" letter-spacing="-1">Defining</text>
+  <text x="62" y="206" font-family="ui-sans-serif,system-ui,sans-serif" font-size="48" font-weight="800" fill="url(#titleGrad)" letter-spacing="-1">the Handoff</text>
+  <rect x="62" y="214" width="230" height="4" rx="2" fill="url(#accent)" fill-opacity="0.7"/>
+  <!-- Subtitle -->
+  <text x="62" y="250" font-family="ui-sans-serif,system-ui,sans-serif" font-size="20" font-weight="400" fill="#94a3b8">two systems, one clear boundary</text>
+  <!-- Branding -->
+  <text x="62" y="320" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11" font-weight="600" letter-spacing="2.5" fill="#0ea5e9" fill-opacity="0.55">TEAMBOTICS</text>
+  <rect x="48" y="335" width="544" height="1" rx="0.5" fill="url(#blend)" fill-opacity="0.12"/>
+</svg>

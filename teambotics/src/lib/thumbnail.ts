@@ -21,6 +21,18 @@ const CUSTOM_THUMBNAILS: Record<string, string> = {
   'ai-adoption-personalized-learning':   '/thumbnails/ai-adoption-personalized-learning.svg',
   'training-exclusion-is-not-data-protection': '/thumbnails/training-exclusion-is-not-data-protection.svg',
   'software-should-give-your-team-more-time-with-people': '/thumbnails/software-should-give-your-team-more-time-with-people.svg',
+  'herding-cats-better-teams':        '/thumbnails/herding-cats-better-teams.svg',
+  'curiosity-is-the-engine':          '/thumbnails/curiosity-is-the-engine.svg',
+  'ai-needs-practitioners-not-just-operators': '/thumbnails/ai-needs-practitioners-not-just-operators.svg',
+  'help-is-a-function-not-a-destination': '/thumbnails/help-is-a-function-not-a-destination.svg',
+  'from-keyword-to-key-sentence':     '/thumbnails/from-keyword-to-key-sentence.svg',
+  'graduated-agency-ai-safety':       '/thumbnails/graduated-agency-ai-safety.svg',
+  'designing-a-multi-agent-workflow': '/thumbnails/designing-a-multi-agent-workflow.svg',
+  'when-two-ai-systems-try-to-define-a-handoff': '/thumbnails/when-two-ai-systems-try-to-define-a-handoff.svg',
+  'give-every-agent-the-same-map':    '/thumbnails/give-every-agent-the-same-map.svg',
+  'designing-for-gratitude-in-human-ai-interaction': '/thumbnails/designing-for-gratitude-human-ai.svg',
+  'absorb-complexity-preserve-agency': '/thumbnails/absorb-complexity-preserve-agency.svg',
+  'let-them-build-the-smart-ones':    '/thumbnails/let-them-build-the-smart-ones.svg',
 };
 
 // Fallback: procedurally generated geometric SVG for unknown slugs

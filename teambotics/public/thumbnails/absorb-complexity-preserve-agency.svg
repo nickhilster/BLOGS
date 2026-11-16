@@ -1,26 +1,49 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" width="640" height="360" role="img" aria-label="Absorb Complexity. Preserve Agency.">
-<defs>
- <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07050f"/><stop offset="1" stop-color="#0b0920"/></linearGradient>
- <linearGradient id="a" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#ec4899"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient>
- <radialGradient id="g"><stop stop-color="#8b5cf6" stop-opacity=".2"/><stop offset="1" stop-color="#8b5cf6" stop-opacity="0"/></radialGradient>
-</defs>
-<rect width="640" height="360" fill="url(#bg)"/><circle cx="500" cy="170" r="170" fill="url(#g)"/>
-<!-- complexity enters -->
-<g fill="none" stroke="#8b5cf6" stroke-opacity=".35" stroke-width="1.5">
-<path d="M370 65 C430 65 430 140 482 140"/><path d="M360 105 C425 105 425 150 482 150"/><path d="M385 145 C435 145 435 160 482 160"/><path d="M365 185 C430 185 430 170 482 170"/><path d="M390 225 C435 225 435 180 482 180"/><path d="M370 265 C430 265 430 190 482 190"/>
-</g>
-<g fill="#0e0a20" stroke="#8b5cf6"><circle cx="370" cy="65" r="7"/><circle cx="360" cy="105" r="7"/><circle cx="385" cy="145" r="7"/><circle cx="365" cy="185" r="7"/><circle cx="390" cy="225" r="7"/><circle cx="370" cy="265" r="7"/></g>
-<!-- absorbing boundary -->
-<rect x="482" y="116" width="34" height="98" rx="17" fill="#11102a" stroke="url(#a)" stroke-width="2"/>
-<!-- one clear human choice -->
-<path d="M516 165 H552" stroke="#ec4899" stroke-width="2.5"/><circle cx="574" cy="165" r="22" fill="#130c20" stroke="#ec4899" stroke-width="2"/><circle cx="574" cy="165" r="7" fill="#ec4899"/>
-<text x="574" y="205" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" letter-spacing="1.5" fill="#f9a8d4">HUMAN</text>
-<!-- editorial -->
-<rect x="48" y="54" width="4" height="250" rx="2" fill="url(#a)" opacity=".55"/>
-<rect x="62" y="62" width="112" height="22" rx="11" fill="#ec4899" fill-opacity=".09" stroke="#ec4899" stroke-opacity=".45"/>
-<text x="118" y="77" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="9" font-weight="700" letter-spacing="1.8" fill="#f9a8d4">DESIGN ETHIC</text>
-<text x="62" y="142" font-family="ui-sans-serif,system-ui,sans-serif" font-size="41" font-weight="800" fill="#fff">Absorb</text>
-<text x="62" y="188" font-family="ui-sans-serif,system-ui,sans-serif" font-size="41" font-weight="800" fill="#ede9fe">Complexity.</text>
-<text x="62" y="246" font-family="ui-sans-serif,system-ui,sans-serif" font-size="27" font-weight="700" fill="#f9a8d4">Preserve Agency.</text>
-<text x="62" y="320" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11" font-weight="600" letter-spacing="2.5" fill="#8b5cf6" opacity=".65">TEAMBOTICS</text>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#07050f"/>
+      <stop offset="100%" stop-color="#0b0920"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ec4899"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="blend" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ec4899"/>
+      <stop offset="50%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#a855f7"/>
+    </linearGradient>
+    <linearGradient id="titleGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="55%" stop-color="#fbcfe8"/>
+      <stop offset="100%" stop-color="#fbcfe8"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="80%" cy="30%" r="50%">
+      <stop offset="0%" stop-color="#ec4899" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#ec4899" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blur" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="28"/></filter>
+    <clipPath id="clip"><rect width="640" height="360"/></clipPath>
+  </defs>
+  <rect width="640" height="360" fill="url(#bg)"/>
+  <rect width="640" height="360" fill="url(#glow)"/>
+  <ellipse cx="560" cy="85" rx="150" ry="110" fill="#ec4899" fill-opacity="0.08" filter="url(#blur)" clip-path="url(#clip)"/>
+  <!-- Signature mark -->
+  <g fill="none" stroke="#ec4899" stroke-width="1.5" stroke-opacity="0.5">
+    <polygon points="506,92 552,116 506,140 460,116" fill="#8b5cf6" fill-opacity="0.14"/>
+    <polygon points="460,140 506,164 552,140 506,116" fill="#8b5cf6" fill-opacity="0.08"/>
+    <polygon points="460,164 506,188 552,164 506,140" fill="#8b5cf6" fill-opacity="0.05"/>
+    <circle cx="506" cy="116" r="6" fill="#8b5cf6" fill-opacity="0.75" stroke="none"/>
+  </g>
+  <!-- Left accent bar -->
+  <rect x="48" y="60" width="4" height="240" rx="2" fill="url(#accent)" fill-opacity="0.35"/>
+  <!-- Tag -->
+  <rect x="62" y="68" width="110" height="22" rx="11" fill="#ec4899" fill-opacity="0.1" stroke="#ec4899" stroke-width="0.75" stroke-opacity="0.4"/>
+  <text x="117.0" y="83" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" font-weight="600" letter-spacing="2" fill="#fbcfe8" fill-opacity="0.92">DESIGN ETHIC</text>
+  <text x="62" y="148" font-family="ui-sans-serif,system-ui,sans-serif" font-size="48" font-weight="800" fill="url(#titleGrad)" letter-spacing="-1">Absorb Complexity.</text>
+  <text x="62" y="206" font-family="ui-sans-serif,system-ui,sans-serif" font-size="48" font-weight="800" fill="url(#titleGrad)" letter-spacing="-1">Preserve Agency.</text>
+  <rect x="62" y="214" width="300" height="4" rx="2" fill="url(#accent)" fill-opacity="0.7"/>
+  <!-- Branding -->
+  <text x="62" y="320" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11" font-weight="600" letter-spacing="2.5" fill="#ec4899" fill-opacity="0.55">TEAMBOTICS</text>
+  <rect x="48" y="335" width="544" height="1" rx="0.5" fill="url(#blend)" fill-opacity="0.12"/>
 </svg>
