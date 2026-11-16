@@ -1,0 +1,119 @@
+---
+/* GridDots — Ryfine traveling-dot background, ported from
+   ryfine/web/src/components/GridDots.tsx (React -> vanilla Astro).
+   Glow dots travel a 64px grid (matching .blog-bg-grid background-size).
+   Teambotics pink replaces Ryfine lime so the effect matches the brand
+   and the existing thumbnails. mix-blend-mode: screen keeps dots from
+   obscuring content, exactly as in Ryfine. */
+---
+<canvas class="blog-bg-dots" aria-hidden="true"></canvas>
+
+<script>
+  const GRID = 64;
+  const ACCENT = "255, 77, 184"; // --color-accent-bright #ff4db8 as RGB components
+  const SPRITE_SIZE = 14;
+  const HALF_SPRITE = SPRITE_SIZE / 2;
+  const DX = [1, 0, -1, 0]; // right, down, left, up
+  const DY = [0, 1, 0, -1];
+
+  function buildSprite() {
+    const c = document.createElement("canvas");
+    c.width = SPRITE_SIZE;
+    c.height = SPRITE_SIZE;
+    const ctx = c.getContext("2d");
+    if (!ctx) return c;
+    const center = SPRITE_SIZE / 2;
+    const g = ctx.createRadialGradient(center, center, 0, center, center, center);
+    g.addColorStop(0, `rgba(${ACCENT}, 1)`);
+    g.addColorStop(0.28, `rgba(${ACCENT}, 0.55)`);
+    g.addColorStop(1, `rgba(${ACCENT}, 0)`);
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, SPRITE_SIZE, SPRITE_SIZE);
+    return c;
+  }
+
+  function pickDir(current) {
+    const r = Math.random();
+    if (r < 0.58) return current;
+    if (r < 0.78) return (current + 1) % 4;
+    if (r < 0.93) return (current + 3) % 4;
+    return (current + 2) % 4;
+  }
+
+  const canvas = document.querySelector(".blog-bg-dots");
+  if (canvas instanceof HTMLCanvasElement && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const ctx = canvas.getContext("2d", { alpha: true });
+    if (ctx) {
+      const sprite = buildSprite();
+      const isMobile = () => window.matchMedia("(max-width: 640px)").matches;
+      const profile = () => (isMobile()
+        ? { count: 4, speed: 0.9, alpha: 0.22, tail: 10 }
+        : { count: 6, speed: 1.05, alpha: 0.27, tail: 12 });
+      const spawnDot = (p) => ({
+        gx: Math.floor(Math.random() * cols()),
+        gy: Math.floor(Math.random() * rows()),
+        dir: Math.floor(Math.random() * 4),
+        progress: Math.random(),
+        speed: p.speed * (0.75 + Math.random() * 0.5),
+        alpha: 0,
+        targetAlpha: p.alpha * (0.6 + Math.random() * 0.7),
+      });
+      const resize = () => {
+        canvas.width = Math.round(canvas.clientWidth || window.innerWidth);
+        canvas.height = Math.round(canvas.clientHeight || window.innerHeight);
+      };
+      const cols = () => Math.ceil(canvas.width / GRID) + 1;
+      const rows = () => Math.ceil(canvas.height / GRID) + 1;
+      resize();
+      const ro = new ResizeObserver(resize);
+      ro.observe(canvas);
+      let dots = [spawnDot(profile())];
+      let last = performance.now();
+      const frame = (t) => {
+        const dt = Math.min((t - last) / 1000, 0.05);
+        last = t;
+        if (!document.hidden) {
+          const p = profile();
+          const c = cols();
+          const r = rows();
+          while (dots.length < p.count) dots.push(spawnDot(p));
+          for (const dot of dots) {
+            dot.progress += dot.speed * dt;
+            dot.alpha += (dot.targetAlpha - dot.alpha) * Math.min(dt * 4, 1);
+            if (dot.progress >= 1) {
+              dot.progress -= 1;
+              dot.gx = (((dot.gx + DX[dot.dir]) % c) + c) % c;
+              dot.gy = (((dot.gy + DY[dot.dir]) % r) + r) % r;
+              dot.dir = pickDir(dot.dir);
+              dot.speed = p.speed * (0.75 + Math.random() * 0.5);
+              dot.targetAlpha = p.alpha * (0.6 + Math.random() * 0.7);
+            }
+          }
+          if (dots.length > p.count) {
+            dots.forEach((d, i) => { if (i >= p.count) d.targetAlpha = 0; });
+            dots = dots.filter((d, i) => i < p.count || d.alpha > 0.005);
+          }
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          for (const dot of dots) {
+            if (dot.alpha < 0.005) continue;
+            const x = (dot.gx + DX[dot.dir] * dot.progress) * GRID;
+            const y = (dot.gy + DY[dot.dir] * dot.progress) * GRID;
+            ctx.globalAlpha = 1;
+            ctx.strokeStyle = `rgba(${ACCENT}, ${Math.min(dot.alpha * 0.55, 0.14)})`;
+            ctx.lineWidth = 1.2;
+            ctx.lineCap = "round";
+            ctx.beginPath();
+            ctx.moveTo(x - DX[dot.dir] * p.tail, y - DY[dot.dir] * p.tail);
+            ctx.lineTo(x + DX[dot.dir] * 2, y + DY[dot.dir] * 2);
+            ctx.stroke();
+            ctx.globalAlpha = Math.min(dot.alpha * 1.1 + 0.02, 0.42);
+            ctx.drawImage(sprite, x - HALF_SPRITE, y - HALF_SPRITE);
+          }
+          ctx.globalAlpha = 1;
+        }
+        requestAnimationFrame(frame);
+      };
+      requestAnimationFrame(frame);
+    }
+  }
+</script>

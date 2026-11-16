@@ -1,5 +1,6 @@
 ---
 import BlogLayout from '../layouts/BlogLayout.astro';
+import GridDots from '../components/GridDots.astro';
 import PostCard from '../components/PostCard.astro';
 import { getStaticBlogPostSummaries } from '../data/static-posts.ts';
 import { getExecutiveBlogPostSummaries } from '../data/executive-overrides.ts';
@@ -31,34 +32,41 @@ const filteredPosts = selectedTag
 const allTags = Array.from(new Set(allPosts.flatMap(post => post.tags))).sort();
 const activePostCount = filteredPosts.length;
 const posts = filteredPosts;
+
+// Typewriter hero: rotate across the most-written topics, or name the
+// active topic when the feed is filtered.
+const tagCounts = new Map<string, number>();
+for (const post of allPosts) {
+  for (const tag of post.tags) tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
+}
+const topTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 5).map(([tag]) => tag);
+const plural = (n: number) => (n === 1 ? 'article' : 'articles');
+const typePhrases = selectedTag
+  ? [`${activePostCount} ${plural(activePostCount)} on ${selectedTag}`]
+  : [
+      `${allPosts.length} field notes on dependable AI work`,
+      ...topTags.map((tag) => `field notes on ${tag}`),
+      `${allTags.length} topics in the library`,
+    ];
 ---
 
 <BlogLayout
   title={selectedTag ? `${selectedTag} — Teambotics Blog` : 'Teambotics Blog — Agents for Humans'}
   description="Field notes from Teambotics, an AI lab building agents for humans."
 >
-  <div class="blog-index__hero">
-    <span class="blog-index__eyebrow">Teambotics Blog</span>
+  <div class="blog-bg-grid" aria-hidden="true"></div>
+  <GridDots />
 
-    <div class="blog-index__hero-visual" aria-hidden="true">
-      <div class="blog-index__hero-visual-shell">
-        <div class="blog-index__hero-visual-grid"></div>
-        <div class="blog-index__hero-visual-caption">
-          <span class="blog-index__hero-visual-label">Signal scan</span>
-          <strong>{selectedTag ? selectedTag : 'All topics'}</strong>
-          <span>{activePostCount} articles in scope</span>
-        </div>
-        <div class="blog-index__hero-lanes">
-          <div class="blog-index__hero-visual-beam"></div>
-          <span class="blog-index__hero-lane blog-index__hero-lane--wide"></span>
-          <span class="blog-index__hero-lane blog-index__hero-lane--mid"></span>
-          <span class="blog-index__hero-lane blog-index__hero-lane--narrow"></span>
-          <span class="blog-index__hero-node blog-index__hero-node--one"></span>
-          <span class="blog-index__hero-node blog-index__hero-node--two"></span>
-          <span class="blog-index__hero-node blog-index__hero-node--three"></span>
-        </div>
-      </div>
-    </div>
+  <div class="blog-index__hero">
+    <p class="blog-index__name-line">Teambotics Blog</p>
+    <p class="blog-index__typing-line">
+      <span
+        class="blog-index__typewriter"
+        data-typewriter
+        data-phrases={typePhrases.join('|')}
+        aria-live="polite"
+      >{typePhrases[0]}</span><span class="blog-index__cursor" aria-hidden="true">█</span>
+    </p>
 
     <div class="blog-index__hero-copy">
       <h1 class="blog-index__title">Operational insight for teams turning AI into dependable work</h1>
@@ -145,6 +153,37 @@ const posts = filteredPosts;
         topicDetails.open = !topicDetails.open;
         topicDetails.querySelector('summary')?.focus();
       });
+    }
+  </script>
+
+  <script>
+    // Minimal typewriter hero: cycles through feed phrases; a single
+    // filtered phrase stays static. Reduced-motion users keep the
+    // server-rendered first phrase.
+    const typer = document.querySelector('[data-typewriter]');
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (typer instanceof HTMLElement && !reduced) {
+      const phrases = (typer.dataset.phrases ?? '').split('|').filter(Boolean);
+      let phraseIndex = 0;
+      let charIndex = typer.textContent?.length ?? 0;
+      let deleting = false;
+      const tick = () => {
+        if (phrases.length <= 1) return;
+        const phrase = phrases[phraseIndex];
+        charIndex += deleting ? -1 : 1;
+        typer.textContent = phrase.slice(0, charIndex);
+        let delay = deleting ? 22 : 38;
+        if (!deleting && charIndex >= phrase.length) {
+          deleting = true;
+          delay = 2200;
+        } else if (deleting && charIndex <= 0) {
+          deleting = false;
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+          delay = 350;
+        }
+        window.setTimeout(tick, delay);
+      };
+      window.setTimeout(tick, 2400);
     }
   </script>
 

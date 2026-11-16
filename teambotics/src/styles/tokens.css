@@ -3,17 +3,22 @@
 :root {
   color-scheme: light;
 
-  --color-bg-page: #f7f8ff;
-  --color-bg-surface: #ffffff;
-  --color-bg-elevated: #eef0ff;
-  --color-text-primary: #151935;
-  --color-text-secondary: #596188;
-  --color-text-tertiary: #838bb1;
-  --color-border: rgba(86, 96, 164, 0.16);
-  --color-border-strong: rgba(86, 96, 164, 0.28);
+  --color-bg-page: #f6f2e9;
+  --color-bg-surface: #fffdf8;
+  --color-bg-elevated: #fbf8f1;
+  --color-text-primary: #171410;
+  --color-text-secondary: #5c5648;
+  --color-text-tertiary: #8a8172;
+  --color-border: rgba(110, 104, 90, 0.22);
+  --color-border-strong: rgba(110, 104, 90, 0.38);
   --color-accent: #cf3aa9;
   --color-accent-bright: #f062c0;
   --color-accent-muted: #5f56e8;
+
+
+  --font-display: 'Bricolage Grotesque', 'Hanken Grotesk', system-ui, sans-serif;
+  --font-body: 'Lora', Georgia, 'Times New Roman', serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', Menlo, Consolas, monospace;
 
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
@@ -43,14 +48,14 @@
   :root {
     color-scheme: dark;
 
-    --color-bg-page: #070b1a;
-    --color-bg-surface: #0d1330;
-    --color-bg-elevated: #151d45;
-    --color-text-primary: #f5f7ff;
-    --color-text-secondary: #a8afd6;
-    --color-text-tertiary: #7079a6;
-    --color-border: rgba(101, 117, 204, 0.24);
-    --color-border-strong: rgba(121, 141, 239, 0.38);
+    --color-bg-page: #0a0a0c;
+    --color-bg-surface: #131319;
+    --color-bg-elevated: #1b1b23;
+    --color-text-primary: #f0ede6;
+    --color-text-secondary: #b8b4aa;
+    --color-text-tertiary: #888884;
+    --color-border: rgba(179, 175, 168, 0.22);
+    --color-border-strong: rgba(179, 175, 168, 0.38);
     --color-accent: #ff4db8;
     --color-accent-bright: #ff7ad9;
     --color-accent-muted: #6d5cff;
