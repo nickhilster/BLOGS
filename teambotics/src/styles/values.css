@@ -28,6 +28,8 @@
 }
 
 .values-hero__eyebrow {
+  font-family: var(--font-mono);
+
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -36,6 +38,8 @@
 }
 
 .values-hero__title {
+  font-family: var(--font-display);
+
   font-size: 1.9rem;
   font-weight: 800;
   letter-spacing: -0.02em;
@@ -43,7 +47,9 @@
 }
 
 @media (min-width: 640px) {
-  .values-hero__title { font-size: 2.4rem; }
+  .values-hero__title {
+  font-family: var(--font-display);
+ font-size: 2.4rem; }
 }
 
 .values-hero__intro {
@@ -53,6 +59,8 @@
 }
 
 .values-hero__meta {
+  font-family: var(--font-mono);
+
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
@@ -72,6 +80,8 @@
 }
 
 .values-agent-callout__eyebrow {
+  font-family: var(--font-mono);
+
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -80,6 +90,8 @@
 }
 
 .values-agent-callout__title {
+  font-family: var(--font-display);
+
   font-size: 1.1rem;
   font-weight: 700;
   letter-spacing: -0.01em;
@@ -121,6 +133,8 @@
 }
 
 .value-card__title {
+  font-family: var(--font-display);
+
   font-size: 1.15rem;
   font-weight: 700;
   letter-spacing: -0.01em;
@@ -148,6 +162,8 @@
 }
 
 .value-card__agent-label {
+  font-family: var(--font-mono);
+
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -169,6 +185,8 @@
 }
 
 .value-card__evidence-label {
+  font-family: var(--font-mono);
+
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -183,6 +201,8 @@
 }
 
 .value-card__evidence-links a {
+  font-family: var(--font-mono);
+
   font-size: 0.8rem;
   color: var(--color-text-secondary);
   background: var(--color-bg-elevated);
@@ -205,6 +225,8 @@
 }
 
 .values-playbook__title {
+  font-family: var(--font-display);
+
   font-size: 1.4rem;
   font-weight: 800;
   letter-spacing: -0.01em;
@@ -232,6 +254,8 @@
 
 /* ── Footer meta ──────────────────────────────────────────────── */
 .values-footer {
+  font-family: var(--font-mono);
+
   color: var(--color-text-tertiary);
   font-size: 0.85rem;
   text-align: center;

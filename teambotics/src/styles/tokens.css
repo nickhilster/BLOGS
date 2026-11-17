@@ -1,3 +1,20 @@
+/* Geist Sans / Mono — matched to the Teambotics main site menu. */
+@font-face {
+  font-family: 'Geist Sans';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/GeistSans-Variable.woff2') format('woff2-variations');
+}
+
+@font-face {
+  font-family: 'Geist Mono';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/GeistMono-Variable.woff2') format('woff2-variations');
+}
+
 /* Design tokens mirrored from the Teambotics main site */
 
 :root {
@@ -16,6 +33,7 @@
   --color-accent-muted: #5f56e8;
 
 
+  --font-sans: 'Geist Sans', 'Bricolage Grotesque', system-ui, -apple-system, sans-serif;
   --font-display: 'Bricolage Grotesque', 'Hanken Grotesk', system-ui, sans-serif;
   --font-body: 'Lora', Georgia, 'Times New Roman', serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', Menlo, Consolas, monospace;

@@ -1,5 +1,6 @@
 ---
 import BlogLayout from '../layouts/BlogLayout.astro';
+import GridDots from '../components/GridDots.astro';
 import '../styles/values.css';
 import { prettifySlug } from '../lib/slug';
 
@@ -68,6 +69,8 @@ function formatDate(iso: string) {
       <a href="/">← Back to all posts</a>
     </div>
   ) : valuesDoc ? (
+    <div class="blog-bg-grid" aria-hidden="true"></div>
+    <GridDots />
     <article class="values-page">
       <header class="values-hero">
         <span class="values-hero__eyebrow">Teambotics Values</span>
