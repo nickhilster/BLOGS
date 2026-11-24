@@ -423,6 +423,32 @@
       .chapter { padding: 4rem 0; }
       .chapter-number { font-size: 5rem; right: 1.5rem; }
     }
+    .method-video {
+      margin-top: 2rem;
+      padding: 1.25rem;
+      border: 1px solid var(--divider);
+      background: var(--panel);
+    }
+    .method-video h3 { font-size: 1.15rem; }
+    .method-video button {
+      margin-top: .75rem;
+      padding: .65rem .9rem;
+      border: 1px solid var(--muted);
+      background: var(--bg);
+      color: var(--text);
+      font: inherit;
+      cursor: pointer;
+    }
+    .method-video :focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+    .method-video iframe {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      min-height: 200px;
+      margin-top: .75rem;
+      border: 0;
+    }
+    .method-video .watch-link { margin-top: .75rem; }
     </style>
   </head>
   <body>
@@ -496,6 +522,38 @@
           <p class="node-title"><span class="node-dot"></span>Right of reply</p>
           <p>Before anything is published, the subject receives the verbatim claims and the draft verdicts, and gets 14 days to respond. The response is published inside the audit. Non-response is recorded as a fact, never as an admission.</p>
         </div>
+
+        <div class="method-video" id="method-video">
+          <h3>Method walkthrough</h3>
+          <p>A video walkthrough of the published Claim Checker method.</p>
+          <div data-player>
+            <button type="button" aria-describedby="method-video-privacy" hidden>Load the YouTube player</button>
+          </div>
+          <p id="method-video-privacy" hidden>YouTube only loads when you choose to load the player.</p>
+          <p class="watch-link"><a href="https://www.youtube.com/watch?v=6NeRnEJCf2I">Watch the Claim Checker method walkthrough on YouTube</a></p>
+        </div>
+        <script is:inline>
+          (function () {
+            const walkthrough = document.getElementById('method-video');
+            const player = walkthrough.querySelector('[data-player]');
+            const button = player.querySelector('button');
+            const privacyNote = document.getElementById('method-video-privacy');
+            button.addEventListener('click', function () {
+              const frame = document.createElement('iframe');
+              frame.title = 'Claim Checker method walkthrough';
+              frame.referrerPolicy = 'strict-origin-when-cross-origin';
+              frame.allow = 'encrypted-media; picture-in-picture; fullscreen';
+              frame.allowFullscreen = true;
+              frame.tabIndex = 0;
+              frame.src = 'https://www.youtube-nocookie.com/embed/6NeRnEJCf2I';
+              player.replaceChildren(frame);
+              privacyNote.hidden = true;
+              frame.focus();
+            }, { once: true });
+            privacyNote.hidden = false;
+            button.hidden = false;
+          })();
+        </script>
       </div>
     </section>
 
