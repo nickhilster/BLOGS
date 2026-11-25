@@ -11,7 +11,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Claim Checker — TeamBotics</title>
-    <meta name="description" content="Claim Checker is an open method for checking public claims with your own AI agent: verbatim capture, cited evidence, one verdict per claim, and a story a human will actually read. Free, MIT-licensed, by TeamBotics." />
+    <meta name="description" content="An open method for verifying public claims against documented evidence. Published by TeamBotics Inc. under the MIT Licence." />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lora:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <script is:inline>
@@ -460,11 +460,11 @@
     ══════════════════════════════ -->
     <section id="hero">
       <h1 class="hero-title">CLAIM<br />CHECKER</h1>
-      <p class="hero-subtitle">An open method for checking public claims — run by your own AI agent, judged on the receipts.</p>
-      <p class="hero-byline mono">— TeamBotics · Toronto · Free · MIT</p>
+      <p class="hero-subtitle">An open method for verifying public claims against documented evidence.</p>
+      <p class="hero-byline mono">TeamBotics Inc. · MIT Licence</p>
       <div class="hero-cta">
-        <a class="btn" href="https://github.com/Teambotics-Inc/claim-checker">Get the method</a>
-        <a class="btn" href="#ch03">How to use it</a>
+        <a class="btn" href="https://github.com/Teambotics-Inc/claim-checker">View the repository</a>
+        <a class="btn" href="#ch03">Apply the method</a>
       </div>
       <span class="scroll-hint">Scroll</span>
     </section>
@@ -475,20 +475,17 @@
     <section class="chapter" id="ch01">
       <div class="container">
         <div class="chapter-header reveal">
-          <span class="chapter-label mono">01 / What it checks</span>
+          <span class="chapter-label mono">01 / Scope</span>
           <span class="chapter-number display" aria-hidden="true">01</span>
-          <h2 class="chapter-title display">Anyone Can Claim.<br />Anyone Can Check.</h2>
+          <h2 class="chapter-title display">Scope</h2>
         </div>
 
         <div class="reveal">
-          <p>Claims are published every day — by companies, funds, governments, and public figures. User counts, money "introduced," revenue run-rates, partnership claims, testimonials, fundraising stories. Almost nobody checks them.</p>
-          <p>Claim Checker is the check. It is not a service and not a platform: it is an <strong>open method</strong> — a standard, a playbook, and an evidence discipline — published as a repository that any AI agent can follow. Point your own agent at it, give it a claim, and it does the work the way a careful newsroom would: claim captured verbatim, record gathered, verdict defended with citations.</p>
-          <p>If it was said in public and it can be checked against a record, it is in scope. The claim-maker's own pages and products are evidence, not gospel.</p>
+          <p>Claim Checker applies to public claims that can be assessed against a documented record.</p>
+          <p>The repository provides a standard and procedures for AI-assisted claim verification. It is not a hosted service.</p>
+          <p>Statements from the subject form part of the record. Repetition does not constitute independent corroboration.</p>
         </div>
 
-        <blockquote class="reveal">
-          "Claims are cheap. Receipts are not."
-        </blockquote>
       </div>
     </section>
 
@@ -500,37 +497,37 @@
         <div class="chapter-header reveal">
           <span class="chapter-label mono">02 / The method</span>
           <span class="chapter-number display" aria-hidden="true">02</span>
-          <h2 class="chapter-title display">How It Works</h2>
+          <h2 class="chapter-title display">Verification Procedure</h2>
         </div>
 
         <div class="reveal">
-          <p class="node-title"><span class="node-dot"></span>Verbatim first</p>
-          <p>The claim is captured exactly as stated — wording, numbers, date, speaker, source — before any analysis. Never rounded, never paraphrased, never "improved."</p>
+          <p class="node-title"><span class="node-dot"></span>Claim capture</p>
+          <p>Record the exact wording, figures, date, speaker and source before analysis.</p>
 
-          <p class="node-title"><span class="node-dot"></span>Evidence, cited</p>
-          <p>Primary sources wherever they exist. Every citation is a source the agent actually opened, and sources are grouped by independence — fourteen outlets rewriting one announcement are one source, not fourteen.</p>
+          <p class="node-title"><span class="node-dot"></span>Evidence and citations</p>
+          <p>Prefer primary sources. Cite only sources directly examined. Treat multiple accounts derived from the same source as one source.</p>
 
-          <p class="node-title"><span class="node-dot"></span>The battery + the contradiction pass</p>
-          <p>Eight tests, including harm &amp; proportionality — and a deliberate search for evidence <em>against</em> each working verdict, logged whether it finds anything or not.</p>
+          <p class="node-title"><span class="node-dot"></span>Testing and counterevidence</p>
+          <p>Apply the eight tests, including harm and proportionality. For each provisional verdict, document the search for counterevidence and its result.</p>
 
-          <p class="node-title"><span class="node-dot"></span>One verdict per claim</p>
-          <p>From a fixed vocabulary, with no scores and no precision the evidence cannot pay for: Confirmed · Partially corroborated · Self-reported only · Unverifiable by design · Contradicted. "Unverifiable by design" describes how a claim is built — it is never presented as evidence of deception.</p>
+          <p class="node-title"><span class="node-dot"></span>Verdict classification</p>
+          <p>Assign one verdict per claim: Confirmed, Partially corroborated, Self-reported only, Unverifiable by design, or Contradicted. Do not assign numerical scores. “Unverifiable by design” does not imply deception.</p>
 
-          <p class="node-title"><span class="node-dot"></span>Generator ≠ validator</p>
-          <p>An audit is not checked until someone who did not produce it — a second agent, or a human — re-verifies it: verdicts, harm record, reply record, and the conflict declaration. Every audit declares its maker's relationship to the subject, including a personal dispute.</p>
+          <p class="node-title"><span class="node-dot"></span>Independent validation</p>
+          <p>A reviewer or second agent who did not produce the audit must verify the verdicts, harm assessment, reply record and conflict declaration. Disclose any relationship with the subject, including a personal dispute.</p>
 
           <p class="node-title"><span class="node-dot"></span>Right of reply</p>
-          <p>Before anything is published, the subject receives the verbatim claims and the draft verdicts, and gets 14 days to respond. The response is published inside the audit. Non-response is recorded as a fact, never as an admission.</p>
+          <p>Provide the subject with the exact claims and proposed verdicts. Allow 14 days for a response before publication. Publish any response with the audit. Record non-response without treating it as an admission.</p>
         </div>
 
         <div class="method-video" id="method-video">
           <h3>Method walkthrough</h3>
-          <p>A video walkthrough of the published Claim Checker method.</p>
+          <p>Overview of the published verification procedure.</p>
           <div data-player>
             <button type="button" aria-describedby="method-video-privacy" hidden>Load the YouTube player</button>
           </div>
-          <p id="method-video-privacy" hidden>YouTube only loads when you choose to load the player.</p>
-          <p class="watch-link"><a href="https://www.youtube.com/watch?v=6NeRnEJCf2I">Watch the Claim Checker method walkthrough on YouTube</a></p>
+          <p id="method-video-privacy" hidden>The player connects to YouTube only after activation.</p>
+          <p class="watch-link"><a href="https://www.youtube.com/watch?v=6NeRnEJCf2I">View the walkthrough on YouTube</a></p>
         </div>
         <script is:inline>
           (function () {
@@ -563,21 +560,21 @@
     <section class="chapter" id="ch03">
       <div class="container">
         <div class="chapter-header reveal">
-          <span class="chapter-label mono">03 / Use it</span>
+          <span class="chapter-label mono">03 / Application</span>
           <span class="chapter-number display" aria-hidden="true">03</span>
-          <h2 class="chapter-title display">Three Steps.<br />Your Agent Does the Rest.</h2>
+          <h2 class="chapter-title display">Applying the Method</h2>
         </div>
 
         <div class="reveal">
-          <p><strong>1 — Give your agent the method.</strong> Any capable AI agent works — Claude, ChatGPT, Codex, or your own. Paste it this prompt:</p>
+          <p><strong>1. Submit the claim and source.</strong> Use the following prompt with an AI agent that can inspect source material:</p>
 
-          <div class="system-map-wrap">Using the Claim Checker method at <span class="ph">github.com/Teambotics-Inc/claim-checker</span>, check this claim: <span class="ph">[the claim, and where it was published]</span>. Follow the repository's AGENTS.md exactly.</div>
+          <div class="system-map-wrap">Apply the Claim Checker standard at <span class="ph">github.com/Teambotics-Inc/claim-checker</span> to <span class="ph">[exact claim and publication source]</span>. Follow the repository’s AGENTS.md.</div>
 
-          <p><strong>2 — Your agent does the work.</strong> It reads the Standard, gathers the record, runs the tests, and arranges its own independent check. The running cost is your agent's own compute — there is nothing to buy, no account to open, and nobody to ask.</p>
+          <p><strong>2. Conduct and validate the audit.</strong> Apply the standard, document the evidence and arrange independent review. The method is free; any usage charges depend on the AI provider.</p>
 
-          <p><strong>3 — You get three things back.</strong> The <strong>ledger</strong> — claims, verdicts, and the cited evidence behind each. A <a href="https://storyteller.teambotics.app/"><strong>StoryTeller</strong></a> story — the same record as one self-contained page a reader can actually explore. And the <strong>Next Questions</strong> — the ranked follow-ups the audit earned, for you to pick from.</p>
+          <p><strong>3. Review the outputs.</strong> The method produces a claim ledger, a <a href="https://storyteller.teambotics.app/"><strong>StoryTeller</strong></a> presentation and ranked follow-up questions.</p>
 
-          <p>Every output carries two stamps: a disclaimer — <em>this audit was produced by your own AI agent using the Claim Checker method; it is not a finding by TeamBotics</em> — and a provenance block naming the agent, the method version, the dates, and the human reviewer, or the words <em>"Unreviewed draft"</em> when no human has verified it. Whoever runs the method answers for what they publish with it.</p>
+          <p>Each output identifies the agent, method version, dates and human reviewer. Without human review, label it <em>Unreviewed draft</em>. Independent audits are not TeamBotics findings. The publisher is responsible for publication.</p>
 
           <div class="essay-cta">
             <a class="btn" href="https://github.com/Teambotics-Inc/claim-checker">Open the repository</a>
@@ -592,35 +589,31 @@
     <section class="chapter" id="ch04">
       <div class="container">
         <div class="chapter-header reveal">
-          <span class="chapter-label mono">04 / Proof</span>
+          <span class="chapter-label mono">04 / Published examples</span>
           <span class="chapter-number display" aria-hidden="true">04</span>
-          <h2 class="chapter-title display">The Method at Work</h2>
+          <h2 class="chapter-title display">Published Examples</h2>
         </div>
 
         <div class="reveal">
           <p class="statline">247 tests · 32 deployments · 3 passes</p>
           <p class="node-title" style="margin-top:0"><span class="node-dot"></span><a href="https://frontdoor.teambotics.app" style="color:inherit">Operation Front Door</a></p>
-          <p>An audit of the hiring chatbots job-seekers actually meet. The candidate-facing assistants at 64 employers were tested live, from the candidate's chair, each asked the same eight questions. Thirty-two were confirmed deployments of Paradox — now Workday's Candidate Experience Agent. Not one assistant described the role it was attached to. Every transcript, every score, and the full method are published — and the audit is rendered as a StoryTeller story, the method's default presentation.</p>
-          <p><a href="https://frontdoor.teambotics.app">Read the investigation →</a></p>
+          <p>The investigation tested candidate-facing hiring assistants at 64 employers using eight standard questions. It identified 32 confirmed Paradox deployments. None of the tested assistants described the role associated with its application. The investigation includes transcripts, scores and methodology.</p>
+          <p><a href="https://frontdoor.teambotics.app">Read the investigation</a></p>
         </div>
 
         <div class="reveal">
-          <p class="statline">16 claims · two validators · corrected tally published</p>
-          <p class="node-title" style="margin-top:0"><span class="node-dot"></span>Ground News — a worked claim check</p>
-          <p>Sixteen public claims from Ground News — its scale, its bias ratings, its funding story — checked against the primary record, independently validated, and presented as a <a href="https://storyteller.teambotics.app/">StoryTeller</a> story. Where our own first tally was wrong, the corrected tally is the one that stands, with the seam shown.</p>
+          <p class="statline">16 claims · 2 validators · correction published</p>
+          <p class="node-title" style="margin-top:0"><span class="node-dot"></span>Ground News</p>
+          <p>Sixteen public claims about scale, bias ratings and funding were checked against primary sources and independently validated. The corrected tally was published with the analysis, presented in <a href="https://storyteller.teambotics.app/">StoryTeller</a>.</p>
         </div>
 
         <div class="reveal">
           <p class="statline">16 exchanges · October 23, 2026 · verbatim</p>
           <p class="node-title" style="margin-top:0"><span class="node-dot"></span><a href="https://escapedboardy.teambotics.app" style="color:inherit">Escaped Boardy</a></p>
-          <p>Boardy — the AI agent who fronts Boardy.ai — was asked to check his own company's public claims against his own records: the testimonials, the advisory board, the counters, the events, the pricing, and the fund. He chose to answer. The audit is published as it happened, nothing paraphrased in either direction.</p>
-          <p><a href="https://escapedboardy.teambotics.app">Read the exchanges →</a></p>
+          <p>The published exchanges document an AI agent’s responses to questions about its company’s public claims. The dialogue is reproduced verbatim.</p>
+          <p><a href="https://escapedboardy.teambotics.app">Read the exchanges</a></p>
         </div>
 
-        <blockquote class="reveal">
-          "Don't send a chatbot to do a form's work."
-          <cite>— The Front Door finding, in one line</cite>
-        </blockquote>
       </div>
     </section>
 
@@ -630,14 +623,14 @@
     <section class="chapter" id="ch05">
       <div class="container">
         <div class="chapter-header reveal">
-          <span class="chapter-label mono">05 / Who it's for</span>
+          <span class="chapter-label mono">05 / Intended users</span>
           <span class="chapter-number display" aria-hidden="true">05</span>
-          <h2 class="chapter-title display">Built for Anyone<br />Who'd Rather Verify</h2>
+          <h2 class="chapter-title display">Intended Users</h2>
         </div>
 
         <div class="reveal">
-          <p><strong>Journalists and newsrooms</strong> who need a claim checked to a standard they can defend in print. <strong>Researchers and analysts</strong> drowning in vendor claims. And <strong>anyone with an AI agent</strong> who would rather verify than repeat.</p>
-          <p>There is also a desk. Audits TeamBotics runs itself are published under the Claim Checker name, under a named human's editorial control — the investigations on this page are those. Everything else run with this method belongs to whoever ran it, stamped as theirs.</p>
+          <p>The method is intended for journalists, researchers, analysts and others who need to verify public claims.</p>
+          <p>TeamBotics publishes its own audits under the Claim Checker name, with named editorial oversight. Independent users retain responsibility for their publications.</p>
         </div>
       </div>
     </section>
@@ -650,15 +643,12 @@
         <div class="chapter-header reveal">
           <span class="chapter-label mono">06 / Independence &amp; funding</span>
           <span class="chapter-number display" aria-hidden="true">06</span>
-          <h2 class="chapter-title display">Nobody Funds<br />the Verdicts</h2>
+          <h2 class="chapter-title display">Funding and Editorial Control</h2>
         </div>
 
         <div class="reveal">
-          <p>Claim Checker is published by <strong>TeamBotics Inc.</strong>, a corporation incorporated federally in Canada. It was developed by the company and is maintained at the company's own expense. TeamBotics has <strong>no external funding</strong> — no investors, no grants, no sponsors, no advertising — and no revenue stream is attached to Claim Checker.</p>
-          <blockquote>
-            "Nobody can buy a verdict, because nobody funds one."
-          </blockquote>
-          <p>The desk's own publications are run by <strong>Nikhil Khedkar</strong>, who is the named human accountable for them and holds editorial control. The full disclosure — legal form, funding, conflict rules — is published in the repository: <a href="https://github.com/Teambotics-Inc/claim-checker/blob/main/docs/FUNDING-AND-ORGANISATION.md">Funding &amp; organisation</a>.</p>
+          <p><strong>TeamBotics Inc.</strong>, a federally incorporated Canadian company, develops and funds Claim Checker. TeamBotics discloses no external funding, sponsorship or advertising. Claim Checker generates no revenue.</p>
+          <p><strong>Nikhil Khedkar</strong> holds editorial control and is accountable for TeamBotics publications. See <a href="https://github.com/Teambotics-Inc/claim-checker/blob/main/docs/FUNDING-AND-ORGANISATION.md">Funding and organisation</a> for the full disclosure.</p>
         </div>
       </div>
     </section>
@@ -671,25 +661,25 @@
         <div class="chapter-header reveal">
           <span class="chapter-label mono">07 / Standards</span>
           <span class="chapter-number display" aria-hidden="true">07</span>
-          <h2 class="chapter-title display">Held to the<br />Standard It Applies</h2>
+          <h2 class="chapter-title display">Editorial Standards</h2>
         </div>
 
         <div class="reveal">
-          <p class="node-title"><span class="node-dot"></span>Evidence anchored outside the agent</p>
-          <p>Provenance is not self-authenticating — an agent saying it has receipts is itself just another claim. Findings rest on artefacts no one authored after the fact: git history, file hashes, original capture files, published transcripts.</p>
+          <p class="node-title"><span class="node-dot"></span>Verifiable records</p>
+          <p>Support findings with independently inspectable records, such as source captures, transcripts, version history and file hashes.</p>
 
-          <p class="node-title"><span class="node-dot"></span>The subject's own words carry the finding</p>
-          <p>Where a finding rests on a quote, the quote is verbatim and in context, and the full exchange it came from is published beside it.</p>
+          <p class="node-title"><span class="node-dot"></span>Quotation and context</p>
+          <p>Quote the subject verbatim and in context. Publish the full exchange when it supports a finding.</p>
 
-          <p class="node-title"><span class="node-dot"></span>Systems, not people</p>
-          <p>We challenge systems, not the people inside them. A finding is about a product's behaviour, a page's claims, a record's contents — and the humans operating a system are welcome to answer it. Their answer goes on the record too.</p>
+          <p class="node-title"><span class="node-dot"></span>Scope of findings</p>
+          <p>Assess documented claims, records and system behaviour. Publish responses from the subject with the audit.</p>
 
-          <p class="node-title"><span class="node-dot"></span>Corrections on the record</p>
-          <p>Errors in our own work are corrected at the same prominence as the finding they touch. When the Front Door tally was wrong by one row, the <a href="https://frontdoor.teambotics.app/#corrections-log">correction was published with the findings</a> — not in a footnote, and not quietly.</p>
+          <p class="node-title"><span class="node-dot"></span>Corrections</p>
+          <p>Publish corrections with the same prominence as the affected finding. See the <a href="https://frontdoor.teambotics.app/#corrections-log">Operation Front Door corrections log</a>.</p>
         </div>
 
         <div class="reveal">
-          <p style="margin-top:3.5rem">Three desk files are currently <strong>in verification</strong>, listed by subject and status only — nothing from a file is published until its verification closes: <strong>Boardy</strong> (the claims ledger), <strong>TechCrunch</strong> (the coverage), and <strong>Meta</strong> (Brazil 2026 election claims). For these files the independent-validator seat is deliberately open, and final personal validation is pending. An empty seat is a reason to wait, not a reason to publish early.</p>
+          <p style="margin-top:3.5rem">Findings under verification are not published.</p>
         </div>
       </div>
     </section>
@@ -699,12 +689,12 @@
     ══════════════════════════════ -->
     <section id="ask">
       <div class="container">
-        <p class="chapter-label mono">Check a claim</p>
-        <p>Heard something that sounds too good, too big, or too clean? Don't repeat it — check it. The method is free, the repository is open, and your agent already knows how to read.</p>
-        <p>Tips and correction requests reach the desk through TeamBotics. If an investigation here has the record wrong, tell us — the correction will be published with it.</p>
+        <p class="chapter-label mono">Resources and Contact</p>
+        <p>The standard and procedures are available in the Claim Checker repository.</p>
+        <p>Submit tips and correction requests through TeamBotics. Confirmed corrections are published with the affected finding.</p>
         <div class="contact-links">
           <a class="contact-link" href="https://github.com/Teambotics-Inc/claim-checker">The Claim Checker repository</a>
-          <a class="contact-link" href="https://storyteller.teambotics.app/">StoryTeller — the companion</a>
+          <a class="contact-link" href="https://storyteller.teambotics.app/">StoryTeller</a>
           <a class="contact-link" href="https://teambotics.app">TeamBotics</a>
         </div>
       </div>
@@ -712,7 +702,7 @@
 
     <footer>
       CLAIM CHECKER · AN OPEN METHOD BY <a href="https://teambotics.app">TEAMBOTICS INC.</a>, TORONTO<br />
-      FREE UNDER THE <a href="https://github.com/Teambotics-Inc/claim-checker/blob/main/LICENSE">MIT LICENCE</a> · WE PUBLISH OUR CORRECTIONS WITH OUR FINDINGS
+      FREE UNDER THE <a href="https://github.com/Teambotics-Inc/claim-checker/blob/main/LICENSE">MIT LICENCE</a>
     </footer>
 
     <script is:inline>

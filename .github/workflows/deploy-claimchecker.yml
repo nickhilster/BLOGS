@@ -40,7 +40,7 @@ jobs:
         run: |
           for attempt in 1 2 3 4 5 6 7 8; do
             body=$(curl --fail --silent --max-time 15 -H "Cache-Control: no-cache" -A "ClaimChecker-Deploy-Verify/1.0" "https://claimchecker.teambotics.app/") && ok=1 || ok=0
-            if [ "$ok" = 1 ] && grep -qF "ClaimChecker" <<< "$body" && grep -qF "is how TeamBotics checks a claim" <<< "$body"; then
+            if [ "$ok" = 1 ] && grep -qF "An open method for verifying public claims against documented evidence." <<< "$body" && grep -qF "Verification Procedure" <<< "$body"; then
               echo "Verified production identity: https://claimchecker.teambotics.app/ (markers present)"
               exit 0
             fi
